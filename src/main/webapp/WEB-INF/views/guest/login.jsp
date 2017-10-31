@@ -16,6 +16,7 @@
 		 	background-position: center;
 		 	background-size: 600px 330px;
 		 	margin-top: 10px;
+		 	background-image: url("/img/login.png")
 		}
 		div.row{
         padding-top : 100px;
@@ -27,10 +28,10 @@
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="index.html"><img src="img\title.png"/></a>
+        <a class="navbar-brand" href="index.html"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="index.html">
+        <li><a href="/SKHUMentoring">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
@@ -83,28 +84,30 @@
     </div>
    </nav>
   <div >
-      <img src="img/topimage.jpg" class="img-responsive"/>
+      <img src="${R}img/topimage.jpg" class="img-responsive"/>
   </div>
-  	<div class="login" style="background-image: url("${R}img/login.png")">
+  	<div class="login">
   	<br>
 	<h1><center>Login</center></h1>
 	<h5><center>로그인을 하셔야 사용하실 수 있는 서비스 입니다.</center></h5>
 
 	<hr style="border: solid 1px" align="center" width="400" />
-
-
+	
+	<form method="post" action="login_processing">
 		<div align="center" style="margin-bottom : 10px">
-			<input type="text" name="userid" placeholder="아이디 입력" style="width:350px; padding:5px; margin-bottom:5px" />
+			<input type="text" name="loginId" placeholder="아이디 입력" style="width:350px; padding:5px; margin-bottom:5px" />
 		</div>
 		<div align="center">
-			<input type="password" name="password" placeholder="비밀번호 입력" style="width:350px; padding:5px;margin-bottom:5px" />
+			<input type="password" name="passwd" placeholder="비밀번호 입력" style="width:350px; padding:5px;margin-bottom:5px" />
 		</div>
 		<div align="center">
-      <a href="mypage.html">
+      	<a href="/SKHUMentoring/index.jsp">
 			<button type="button" class="btn btn-primary" style="width: 350px; padding:5px" >로그인</button> </a>
 		</div>
-
-
+	</form>
+	<c:if test="${param.error !=null }">
+		<p>로그인에 실패하였음</p>
+	</c:if>
 	<hr style="border: solid 1px" align="center" width="400" />
 	<div align="center" style="">
 	    <a href="search_password.html">비밀번호 찾기</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="sign.html">회원가입</a>
@@ -116,7 +119,7 @@
    <div class="row">
 		 <hr/>
     <div class="col-md-3" align="center">
-      <img src="img/skhuniv.jpg"/>
+      <img src="${R}img/skhuniv.jpg"/>
     </div>
 
     <div class="col-md-9">

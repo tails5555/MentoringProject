@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:url var="R" value="/" />
 <!DOCTYPE html>
 <html>
  <head>
@@ -42,9 +44,9 @@
         margin-bottom : 40px;
   		}
    </style>
-   <script type="text/javascript" src="lib/modernizr.custom.js"></script>
+   <script type="text/javascript" src="${R}lib/modernizr.custom.js"></script>
  	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
- 	<script type="text/javascript" src="src/jquery.responsiveGallery.js"></script>
+ 	<script type="text/javascript" src="${R}src/jquery.responsiveGallery.js"></script>
  	<script type="text/javascript">
  		$(function () {
  			$('.responsiveGallery-wrapper').responsiveGallery({
@@ -60,10 +62,10 @@
     <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/SKHUMentoring/index.jsp"><img src="img\title.png"/></a>
+        <a class="navbar-brand" href="/SKHUMentoring/index.jsp"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/SKHUMentoring/index.jsp">
+        <li class="active"><a href="/guest/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
@@ -74,7 +76,7 @@
             </ul>
         </li>
         <li >
-          <a href="intro/intro">멘토링 사업소개</a>
+          <a href="guest/intro">멘토링 사업소개</a>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
@@ -110,7 +112,7 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="login.html"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
+        <li><a href="login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
         <li><a href="sign.html"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
       </ul>
     </div>
@@ -124,7 +126,7 @@
   	<!--페이지-->
   	<div class="carousel-inner">
   		<div class="item active">
-  			<img src="img/slideimg01.jpg" style="width:100%" alt="First slide">
+  			<img src="${R}img/slideimg01.jpg" style="width:100%" alt="First slide">
   			<div class="container">
   				<div class="carousel-caption">
   					<p class="animate">작은 마음이 하나 되어</p>
@@ -133,7 +135,7 @@
   			</div>
   		</div>
   		<div class="item">
-  			<img src="img/slideimg02.jpg" style="width:100%" data-src="" alt="Second slide">
+  			<img src="${R}img/slideimg02.jpg" style="width:100%" data-src="" alt="Second slide">
   			<div class="container">
   				<div class="carousel-caption">
   					<p class="animate">함께 공유하는 Mentoring</p>
@@ -219,37 +221,37 @@
      <a class="responsiveGallery-btn responsiveGallery-btn_prev" href="javascript:void(0);"></a>
      <a class="responsiveGallery-btn responsiveGallery-btn_next" href="javascript:void(0);"></a>
       <ul class="responsiveGallery-wrapper">
-        <li class="responsiveGallery-item"> <a href="http://www.skhu.ac.kr" class="responsivGallery-link" target="_blank"><img src="assets/pics/0.png" height="320" width="320" alt="" class="responsivGallery-pic"></a>
+        <li class="responsiveGallery-item"> <a href="http://www.skhu.ac.kr" class="responsivGallery-link" target="_blank"><img src="${R}assets/pics/0.png" height="320" width="320" alt="" class="responsivGallery-pic"></a>
           <div class="w-responsivGallery-info">
             <h2 class="responsivGallery-name">학교 홈페이지</h2>
             <h3 class="responsivGallery-position">www.skhu.ac.kr</h3>
           </div>
         </li>
-        <li class="responsiveGallery-item"> <a href="https://report.skhu.net" class="responsivGallery-link" target="_blank"><img src="assets/pics/1.png" height="320" width="320" alt="" class="responsivGallery-pic"></a>
+        <li class="responsiveGallery-item"> <a href="https://report.skhu.net" class="responsivGallery-link" target="_blank"><img src="${R}assets/pics/1.png" height="320" width="320" alt="" class="responsivGallery-pic"></a>
           <div class="w-responsivGallery-info">
             <h2 class="responsivGallery-name">과제 제출</h2>
             <h3 class="responsivGallery-position">report.skhu.net</h3>
           </div>
         </li>
-        <li class="responsiveGallery-item"> <a href="https://onedrive.live.com/?authkey=%21ABTEmxiOSgU9qh0&id=C704E2ECDA408483%2111104&cid=C704E2ECDA408483" class="responsivGallery-link" target="_blank"><img src="assets/pics/2.png" height="320" width="320" alt="" class="responsivGallery-pic"></a>
+        <li class="responsiveGallery-item"> <a href="https://onedrive.live.com/?authkey=%21ABTEmxiOSgU9qh0&id=C704E2ECDA408483%2111104&cid=C704E2ECDA408483" class="responsivGallery-link" target="_blank"><img src="${R}assets/pics/2.png" height="320" width="320" alt="" class="responsivGallery-pic"></a>
           <div class="w-responsivGallery-info">
             <h2 class="responsivGallery-name">참조 자료</h2>
             <h3 class="responsivGallery-position">onedrive.live.com</h3>
           </div>
         </li>
-        <li class="responsiveGallery-item"> <a href="https://forest.skhu.ac.kr" class="responsivGallery-link" target="_blank"><img src="assets/pics/3.png" height="320" width="320" alt="" class="responsivGallery-pic"></a>
+        <li class="responsiveGallery-item"> <a href="https://forest.skhu.ac.kr" class="responsivGallery-link" target="_blank"><img src="${R}assets/pics/3.png" height="320" width="320" alt="" class="responsivGallery-pic"></a>
           <div class="w-responsivGallery-info">
             <h2 class="responsivGallery-name">학사 정보</h2>
             <h3 class="responsivGallery-position">forest.skhu.ac.kr</h3>
           </div>
         </li>
-  			<li class="responsiveGallery-item"> <a href="https://ecareer.skhu.ac.kr" class="responsivGallery-link" target="_blank"><img src="assets/pics/4.png" height="320" width="320" alt="" class="responsivGallery-pic"></a>
+  			<li class="responsiveGallery-item"> <a href="https://ecareer.skhu.ac.kr" class="responsivGallery-link" target="_blank"><img src="${R}assets/pics/4.png" height="320" width="320" alt="" class="responsivGallery-pic"></a>
           <div class="w-responsivGallery-info">
             <h2 class="responsivGallery-name">E-Career</h2>
             <h3 class="responsivGallery-position">ecareer.skhu.ac.kr</h3>
           </div>
         </li>
-  			<li class="responsiveGallery-item"> <a href="https://library.skhu.ac.kr/index.ax" class="responsivGallery-link" target="_blank"><img src="assets/pics/5.png" height="320" width="320" alt="" class="responsivGallery-pic"></a>
+  			<li class="responsiveGallery-item"> <a href="https://library.skhu.ac.kr/index.ax" class="responsivGallery-link" target="_blank"><img src="${R}assets/pics/5.png" height="320" width="320" alt="" class="responsivGallery-pic"></a>
           <div class="w-responsivGallery-info">
             <h2 class="responsivGallery-name">중앙도서관</h2>
             <h3 class="responsivGallery-position">library.skhu.ac.kr</h3>
@@ -261,7 +263,7 @@
   <hr/>
   <div class="row">
     <div class="col-md-3" align="center">
-      <img src="img/skhuniv.jpg"/>
+      <img src="${R}img/skhuniv.jpg"/>
     </div>
     <div class="col-md-9">
       <p>08359 서울시 구로구 연동로 320 / 지하철 1, 7호선 온수역(성공회대입구역)</p>

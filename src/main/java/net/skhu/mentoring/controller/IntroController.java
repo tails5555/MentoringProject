@@ -12,12 +12,11 @@ import net.skhu.mentoring.mapper.IntroDetailMapper;
 import net.skhu.mentoring.mapper.IntroTitleMapper;
 import net.skhu.mentoring.mapper.ScheduleMapper;
 @Controller
-@RequestMapping("intro")
 public class IntroController {
 	@Autowired IntroTitleMapper introTitleMapper;
 	@Autowired IntroDetailMapper introDetailMapper;
 	@Autowired ScheduleMapper scheduleMapper;
-	@RequestMapping("intro")
+	@RequestMapping("guest/intro")
 	public String introView(Model model) {
 		List<IntroTitle> titles=introTitleMapper.findAll();
 		for (IntroTitle title : titles) {
