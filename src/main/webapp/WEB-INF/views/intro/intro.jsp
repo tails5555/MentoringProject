@@ -195,10 +195,10 @@
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="index.html"><img src="${R}img\title.png"/></a>
+        <a class="navbar-brand" href="/SKHUMentoring/index.jsp"><img src="${R}img\title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="index.html">
+        <li><a href="/SKHUMentoring/index.jsp">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
