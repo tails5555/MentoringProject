@@ -198,7 +198,7 @@
         <a class="navbar-brand" href="/SKHUMentoring/index.jsp"><img src="${R}img\title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="/SKHUMentoring/index.jsp">
+        <li><a href="${R}guest/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당

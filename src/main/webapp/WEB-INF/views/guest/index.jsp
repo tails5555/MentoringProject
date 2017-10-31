@@ -44,9 +44,9 @@
         margin-bottom : 40px;
   		}
    </style>
-   <script type="text/javascript" src="${R}lib/modernizr.custom.js"></script>
+   <script type="text/javascript" src="lib/modernizr.custom.js"></script>
  	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
- 	<script type="text/javascript" src="${R}src/jquery.responsiveGallery.js"></script>
+ 	<script type="text/javascript" src="src/jquery.responsiveGallery.js"></script>
  	<script type="text/javascript">
  		$(function () {
  			$('.responsiveGallery-wrapper').responsiveGallery({
@@ -65,7 +65,7 @@
         <a class="navbar-brand" href="/SKHUMentoring/index.jsp"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/guest/index">
+        <li class="active"><a href="${R}guest/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
@@ -76,7 +76,7 @@
             </ul>
         </li>
         <li >
-          <a href="guest/intro">멘토링 사업소개</a>
+          <a href="${R}guest/intro">멘토링 사업소개</a>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링

@@ -19,6 +19,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     public void configure(WebSecurity web) throws Exception
     {
         web.ignoring().antMatchers("/res/**");
+        web.ignoring().antMatchers("/img/**");
+        web.ignoring().antMatchers("/src/**");
     }
 
     @Override
@@ -46,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
         http.logout()
             .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout_processing"))
-            .logoutSuccessUrl("/guest/login")
+            .logoutSuccessUrl("/guest/index")
             .invalidateHttpSession(true);
 
         http.authenticationProvider(myAuthenticationProvider);
