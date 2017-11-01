@@ -7,8 +7,8 @@
  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/reset.css">
-  	<link rel="stylesheet" type="text/css" href="css/jquery-responsiveGallery.css">
+    <link rel="stylesheet" type="text/css" href="${R}css/reset.css">
+  	<link rel="stylesheet" type="text/css" href="${R}css/jquery-responsiveGallery.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -84,7 +84,7 @@
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li ><a href="menti_apli.html">멘티 신청</a></li>
-              <li><a href="mento_apli.html">멘토 신청</a></li>
+              <li><a href="${R}user/mentoApplication">멘토 신청</a></li>
               <li ><a href="mento_list.html">멘토/멘티 목록</a></li>
               <li><a href="mento_board.html">멘토링 게시판</a></li>
               <li><a href="survey.html">설문조사</a></li>
