@@ -101,8 +101,8 @@
 			<input type="password" name="passwd" placeholder="비밀번호 입력" style="width:350px; padding:5px;margin-bottom:5px" />
 		</div>
 		<div align="center">
-      	<a href="/SKHUMentoring/index.jsp">
-			<button type="button" class="btn btn-primary" style="width: 350px; padding:5px" >로그인</button> </a>
+			<button type="submit" class="btn btn-primary" style="width: 350px; padding:5px" >
+			<span class="glyphicon glyphicon-ok"></span>로그인</button>
 		</div>
 	</form>
 	<c:if test="${param.error !=null }">
@@ -119,7 +119,7 @@
    <div class="row">
 		 <hr/>
     <div class="col-md-3" align="center">
-      <img src="${R}img/skhuniv.jpg"/>
+      <img src="img/skhuniv.jpg"/>
     </div>
 
     <div class="col-md-9">

@@ -5,6 +5,6 @@
 <mapper namespace="net.skhu.mentoring.mapper.EmployeeMapper">
 
   <select id="findOne" resultType="Employee">
-    select * from Professor Where empId=#{empId}
+    select * from Employee Where empId=#{empId}
   </select>
 </mapper>
