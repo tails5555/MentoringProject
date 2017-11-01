@@ -5,4 +5,5 @@ import net.skhu.mentoring.dto.Employee;
 @Mapper
 public interface EmployeeMapper {
 	Employee findOne(String empId);
+	Employee findByUserId(int userId);
 }

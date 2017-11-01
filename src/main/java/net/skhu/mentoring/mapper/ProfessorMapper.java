@@ -5,4 +5,5 @@ import net.skhu.mentoring.dto.Professor;
 @Mapper
 public interface ProfessorMapper {
 	Professor findOne(String profId);
+	Professor findByUserId(int userId);
 }

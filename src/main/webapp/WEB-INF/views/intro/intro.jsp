@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:url var="R" value="/" />
 <!DOCTYPE html>
 <html>
@@ -195,11 +196,22 @@
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
+      <sec:authorize access="not authenticated">
         <a class="navbar-brand" href="${R}"><img src="${R}img\title.png"/></a>
+      </sec:authorize>
+      <sec:authorize access="authenticated">
+        <a class="navbar-brand" href="index"><img src="${R}img\title.png"/></a>
+      </sec:authorize>
       </div>
       <ul class="nav navbar-nav">
+      	<sec:authorize access="not authenticated">
         <li><a href="${R}">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
+      	</sec:authorize>
+        <sec:authorize access="authenticated">
+        <li><a href="index">
+          <i class="glyphicon glyphicon-home"> 홈</i></a></li>
+        </sec:authorize>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
           <span class="caret"></span></a>
@@ -245,8 +257,14 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+      <sec:authorize access="not authenticated">
         <li><a href="login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
         <li><a href="sign.html"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
+      </sec:authorize>
+      <sec:authorize access="authenticated">
+        <li><sec:authentication property="user.userName" />님 환영합니다.</li>
+        <li><a href="logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
+      </sec:authorize>
       </ul>
     </div>
    </nav>

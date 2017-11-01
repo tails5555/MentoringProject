@@ -7,4 +7,7 @@
   <select id="findOne" resultType="Employee">
     select * from Employee Where empId=#{empId}
   </select>
+  <select id="findByUserId" resultType="Employee">
+    select * from Employee Where userId=#{userId}
+  </select>
 </mapper>

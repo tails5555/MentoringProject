@@ -7,4 +7,7 @@
   <select id="findOne" resultType="Student">
     select * from Student Where studentNumber=#{studentNumber}
   </select>
+  <select id="findByUserId" resultType="Student">
+    select * from Student Where userId=#{userId}
+  </select>
 </mapper>

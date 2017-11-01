@@ -7,4 +7,7 @@
   <select id="findOne" resultType="Professor">
     select * from Professor Where profId=#{profId}
   </select>
+  <select id="findByUserId" resultType="Professor">
+    select * from Professor Where userId=#{userId}
+  </select>
 </mapper>

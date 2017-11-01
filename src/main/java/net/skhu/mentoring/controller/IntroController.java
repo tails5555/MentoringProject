@@ -16,7 +16,7 @@ public class IntroController {
 	@Autowired IntroTitleMapper introTitleMapper;
 	@Autowired IntroDetailMapper introDetailMapper;
 	@Autowired ScheduleMapper scheduleMapper;
-	@RequestMapping("guest/intro")
+	@RequestMapping({"guest/intro", "user/intro"})
 	public String introView(Model model) {
 		List<IntroTitle> titles=introTitleMapper.findAll();
 		for (IntroTitle title : titles) {

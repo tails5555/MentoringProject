@@ -63,10 +63,10 @@
     <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="${R}"><img src="${R}img/title.png"/></a>
+        <a class="navbar-brand" href="index"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="${R}guest/index">
+        <li class="active"><a href="index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
@@ -77,7 +77,7 @@
             </ul>
         </li>
         <li >
-          <a href="${R}guest/intro">멘토링 사업소개</a>
+          <a href="${R}user/intro">멘토링 사업소개</a>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
@@ -158,26 +158,13 @@
               </tr>
             </thead>
             <tbody>
+              <c:forEach var="notice" items="${ notices }">
               <tr>
-                <td>멘토링 우수자 안내</td>
-                <td>2017/oo/oo</td>
+              	<td>${ notice.title }</td>
+              	<td>${ notice.userName }</td>
+              	<td>${ notice.writeDate }</td>
               </tr>
-              <tr>
-                <td>[필수]보고서 양식 확인하세요.</td>
-                <td>2017/oo/oo</td>
-              </tr>
-              <tr>
-                <td>2017학년 2학기 멘토링 신청 안내</td>
-                <td>2017/oo/oo</td>
-              </tr>
-              <tr>
-                <td>여러분들의 멘토링을 기대합니다.</td>
-                <td>2017/oo/oo</td>
-              </tr>
-              <tr>
-                <td>강의실 환경 조성에 대한 안내문</td>
-                <td>2017/oo/oo</td>
-              </tr>
+              </c:forEach>
             </tbody>
           </table>
           <a class="btn btn-success" href="notice.html" role="button" align="right"><i class="glyphicon glyphicon-zoom-in"> 자세히</i></a>
@@ -192,24 +179,16 @@
               </tr>
             </thead>
             <tbody>
+              <c:forEach var="schedule" items="${schedules}">
+	              <tr>
+	            	<td>${ schedule.startDate }</td>
+	            	<td>~</td>
+	            	<td>${ schedule.endDate }</td>
+	            	<td>${ schedule.context }</td>
+	              </tr>
+              </c:forEach>
               <tr>
-                <td>8/28 ~ 9/1</td>
-                <td>2, 3, 4학년 멘토 신청 기간</td>
-              </tr>
-              <tr>
-                <td>9/4 ~ 9/8</td>
-                <td>1, 2학년 멘티 모집 및 매칭</td>
-              </tr>
-              <tr>
-                <td>9/11 ~ 12/8</td>
-                <td>2017학년 2학기 활동 기간</td>
-              </tr>
-              <tr>
-                <td>12/11 ~ 12/15</td>
-                <td>멘토/멘티 설문조사 기간</td>
-              </tr>
-              <tr>
-                <td colspan="2" align="center">기본적으로 12회 멘토링, 24시간 이수해야 함.<br/><small>(여건이 안 된다면 24시간 누적으로 횟수를 결정해도 상관 없음.)</small></td>
+                <td colspan="4" align="center">기본적으로 12회 멘토링, 24시간 이수해야 함.<br/><small>(여건이 안 된다면 24시간 누적으로 횟수를 결정해도 상관 없음.)</small></td>
               </tr>
             </tbody>
           </table>
