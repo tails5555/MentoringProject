@@ -99,6 +99,7 @@
               <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
             </ul>
         </li>
+        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
           <span class="caret"></span></a>
@@ -111,9 +112,10 @@
               <li><a href="intro_update.html">사업 안내문 수정</a></li>
             </ul>
         </li>
+        </sec:authorize>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-      	<li><sec:authentication property="user.userName"/>님 환영합니다.</li>
+      	<li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
         <li><a href="logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
       </ul>
     </div>

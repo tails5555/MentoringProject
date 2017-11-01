@@ -82,32 +82,32 @@
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li ><a href="menti_apli.html">멘티 신청</a></li>
-              <li><a href="mento_apli.html">멘토 신청</a></li>
-              <li ><a href="mento_list.html">멘토/멘티 목록</a></li>
-              <li><a href="mento_board.html">멘토링 게시판</a></li>
-              <li><a href="survey.html">설문조사</a></li>
+              <li ><a href="${R}guest/login">멘티 신청</a></li>
+              <li><a href="${R}guest/login">멘토 신청</a></li>
+              <li ><a href="${R}guest/login">멘토/멘티 목록</a></li>
+              <li><a href="${R}guest/login">멘토링 게시판</a></li>
+              <li><a href="${R}guest/login">설문조사</a></li>
             </ul>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="mento_timetable.html">멘티 시간표 확인</a></li>
-              <li><a href="report_write.html">보고서 작성</a></li>
-              <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
+              <li><a href="${R}guest/login">멘티 시간표 확인</a></li>
+              <li><a href="${R}guest/login">보고서 작성</a></li>
+              <li><a href="${R}guest/login">멘토링 과제게시판 관리</a></li>
             </ul>
         </li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="mento_open.html">멘토링 개설/폐쇄</a></li>
-              <li><a href="report_confirm.html">보고서 확인</a></li>
-              <li ><a href="survey_manage.html">설문조사 관리</a></li>
-              <li><a href="candidate_boolean.html">멘토, 멘티 신청기간 여부</a></li>
-              <li><a href="student_manage.html">회원 목록 관리</a></li>
-              <li><a href="intro_update.html">사업 안내문 수정</a></li>
+              <li><a href="${R}guest/login">멘토링 개설/폐쇄</a></li>
+              <li><a href="${R}guest/login">보고서 확인</a></li>
+              <li ><a href="${R}guest/login">설문조사 관리</a></li>
+              <li><a href="${R}guest/login">멘토, 멘티 신청기간 여부</a></li>
+              <li><a href="${R}guest/login">회원 목록 관리</a></li>
+              <li><a href="${R}guest/login">사업 안내문 수정</a></li>
             </ul>
         </li>
       </ul>

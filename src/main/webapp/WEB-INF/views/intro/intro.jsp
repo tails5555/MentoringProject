@@ -228,7 +228,12 @@
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li ><a href="menti_apli.html">멘티 신청</a></li>
-              <li><a href="mento_apli.html">멘토 신청</a></li>
+              <sec:authorize access="not authenticated">
+		        <li><a href="login">멘토 신청</a></li>
+		      </sec:authorize>
+		      <sec:authorize access="authenticated">
+		        <li><a href="mentoApplication">멘토 신청</a></li>
+		      </sec:authorize>
               <li ><a href="mento_list.html">멘토/멘티 목록</a></li>
               <li><a href="mento_board.html">멘토링 게시판</a></li>
               <li><a href="survey.html">설문조사</a></li>
@@ -262,7 +267,7 @@
         <li><a href="sign.html"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
       </sec:authorize>
       <sec:authorize access="authenticated">
-        <li><sec:authentication property="user.userName" />님 환영합니다.</li>
+        <li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
         <li><a href="logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
       </sec:authorize>
       </ul>

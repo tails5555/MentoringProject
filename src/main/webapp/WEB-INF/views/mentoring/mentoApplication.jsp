@@ -237,7 +237,7 @@
 	      <li><a href="sign.html"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
 	    </sec:authorize>
 	    <sec:authorize access="authenticated">
-	      <li><sec:authentication property="user.userName" />님 환영합니다.</li>
+	      <li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
 	      <li><a href="logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
 	    </sec:authorize>
       </ul>
@@ -309,7 +309,7 @@
             </div>
           </div>
           </sec:authorize>
-          <sec:authorize access="hasRole('ROLE_MENTI')">
+          <sec:authorize access="hasAnyRole({'ROLE_MENTI', 'ROLE_STUDCHAIRMAN'})">
           <!-- Team Members Row -->
             <div class="row">
               <div class="col-md-12">
@@ -818,11 +818,18 @@
           </sec:authorize>
         </div>
         
-        <sec:authorize access="hasRole('ROLE_PROFESSOR')">
+        <sec:authorize access="hasAnyRole({'ROLE_PROFESSOR', 'ROLE_EMPLOYEE'})">
 	    <div class="col-md-9">
-	    	<h1>관리자는 관리자 메뉴에서 설정해주시길 바랍니다.</h1>
+	    	<div class="panel panel-info">
+	    		<div class="panel-heading">
+				    <h3 class="panel-title">관리자가 이용할 수 없는 메뉴입니다.</h3>
+				</div>
+				<div class="panel-body">
+				    <h4>관리자는 멘토 신청서를 확인하고 멘토링을 개방할 수 있습니다.</h4>
+				</div>
+	    	</div>
 	    </div>
-    </sec:authorize>
+    	</sec:authorize>
       </div>
     </div>
     

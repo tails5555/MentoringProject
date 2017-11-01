@@ -91,7 +91,7 @@
 	<h1><center>Login</center></h1>
 	<h5><center>로그인을 하셔야 사용하실 수 있는 서비스 입니다.</center></h5>
 
-	<hr style="border: solid 1px" align="center" width="400" />
+	<hr style="border: solid 1px" align="center" width="400px" />
 	
 	<form method="post" action="login_processing">
 		<div align="center" style="margin-bottom : 10px">
@@ -105,15 +105,26 @@
 			<span class="glyphicon glyphicon-ok"></span>로그인</button>
 		</div>
 	</form>
-	<c:if test="${param.error !=null }">
-		<p>로그인에 실패하였음</p>
-	</c:if>
-	<hr style="border: solid 1px" align="center" width="400" />
+	<hr style="border: solid 1px" align="center" width="400px" />
 	<div align="center" style="">
 	    <a href="search_password.html">비밀번호 찾기</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="sign.html">회원가입</a>
-		<br>
-		<br>
 	</div>
+	<c:if test="${param.error !=null }">
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<div class="panel panel-warning">
+				<div class="panel-heading">
+		    		<h3 class="panel-title">로그인에 실패하였습니다.</h3>
+		  		</div>
+			  	<div class="panel-body">
+			    	학번, 교직원 번호와 비밀번호를 다시 확인해주시기 바랍니다. 초기 비밀번호는 a+휴대폰 뒷자리 4개입니다.
+			  	</div>
+			</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+	</c:if>
    </div>
 
    <div class="row">
