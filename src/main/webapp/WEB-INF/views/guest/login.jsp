@@ -28,10 +28,10 @@
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="index.html"><img src="${R}img/title.png"/></a>
+        <a class="navbar-brand" href="${R}"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="/SKHUMentoring">
+        <li><a href="${R}">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
@@ -42,7 +42,7 @@
             </ul>
         </li>
         <li>
-          <a href="intro.html">멘토링 사업소개</a>
+          <a href="intro">멘토링 사업소개</a>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
@@ -119,7 +119,7 @@
    <div class="row">
 		 <hr/>
     <div class="col-md-3" align="center">
-      <img src="img/skhuniv.jpg"/>
+      <img src="${R}img/skhuniv.jpg"/>
     </div>
 
     <div class="col-md-9">

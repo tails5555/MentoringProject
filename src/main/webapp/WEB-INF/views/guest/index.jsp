@@ -44,9 +44,9 @@
         margin-bottom : 40px;
   		}
    </style>
-   <script type="text/javascript" src="lib/modernizr.custom.js"></script>
+   <script type="text/javascript" src="${R}lib/modernizr.custom.js"></script>
  	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
- 	<script type="text/javascript" src="src/jquery.responsiveGallery.js"></script>
+ 	<script type="text/javascript" src="${R}src/jquery.responsiveGallery.js"></script>
  	<script type="text/javascript">
  		$(function () {
  			$('.responsiveGallery-wrapper').responsiveGallery({
@@ -62,7 +62,7 @@
     <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/SKHUMentoring/index.jsp"><img src="${R}img/title.png"/></a>
+        <a class="navbar-brand" href="${R}"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="${R}guest/index">
@@ -112,7 +112,7 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
+        <li><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
         <li><a href="sign.html"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
       </ul>
     </div>
