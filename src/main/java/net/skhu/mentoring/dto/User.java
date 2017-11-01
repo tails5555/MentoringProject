@@ -3,9 +3,7 @@ public class User {
 	int id;
 	String userType;
 	String password;
-	Student student;
-	Professor professor;
-	Employee employee;
+	String userName;
 	public int getId() {
 		return id;
 	}
@@ -24,22 +22,11 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Student getStudent() {
-		return student;
+	public String getUserName() {
+		return userName;
 	}
-	public void setStudent(Student student) {
-		this.student = student;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public Professor getProfessor() {
-		return professor;
-	}
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
-	}
-	public Employee getEmployee() {
-		return employee;
-	}
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
+
 }
