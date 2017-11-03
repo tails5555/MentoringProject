@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:url var="R" value="/" />
 <!DOCTYPE html>
 <html>
@@ -190,11 +191,11 @@
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         </sec:authorize>
         <li class="dropdown active">
-          <a class="dropdown-toggle" data-toggle="dropdown">참여마당
+          <a class="dropdown-toggle" data-toggle="dropdown">알립니다
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li <c:if test="${param.id eq 1}">class="active"</c:if>><a href="${R}user/notice/list?id=1">공지사항</a></li>
-              <li <c:if test="${param.id eq 2}">class="active"</c:if>><a href="${R}user/notice/list?id=2">건의사항</a></li>
+              <li <c:if test="${param.id eq 2}">class="active"</c:if>><a href="${R}user/notice/list?id=2">참여마당</a></li>
             </ul>
         </li>
         <li>
@@ -258,10 +259,10 @@
       <div class="row">
 
         <div class="col-md-3">
-          <h1 class="my-4"><strong>참여마당</strong></h1>
+          <h1 class="my-4"><strong>알립니다</strong></h1>
           <div class="list-group">
             <a href="${R}user/notice/list?id=1" class="list-group-item <c:if test="${param.id eq 1}">active</c:if>">공지사항</a>
-            <a href="${R}user/notice/list?id=2" class="list-group-item <c:if test="${param.id eq 2}">active</c:if>">건의사항</a>
+            <a href="${R}user/notice/list?id=2" class="list-group-item <c:if test="${param.id eq 2}">active</c:if>">참여마당</a>
           </div>
         </div>
         <!-- /.col-lg-3 -->
@@ -298,7 +299,7 @@
 	              	<td>${ post.id }
 	              	<td>${ post.title }</td>
 	              	<td>${ post.userName }</td>
-	              	<td>${ post.writeDate }</td>
+	              	<td><fmt:formatDate value="${post.writeDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 	              	<td>${ post.views }
 	              </tr>
 	            </c:forEach> 

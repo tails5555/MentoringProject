@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:url var="R" value="/" />
 <!DOCTYPE html>
 <html>
@@ -68,11 +69,11 @@
         <li class="active"><a href="${R}guest/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
-          <a class="dropdown-toggle" data-toggle="dropdown">참여마당
+          <a class="dropdown-toggle" data-toggle="dropdown">알립니다
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li ><a href="${R}guest/notice/list?id=1">공지사항</a></li>
-              <li><a href="${R}guest/login">건의사항</a></li>
+              <li><a href="${R}guest/login">참여마당</a></li>
             </ul>
         </li>
         <li >
@@ -161,7 +162,7 @@
               <tr>
               	<td>${ notice.title }</td>
               	<td>${ notice.userName }</td>
-              	<td>${ notice.writeDate }</td>
+              	<td><fmt:formatDate value="${notice.writeDate}" pattern="yy-MM-dd HH:mm"/></td>
               </tr>
               </c:forEach>
             </tbody>
