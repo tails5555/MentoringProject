@@ -191,8 +191,8 @@
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li ><a href="notice.html">공지사항</a></li>
-              <li><a href="question.html">건의사항</a></li>
+              <li ><a href="${R}user/notice/list?id=1">공지사항</a></li>
+              <li><a href="${R}user/notice/list?id=2">건의사항</a></li>
             </ul>
         </li>
         <li>
@@ -266,7 +266,7 @@
       <!-- Introduction Row -->
           <h1 class="my-4"><strong>멘토 신청</strong></h1>
           <hr/>
-          <sec:authorize access="hasRole('ROLE_MENTO')">
+          <sec:authorize access="hasAnyRole({'ROLE_MENTI', 'ROLE_STUDCHAIRMAN'})">
           <div class="row">
             <div class="col-md-12">
             
@@ -314,6 +314,7 @@
             <div class="row">
               <div class="col-md-12">
               <h2><b>멘토 신청</b></h2>
+              <hr/>
               <form class="form-inline">
                 <div class="application">
                   <form name="sentMessage" id="contactForm" novalidate>

@@ -72,8 +72,8 @@
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li ><a href="notice.html">공지사항</a></li>
-              <li><a href="question.html">건의사항</a></li>
+              <li ><a href="${R}user/notice/list?id=1">공지사항</a></li>
+              <li><a href="${R}user/notice/list?id=2">건의사항</a></li>
             </ul>
         </li>
         <li >
