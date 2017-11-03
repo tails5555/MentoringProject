@@ -191,8 +191,14 @@
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li ><a href="${R}user/notice/list?id=1">공지사항</a></li>
-              <li><a href="${R}user/notice/list?id=2">건의사항</a></li>
+              <sec:authorize access="not authenticated">
+	        	<li><a href="${R}guest/notice/list?id=1">공지사항</a></li>
+	        	<li><a href="${R}guest/login">건의사항</a></li>
+	      	</sec:authorize>
+	        <sec:authorize access="authenticated">
+	        	<li><a href="${R}user/notice/list?id=1">공지사항</a></li>
+	        	<li><a href="${R}user/notice/list?id=2">건의사항</a></li>
+	        </sec:authorize>
             </ul>
         </li>
         <li>

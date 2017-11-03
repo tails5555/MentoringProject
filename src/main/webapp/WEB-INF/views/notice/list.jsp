@@ -173,11 +173,22 @@
    <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="${R}user/index"><img src="${R}img\title.png"/></a>
+      	<sec:authorize access="not authenticated">
+	      <a class="navbar-brand" href="${R}"><img src="${R}img\title.png"/></a>
+	    </sec:authorize>
+	    <sec:authorize access="authenticated">
+	      <a class="navbar-brand" href="${R}user/index"><img src="${R}img\title.png"/></a>
+	    </sec:authorize>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="index.html">
+        <sec:authorize access="not authenticated">
+        <li><a href="${R}">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
+      	</sec:authorize>
+        <sec:authorize access="authenticated">
+        <li><a href="${R}user/index">
+          <i class="glyphicon glyphicon-home"> 홈</i></a></li>
+        </sec:authorize>
         <li class="dropdown active">
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
           <span class="caret"></span></a>
@@ -187,7 +198,12 @@
             </ul>
         </li>
         <li>
-          <a href="${R}user/intro">멘토링 사업소개</a>
+        	<sec:authorize access="not authenticated">
+	      		<a href="${R}guest/intro">멘토링 사업소개</a>
+		    </sec:authorize>
+		  	<sec:authorize access="authenticated">
+		      	<a href="${R}user/intro">멘토링 사업소개</a>
+		  	</sec:authorize>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
@@ -224,12 +240,12 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <sec:authorize access="not authenticated">
-	      <li><a href="login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
+	      <li><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
 	      <li><a href="sign.html"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
 	    </sec:authorize>
 	    <sec:authorize access="authenticated">
 	      <li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
-	      <li><a href="logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
+	      <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
 	    </sec:authorize>
       </ul>
     </div>
@@ -291,8 +307,26 @@
             </div>
           </div>
           <div class="search" align="right">
-            <a href="notice_apli.html"><button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="글쓰기 권한이 없습니다.">
-              <i class="glyphicon glyphicon-pencil"> 글쓰기</i></button></a>
+          	<sec:authorize access="not authenticated">
+		      <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="로그인 후 이용해주세요.">
+              	<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button>
+		    </sec:authorize>
+            <sec:authorize access="authenticated">
+              <c:if test="${ noticeBBS.writeable eq false }">
+              	<sec:authorize access="hasAnyRole({'ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN'})">
+	              	<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="글쓰기를 이용할 수 있습니다.">
+	              		<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button>
+              	</sec:authorize>
+              	<sec:authorize access="hasAnyRole({'ROLE_MENTO', 'ROLE_MENTI'})">
+	              	<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="글쓰기 권한이 없습니다.">
+	              		<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button>
+              	</sec:authorize>
+              </c:if>
+              <c:if test="${ noticeBBS.writeable eq true }">
+	              <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="글쓰기를 이용할 수 있습니다.">
+	              	<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button>
+              </c:if>
+		    </sec:authorize>
           </div>
           <nav aria-label="Page navigation">
             <ul class="pagination">

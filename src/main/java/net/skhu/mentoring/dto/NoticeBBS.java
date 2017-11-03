@@ -1,11 +1,12 @@
 package net.skhu.mentoring.dto;
-import lombok.Data;
 import java.util.List;
+
+import lombok.Data;
 @Data
 public class NoticeBBS {
 	int id;
 	String bbsName;
-	boolean isAvailableWrite;
+	boolean writeable;
 	int managerId;
 	List<NoticeBBSPost> postList;
 }

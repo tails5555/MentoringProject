@@ -216,8 +216,14 @@
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li ><a href="notice.html">공지사항</a></li>
-              <li><a href="question.html">건의사항</a></li>
+            <sec:authorize access="not authenticated">
+	        	<li><a href="${R}guest/notice/list?id=1">공지사항</a></li>
+	        	<li><a href="${R}guest/login">건의사항</a></li>
+	      	</sec:authorize>
+	        <sec:authorize access="authenticated">
+	        	<li><a href="${R}user/notice/list?id=1">공지사항</a></li>
+	        	<li><a href="${R}user/notice/list?id=2">건의사항</a></li>
+	        </sec:authorize>
             </ul>
         </li>
         <li  class="active">
@@ -268,7 +274,7 @@
       </sec:authorize>
       <sec:authorize access="authenticated">
         <li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
-        <li><a href="logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
+        <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
       </sec:authorize>
       </ul>
     </div>
