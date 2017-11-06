@@ -10,4 +10,17 @@
   <select id="findByUserId" resultType="Student">
     select * from Student Where userId=#{userId}
   </select>
+  
+    <select id="findAll" resultType="Student">
+   SELECT s.*, d.name departmentName ,u.id userId ,u.password password
+    FROM Student s LEFT JOIN department d ON s.departmentId = d.deptId LEFT JOIN user u ON s.userId = u.id
+  </select>
+
+  <insert id="insert" parameterType="net.skhu.mentoring.dto.Student">
+    INSERT Student (studentNumber,name,address,email,departmentId,userId)
+    VALUES (#{studentNumber}, #{name},#{address},#{email}, #{departmentId},#{userId})
+  </insert>
+  
+  
+  
 </mapper>

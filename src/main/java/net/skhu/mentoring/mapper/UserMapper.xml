@@ -7,7 +7,23 @@
   <select id="findWithUserType" resultType="User">
     select * from User Where userType=#{userType}
   </select>
+  
   <select id="findOne" resultType="User">
   	SELECT * FROM User WHERE id=#{id}
   </select>
+  
+    <select id="findLast" resultType="User">
+  	SELECT * FROM User WHERE id=(select count(*) from User)
+  </select>
+  
+   <select id="findAll" resultType="User">
+  	SELECT *,s.* FROM User u LEFT JOIN student s ON u.id = s.userId 
+  </select>
+  
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    INSERT User (password)
+    VALUES ( #{password})
+  </insert>
+
+  
 </mapper>

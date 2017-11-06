@@ -8,7 +8,9 @@ public class Student {
 	String address;
 	String email;
 	int grade;
-	int departmentId;
-	int multiDepartmentId;
+	String departmentId;
+	String multiDepartmentId;
 	int userId;
+	String departmentName;
+	String password;
 }

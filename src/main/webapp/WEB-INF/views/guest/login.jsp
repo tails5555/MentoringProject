@@ -78,8 +78,8 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="login.html"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
-        <li><a href="sign.html"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
+        <li class="active"><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
+        <li><a href="create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
       </ul>
     </div>
    </nav>
@@ -107,7 +107,7 @@
 	</form>
 	<hr style="border: solid 1px" align="center" width="400px" />
 	<div align="center" style="">
-	    <a href="search_password.html">비밀번호 찾기</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="sign.html">회원가입</a>
+	    <a href="search_password.html">비밀번호 찾기</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="create.do">회원가입</a>
 	</div>
 	<c:if test="${param.error !=null }">
 	<div class="row">

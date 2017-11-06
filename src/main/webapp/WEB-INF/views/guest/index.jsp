@@ -114,7 +114,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
-        <li><a href="sign.html"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
+        <li><a href="create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
       </ul>
     </div>
    </nav>
