@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <c:url var="R" value="/" />
 
@@ -280,7 +281,7 @@
               <table class="table table-bordered">
                 <thead class="table_first">
                   <tr>
-                    <td>번호</td>
+                    <td>신청 기간</td>
                     <td>멘토링 이름</td>
                     <td>과목</td>
                     <td>멘토 이름</td>
@@ -289,7 +290,7 @@
                 <tbody>
                   <c:forEach var="mento" items="${mentos}">
                   	<tr>
-                  		<td>${mento.id }</td>
+                  		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${mento.applicationDate}"/></td>
                   		<td>${mento.teamName }</td>
                   		<td>${mento.subject }</td>
                   		<td>${mento.name }</td>
@@ -326,7 +327,7 @@
                       </div>
                       <div class="col-md-8">
                       	<form:input path="subject" />
-                        <input type="text" class="form-control" placeholder="멘토링 교과목(주제)" id="title" style="width : 300px;">
+                        
                       </div>
                     </div>
                     <div class="row">
@@ -334,7 +335,8 @@
                         <label>팀 이름</label>
                       </div>
                       <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="적당한 팀 이름" id="teamName" style="width : 300px;">
+                      	<form:input path="teamName" />
+                        
                       </div>
                     </div>
                     <br/>
@@ -344,7 +346,8 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <textarea rows="5" cols="100" class="form-control" placeholder="간단한 주제 소개" id="message"></textarea>
+                      	<form:input path="advertiseContext" />
+                        
                       </div>
                     </div>
                     <br/>
@@ -362,7 +365,8 @@
                         <label>자격 증명</label>
                       </div>
                       <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="과목 학점 혹은 자격 사항을 입력하세요." id="qualific" style="width : 300px;">
+                      	<form:input path="qualificContext" />
+                       
                       </div>
                     </div>
                     <br/>

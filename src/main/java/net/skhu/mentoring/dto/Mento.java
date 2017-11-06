@@ -1,7 +1,7 @@
 package net.skhu.mentoring.dto;
 
 import lombok.Data;
-
+import java.util.Date;
 @Data
 public class Mento {
 	int id;
@@ -11,4 +11,5 @@ public class Mento {
 	String qualificContext;
 	int userId;
 	String name;
+	Date applicationDate;
 }

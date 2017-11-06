@@ -7,15 +7,17 @@
   <select id="findOne" resultType="Mento">
     select * from Mento Where id=#{id}
   </select>
-  <select id="findAll" resultType="Mento">
+  <select id="findByStudentNumber" resultType="Mento">
   	select m.*, s.name
 	from mento m left join student s
 	on m.userId=s.userId
+	where s.studentNumber = #{studentNumber}
+	order by applicationDate DESC
   </select>
   
   <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-  	INSERT into Mento(teamName,advertiseContext,subject,qualificContext,userId)
-  	values(#{teamName}, #{advertiseContext},#{subject},#{qualificContext},#{userId})
+  	INSERT into Mento(teamName,advertiseContext,subject,qualificContext,userId,applicationDate)
+  	values(#{teamName}, #{advertiseContext},#{subject},#{qualificContext},#{userId},#{applicationDate})
   </insert>
   
   <update id="update">
