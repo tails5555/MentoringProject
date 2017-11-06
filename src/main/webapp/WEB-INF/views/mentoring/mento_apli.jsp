@@ -11,10 +11,10 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="${R}res/common.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 
     <style>
 
@@ -273,7 +273,17 @@
       <!-- Introduction Row -->
           <h1 class="my-4"><strong>멘토 신청</strong></h1>
           <hr/>
-          <sec:authorize access="hasAnyRole({'ROLE_MENTI', 'ROLE_STUDCHAIRMAN'})">
+          <sec:authorize access="hasAnyRole({'ROLE_PROFESSOR', 'ROLE_EMPLOYEE'})">
+			<div class="panel panel-warning">
+			  <div class="panel-heading">
+	    		<h3 class="panel-title">교수와 직원은 접근이 불가능합니다.</h3>
+	  		  </div>
+		      <div class="panel-body">
+				 교수와 직원은 사이트 관리에서 신청한 멘토들의 목록들에 대해서 설정할 수 있습니다.
+			  </div>
+			</div>
+          </sec:authorize>
+          <sec:authorize access="hasAnyRole({'ROLE_MENTO', 'ROLE_MENTI', 'ROLE_STUDCHAIRMAN'})">
           <div class="row">
             <div class="col-md-12">
               <h2><b>현황 확인</b></h2>
@@ -301,12 +311,8 @@
               <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#mentoApplicatilon"><i class="glyphicon glyphicon-plus"> 신청하기</i></button>
             </div>
           </div>
-          </sec:authorize>
-          <sec:authorize access="hasAnyRole({'ROLE_MENTI', 'ROLE_STUDCHAIRMAN'})">
-          <!-- Team Members Row -->
           <div class="collapse" id="mentoApplicatilon">
             <hr/>
-           
             <div class="row">
               <div class="col-md-12">
               <h2><b>멘토 신청</b></h2>
@@ -326,7 +332,7 @@
                         <label>멘토링 교과목(주제)</label>
                       </div>
                       <div class="col-md-8">
-                      	<form:input path="subject" />
+                      	<form:input path="subject" class="form-control w300"/>
                         
                       </div>
                     </div>
@@ -335,7 +341,7 @@
                         <label>팀 이름</label>
                       </div>
                       <div class="col-md-8">
-                      	<form:input path="teamName" />
+                      	<form:input path="teamName" class="form-control w300"/>
                         
                       </div>
                     </div>
@@ -346,7 +352,7 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                      	<form:input path="advertiseContext" />
+                      	<form:textarea path="advertiseContext" class="form-control w400"/>
                         
                       </div>
                     </div>
@@ -365,7 +371,7 @@
                         <label>자격 증명</label>
                       </div>
                       <div class="col-md-8">
-                      	<form:input path="qualificContext" />
+                      	<form:input path="qualificContext" class="form-control w300"/>
                        
                       </div>
                     </div>
@@ -562,8 +568,19 @@
                       </div>
                     </div>
                     <div style="margin-top: 40px">
-                      <p><h3>멘토 신청하시려면 밑에 신청 버튼을 눌러 주세요.</h3></p>
-                      <button type="submit" class="btn btn-primary">신청</button>
+                      <h3>멘토 신청하시려면 밑에 신청 버튼을 눌러 주세요.</h3>
+                      <button id="btn_ok" type="submit" class="btn btn-primary" data-confirm-insert>신청</button>
+                      <script>
+						$(document).ready( function(){
+						    $("#btn_ok").click( function() {
+						        if(confirm("추가를 하면 수정이 불가능합니다. 계속 하시겠습니까??")) {
+						            $(this).parent().click();
+						        } else {
+						            return false;
+						        }
+						    });
+						});
+						</script>
                       <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#mentoApplicatilon">취소</button>
                     </div>
                 	</div>
@@ -571,11 +588,10 @@
               </div>
             </div>
           </div>
-        </div>
       </sec:authorize>
       </div>
     </div>
-    
+   </div>
     
     <!-- /.container -->
   <hr/>

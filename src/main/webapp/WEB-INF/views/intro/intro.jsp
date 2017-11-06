@@ -238,7 +238,7 @@
 		        <li><a href="login">멘토 신청</a></li>
 		      </sec:authorize>
 		      <sec:authorize access="authenticated">
-		        <li><a href="mentoApplication">멘토 신청</a></li>
+		        <li><a href="mento_apli">멘토 신청</a></li>
 		      </sec:authorize>
               <li ><a href="mento_list.html">멘토/멘티 목록</a></li>
               <li><a href="mento_board.html">멘토링 게시판</a></li>
@@ -269,8 +269,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
       <sec:authorize access="not authenticated">
-        <li><a href="login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
-        <li><a href="sign.html"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
+        <li><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
+        <li><a href="${R}guest/create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
       </sec:authorize>
       <sec:authorize access="authenticated">
         <li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
