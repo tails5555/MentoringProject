@@ -16,7 +16,7 @@
     FROM Student s LEFT JOIN department d ON s.departmentId = d.deptId LEFT JOIN user u ON s.userId = u.id
   </select>
 
-  <insert id="insert" parameterType="net.skhu.mentoring.dto.Student">
+  <insert id="insert" parameterType="Student">
     INSERT Student (studentNumber,name,address,email,departmentId,userId)
     VALUES (#{studentNumber}, #{name},#{address},#{email}, #{departmentId},#{userId})
   </insert>

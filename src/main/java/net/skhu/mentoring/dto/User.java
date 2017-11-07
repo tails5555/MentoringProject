@@ -8,11 +8,9 @@ public class User {
 	String userName;
 	String studentNumber;
 	String phoneNumber;
-	String name;
 	String address;
 	String email;
-	int grade;
 	String departmentId;
-	String departmentName;
-	
+	int userId;
+
 }

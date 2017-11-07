@@ -8,7 +8,7 @@ import net.skhu.mentoring.dto.User;
 public interface UserMapper {
 	List<User> findWithPerson();
 	User findOne(int id);
-	User findLast();
-	void insert(String password);
+	int findLast();
+	void insert(User user);
 	
 }

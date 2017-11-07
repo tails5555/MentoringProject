@@ -7,6 +7,6 @@ public interface StudentMapper {
 	Student findOne(String studentNumber);
 	Student findByUserId(int userId);
 	   List<Student> findAll();
-	    void insert(Student student);
+	   void insert(Student student);
 
 }

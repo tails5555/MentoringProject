@@ -15,6 +15,7 @@ import net.skhu.mentoring.dto.Department;
 import net.skhu.mentoring.dto.Student;
 
 import net.skhu.mentoring.mapper.UserMapper;
+import net.skhu.mentoring.utils.Encryption;
 import net.skhu.mentoring.mapper.DepartmentMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 
@@ -43,12 +44,21 @@ public class SignController {
     
 	
     @RequestMapping(value="create", method=RequestMethod.POST)
-    public String create(Model model, Student student) {
-    	userMapper.insert(student.getPassword());
-    	User user = userMapper.findLast();
-    
+    public String create(Model model, User user) {
+    	Student student =new Student();
+    	 
+    	student.setStudentNumber(user.getStudentNumber());
+    	student.setName(user.getUserName());
+    	student.setAddress(user.getAddress());
+    	student.setEmail(user.getEmail());
+    	student.setDepartmentId(user.getDepartmentId());
+    	user.setPassword(Encryption.encrypt(user.getPassword(), Encryption.MD5));
+    	userMapper.insert(user);
+    	student.setUserId(user.getUserId());
+    	
         studentMapper.insert(student);
-        return "redirect:index";
+       
+        return "redirect:login";
     }
 
 }

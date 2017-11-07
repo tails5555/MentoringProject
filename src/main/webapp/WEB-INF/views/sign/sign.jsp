@@ -238,7 +238,7 @@
 <div class="container">
 
 
-<form:form method="post" modelAttribute="student" class="form-inline">
+<form:form method="post" modelAttribute="user" class="form-inline">
         <!-- /.col-lg-3 -->
 
         <div class="col-md-9">
@@ -261,7 +261,7 @@
             <div class="control-group">
               <div class="form-group floating-label-form-group controls">
                 <label>이름: </label>
-                <form:input path="name" type="text" class="form-control" placeholder="이름" id="name"/>
+                <form:input path="userName" type="text" class="form-control" placeholder="이름" id="name"/>
                 <p class="help-block text-danger"></p>
               </div>
             </div>

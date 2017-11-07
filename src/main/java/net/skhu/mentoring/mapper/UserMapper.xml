@@ -13,17 +13,21 @@
   </select>
   
     <select id="findLast" resultType="User">
-  	SELECT * FROM User WHERE id=(select count(*) from User)
+  	SELECT LAST_INSERT_ID()
   </select>
   
    <select id="findAll" resultType="User">
   	SELECT *,s.* FROM User u LEFT JOIN student s ON u.id = s.userId 
   </select>
   
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="User">
     INSERT User (password)
     VALUES ( #{password})
+     <selectKey resultType="int" keyProperty="userId" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey>    
   </insert>
 
+	
   
 </mapper>
