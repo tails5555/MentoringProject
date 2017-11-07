@@ -160,14 +160,14 @@
             <tbody>
               <c:forEach var="notice" items="${ notices }">
               <tr>
-              	<td>${ notice.title }</td>
+              	<td><a href="${R}guest/notice/view.do?bd=1&id=${notice.id}">${ notice.title }</a></td>
               	<td>${ notice.userName }</td>
               	<td><fmt:formatDate value="${notice.writeDate}" pattern="yy-MM-dd HH:mm"/></td>
               </tr>
               </c:forEach>
             </tbody>
           </table>
-          <a class="btn btn-success" href="${R}guest/notice/list?id=1" role="button" align="right"><i class="glyphicon glyphicon-zoom-in"> 자세히</i></a>
+          <a class="btn btn-success" href="${R}guest/notice/list?bd=1" role="button" align="right"><i class="glyphicon glyphicon-zoom-in"> 자세히</i></a>
         </div>
         <div class="col-md-2">
         </div>

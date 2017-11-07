@@ -321,8 +321,8 @@
             <sec:authorize access="authenticated">
               <c:if test="${ noticeBBS.writeable eq false }">
               	<sec:authorize access="hasAnyRole({'ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN'})">
-	              	<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="글쓰기를 이용할 수 있습니다.">
-	              		<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button>
+	              	<a href="create.do?bd=${ noticeBBS.id }"><button type="button" class="btn btn-info">
+	              		<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button></a>
               	</sec:authorize>
               	<sec:authorize access="hasAnyRole({'ROLE_MENTO', 'ROLE_MENTI'})">
 	              	<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="글쓰기 권한이 없습니다.">
@@ -330,8 +330,8 @@
               	</sec:authorize>
               </c:if>
               <c:if test="${ noticeBBS.writeable eq true }">
-	              <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="글쓰기를 이용할 수 있습니다.">
-	              	<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button>
+	              <a href="create.do?bd=${ noticeBBS.id }"><button type="button" class="btn btn-info">
+	              	<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button></a>
               </c:if>
 		    </sec:authorize>
           </div>

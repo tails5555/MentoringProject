@@ -347,11 +347,16 @@
               </div>
             </div>
             <div class="complete" align="right">
-              <a a href="#" onclick="history.go(-1)"><button class="btn btn-info" type="button"><i class="glyphicon glyphicon-arrow-left"> 뒤로가기</i></button></a>
-              &nbsp&nbsp
-              <button class="btn btn-info" type="button" href="#"><i class="glyphicon glyphicon-pencil"> 수정하기</i></button>
-              &nbsp&nbsp
-              <button class="btn btn-info" type="button" href="#"><i class="glyphicon glyphicon-remove"> 삭제하기</i></button>
+              <a href="list.do?bd=${noticeBBS.id}"><button class="btn btn-info" type="button"><i class="glyphicon glyphicon-arrow-left"> 뒤로가기</i></button></a>
+              <sec:authorize access="authenticated">    	
+			    <sec:authentication property="user.id" var="userId"/>
+			    <c:if test="${userId eq noticePost.userId }">
+			    	&nbsp;&nbsp;
+			    	<a href="edit.do?bd=${noticeBBS.id }&id=${noticePost.id}" class="btn btn-info" ><i class="glyphicon glyphicon-pencil"></i> 수정하기</a>
+			    	&nbsp;&nbsp;
+			    	<button class="btn btn-info" type="button" href="#"><i class="glyphicon glyphicon-remove"> 삭제하기</i></button>
+			    </c:if>
+			  </sec:authorize>
             </div>
             <hr/>
             <sec:authorize access="not authenticated">
