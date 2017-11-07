@@ -332,7 +332,7 @@
                         <label>멘토링 교과목(주제)</label>
                       </div>
                       <div class="col-md-8">
-                      	<form:input path="subject" class="form-control w300"/>
+                      	<form:input path="subject" placeholder="멘토링 할 과목을 입력하세요" class="form-control w300"/>
                         
                       </div>
                     </div>
@@ -341,7 +341,7 @@
                         <label>팀 이름</label>
                       </div>
                       <div class="col-md-8">
-                      	<form:input path="teamName" class="form-control w300"/>
+                      	<form:input path="teamName" placeholder="적당한 팀 이름을 입력하세요" class="form-control w300"/>
                         
                       </div>
                     </div>
@@ -352,7 +352,7 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                      	<form:textarea path="advertiseContext" class="form-control w400"/>
+                      	<form:textarea path="advertiseContext" placeholder="멘토링에 대한 팀 광고를 입력하세요" class="form-control w400"/>
                         
                       </div>
                     </div>
@@ -371,7 +371,7 @@
                         <label>자격 증명</label>
                       </div>
                       <div class="col-md-8">
-                      	<form:input path="qualificContext" class="form-control w300"/>
+                      	<form:input path="qualificContext" placeholder="자격 증명할 사항에 대해 입력하세요" class="form-control w300"/>
                        
                       </div>
                     </div>

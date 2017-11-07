@@ -356,7 +356,7 @@
     <hr/>
     <div class="row">
       <div class="col-md-3" align="center">
-        <img src="img/skhuniv.jpg"/>
+        <img src="${R}img/skhuniv.jpg"/>
       </div>
       <div class="col-md-9">
         <p>08359 서울시 구로구 연동로 320 / 지하철 1, 7호선 온수역(성공회대입구역)</p>
