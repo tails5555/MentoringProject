@@ -12,4 +12,5 @@ public class NoticeBBSPost {
     int userId;
     int partyBBSId;
     String userName;
+    String userEmail;
 }

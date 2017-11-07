@@ -186,49 +186,49 @@
           <a class="dropdown-toggle" data-toggle="dropdown">알립니다
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="${R}guest/notice/list?id=1">공지사항</a></li>
+              <li><a href="${R}guest/notice/list?bd=1">공지사항</a></li>
               <li><a href="${R}guest/login">건의사항</a></li>
             </ul>
         </li>
         <li>
-          <a href="intro.html">멘토링 사업소개</a>
+          <a href="${R}guest/intro">멘토링 사업소개</a>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="menti_apli.html">멘티 신청</a></li>
-              <li><a href="mento_apli.html">멘토 신청</a></li>
-              <li><a href="mento_list.html">멘토/멘티 목록</a></li>
-              <li><a href="mento_board.html">멘토링 게시판</a></li>
-              <li><a href="survey.html">설문조사</a></li>
+              <li><a href="${R}guest/login">멘티 신청</a></li>
+              <li><a href="${R}guest/login">멘토 신청</a></li>
+              <li><a href="${R}guest/login">멘토/멘티 목록</a></li>
+              <li><a href="${R}guest/login">멘토링 게시판</a></li>
+              <li><a href="${R}guest/login">설문조사</a></li>
             </ul>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="mento_timetable.html">멘티 시간표 확인</a></li>
-              <li><a href="report_write.html">보고서 작성</a></li>
-              <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
+              <li><a href="${R}guest/login">멘티 시간표 확인</a></li>
+              <li><a href="${R}guest/login">보고서 작성</a></li>
+              <li><a href="${R}guest/login">멘토링 과제게시판 관리</a></li>
             </ul>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="mento_open.html">멘토링 개설/폐쇄</a></li>
-              <li><a href="report_confirm.html">보고서 확인</a></li>
-              <li><a href="survey_manage.html">설문조사 관리</a></li>
-              <li><a href="candidate_boolean.html">멘토, 멘티 신청기간 여부</a></li>
-              <li><a href="student_manage.html">회원 목록 관리</a></li>
-              <li><a href="intro_update.html">사업 안내문 수정</a></li>
+              <li><a href="${R}guest/login">멘토링 개설/폐쇄</a></li>
+              <li><a href="${R}guest/login">보고서 확인</a></li>
+              <li><a href="${R}guest/login">설문조사 관리</a></li>
+              <li><a href="${R}guest/login">멘토, 멘티 신청기간 여부</a></li>
+              <li><a href="${R}guest/login">회원 목록 관리</a></li>
+              <li><a href="${R}guest/login">사업 안내문 수정</a></li>
             </ul>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
-        <li class="active"><a href="create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
+        <li class="active"><a href="${R}guest/create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
       </ul>
     </div>
    </nav>
@@ -361,7 +361,7 @@
         <p><h3>회원가입을 신청하시려면 밑에 신청 버튼을 눌러 주세요.</h3></p>
 
       <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"> 신청</i></button>
-      <a href="guest/index"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-remove"> 취소</i></button></a>
+      <a href="${R}guest/index"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-remove"> 취소</i></button></a>
       </div>
 
         </div>

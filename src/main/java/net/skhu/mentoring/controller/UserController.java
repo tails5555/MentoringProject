@@ -14,7 +14,7 @@ public class UserController {
 	@RequestMapping("user/index")
 	public String index(Model model) {
 		model.addAttribute("schedules", scheduleMapper.findAll());
-		model.addAttribute("notices", noticeBBSService.getBBSList(1));
+		model.addAttribute("notices", noticeBBSService.getBBSList(1).subList(0, 5));
 		return "user/index";
 	}
 }

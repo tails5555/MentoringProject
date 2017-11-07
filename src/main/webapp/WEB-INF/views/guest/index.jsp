@@ -72,7 +72,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown">알립니다
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li ><a href="${R}guest/notice/list?id=1">공지사항</a></li>
+              <li ><a href="${R}guest/notice/list?bd=1">공지사항</a></li>
               <li><a href="${R}guest/login">참여마당</a></li>
             </ul>
         </li>
@@ -114,7 +114,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
-        <li><a href="create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
+        <li><a href="${R}guest/create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
       </ul>
     </div>
    </nav>
@@ -160,14 +160,14 @@
             <tbody>
               <c:forEach var="notice" items="${ notices }">
               <tr>
-              	<td>${ notice.title }</td>
+              	<td><a href="${R}guest/notice/view.do?bd=1&id=${notice.id}">${ notice.title }</a></td>
               	<td>${ notice.userName }</td>
               	<td><fmt:formatDate value="${notice.writeDate}" pattern="yy-MM-dd HH:mm"/></td>
               </tr>
               </c:forEach>
             </tbody>
           </table>
-          <a class="btn btn-success" href="${R}guest/notice/list?id=1" role="button" align="right"><i class="glyphicon glyphicon-zoom-in"> 자세히</i></a>
+          <a class="btn btn-success" href="${R}guest/notice/list?bd=1" role="button" align="right"><i class="glyphicon glyphicon-zoom-in"> 자세히</i></a>
         </div>
         <div class="col-md-2">
         </div>

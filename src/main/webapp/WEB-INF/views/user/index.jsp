@@ -73,8 +73,8 @@
           <a class="dropdown-toggle" data-toggle="dropdown">알립니다
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li ><a href="${R}user/notice/list?id=1">공지사항</a></li>
-              <li><a href="${R}user/notice/list?id=2">참여마당</a></li>
+              <li ><a href="${R}user/notice/list?bd=1">공지사항</a></li>
+              <li><a href="${R}user/notice/list?bd=2">참여마당</a></li>
             </ul>
         </li>
         <li >
@@ -163,14 +163,14 @@
             <tbody>
               <c:forEach var="notice" items="${ notices }">
               <tr>
-              	<td>${ notice.title }</td>
+              	<td><a href="${R}user/notice/view.do?bd=1&id=${notice.id}">${ notice.title }</a></td>
               	<td>${ notice.userName }</td>
               	<td><fmt:formatDate value="${notice.writeDate}" pattern="yy-MM-dd HH:mm"/></td>
               </tr>
               </c:forEach>
             </tbody>
           </table>
-          <a class="btn btn-success" href="${R}user/notice/list?id=1" role="button" align="right"><i class="glyphicon glyphicon-zoom-in"> 자세히</i></a>
+          <a class="btn btn-success" href="${R}user/notice/list?bd=1" role="button" align="right"><i class="glyphicon glyphicon-zoom-in"> 자세히</i></a>
         </div>
         <div class="col-md-2">
         </div>

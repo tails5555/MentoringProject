@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.skhu.mentoring.mapper.NoticeBBSCommentMapper">
+
+  <select id="findByBBSId" resultType="NoticeBBSComment">
+    select * from NoticeBBSComment WHERE bbsPostId=#{bbsId} ORDER BY id DESC
+  </select>
+  <insert id="insertComment" useGeneratedKeys="true" keyProperty="id">
+  	INSERT NoticeBBSComment(context, bbsPostId, userId)
+  	values(#{context}, #{bbsPostId}, #{userId})
+  </insert>
+  <delete id="deleteComment">
+  	DELETE FROM NoticeBBSComment
+  	WHERE id=#{id}
+  </delete>
+</mapper>

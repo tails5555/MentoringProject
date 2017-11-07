@@ -7,4 +7,24 @@
   <select id="findByPartyBBSId" resultType="NoticeBBSPost">
     select * from NoticeBBSPost WHERE partyBBSId=#{partyBBSId} Order By id desc
   </select>
+  <select id="findById" resultType="NoticeBBSPost">
+    select * from NoticeBBSPost WHERE id=#{id}
+  </select>
+  <update id="updateView">
+  	UPDATE NoticeBBSPost
+  	SET views=views+1
+  	where id=#{id}
+  </update>
+  <insert id="insertPost" useGeneratedKeys="true" keyProperty="id">
+  	INSERT NoticeBBSPost(title, context, views, userId, partyBBSId)
+  	VALUES(#{title}, #{context}, #{views}, #{userId}, #{partyBBSId})
+  </insert>
+  <update id="updatePost">
+  	UPDATE NoticeBBSPost
+  	<set>
+  		<if test="title != null">title=#{title},</if>
+  		<if test="context != null">context=#{context},</if>
+  	</set>
+  	WHERE id=#{id}
+  </update>
 </mapper>
