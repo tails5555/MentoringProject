@@ -10,4 +10,9 @@
   <select id="findByUserId" resultType="Professor">
     select * from Professor Where userId=#{userId}
   </select>
+  
+    <select id="findAll" resultType="Professor">
+     SELECT p.*, d.deptId ,u.password,u.userType, dp.name departmentName
+    FROM Professor p LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN user u ON p.userId = u.id LEFT JOIN department dp ON dp.deptId=d.deptId
+  </select>
 </mapper>

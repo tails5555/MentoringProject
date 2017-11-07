@@ -10,4 +10,8 @@ public class Employee {
 	int officeId;
 	String officePhone;
 	int userId;
+	String userType;
+	String departmentName;
+	String departmentId;
 }
+

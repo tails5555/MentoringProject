@@ -10,4 +10,8 @@ public class Professor {
 	int officeId;
 	String officePhone;
 	int userId;
+	String userType;
+	String departmentName;
+	String departmentId;
+	
 }

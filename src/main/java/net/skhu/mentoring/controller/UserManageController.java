@@ -14,18 +14,35 @@ import java.util.List;
 import net.skhu.mentoring.dto.User;
 import net.skhu.mentoring.dto.Department;
 import net.skhu.mentoring.dto.Student;
+import net.skhu.mentoring.dto.Professor; 
+import net.skhu.mentoring.dto.Employee;
 
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.utils.Encryption;
 import net.skhu.mentoring.mapper.DepartmentMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
+import net.skhu.mentoring.mapper.ProfessorMapper;
+import net.skhu.mentoring.mapper.EmployeeMapper;
 
-@RequestMapping("/guest")
+@RequestMapping("/user")
 @Controller
 public class UserManageController {
 	
 	@Autowired UserMapper userMapper;
 	@Autowired DepartmentMapper departmentMapper;
 	@Autowired StudentMapper studentMapper;
-
+	@Autowired ProfessorMapper professorMapper;
+	@Autowired EmployeeMapper employeeMapper;
+	
+	@RequestMapping("list")
+	public String index(Model model) {
+		List<Student> students = studentMapper.findAll();
+        model.addAttribute("students", students);
+		List<Professor> professor = professorMapper.findAll();
+        model.addAttribute("professor", professor);
+        List<Employee> employee = employeeMapper.findAll();
+        model.addAttribute("employee", employee);
+        
+		return "userManage/userManage";
+	}
 }

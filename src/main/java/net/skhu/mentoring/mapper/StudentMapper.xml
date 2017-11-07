@@ -12,7 +12,7 @@
   </select>
   
     <select id="findAll" resultType="Student">
-   SELECT s.*, d.name departmentName ,u.id userId ,u.password password
+   SELECT s.*, d.name departmentName ,u.id userId ,u.password,u.userType
     FROM Student s LEFT JOIN department d ON s.departmentId = d.deptId LEFT JOIN user u ON s.userId = u.id
   </select>
 
