@@ -37,7 +37,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown">알립니다
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="${R}guest/notice/list?id=1">공지사항</a></li>
+              <li><a href="${R}guest/notice/list?bd=1">공지사항</a></li>
               <li><a href="${R}guest/login">건의사항</a></li>
             </ul>
         </li>

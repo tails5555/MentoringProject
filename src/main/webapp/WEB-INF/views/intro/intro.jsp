@@ -217,12 +217,12 @@
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
             <sec:authorize access="not authenticated">
-	        	<li><a href="${R}guest/notice/list?id=1">공지사항</a></li>
+	        	<li><a href="${R}guest/notice/list?bd=1">공지사항</a></li>
 	        	<li><a href="${R}guest/login">참여마당</a></li>
 	      	</sec:authorize>
 	        <sec:authorize access="authenticated">
-	        	<li><a href="${R}user/notice/list?id=1">공지사항</a></li>
-	        	<li><a href="${R}user/notice/list?id=2">참여마당</a></li>
+	        	<li><a href="${R}user/notice/list?bd=1">공지사항</a></li>
+	        	<li><a href="${R}user/notice/list?bd=2">참여마당</a></li>
 	        </sec:authorize>
             </ul>
         </li>

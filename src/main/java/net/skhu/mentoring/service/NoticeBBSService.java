@@ -27,31 +27,45 @@ public class NoticeBBSService {
 	public List<NoticeBBSPost> getBBSList(int id){
 		List<NoticeBBSPost> notices=noticeBBSPostMapper.findByPartyBBSId(id);
 		for(NoticeBBSPost list : notices) {
-			User writeUser=userMapper.findOne(list.getUserId());
-			if(writeUser.getUserType().equals("학생회장")) {
-				Student student=studentMapper.findByUserId(writeUser.getId());
-				list.setUserName(student.getName());
-			}
-			else if(writeUser.getUserType().equals("교수")) {
-				Professor professor=professorMapper.findByUserId(writeUser.getId());
-				list.setUserName(professor.getName());
-			}
-			else if(writeUser.getUserType().equals("직원")) {
-				Employee employee=employeeMapper.findByUserId(writeUser.getId());
-				list.setUserName(employee.getName());
-			}
-			else if(writeUser.getUserType().equals("멘티")) {
-				Student student=studentMapper.findByUserId(writeUser.getId());
-				list.setUserName(student.getName());
-			}
-			else if(writeUser.getUserType().equals("멘토")) {
-				Student student=studentMapper.findByUserId(writeUser.getId());
-				list.setUserName(student.getName());
-			}
+			setUser(list);
 		}
 		return notices;
 	}
 	public NoticeBBS getBBSTitle(int id) {
 		return noticeBBSMapper.findOne(id);
+	}
+	public NoticeBBSPost views(int id) {
+		NoticeBBSPost result=noticeBBSPostMapper.findById(id);
+		noticeBBSPostMapper.updateView(id);
+		setUser(result);
+		return result;
+	}
+	public void setUser(NoticeBBSPost noticeBBSPost) {
+		User writeUser=userMapper.findOne(noticeBBSPost.getUserId());
+		if(writeUser.getUserType().equals("학생회장")) {
+			Student student=studentMapper.findByUserId(writeUser.getId());
+			noticeBBSPost.setUserName(student.getName());
+			noticeBBSPost.setUserEmail(student.getEmail());
+		}
+		else if(writeUser.getUserType().equals("교수")) {
+			Professor professor=professorMapper.findByUserId(writeUser.getId());
+			noticeBBSPost.setUserName(professor.getName());
+			noticeBBSPost.setUserEmail(professor.getEmail());
+		}
+		else if(writeUser.getUserType().equals("직원")) {
+			Employee employee=employeeMapper.findByUserId(writeUser.getId());
+			noticeBBSPost.setUserName(employee.getName());
+			noticeBBSPost.setUserEmail(employee.getEmail());
+		}
+		else if(writeUser.getUserType().equals("멘티")) {
+			Student student=studentMapper.findByUserId(writeUser.getId());
+			noticeBBSPost.setUserName(student.getName());
+			noticeBBSPost.setUserEmail(student.getEmail());
+		}
+		else if(writeUser.getUserType().equals("멘토")) {
+			Student student=studentMapper.findByUserId(writeUser.getId());
+			noticeBBSPost.setUserName(student.getName());
+			noticeBBSPost.setUserEmail(student.getEmail());
+		}
 	}
 }

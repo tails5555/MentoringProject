@@ -7,4 +7,12 @@
   <select id="findByPartyBBSId" resultType="NoticeBBSPost">
     select * from NoticeBBSPost WHERE partyBBSId=#{partyBBSId} Order By id desc
   </select>
+  <select id="findById" resultType="NoticeBBSPost">
+    select * from NoticeBBSPost WHERE id=#{id}
+  </select>
+  <update id="updateView">
+  	UPDATE NoticeBBSPost
+  	SET views=views+1
+  	where id=#{id}
+  </update>
 </mapper>

@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <c:url var="R" value="/" />
 <!DOCTYPE html>
 <html>
@@ -12,9 +13,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="${R}res/common.js"></script>
-
-
     <style>
       .navbar {
         background-color: #ffffff;
@@ -135,7 +133,7 @@
         color: #090909;
         background-color: #a2a39f;
       }
-      div.row{
+      .row {
         margin-left : auto;
         margin-right : auto;
       }
@@ -146,33 +144,81 @@
       .footer div:nth-child(2) { font: normal 9pt 굴림; color: #666;  }
       .footer div:nth-child(3) { font: normal 9pt arial; color: #aaa; }
 
-
       .container {
         margin-top: 30px;
         margin-left : auto;
         margin-right : auto;
       }
-      .search{
-        margin-top : 10px;
-        margin-bottom : 10px;
+      .information{
+        padding-top : 10px;
+        padding-bottom : 5px;
+        background-color : #E6E6E6;
+        border : 1px solid #D8D8D8;
+        border-radius : 5px;
+        text-align : left;
       }
-      thead{
-        background-color : #A9F5BC;
+      .reportEntity{
+        padding-left : 10px;
+        padding-right : 10px;
+        padding-top : 12px;
+        padding-bottom : 12px;
+        border : 1px solid #A9F5BC;
+        background-color : #CEF6D8;
+        font-weight : bold;
+        text-align : center;
       }
-      tbody tr:hover {
-        background-color: #CEF6D8;
-        cursor : pointer;
+      .reportInput{
+        padding-left : 5px;
+        padding-right : 5px;
+        padding-top : 12px;
+        padding-bottom : 12px;
+        border : 1px solid #A9F5BC;
       }
+      .mentiList{
+        padding-top : 12px;
+        padding-bottom : 11px;
+        border : 1px solid #A4A4A4;
+      }
+      .mentoPicture{
+        border : 1px solid #A4A4A4;
+        background-color : #D8D8D8;
+        text-align : center;
+        font-weight : bold;
+        padding-top : 10px;
+        padding-bottom : 10px;
+      }
+      .mentoPictureDisplay{
+        border : 1px solid #A4A4A4;
+        padding-left : 20px;
+        padding-right : 20px;
+        padding-top : 20px;
+        padding-bottom : 20px;
+      }
+      .upload{
+        border : 1px solid #A4A4A4;
+        background-color : #D8D8D8;
+        font-weight : bold;
+        padding-top : 7px;
+        padding-bottom : 7px;
+      }
+      .complete{
+        margin-top : 20px;
+      }
+      .input_time{
+        width : 60px;
+      }
+      div#context{ min-height : 500px}
    </style>
    <script type="text/javascript">
     $(function () {
       $('[data-toggle="popover"]').popover();
     });
    </script>
+   <script src="${R}res/common.js"></script>
  </head>
 
  <body>
-   <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
       	<sec:authorize access="not authenticated">
@@ -255,7 +301,7 @@
    <div>
        <img src="${R}img/topimage.jpg" class="img-responsive"/>
    </div>
-  <div class="container">
+   <div class="container">
 
       <div class="row">
 
@@ -271,95 +317,97 @@
             <a href="${R}user/notice/list?bd=2" class="list-group-item <c:if test="${param.bd eq 2}">active</c:if>">참여마당</a>
           </div>
         </div>
-        <!-- /.col-lg-3 -->
-
         <div class="col-md-9">
-          <h1 class="my-4"><strong>${ noticeBBS.bbsName }</strong></h1>
-          <div class="row search">
-              <form class="form-inline" align="right">
-                <select class="form-control">
-                  <option>제목</option>
-                  <option>작성자</option>
-                  <option>제목+내용</option>
-                </select>
-                <input type="text" class="form-control" id="searchKeyword" placeholder="검색어를 입력하세요."/>
-                <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"> 검색하기</i></button>
-              </form>
-          </div>
+          
+          <!-- Team Members Row -->
           <div class="row">
-            <div class="col-md-12">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="text-align: center" width="20px">번호</th>
-                    <th style="text-align: center" width="200px">제목 </th>
-                    <th style="text-align: center" width="80px">작성자</th>
-                    <th style="text-align: center" width="80px">작성시간</th>
-                    <th style="text-align: center" width="80px">조회</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                <c:forEach var="post" items="${ postList }">
-	              <tr data-url="view.do?bd=${noticeBBS.id}&id=${post.id}">
-	              	<td>${ post.id }
-	              	<td>${ post.title }</td>
-	              	<td>${ post.userName }</td>
-	              	<td><fmt:formatDate value="${post.writeDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-	              	<td>${ post.views }
-	              </tr>
-	            </c:forEach> 
-                </tbody>
-              </table>
+            <h1 class="my-4"><strong>${noticeBBS.bbsName}</strong></h1><h3><b>게시물 확인</b></h3>
+            <div class="row">
+            	<div class="col-md-2 reportEntity">제목</div>
+            	<div class="col-md-10 reportInput">${ noticePost.title }</div>
             </div>
-          </div>
-          <div class="search" align="right">
-          	<sec:authorize access="not authenticated">
-		      <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="로그인 후 이용해주세요.">
-              	<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button>
-		    </sec:authorize>
+            <div class="row">
+              <div class="col-md-2 reportEntity">올린이</div>
+              <div class="col-md-4 reportInput">${ noticePost.userName }</div>
+              <div class="col-md-2 reportEntity">올린 날짜</div>
+              <div class="col-md-4 reportInput"><fmt:formatDate value="${noticePost.writeDate}" pattern="yyyy-MM-dd HH:mm"/></div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 reportEntity">연락</div>
+              <div class="col-md-4 reportInput">${ noticePost.userEmail }</div>
+              <div class="col-md-2 reportEntity">조회수</div>
+              <div class="col-md-4 reportInput">${ noticePost.views }</div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 reportEntity">내용문</div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 reportInput">
+                <div id="context">${ noticePost.context }</div>
+              </div>
+            </div>
+            <div class="complete" align="right">
+              <a a href="#" onclick="history.go(-1)"><button class="btn btn-info" type="button"><i class="glyphicon glyphicon-arrow-left"> 뒤로가기</i></button></a>
+              &nbsp&nbsp
+              <button class="btn btn-info" type="button" href="#"><i class="glyphicon glyphicon-pencil"> 수정하기</i></button>
+              &nbsp&nbsp
+              <button class="btn btn-info" type="button" href="#"><i class="glyphicon glyphicon-remove"> 삭제하기</i></button>
+            </div>
+            <hr/>
+            <sec:authorize access="not authenticated">
+            	<div class="panel panel-info">
+				  <div class="panel-heading">
+				    <h3 class="panel-title">댓글을 달 권한이 없습니다.</h3>
+				  </div>
+				  <div class="panel-body">
+				    <a href="${R}guest/login">로그인</a> 후 이용해주시길 바랍니다.
+				  </div>
+				</div>
+            </sec:authorize>
             <sec:authorize access="authenticated">
-              <c:if test="${ noticeBBS.writeable eq false }">
-              	<sec:authorize access="hasAnyRole({'ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN'})">
-	              	<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="글쓰기를 이용할 수 있습니다.">
-	              		<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button>
-              	</sec:authorize>
-              	<sec:authorize access="hasAnyRole({'ROLE_MENTO', 'ROLE_MENTI'})">
-	              	<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="글쓰기 권한이 없습니다.">
-	              		<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button>
-              	</sec:authorize>
-              </c:if>
-              <c:if test="${ noticeBBS.writeable eq true }">
-	              <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="글쓰기를 이용할 수 있습니다.">
-	              	<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button>
-              </c:if>
-		    </sec:authorize>
+            	<div class="panel panel-info">
+				  <div class="panel-heading">
+				    <h3 class="panel-title">댓글 추가하기</h3>
+				  </div>
+				  <div class="panel-body">
+				    <form:form method="post" modelAttribute="newComment">
+				    	<form:textarea path="context" class="form-control"/>
+				    	<br/>
+				    	<div class="pull-right">
+				    		<button type="submit" class="btn btn-success">등록</button>
+				    	</div>
+				    </form:form>
+				  </div>
+				</div>
+            </sec:authorize>
+            <c:if test="${ noticeComment.size() ne 0 }">
+            	<hr/>
+            	<h4>Comment</h4>
+            	<c:forEach var="comment" items="${ noticeComment }">
+            		<div class="panel panel-success">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">${ comment.userName }(${comment.userType})&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${comment.uploadTime}" pattern="yyyy-MM-dd HH:mm:ss"/></h3>
+					  </div>
+					  <div class="panel-body">
+					    ${ comment.context }
+					    <sec:authorize access="authenticated">    	
+					    	<div class="pull-right">
+						    	<sec:authentication property="user.id" var="userId"/>
+						    	<c:if test="${userId eq comment.userId }">
+						    		<br/><br/>
+						    		<a href="commentDelete.do?bd=${noticeBBS.id }&id=${noticePost.id}&cmdId=${comment.id}" class="btn btn-danger" data-confirm-delete><i class="glyphicon glyphicon-remove"></i>삭제</a>
+						    	</c:if>
+					    	</div>
+					    </sec:authorize>
+					  </div>
+					</div>
+            	</c:forEach>
+            </c:if>
           </div>
-          <nav aria-label="Page navigation">
-            <ul class="pagination">
-              <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li>
-                <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-
-        </div>
       </div>
-
     </div>
-    <hr/>
+  </div>
+  <hr/>
     <div class="row">
       <div class="col-md-3" align="center">
         <img src="${R}img/skhuniv.jpg"/>

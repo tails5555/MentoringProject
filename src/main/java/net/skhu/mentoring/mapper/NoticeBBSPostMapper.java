@@ -7,4 +7,6 @@ import net.skhu.mentoring.dto.NoticeBBSPost;
 @Mapper
 public interface NoticeBBSPostMapper {
 	List<NoticeBBSPost> findByPartyBBSId(int partyBBSId);
+	NoticeBBSPost findById(int id);
+	void updateView(int id);
 }
