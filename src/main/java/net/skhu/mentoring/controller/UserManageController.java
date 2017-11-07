@@ -16,6 +16,7 @@ import net.skhu.mentoring.dto.Department;
 import net.skhu.mentoring.dto.Student;
 import net.skhu.mentoring.dto.Professor; 
 import net.skhu.mentoring.dto.Employee;
+import net.skhu.mentoring.dto.UserList;
 
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.utils.Encryption;
@@ -39,9 +40,13 @@ public class UserManageController {
 		List<Student> students = studentMapper.findAll();
         model.addAttribute("students", students);
 		List<Professor> professor = professorMapper.findAll();
-        model.addAttribute("professor", professor);
+		 model.addAttribute("professor", professor);
         List<Employee> employee = employeeMapper.findAll();
         model.addAttribute("employee", employee);
+        List<UserList> lists=studentMapper.findList();
+        lists=professorMapper.findList();
+        lists=employeeMapper.findList();
+        model.addAttribute("lists",lists);
         
 		return "userManage/userManage";
 	}

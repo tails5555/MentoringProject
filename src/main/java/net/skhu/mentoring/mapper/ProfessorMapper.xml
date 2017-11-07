@@ -12,7 +12,12 @@
   </select>
   
     <select id="findAll" resultType="Professor">
-     SELECT p.*, d.deptId ,u.password,u.userType, dp.name departmentName
+     SELECT p.*, d.deptId ,u.password,u.userType, dp.name departmentName,p.profId number
+    FROM Professor p LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN user u ON p.userId = u.id LEFT JOIN department dp ON dp.deptId=d.deptId
+  </select>
+  
+     <select id="findList" resultType="UserList">
+    SELECT p.userId, p.profId number, p.name,u.userType, dp.name departmentName
     FROM Professor p LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN user u ON p.userId = u.id LEFT JOIN department dp ON dp.deptId=d.deptId
   </select>
 </mapper>
