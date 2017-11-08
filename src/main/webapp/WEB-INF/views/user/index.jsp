@@ -109,13 +109,8 @@
               <li><a href="report_confirm.html">보고서 확인</a></li>
               <li ><a href="survey_manage.html">설문조사 관리</a></li>
               <li><a href="candidate_boolean.html">멘토, 멘티 신청기간 여부</a></li>
-<<<<<<< HEAD
-              <li><a href="student_manage.html">회원 목록 관리</a></li>
-              <li><a href="#{R}intro/titleList">사업 안내문 수정</a></li>
-=======
               <li><a href="${R}user/list">회원 목록 관리</a></li>
-              <li><a href="intro_update.html">사업 안내문 수정</a></li>
->>>>>>> branch 'master' of https://github.com/tails5555/MentoringProject.git
+              <li><a href="${R}intro/titleList">사업 안내문 수정</a></li>
             </ul>
         </li>
         </sec:authorize>

@@ -30,6 +30,6 @@ public class IntroController {
 	}
 	@RequestMapping(value="user/intro/titleList", method=RequestMethod.GET)
 	public String titleList(Model model) {
-
+		return "intro/list";
 	}
 }
