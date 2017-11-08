@@ -28,8 +28,4 @@ public class IntroController {
         model.addAttribute("schedules", scheduleMapper.findAll());
 		return "intro/intro";
 	}
-	@RequestMapping(value="user/intro/titleList", method=RequestMethod.GET)
-	public String titleList(Model model) {
-
-	}
 }
