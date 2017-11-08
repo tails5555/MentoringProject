@@ -30,6 +30,7 @@ public class IntroController {
 	}
 	@RequestMapping(value="user/intro/titleList", method=RequestMethod.GET)
 	public String titleList(Model model) {
+		model.addAttribute("titles", introTitleMapper.findAll());
 		return "intro/list";
 	}
 }

@@ -237,7 +237,7 @@
     </div>
    </nav>
    <div>
-       <img src="#{R}img/topimage.jpg" class="img-responsive"/>
+       <img src="${R}img/topimage.jpg" class="img-responsive"/>
    </div>
    <div class="container">
 
@@ -251,7 +251,7 @@
             <a href="survey_manage.html" class="list-group-item ">설문조사 관리</a>
             <a href="candidate_boolean.html" class="list-group-item ">멘토, 멘티 신청기간 여부</a>
             <a href="student_manage.html" class="list-group-item ">회원 목록 관리</a>
-            <a href="#{R}titleList" class="list-group-item active">사업 안내문 수정</a>
+            <a href="${R}titleList" class="list-group-item active">사업 안내문 수정</a>
           </div>
         </div>
         <div class="col-md-9">
@@ -270,11 +270,11 @@
 	              </tr>
                 </thead>
                 <tbody class="introValue">
-                  <c:forEach var="title" items="#{titles}">
+                  <c:forEach var="title" items="${titles}">
                   <tr>
-                  	<td>#{title.id}</td>
-                  	<td>#{title.title }</td>
-                  	<td>#{title.adminName }</td>
+                  	<td>${title.id}</td>
+                  	<td>${title.title }</td>
+                  	<td>${title.adminName }</td>
                   </tr>
                   </c:forEach>
                 </tbody>
@@ -298,7 +298,7 @@
   <hr/>
     <div class="row">
       <div class="col-md-3" align="center">
-        <img src="#{R}img/skhuniv.jpg"/>
+        <img src="${R}img/skhuniv.jpg"/>
       </div>
       <div class="col-md-9">
         <p>08359 서울시 구로구 연동로 320 / 지하철 1, 7호선 온수역(성공회대입구역)</p>
