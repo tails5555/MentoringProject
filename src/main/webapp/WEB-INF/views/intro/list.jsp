@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <c:url var="R" value="/" />
 <!DOCTYPE html>
 <html>
@@ -181,29 +182,29 @@
    <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="index.html"><img src="img\title.png"/></a>
+        <a class="navbar-brand" href="${R}user/index"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="index.html">
+        <li><a href="${R}user/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown">참여마당
+        <li class="dropdown ">
+          <a class="dropdown-toggle" data-toggle="dropdown">알립니다
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="notice.html">공지사항</a></li>
-              <li><a href="question.html">건의사항</a></li>
+              <li ><a href="${R}user/notice/list?bd=1">공지사항</a></li>
+              <li><a href="${R}user/notice/list?bd=2">참여마당</a></li>
             </ul>
         </li>
-        <li>
-          <a href="intro.html">멘토링 사업소개</a>
+        <li >
+          <a href="${R}user/intro">멘토링 사업소개</a>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="menti_apli.html">멘티 신청</a></li>
-              <li><a href="mento_apli.html">멘토 신청</a></li>
-              <li><a href="mento_list.html">멘토/멘티 목록</a></li>
+              <li ><a href="menti_apli.html">멘티 신청</a></li>
+              <li><a href="${R}user/mento_apli">멘토 신청</a></li>
+              <li ><a href="mento_list.html">멘토/멘티 목록</a></li>
               <li><a href="mento_board.html">멘토링 게시판</a></li>
               <li><a href="survey.html">설문조사</a></li>
             </ul>
@@ -217,22 +218,25 @@
               <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
             </ul>
         </li>
+        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
         <li class="dropdown active">
           <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="mento_open.html">멘토링 개설/폐쇄</a></li>
               <li><a href="report_confirm.html">보고서 확인</a></li>
-              <li><a href="survey_manage.html">설문조사 관리</a></li>
+              <li ><a href="survey_manage.html">설문조사 관리</a></li>
               <li><a href="candidate_boolean.html">멘토, 멘티 신청기간 여부</a></li>
-              <li><a href="student_manage.html">회원 목록 관리</a></li>
-              <li class="active"><a href="intro_update.html">사업 안내문 수정</a></li>
+              <li><a href="candidate_boolean.html">멘토, 멘티 신청기간 여부</a></li>
+              <li><a href="${R}user/list">회원 목록 관리</a></li>
+              <li class="active"><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
             </ul>
         </li>
+        </sec:authorize>
       </ul>
-	  <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right">
       	<li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
-        <li><a href="logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
+        <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
       </ul>
     </div>
    </nav>
@@ -250,8 +254,8 @@
             <a href="report_confirm.html" class="list-group-item ">보고서 확인</a>
             <a href="survey_manage.html" class="list-group-item ">설문조사 관리</a>
             <a href="candidate_boolean.html" class="list-group-item ">멘토, 멘티 신청기간 여부</a>
-            <a href="student_manage.html" class="list-group-item ">회원 목록 관리</a>
-            <a href="${R}titleList" class="list-group-item active">사업 안내문 수정</a>
+            <a href="${R}user/list" class="list-group-item ">회원 목록 관리</a>
+            <a href="${R}user/intro/titleList" class="list-group-item active">사업 안내문 수정</a>
           </div>
         </div>
         <div class="col-md-9">
@@ -266,15 +270,17 @@
                   <tr>
 	                  <td>번호</td>
 	                  <td>제목</td>
+	                  <td>최종 수정자</td>
 	                  <td>세부 글 확인하기</td>
 	              </tr>
                 </thead>
                 <tbody class="introValue">
                   <c:forEach var="title" items="${titles}">
                   <tr>
-                  	<td>${title.id}</td>
-                  	<td>${title.title }</td>
-                  	<td>${title.adminName }</td>
+                  	<td>${ title.id}</td>
+                  	<td>${ title.title }</td>
+                  	<td>${ title.adminName }</td>
+                  	<td><a href="detailList?id=${title.id}"><button class="btn btn-info"><i class="glyphicon glyphicon-search"></i>세부문 보기</button></a></td>
                   </tr>
                   </c:forEach>
                 </tbody>
@@ -285,14 +291,14 @@
           <hr/>
           <div id="introAdd" class="collapse">
               <h3>제목 추가하기</h3>
-              <input type="text" class="form-control" placeholder="추가 하실 제목을 입력하세요" size="100%"/>
-              <br/>
-              <form align="right">
-                <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#introAdd"><i class="glyphicon glyphicon-plus"> 추가하기</i></button>
-                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#introAdd"><i class="glyphicon glyphicon-remove"> 닫기</i></button>
-              </form>
+              <form:form method="post" modelAttribute="newTitle">
+              	<form:input path="title" class="form-control w300" placeholder="제목을 입력해주세요."/>
+              	<br/>
+              	<button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-plus"> 추가하기</i></button>
+                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#introAdd"><i class="glyphicon glyphicon-remove"> 취소</i></button>
+              </form:form>              
             </div>
-      </div>
+     	</div>
     </div>
   </div>
   <hr/>

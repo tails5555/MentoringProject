@@ -1,23 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <c:url var="R" value="/" />
 <!DOCTYPE html>
 <html>
  <head>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <!-- Custom styles for this template -->
-    <link href="css/clean-blog.min.css" rel="stylesheet">
+    <script src="${R}res/common.js"></script>
     <style>
       .navbar {
         background-color: #ffffff;
@@ -138,108 +134,77 @@
         color: #090909;
         background-color: #a2a39f;
       }
-
-      div.row{
+      .row {
         margin-left : auto;
         margin-right : auto;
       }
 
-      .container { margin-top: 30px;  }
+      .footer { border: 1px padding: 30px 10px; }
+      .footer{ position: absolute; bottom: 0; text-align: center; width: 100% }
+      .footer img { margin-right: 20px;  }
+      .footer div:nth-child(2) { font: normal 9pt 굴림; color: #666;  }
+      .footer div:nth-child(3) { font: normal 9pt arial; color: #aaa; }
 
-      a:hover, a:visited, a:link, a:active {
-        text-decoration: none;
+      .container {
+        margin-top: 30px;
+        margin-left : auto;
+        margin-right : auto;
       }
-
-      .controls {
-        margin-bottom: 10px;
+      .information{
+        padding-top : 10px;
+        padding-bottom : 5px;
+        background-color : #E6E6E6;
+        border : 1px solid #D8D8D8;
+        border-radius : 5px;
+        text-align : left;
       }
-
-      .collapse-group {
-        padding: 10px;
-        border: 1px solid darkgrey;
-        margin-bottom: 10px;
-      }
-
-      .panel-title .trigger:before {
-        content: '\e082';
-        font-family: 'Glyphicons Halflings';
-        vertical-align: text-bottom;
-      }
-
-      .panel-title .trigger.collapsed:before {
-        content: '\e081';
-      }
-      .calendar{
-        border : 1px solid #81F7F3;
-        border-radius : 15px;
-        background-color : #E0F8F7;
-      }
-      .calendarImage{
-        border-radius : 15px;
-        margin-left : 20px;
-        margin-right : 20px;
-        margin-top : 20px;
-        margin-bottom : 20px;
-      }
-      .table{
-        width : 95%;
+      .introEntity{
+        padding-left : 5px;
+        padding-right : 5px;
+        padding-top : 5px;
+        padding-bottom : 5px;
+        border : 1px solid #A4A4A4;
+        background-color : #D8D8D8;
+        font-weight : bold;
         text-align : center;
-        margin-left : 20px;
-        margin-right : 20px;
-        margin-top : 20px;
-        margin-bottom : 20px;
+      }
+      .introValue{
+        padding-left : 5px;
+        padding-right : 5px;
+        padding-top : 5px;
+        padding-bottom : 5px;
+        border : 1px solid #A4A4A4;
+        text-align : center;
       }
    </style>
  </head>
 
  <body>
-  <nav class="navbar navbar-default navbar-fixed-top">
+   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-      <sec:authorize access="not authenticated">
-        <a class="navbar-brand" href="${R}"><img src="${R}img\title.png"/></a>
-      </sec:authorize>
-      <sec:authorize access="authenticated">
-        <a class="navbar-brand" href="index"><img src="${R}img\title.png"/></a>
-      </sec:authorize>
+        <a class="navbar-brand" href="${R}user/index"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-      	<sec:authorize access="not authenticated">
-        <li><a href="${R}">
+        <li><a href="${R}user/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
-      	</sec:authorize>
-        <sec:authorize access="authenticated">
-        <li><a href="index">
-          <i class="glyphicon glyphicon-home"> 홈</i></a></li>
-        </sec:authorize>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">알립니다
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-            <sec:authorize access="not authenticated">
-	        	<li><a href="${R}guest/notice/list?bd=1">공지사항</a></li>
-	        	<li><a href="${R}guest/login">참여마당</a></li>
-	      	</sec:authorize>
-	        <sec:authorize access="authenticated">
-	        	<li><a href="${R}user/notice/list?bd=1">공지사항</a></li>
-	        	<li><a href="${R}user/notice/list?bd=2">참여마당</a></li>
-	        </sec:authorize>
+              <li ><a href="${R}user/notice/list?bd=1">공지사항</a></li>
+              <li><a href="${R}user/notice/list?bd=2">참여마당</a></li>
             </ul>
         </li>
-        <li  class="active">
-          <a href="intro">멘토링 사업소개</a>
+        <li >
+          <a href="${R}user/intro">멘토링 사업소개</a>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li ><a href="menti_apli.html">멘티 신청</a></li>
-              <sec:authorize access="not authenticated">
-		        <li><a href="login">멘토 신청</a></li>
-		      </sec:authorize>
-		      <sec:authorize access="authenticated">
-		        <li><a href="mento_apli">멘토 신청</a></li>
-		      </sec:authorize>
+              <li><a href="${R}user/mento_apli">멘토 신청</a></li>
               <li ><a href="mento_list.html">멘토/멘티 목록</a></li>
               <li><a href="mento_board.html">멘토링 게시판</a></li>
               <li><a href="survey.html">설문조사</a></li>
@@ -254,7 +219,8 @@
               <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
             </ul>
         </li>
-        <li class="dropdown ">
+        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
+        <li class="dropdown active">
           <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -262,110 +228,95 @@
               <li><a href="report_confirm.html">보고서 확인</a></li>
               <li ><a href="survey_manage.html">설문조사 관리</a></li>
               <li><a href="candidate_boolean.html">멘토, 멘티 신청기간 여부</a></li>
-              <li><a href="${R}guest/userManage">회원 목록 관리</a></li>
-              <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
+              <li><a href="${R}user/list">회원 목록 관리</a></li>
+              <li class="active"><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
             </ul>
         </li>
+        </sec:authorize>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-      <sec:authorize access="not authenticated">
-        <li><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
-        <li><a href="${R}guest/create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
-      </sec:authorize>
-      <sec:authorize access="authenticated">
-        <li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
+      	<li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
         <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
-      </sec:authorize>
       </ul>
     </div>
    </nav>
-  <div>
-      <img src="${R}img/topimage.jpg" class="img-responsive"/>
-  </div>
-  <div class="container">
+   <div>
+       <img src="${R}img/topimage.jpg" class="img-responsive"/>
+   </div>
+   <div class="container">
 
       <div class="row">
-        <div class="col-md-12">
-          <h1 class="my-4" style="font-size: 40px; font-weight:700; font-style: italic;"><strong>멘토링 사업소개</strong></h1>
-          <div class="collapse-group">
-            <div class="controls">
-              <button class="btn btn-primary open-button" type="button">
-                <i class="glyphicon glyphicon-fullscreen"> 모두펼치기</i>
-              </button>
-              <button class="btn btn-primary close-button" type="button">
-                <i class="glyphicon glyphicon-resize-small"> 모두접기</i>
-              </button>
-            </div>
-			<c:forEach var="title" items="${titles}">
-	            <div class="panel panel-info">
-	              <div class="panel-heading" role="tab" id="headingOne">
-	                <h4 class="panel-title">
-	                  <a role="button" data-toggle="collapse" href="#list${title.id}" aria-expanded="true" class="trigger collapsed">
-	                    <strong>${title.title}</strong>
-	                  </a>
-	                </h4>
-	              </div>
-	              <div id="list${title.id}" class="panel-collapse collapse" role="tabpanel">
-	                <div class="panel-body">
-	                  <ul>
-	                  	<c:forEach var="detail" items="${title.details}">
-	                    	<li> ${detail.detail}</li>
-	                    </c:forEach>
-	                  </ul>
-	                </div>
-	              </div>
-	            </div>
-			</c:forEach>
+
+        <div class="col-md-3">
+          <h1 class="my-4"><strong>사이트 관리</strong></h1>
+          <div class="list-group">
+            <a href="mento_open.html" class="list-group-item ">멘토링 개설/폐쇄</a>
+            <a href="report_confirm.html" class="list-group-item ">보고서 확인</a>
+            <a href="survey_manage.html" class="list-group-item ">설문조사 관리</a>
+            <a href="candidate_boolean.html" class="list-group-item ">멘토, 멘티 신청기간 여부</a>
+            <a href="${R}user/list" class="list-group-item ">회원 목록 관리</a>
+            <a href="${R}user/intro/titleList" class="list-group-item active">사업 안내문 수정</a>
           </div>
         </div>
-      </div>
-      <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
-	      	<a href="${R}user/intro/titleList"><button class="btn btn-primary"><i class="glyphicon glyphicon-list-alt"></i> 소개문 편집하러 가기</button></a>
-	  </sec:authorize>
-      <hr/>
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="my-4" style="font-size: 40px; font-weight:700; font-style: italic;"><strong>일정 안내</strong></h1>
-        </div>
-      </div>
-      <div class="row calendar">
-        <div class="col-md-4">
-          <img src="${R}img\onenote01.png" class="img-responsive calendarImage" />
-        </div>
-        <div class="col-md-8">
-          <table class="table" align="center">
-          	<c:forEach var="schedule" items="${schedules}">
-	          	<tr>
-	              <td>${ schedule.startDate }</td>
-	              <td>~</td>
-	              <td>${ schedule.endDate }</td>
-	              <td>${ schedule.context }</td>
-	            </tr>
-          	</c:forEach>
-            <tr>
-              <td colspan="4" align="left">
-                <ul>
-                  <li>기본적으로 12회 멘토링을 하는데 누적 24시간 이수해야 합니다.</li>
-                  <li>여건이 안 된다면 횟수는 제한 없이 24시간 이수해도 상관 없습니다.</li>
-                  <li>멘토링 인원은 5명이 기본이지만, 최소 3명부터 최대 10명까지 가능합니다.</li>
-                  <li>멘토링 이수 시간이 24시간 초과되면 우수 멘토링 대상에서 제외되오니 일정 조정을 최대한 맞추시길 바라겠습니다.</li>
-                </ul>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-    <script>
-     $(".open-button").on("click", function() {
-       $(this).closest('.collapse-group').find('.collapse').collapse('show');
-     });
-
-     $(".close-button").on("click", function() {
-       $(this).closest('.collapse-group').find('.collapse').collapse('hide');
-     });
-    </script>
-    <hr/>
+	        <div class="col-md-9">
+	          <h1 class="my-4"><strong>사업 세부문 수정</strong></h1>
+	          <!-- Team Members Row -->
+	          <div class="row">
+	            <div class="col-md-12">
+	              <h2>세부글 확인하기</h2>
+	              <hr/>
+	              <div class="row">
+	                <div class="col-md-3 introEntity">
+	                  	제목
+	                </div>
+	                <div class="col-md-9 introValue">
+	                  	${ title.title }
+	                </div>
+	              </div>
+	                <hr/>
+	                <table class="table table-bordered">
+	                  <thead class="introEntity">
+	                  <tr>
+	                    <td width="50px">번호</td>
+	                    <td>세부 글</td>
+	                    <td>최종 편집자</td>
+	                    <td>편집하기</td>
+	                  </tr>
+	                  </thead>
+	                  <tbody class="introValue">
+	                  <c:forEach var="detail" items="${ details }">
+	                    <tr>
+	                      <td>${ detail.id }</td>
+	                      <td>${ detail.detail }</td>
+	                      <td>${ detail.adminName }</td>
+	                      <td>
+	                        <a href="detailUpdate?id=${ title.id }&dId=${detail.id}"><button class="btn btn-success" type="button"><i class="glyphicon glyphicon-pencil"> 편집/삭제</i></button></a>
+	                      </td>
+	                    </tr>
+	                  </c:forEach>
+	                  </tbody>
+	                </table>
+	                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#titleEdit"><i class="glyphicon glyphicon-pencil"></i> 제목 편집/삭제</button>
+	                <a href="detailCreate?id=${title.id }"><button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"> 세부문 추가</i></button></a>
+	                <a href="titleList"><button class="btn btn-info"><i class="glyphicon glyphicon-align-justify"></i>제목 목록으로</button></a>
+          		</div>
+          	</div>
+          	
+          	<div id="titleEdit" class="collapse">
+          		<hr/>
+	              <h3>제목 편집하기</h3>
+	              <form:form method="post" modelAttribute="title">
+	              	<form:input path="title" class="form-control w300" placeholder="제목을 입력해주세요."/>
+	              	<br/>
+		              	<button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-pencil"></i> 수정하기</i></button>
+		              	<a href="titleDelete.do?id=${ title.id }" class="btn btn-danger" data-confirm-delete><i class="glyphicon glyphicon-trash"></i> 삭제하기</a>
+		                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#titleEdit"><i class="glyphicon glyphicon-remove"> 취소</i></button>
+	              	</form:form>              
+            		</div>
+	    		</div>
+	  		</div>
+	  	  </div>
+  	<hr/>
     <div class="row">
       <div class="col-md-3" align="center">
         <img src="${R}img/skhuniv.jpg"/>

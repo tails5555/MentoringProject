@@ -7,6 +7,9 @@
   <select id="findAll" resultType="IntroTitle">
     select * from IntroTitle
   </select>
+  <select id="findOne" resultType="IntroTitle">
+  	SELECT * FROM IntroTitle WHERE id=#{id}
+  </select>
   <insert id="insert" useGeneratedKeys="true" keyProperty="id">
   	INSERT IntroTitle(title, manageId)
   	values(#{title}, #{manageId})

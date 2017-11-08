@@ -19,7 +19,7 @@
   	<set>
   		<if test="titleId != 0">titleId=#{titleId},</if>
   		<if test="detail != null">detail=#{detail},</if>
-  		<if test="manageId != null">manageId=#{manageId}</if>
+  		<if test="manageId != 0">manageId=#{manageId}</if>
   	</set>
   	WHERE id=#{id}
   </update>
