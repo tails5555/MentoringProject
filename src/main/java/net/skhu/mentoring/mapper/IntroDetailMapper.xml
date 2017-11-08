@@ -7,4 +7,28 @@
   <select id="findAllWithTitle" resultType="IntroDetail">
     select * from IntroDetail Where titleId=#{titleId}
   </select>
+  <select id="findOne" resultType="IntroDetail">
+  	SELECT * FROM IntroDetail WHERE ID=#{id}
+  </select>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+  	INSERT INTO IntroDetail(titleId, detail, manageId)
+  	VALUES(#{titleId}, #{detail}, #{manageId})
+  </insert>
+  <update id="update">
+  	UPDATE IntroDetail
+  	<set>
+  		<if test="titleId != 0">titleId=#{titleId},</if>
+  		<if test="detail != null">detail=#{detail},</if>
+  		<if test="manageId != null">manageId=#{manageId}</if>
+  	</set>
+  	WHERE id=#{id}
+  </update>
+  <delete id="delete">
+  	DELETE FROM IntroDetail
+  	WHERE id=#{id}
+  </delete>
+  <delete id="deleteByTitleId">
+  	DELETE FROM IntroDetail
+  	WHERE titleId=#{titleId}
+  </delete>
 </mapper>
