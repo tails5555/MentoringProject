@@ -43,10 +43,9 @@ public class UserManageController {
 		 model.addAttribute("professor", professor);
         List<Employee> employee = employeeMapper.findAll();
         model.addAttribute("employee", employee);
-        List<UserList> lists=studentMapper.findList();
-        lists=professorMapper.findList();
-        lists=employeeMapper.findList();
-        model.addAttribute("lists",lists);
+        
+        List<User> user =userMapper.findList();
+        model.addAttribute("user", user);
         
 		return "userManage/userManage";
 	}

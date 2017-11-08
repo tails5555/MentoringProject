@@ -277,34 +277,16 @@
           </thead>
         <tbody>
         
-       <c:forEach var="employee" items="${ employee }">
-        <tr data-url="edit.do?id=${ employee.userId }">
-          <td>${ employee.userId }</td>
-          <td>${ employee.empId }</td>
-          <td>${ employee.name }</td>
-          <td>${ employee.departmentName }</td>
-          <td>${ employee.userType }</td>
+  
+         <c:forEach var="user" items="${ user }">
+        <tr data-url="edit.do?id=${ user.id }">
+          <td>${ user.userId }</td>
+          <td>${ user.number }</td>         
+          <td>${ user.userName }</td>
+          <td>${ user.departmentName }</td>
+          <td>${ user.userType }</td>
         </tr>
       </c:forEach>
-          <c:forEach var="professor" items="${ professor }">
-        <tr data-url="edit.do?id=${ professor.userId }">
-          <td>${ professor.userId }</td>
-          <td>${ professor.profId }</td>
-          <td>${ professor.name }</td>
-          <td>${ professor.departmentName }</td>
-          <td>${ professor.userType }</td>
-        </tr>
-      </c:forEach>
-      <c:forEach var="student" items="${ students }">
-        <tr data-url="edit.do?id=${ student.userId }">
-          <td>${ student.userId }</td>
-          <td>${ student.studentNumber }</td>
-          <td>${ student.name }</td>
-          <td>${ student.departmentName }</td>
-          <td>${ student.userType }</td>
-        </tr>
-      </c:forEach>
-     
       
     </tbody>
 

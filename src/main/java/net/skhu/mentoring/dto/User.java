@@ -11,6 +11,8 @@ public class User {
 	String address;
 	String email;
 	String departmentId;
+	String departmentName;
+	String number;
 	int userId;
 
 }
