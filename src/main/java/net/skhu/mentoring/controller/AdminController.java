@@ -27,7 +27,7 @@ import net.skhu.mentoring.mapper.EmployeeMapper;
 
 @RequestMapping("/user")
 @Controller
-public class UserManageController {
+public class AdminController {
 	
 	@Autowired UserMapper userMapper;
 	@Autowired DepartmentMapper departmentMapper;
