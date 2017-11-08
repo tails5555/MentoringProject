@@ -177,17 +177,17 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="index.html"><img src="img\title.png"/></a>
+        <a class="navbar-brand" href="index"><img src="${R}img\title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="index.html">
+        <li><a href="index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">참여마당
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="notice.html">공지사항</a></li>
-              <li><a href="question.html">건의사항</a></li>
+             <li ><a href="${R}user/notice/list?bd=1">공지사항</a></li>
+              <li><a href="${R}user/notice/list?bd=2">참여마당</a></li>
             </ul>
         </li>
         <li>
@@ -227,13 +227,13 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="login.html"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
-        <li><a href="sign.html"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
+	<li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
+        <li><a href="logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
       </ul>
     </div>
   </nav>
    <div>
-        <img src="img/topimage.jpg" class="img-responsive"/>
+        <img src="${R}img/topimage.jpg" class="img-responsive"/>
     </div>
 
     <div class="container">
@@ -275,78 +275,21 @@
               <th>사용자유형</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-            	<td>1</td>
-              <td>201332001</td>
-              <td><a href="student_manage_info.html">강인성</a></td>
-              <td>소프트웨어공학과</td>
-              <td>학생(멘토)</td>
-            </tr>
-            <tr>
-            	<td>2</td>
-              <td>201332028</td>
-              <td>장승훈</td>
-              <td>소프트웨어공학과</td>
-              <td>학생(멘토)</td>
-            </tr>
-            <tr>
-            	<td>3</td>
-              <td>201332031</td>
-              <td>전현우</td>
-              <td>소프트웨어공학과</td>
-              <td>학생(멘토)</td>
-            </tr>
-            <tr>
-            	<td>4</td>
-              <td>201332029</td>
-              <td>장재형</td>
-              <td>소프트웨어공학과</td>
-              <td>학생(멘토)</td>
-            </tr>
-            <tr>
-            	<td>5</td>
-              <td>2010329</td>
-              <td>김회장</td>
-              <td>소프트웨어공학과</td>
-              <td>학생(회장)</td>
-            </tr>
-            <tr>
-            	<td>6</td>
-              <td>2011321</td>
-              <td>이교수</td>
-              <td>소프트웨어공학과</td>
-              <td>교수</td>
-            </tr>
-            <tr>
-            	<td>7</td>
-              <td>2012345</td>
-              <td>고직원</td>
-              <td>이공계열 담당</td>
-              <td>직원</td>
-            </tr>
-            <tr>
-            	<td>8</td>
-              <td>2013346</td>
-              <td>김직원</td>
-              <td>인문계열 담당</td>
-              <td>직원</td>
-            </tr>
-            <tr>
-            	<td>9</td>
-              <td>201501111</td>
-              <td>도끼</td>
-              <td>랩공학과</td>
-              <td>학생(멘티)</td>
-            </tr>
-            <tr>
-            	<td>10</td>
-              <td>201462394</td>
-              <td>빈지노</td>
-              <td>힙합공학과</td>
-              <td>학생(멘티)</td>
-            </tr>
-          </tbody>
+        <tbody>
+        
+  
+         <c:forEach var="user" items="${ user }">
+        <tr data-url="edit.do?id=${ user.id }">
+          <td>${ user.userId }</td>
+          <td>${ user.number }</td>         
+          <td>${ user.userName }</td>
+          <td>${ user.departmentName }</td>
+          <td>${ user.userType }</td>
+        </tr>
+      </c:forEach>
+      
+    </tbody>
+
           </table>
           <div align="center">
             <nav aria-label="Page navigation">
@@ -415,7 +358,7 @@
   <hr/>
   <div class="row">
     <div class="col-md-3" align="center">
-      <img src="img/skhuniv.jpg"/>
+      <img src="${R}img/skhuniv.jpg"/>
     </div>
     <div class="col-md-9">
       <p>08359 서울시 구로구 연동로 320 / 지하철 1, 7호선 온수역(성공회대입구역)</p>

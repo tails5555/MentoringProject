@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import net.skhu.mentoring.dto.IntroDetail;
 import net.skhu.mentoring.dto.IntroTitle;
@@ -26,5 +27,9 @@ public class IntroController {
         model.addAttribute("titles", titles);
         model.addAttribute("schedules", scheduleMapper.findAll());
 		return "intro/intro";
+	}
+	@RequestMapping(value="user/intro/titleList", method=RequestMethod.GET)
+	public String titleList(Model model) {
+
 	}
 }

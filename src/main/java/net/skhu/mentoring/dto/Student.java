@@ -13,4 +13,5 @@ public class Student {
 	int userId;
 	String departmentName;
 	String password;
+	String userType;
 }

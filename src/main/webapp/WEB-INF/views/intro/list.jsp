@@ -259,13 +259,15 @@
           <!-- Team Members Row -->
           <div class="row">
             <div class="col-md-12">
-              <h2>사업문 목록 보기</h2>
+              <h2>제목 리스트 보기</h2>
               <hr/>
               <table class="table table-bordered">
                 <thead class="introEntity">
-                  <td>번호</td>
-                  <td>제목</td>
-                  <td>세부 글 확인하기</td>
+                  <tr>
+	                  <td>번호</td>
+	                  <td>제목</td>
+	                  <td>세부 글 확인하기</td>
+	              </tr>
                 </thead>
                 <tbody class="introValue">
                   <c:forEach var="title" items="#{titles}">
