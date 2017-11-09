@@ -316,7 +316,7 @@
             <div class="row">
               <div class="col-md-12">
               <h2><b>멘토 신청</b></h2>
-              <form:form method="post" modelAttribute="mento">
+              <form:form method="post" modelAttribute="mento" enctype="multipart/form-data">
                 <div class="application">
                     <div class="row">
                       <div class="col-md-2">
@@ -362,7 +362,7 @@
                         <label>팀 광고물</label>
                       </div>
                       <div class="col-md-10">
-                        <input type="file" class="form-control" id="teamAdvertise">
+                        <input type="file" class="form-control" name="advertiseUpload">
                       </div>
                     </div>
                     <br/>
@@ -381,7 +381,7 @@
                         <label>자격 증명 사진</label>
                       </div>
                       <div class="col-md-10">
-                        <input type="file" class="form-control" id="qualificImage">
+                        <input type="file" class="form-control" name="qualificUpload">
                       </div>
                     </div>
                     <br/>

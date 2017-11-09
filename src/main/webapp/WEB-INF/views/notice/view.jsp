@@ -214,7 +214,23 @@
       $('[data-toggle="popover"]').popover();
     });
    </script>
-   <script src="${R}res/common.js"></script>
+   <script>
+   $(function() {
+	   $("[data-confirm-comment-delete]").click(function() {
+	     return confirm("댓글을 삭제합니다. 계속 하시겠습니까?");
+	   })
+	   $("[data-confirm-file-delete]").click(function() {
+	     return confirm("파일을 삭제합니다. 계속 하시겠습니까?");
+	   })
+	   $("[data-confirm-fileAll-delete]").click(function() {
+	     return confirm("파일을 모두 삭제합니다. 계속 하시겠습니까?");
+	   })
+	   $("[data-confirm-post-delete]").click(function() {
+	     return confirm("현재 게시물을 삭제합니다. 계속 하시겠습니까?");
+	   })
+	})
+
+   </script>
  </head>
 
  <body>
@@ -338,6 +354,34 @@
               <div class="col-md-2 reportEntity">조회수</div>
               <div class="col-md-4 reportInput">${ noticePost.views }</div>
             </div>
+            <c:if test="${noticeFile.size() ne 0}">
+	            <div class="row">
+	            	<div class="col-md-12 reportEntity">첨부 파일</div>
+	            </div>
+	            <div class="row">
+	            	<div class="col-md-12 reportInput">
+		            	<table class="table">
+		            		<c:forEach var="file" items="${ noticeFile }">
+		            			<tr>
+		            				<td style="text-align : center;"><i class="glyphicon glyphicon-save-file"></i></td>
+		            				<td style="text-align : center;"><a href="download?id=${file.id}">${ file.fileName }</a></td>
+		            				<td style="text-align : center;"><fmt:formatDate pattern="yy-MM-dd HH:mm" value="${ file.fileTime }"></fmt:formatDate></td>
+		            				<td style="text-align : center;"><fmt:formatNumber pattern="0.00" value="${ file.fileSize/1024/1024 }"/>MB</td>
+		            				<sec:authentication property="user.id" var="userId"/>
+								    <c:if test="${userId eq noticePost.userId }">
+								    	<td style="text-align : center;"><a href="fileDelete?bd=${noticeBBS.id}&id=${noticePost.id}&fId=${file.id}" class="btn btn-danger" data-confirm-file-delete><i class="glyphicon glyphicon-trash"></i> 파일 삭제</a></td>
+								    </c:if>
+		            			</tr>
+		            		</c:forEach>
+		            	</table>
+		            	<sec:authentication property="user.id" var="userId"/>
+	            		<c:if test="${userId eq noticePost.userId }">
+						    	<hr/>
+						    	<a href="fileAllDelete?bd=${noticeBBS.id}&id=${noticePost.id}" class="btn btn-danger" data-confirm-fileAll-delete><i class="glyphicon glyphicon-trash"></i> 모든 파일 삭제</a>
+						</c:if>
+	            	</div>
+	            </div>
+            </c:if>
             <div class="row">
               <div class="col-md-12 reportEntity">내용문</div>
             </div>
@@ -352,9 +396,9 @@
 			    <sec:authentication property="user.id" var="userId"/>
 			    <c:if test="${userId eq noticePost.userId }">
 			    	&nbsp;&nbsp;
-			    	<a href="edit.do?bd=${noticeBBS.id }&id=${noticePost.id}" class="btn btn-info" ><i class="glyphicon glyphicon-pencil"></i> 수정하기</a>
+			    	<a href="edit.do?bd=${noticeBBS.id }&id=${noticePost.id}" class="btn btn-info" ><i class="glyphicon glyphicon-pencil"></i> 수정하기 / ${ noticeFile.size() > 0 ? "파일 추가" : "새로운 파일 추가" }</a>
 			    	&nbsp;&nbsp;
-			    	<button class="btn btn-info" type="button" href="#"><i class="glyphicon glyphicon-remove"> 삭제하기</i></button>
+			    	<a href="postDelete.do?bd=${noticeBBS.id }&id=${noticePost.id}" class="btn btn-info" data-confirm-post-delete><i class="glyphicon glyphicon-remove"></i> 삭제하기</a>
 			    </c:if>
 			  </sec:authorize>
             </div>
@@ -400,7 +444,7 @@
 						    	<sec:authentication property="user.id" var="userId"/>
 						    	<c:if test="${userId eq comment.userId }">
 						    		<br/><br/>
-						    		<a href="commentDelete.do?bd=${noticeBBS.id }&id=${noticePost.id}&cmdId=${comment.id}" class="btn btn-danger" data-confirm-delete><i class="glyphicon glyphicon-remove"></i>삭제</a>
+						    		<a href="commentDelete.do?bd=${noticeBBS.id }&id=${noticePost.id}&cmdId=${comment.id}" class="btn btn-danger" data-confirm-comment-delete><i class="glyphicon glyphicon-remove"></i>삭제</a>
 						    	</c:if>
 					    	</div>
 					    </sec:authorize>

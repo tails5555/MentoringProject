@@ -10,6 +10,9 @@
   <select id="findById" resultType="NoticeBBSPost">
     select * from NoticeBBSPost WHERE id=#{id}
   </select>
+  <select id="findLastPost" resultType="NoticeBBSPost">
+  	SELECT * FROM NoticeBBSPost Order by id desc limit 1
+  </select>
   <update id="updateView">
   	UPDATE NoticeBBSPost
   	SET views=views+1
@@ -27,4 +30,7 @@
   	</set>
   	WHERE id=#{id}
   </update>
+  <delete id="delete">
+  	DELETE FROM NoticeBBSPost WHERE id=#{id}
+  </delete>
 </mapper>

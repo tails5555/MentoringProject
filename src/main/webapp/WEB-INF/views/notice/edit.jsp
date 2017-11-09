@@ -153,7 +153,7 @@
           <div class="row">
             <div class="col-md-12">
                 <div class="application">
-                	<form:form method="post" modelAttribute="newPost">
+                	<form:form method="post" modelAttribute="newPost" enctype="multipart/form-data">
                       <div class="control-group">
                         <div class="form-group floating-label-form-group controls">
                           <label>이름 </label>
@@ -174,16 +174,24 @@
                       </div>
                       <div class="control-group">
                         <div class="form-group floating-label-form-group controls">
-                          <label>첨부파일 </label>
-                          <input type="file" class="form-control" >
-                          <p class="help-block text-danger"></p>
+                          <label><c:if test="${ newPost.id > 0 }">추가할 </c:if>첨부파일 </label>
+                          <input type="file" name="fileUpload" class="form-control" multiple/>
                         </div>
+                        <br/>
+                        <c:if test="${ newPost.id > 0 }">
+                        	<p>현재까지 이 게시물에 올린 파일의 수는 ${ uploadFile.size() }개 올렸습니다.</p>
+                        </c:if>
                       </div>
                     </form:form>
                       <hr/>
                       <div class="search" align="right">
                         <button type="submit" onclick="save()" class="btn btn-default"><i class="glyphicon glyphicon-pencil"> 작성</i></button>
-                        <a href="list?bd=${noticeBBS.id}"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"> 취소</i></button></a>
+                        <c:if test="${ newPost.id > 0 }">
+                        	<a href="view?bd=${noticeBBS.id}&id=${newPost.id}"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-modal-window"> 이전으로</i></button></a>
+                        </c:if>
+                        <c:if test="${ newPost.id eq 0 }">
+                        	<a href="list?bd=${noticeBBS.id}"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-menu-hamburger"> ${noticeBBS.bbsName } 목록으로</i></button></a>
+                        </c:if>
                       </div>
                       <script>
                         $('#summernote').summernote({height : 400});

@@ -110,4 +110,7 @@ public class NoticeBBSService {
 		newPost.setContext(beforePost.getContext());
 		return newPost;
 	}
+	public void deletePost(int postId) {
+		noticeBBSPostMapper.delete(postId);
+	}
 }

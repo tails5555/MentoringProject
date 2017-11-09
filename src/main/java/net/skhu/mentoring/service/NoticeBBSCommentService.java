@@ -82,4 +82,7 @@ public class NoticeBBSCommentService {
 	public void deleteComment(int cmdId) {
 		noticeBBSCommentMapper.deleteComment(cmdId);
 	}
+	public void deleteByPostId(int postId) {
+		noticeBBSCommentMapper.deleteByPostId(postId);
+	}
 }

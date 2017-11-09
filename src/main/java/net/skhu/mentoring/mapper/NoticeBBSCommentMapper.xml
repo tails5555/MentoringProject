@@ -15,4 +15,8 @@
   	DELETE FROM NoticeBBSComment
   	WHERE id=#{id}
   </delete>
+  <delete id="deleteByPostId">
+  	DELETE FROM NoticeBBSComment
+  	WHERE bbsPostId=#{bbsPostId}
+  </delete>
 </mapper>

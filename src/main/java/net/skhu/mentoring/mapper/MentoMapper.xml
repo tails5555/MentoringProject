@@ -7,6 +7,9 @@
   <select id="findOne" resultType="Mento">
     select * from Mento Where id=#{id}
   </select>
+  <select id="findLastMento" resultType="Mento">
+  	SELECT * FROM Mento Order by id desc limit 1
+  </select>
   <select id="findByStudentNumber" resultType="Mento">
   	select m.*, s.name
 	from mento m left join student s

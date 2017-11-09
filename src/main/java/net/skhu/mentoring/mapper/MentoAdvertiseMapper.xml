@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.skhu.mentoring.mapper.MentoAdvertiseMapper">
+  <select id="findOne" resultType="MentoAdvertise">
+  	SELECT * FROM MentoAdvertise WHERE id=#{id}
+  </select>
+  <select id="findByMentoId" resultType="MentoAdvertise">
+  	SELECT * FROM MentoAdvertise WHERE mentoId=#{mentoId}
+  </select>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+  	INSERT INTO MentoAdvertise(fileName, fileSize, fileTime, data, mentoId)
+  	VALUES(#{fileName}, #{fileSize}, #{fileTime}, #{data, javaType=[B, jdbcType=BLOB}, #{mentoId})
+  </insert>
+  <delete id="delete">
+  	DELETE FROM MentoAdvertise WHERE id=#{id}
+  </delete>
+  <delete id="deleteByMentoId">
+  	DELETE FROM MentoAdvertise
+  	WHERE mentoId=#{mentoId}
+  </delete>
+</mapper>
