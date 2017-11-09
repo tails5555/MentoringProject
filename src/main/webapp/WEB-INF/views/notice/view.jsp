@@ -367,18 +367,22 @@
 		            				<td style="text-align : center;"><a href="download?id=${file.id}">${ file.fileName }</a></td>
 		            				<td style="text-align : center;"><fmt:formatDate pattern="yy-MM-dd HH:mm" value="${ file.fileTime }"></fmt:formatDate></td>
 		            				<td style="text-align : center;"><fmt:formatNumber pattern="0.00" value="${ file.fileSize/1024/1024 }"/>MB</td>
-		            				<sec:authentication property="user.id" var="userId"/>
-								    <c:if test="${userId eq noticePost.userId }">
-								    	<td style="text-align : center;"><a href="fileDelete?bd=${noticeBBS.id}&id=${noticePost.id}&fId=${file.id}" class="btn btn-danger" data-confirm-file-delete><i class="glyphicon glyphicon-trash"></i> 파일 삭제</a></td>
-								    </c:if>
+		            				<sec:authorize access="authenticated">
+			            				<sec:authentication property="user.id" var="userId"/>
+									    <c:if test="${userId eq noticePost.userId }">
+									    	<td style="text-align : center;"><a href="fileDelete?bd=${noticeBBS.id}&id=${noticePost.id}&fId=${file.id}" class="btn btn-danger" data-confirm-file-delete><i class="glyphicon glyphicon-trash"></i> 파일 삭제</a></td>
+									    </c:if>
+									</sec:authorize>
 		            			</tr>
 		            		</c:forEach>
 		            	</table>
-		            	<sec:authentication property="user.id" var="userId"/>
-	            		<c:if test="${userId eq noticePost.userId }">
-						    	<hr/>
-						    	<a href="fileAllDelete?bd=${noticeBBS.id}&id=${noticePost.id}" class="btn btn-danger" data-confirm-fileAll-delete><i class="glyphicon glyphicon-trash"></i> 모든 파일 삭제</a>
-						</c:if>
+		            	<sec:authorize access="authenticated">
+			            	<sec:authentication property="user.id" var="userId"/>
+		            		<c:if test="${userId eq noticePost.userId }">
+							    	<hr/>
+							    	<a href="fileAllDelete?bd=${noticeBBS.id}&id=${noticePost.id}" class="btn btn-danger" data-confirm-fileAll-delete><i class="glyphicon glyphicon-trash"></i> 모든 파일 삭제</a>
+							</c:if>
+						</sec:authorize>
 	            	</div>
 	            </div>
             </c:if>
