@@ -20,4 +20,14 @@
     SELECT p.userId, p.profId number, p.name,u.userType, dp.name departmentName
     FROM Professor p LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN user u ON p.userId = u.id LEFT JOIN department dp ON dp.deptId=d.deptId
   </select>
+  
+    <delete id="deleteByUserId">
+    DELETE FROM Professor WHERE userId = #{userId}
+  </delete>
+  
+    <insert id="insert" parameterType="Professor">
+    INSERT Professor (profId,phoneNumber,name, address,email,officeId,officePhone,userId)
+    VALUES (#{profId},#{phoneNumber}, #{name},#{address},#{email}, #{officeId},#{officePhone}, #{userId})
+  </insert>
+  
 </mapper>

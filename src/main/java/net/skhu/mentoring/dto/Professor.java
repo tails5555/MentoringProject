@@ -7,7 +7,7 @@ public class Professor {
 	String name;
 	String email;
 	String address;
-	int officeId;
+	String officeId;
 	String officePhone;
 	int userId;
 	String userType;

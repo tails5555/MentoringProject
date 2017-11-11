@@ -7,7 +7,7 @@ public class Employee {
 	String name;
 	String address;
 	String email;
-	int officeId;
+	String officeId;
 	String officePhone;
 	int userId;
 	String userType;

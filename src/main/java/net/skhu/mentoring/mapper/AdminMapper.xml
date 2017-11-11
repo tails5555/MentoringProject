@@ -12,4 +12,13 @@
 	<select id="findByUserId" resultType="Admin">
   	  SELECT * FROM Admin WHERE userId=#{userId}
   </select>
+    <delete id="deleteByUserId">
+    DELETE FROM Admin WHERE userId = #{userId}
+  </delete>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    INSERT Admin (userId)
+    VALUES (#{userId})
+  </insert>
+  
 </mapper>

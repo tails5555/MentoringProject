@@ -25,5 +25,8 @@
     FROM Student s LEFT JOIN department d ON s.departmentId = d.deptId LEFT JOIN user u ON s.userId = u.id
   </select>
   
-  
+  <delete id="deleteByUserId">
+    DELETE FROM student WHERE userId = #{userId}
+  </delete>
+
 </mapper>

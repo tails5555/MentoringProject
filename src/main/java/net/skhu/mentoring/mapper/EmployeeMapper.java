@@ -12,4 +12,6 @@ public interface EmployeeMapper {
 	Employee findByUserId(int userId);
 	List<Employee> findAll();
 	List<UserList> findList();
+	void deleteByUserId(int userId);
+	void insert(Employee employee);
 }

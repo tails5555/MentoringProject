@@ -17,13 +17,27 @@
   </select>
   
    <select id="findAll" resultType="User">
-  	SELECT *,s.* FROM User u LEFT JOIN student s ON u.id = s.userId 
+  	SELECT u.* FROM User u 
+  </select>
+  
+  
+  <select id="findUserType" resultType="User">
+		SELECT * FROM User GROUP BY userType
   </select>
   
     
+  <select id="findByUserType" resultType="User">
+		SELECT userType FROM User WHERE id=#{id}
+  </select>
+  
   <select id="findListStudent" resultType="User">
    SELECT u.id userId,s.studentNumber number,s.name userName,d.name departmentName,u.userType
-  FROM User u LEFT JOIN student s ON u.id = s.userId LEFT JOIN department d ON s.departmentId = d.deptId
+  FROM User u LEFT JOIN student s ON u.id = s.userId LEFT JOIN department d ON s.departmentId = d.deptId WHERE id=#{id}
+  </select>
+  
+    <select id="findByEmployee" resultType="Employee">
+  SELECT s.studentNumber empId,s.phoneNumber, s.name, s.address ,s.email ,s.departmentId officeId, u.userType , s.userId
+  FROM User u LEFT JOIN student s ON u.id = s.userId LEFT JOIN department d ON s.departmentId = d.deptId WHERE id=#{id}
   </select>
   
   <select id="findListEmployee" resultType="User">
@@ -67,6 +81,8 @@
     
   FROM User u LEFT JOIN professor p ON u.id = p.userId LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN department dp ON dp.deptId=d.deptId
   LEFT JOIN student s ON u.id = s.userId LEFT JOIN employee e ON u.id = e.userId LEFT JOIN department de ON de.deptEmployeeId=e.empId LEFT JOIN department ds ON ds.deptId=s.departmentId 
+  GROUP BY userId
+ 
   </select>
   
   
@@ -78,6 +94,76 @@
     </selectKey>    
   </insert>
 
-	
+	  <select id="findEdit" resultType="User">
+  	  SELECT u.id userId, 
+   CASE
+         WHEN p.profId is NULL and s.studentNumber is NULL
+         THEN e.empId
+         WHEN s.studentNumber is NULL and e.empId is NULL
+         THEN p.profId
+         ELSE s.studentNumber
+       END AS number
+   
+   ,u.userType,
+   CASE
+         WHEN p.name is NULL and s.name is NULL
+         THEN e.name
+         WHEN s.name is NULL and e.name is NULL
+         THEN p.name
+         ELSE s.name
+       END AS userName
+       
+	,   
+    
+    CASE
+         WHEN dp.name is NULL and ds.name is NULL
+         THEN de.name
+         WHEN de.name is NULL and ds.name is NULL
+         THEN dp.name
+         ELSE ds.name
+       END AS departmentName
+    ,
+       CASE
+         WHEN s.email is NULL and e.email is NULL
+         THEN p.email
+         WHEN p.email is NULL and s.email is NULL
+         THEN e.email 
+         ELSE s.email
+       END AS email
+       
+           ,
+       CASE
+         WHEN s.address is NULL and e.address is NULL
+         THEN p.address
+         WHEN p.address is NULL and s.address is NULL
+         THEN e.address 
+         ELSE s.address
+       END AS address
+              ,
+       CASE
+         WHEN s.phoneNumber is NULL and e.phoneNumber is NULL
+         THEN p.phoneNumber
+         WHEN p.phoneNumber is NULL and s.phoneNumber is NULL
+         THEN e.phoneNumber 
+         ELSE s.phoneNumber
+       END AS phoneNumber
+       
+  FROM User u LEFT JOIN professor p ON u.id = p.userId LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN department dp ON dp.deptId=d.deptId
+  LEFT JOIN student s ON u.id = s.userId LEFT JOIN employee e ON u.id = e.userId LEFT JOIN department de ON de.deptEmployeeId=e.empId LEFT JOIN department ds ON ds.deptId=s.departmentId 
+ WHERE id=#{id} GROUP BY userId
+  </select>
+ 
+  <update id="update">
+    UPDATE User SET 
+      userType = #{userType}
+    WHERE id = #{id}
+  </update>
+  
+  
+  
+  <delete id="delete">
+    DELETE FROM User WHERE id = #{id}
+  </delete>
+  
   
 </mapper>
