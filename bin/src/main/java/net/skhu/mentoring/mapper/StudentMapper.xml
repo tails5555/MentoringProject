@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.skhu.mentoring.mapper.StudentMapper">
+
+  <select id="findOne" resultType="Student">
+    select * from Student Where studentNumber=#{studentNumber}
+  </select>
+  <select id="findByUserId" resultType="Student">
+    select * from Student Where userId=#{userId}
+  </select>
+  
+    <select id="findAll" resultType="Student">
+   SELECT s.*, d.name departmentName ,u.id userId ,u.password,u.userType,s.studentNumber number
+    FROM Student s LEFT JOIN department d ON s.departmentId = d.deptId LEFT JOIN user u ON s.userId = u.id
+  </select>
+
+  <insert id="insert" parameterType="Student">
+    INSERT Student (studentNumber,name,address,email,departmentId,userId)
+    VALUES (#{studentNumber}, #{name},#{address},#{email}, #{departmentId},#{userId})
+  </insert>
+      <select id="findList" resultType="UserList">
+   SELECT s.studentNumber number,s.name, d.name departmentName ,u.id userId,u.userType
+    FROM Student s LEFT JOIN department d ON s.departmentId = d.deptId LEFT JOIN user u ON s.userId = u.id
+  </select>
+  
+  
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.skhu.mentoring.mapper.UserMapper">
+
+  <select id="findWithUserType" resultType="User">
+    select * from User Where userType=#{userType}
+  </select>
+  
+  <select id="findOne" resultType="User">
+  	SELECT * FROM User WHERE id=#{id}
+  </select>
+  
+    <select id="findLast" resultType="User">
+  	SELECT LAST_INSERT_ID()
+  </select>
+  
+   <select id="findAll" resultType="User">
+  	SELECT *,s.* FROM User u LEFT JOIN student s ON u.id = s.userId 
+  </select>
+  
+    
+  <select id="findListStudent" resultType="User">
+   SELECT u.id userId,s.studentNumber number,s.name userName,d.name departmentName,u.userType
+  FROM User u LEFT JOIN student s ON u.id = s.userId LEFT JOIN department d ON s.departmentId = d.deptId
+  </select>
+  
+  <select id="findListEmployee" resultType="User">
+   SELECT u.id userId, e.empId number,u.userType, e.name userName,d.name departmentName
+  FROM User u  LEFT JOIN employee e ON u.id = e.userId LEFT JOIN department d ON e.empId=d.deptEmployeeId
+  </select>
+  
+  <select id="findListProfessor" resultType="User">
+   SELECT u.id userId,p.profId number,u.userType,p.name userName,dp.name departmentName
+  FROM User u LEFT JOIN professor p ON u.id = p.userId LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN department dp ON dp.deptId=d.deptId
+  </select>
+  
+    <select id="findList" resultType="User">
+ SELECT u.id userId, 
+   CASE
+         WHEN p.profId is NULL and s.studentNumber is NULL
+         THEN e.empId
+         WHEN s.studentNumber is NULL and e.empId is NULL
+         THEN p.profId
+         ELSE s.studentNumber
+       END AS number
+   
+   ,u.userType,
+   CASE
+         WHEN p.name is NULL and s.name is NULL
+         THEN e.name
+         WHEN s.name is NULL and e.name is NULL
+         THEN p.name
+         ELSE s.name
+       END AS userName
+       
+	,   
+    
+    CASE
+         WHEN dp.name is NULL and ds.name is NULL
+         THEN de.name
+         WHEN de.name is NULL and ds.name is NULL
+         THEN dp.name
+         ELSE ds.name
+       END AS departmentName
+    
+  FROM User u LEFT JOIN professor p ON u.id = p.userId LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN department dp ON dp.deptId=d.deptId
+  LEFT JOIN student s ON u.id = s.userId LEFT JOIN employee e ON u.id = e.userId LEFT JOIN department de ON de.deptEmployeeId=e.empId LEFT JOIN department ds ON ds.deptId=s.departmentId 
+  </select>
+  
+  
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="User">
+    INSERT User (password)
+    VALUES ( #{password})
+     <selectKey resultType="int" keyProperty="userId" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey>    
+  </insert>
+
+	
+  
+</mapper>

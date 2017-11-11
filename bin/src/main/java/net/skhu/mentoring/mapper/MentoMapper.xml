@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.skhu.mentoring.mapper.MentoMapper">
+
+  <select id="findOne" resultType="Mento">
+    select * from Mento Where id=#{id}
+  </select>
+  <select id="findByStudentNumber" resultType="Mento">
+  	select m.*, s.name
+	from mento m left join student s
+	on m.userId=s.userId
+	where s.studentNumber = #{studentNumber}
+	order by applicationDate DESC
+  </select>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+  	INSERT into Mento(teamName,advertiseContext,subject,qualificContext,userId,applicationDate)
+  	values(#{teamName}, #{advertiseContext},#{subject},#{qualificContext},#{userId},#{applicationDate})
+  </insert>
+  
+  <update id="update">
+  	update mento
+  	set teamName=#{teamName},advertiseContext=#{advertiseContext} , subject=#{subject} , qualificContext=#{qualificContext}
+  	where userId=#{userId}
+  </update>
+</mapper>

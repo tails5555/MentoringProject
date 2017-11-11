@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.skhu.mentoring.mapper.IntroDetailMapper">
+
+  <select id="findAllWithTitle" resultType="IntroDetail">
+    select * from IntroDetail Where titleId=#{titleId}
+  </select>
+  <select id="findOne" resultType="IntroDetail">
+  	SELECT * FROM IntroDetail WHERE ID=#{id}
+  </select>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+  	INSERT INTO IntroDetail(titleId, detail, manageId)
+  	VALUES(#{titleId}, #{detail}, #{manageId})
+  </insert>
+  <update id="update">
+  	UPDATE IntroDetail
+  	<set>
+  		<if test="titleId != 0">titleId=#{titleId},</if>
+  		<if test="detail != null">detail=#{detail},</if>
+  		<if test="manageId != 0">manageId=#{manageId}</if>
+  	</set>
+  	WHERE id=#{id}
+  </update>
+  <delete id="delete">
+  	DELETE FROM IntroDetail
+  	WHERE id=#{id}
+  </delete>
+  <delete id="deleteByTitleId">
+  	DELETE FROM IntroDetail
+  	WHERE titleId=#{titleId}
+  </delete>
+</mapper>
