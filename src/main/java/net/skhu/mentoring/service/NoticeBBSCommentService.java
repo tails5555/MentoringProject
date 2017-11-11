@@ -85,4 +85,7 @@ public class NoticeBBSCommentService {
 	public void deleteByPostId(int postId) {
 		noticeBBSCommentMapper.deleteByPostId(postId);
 	}
+	public void deleteByUserId(int userId) {
+		noticeBBSCommentMapper.deleteByUserId(userId);
+	}
 }

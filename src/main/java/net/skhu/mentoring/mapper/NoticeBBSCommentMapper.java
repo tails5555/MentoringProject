@@ -11,4 +11,5 @@ public interface NoticeBBSCommentMapper {
 	void insertComment(NoticeBBSComment noticeBBSComment);
 	void deleteComment(int id);
 	void deleteByPostId(@Param("bbsPostId") int bbsPostId);
+	void deleteByUserId(@Param("userId") int userId);
 }

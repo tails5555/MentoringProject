@@ -43,6 +43,9 @@ public class NoticeBBSService {
 		setUser(result);
 		return result;
 	}
+	public List<NoticeBBSPost> findByUserId(int userId){
+		return noticeBBSPostMapper.findByUserId(userId);
+	}
 	public void setUser(NoticeBBSPost noticeBBSPost) {
 		User writeUser=userMapper.findOne(noticeBBSPost.getUserId());
 		if(writeUser.getUserType().equals("학생회장")) {
@@ -112,5 +115,8 @@ public class NoticeBBSService {
 	}
 	public void deletePost(int postId) {
 		noticeBBSPostMapper.delete(postId);
+	}
+	public void deleteByUserId(int userId) {
+		noticeBBSPostMapper.deleteByUserId(userId);
 	}
 }
