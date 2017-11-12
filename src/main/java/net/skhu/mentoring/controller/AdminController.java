@@ -216,6 +216,40 @@ public class AdminController {
 		return "redirect:schedule";
 	}
 
+	@RequestMapping(value="survey",method=RequestMethod.GET)
+	public String survey(Model model) {
+		Schedule schedule4= scheduleMapper.findById(4);
+		schedule4.setManageName(scheduleService.findManageNameByManageId(schedule4.getId()));
+		
+		model.addAttribute("schedule4", schedule4);
+		return "survey/manage";
+	}
+	
+	@RequestMapping(value="survey",method=RequestMethod.POST)
+	public String survey(Model model,@RequestParam("startDate4") Date startDate4,@RequestParam("endDate4") Date endDate4) {
+		
+		Schedule schedule4=scheduleMapper.findById(4);
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String manageId=authentication.getName();
+		if(studentMapper.findOne(manageId)!=null) {
+			Student student=studentMapper.findOne(manageId);
+			Admin admin=adminMapper.findByUserId(student.getUserId());
+			schedule4.setManageId(admin.getId());
+		}
+		else if(professorMapper.findOne(manageId)!=null) {
+			Professor professor=professorMapper.findOne(manageId);
+			Admin admin=adminMapper.findByUserId(professor.getUserId());
+			schedule4.setManageId(admin.getId());
+		}
+		else if(employeeMapper.findOne(manageId)!=null) {
+			Employee employee=employeeMapper.findOne(manageId);
+			Admin admin=adminMapper.findByUserId(employee.getUserId());
+			schedule4.setManageId(admin.getId());
+		}
+		scheduleMapper.update(startDate4, endDate4, schedule4.getId(), schedule4.getManageId());
+		return "redirect:survey";
+	}
+	
 }
 
 
