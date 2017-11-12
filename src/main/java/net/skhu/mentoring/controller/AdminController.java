@@ -1,39 +1,46 @@
 package net.skhu.mentoring.controller;
 
 
+import java.io.BufferedOutputStream;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import net.skhu.mentoring.dto.Admin;
 import net.skhu.mentoring.dto.Employee;
+import net.skhu.mentoring.dto.Mento;
+import net.skhu.mentoring.dto.MentoAdvertise;
+import net.skhu.mentoring.dto.MentoQualific;
 import net.skhu.mentoring.dto.NoticeBBSPost;
 import net.skhu.mentoring.dto.Professor;
+import net.skhu.mentoring.dto.Schedule;
 import net.skhu.mentoring.dto.Student;
 import net.skhu.mentoring.dto.User;
-import net.skhu.mentoring.dto.Mento;
 import net.skhu.mentoring.mapper.AdminMapper;
 import net.skhu.mentoring.mapper.DepartmentMapper;
 import net.skhu.mentoring.mapper.EmployeeMapper;
+import net.skhu.mentoring.mapper.MentoMapper;
 import net.skhu.mentoring.mapper.ProfessorMapper;
+import net.skhu.mentoring.mapper.ScheduleMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
-import net.skhu.mentoring.mapper.MentoMapper;
+import net.skhu.mentoring.service.MentoAdvertiseService;
+import net.skhu.mentoring.service.MentoQualificService;
 import net.skhu.mentoring.service.NoticeBBSCommentService;
 import net.skhu.mentoring.service.NoticeBBSFileService;
 import net.skhu.mentoring.service.NoticeBBSService;
-import net.skhu.mentoring.dto.Schedule;
-import net.skhu.mentoring.mapper.ScheduleMapper;
 import net.skhu.mentoring.service.ScheduleService;
-
 @RequestMapping("/user")
 @Controller
 public class AdminController {
@@ -50,7 +57,9 @@ public class AdminController {
 	@Autowired ScheduleMapper scheduleMapper;
 	@Autowired ScheduleService scheduleService;
 	@Autowired MentoMapper mentoMapper;
-	
+	@Autowired MentoAdvertiseService mentoAdvertiseService;
+	@Autowired MentoQualificService mentoQualificService;
+
 	@RequestMapping("list")
 	public String index(Model model) {
 		List<Student> students = studentMapper.findAll();
@@ -189,10 +198,10 @@ public class AdminController {
 		model.addAttribute("schedule2", schedule2);
 		return "schedule/candidate_boolean";
 	}
-    
+
 	@RequestMapping(value="schedule",method=RequestMethod.POST)
 	public String schedule(Model model,@RequestParam("startDate1") Date startDate1,@RequestParam("endDate1") Date endDate1,@RequestParam("startDate2") Date startDate2,@RequestParam("endDate2") Date endDate2) {
-		
+
 		Schedule schedule1=scheduleMapper.findById(1);
 		Schedule schedule2=scheduleMapper.findById(2);
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
@@ -224,14 +233,14 @@ public class AdminController {
 	public String survey(Model model) {
 		Schedule schedule4= scheduleMapper.findById(4);
 		schedule4.setManageName(scheduleService.findManageNameByManageId(schedule4.getId()));
-		
+
 		model.addAttribute("schedule4", schedule4);
 		return "survey/manage";
 	}
-	
+
 	@RequestMapping(value="survey",method=RequestMethod.POST)
 	public String survey(Model model,@RequestParam("startDate4") Date startDate4,@RequestParam("endDate4") Date endDate4) {
-		
+
 		Schedule schedule4=scheduleMapper.findById(4);
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String manageId=authentication.getName();
@@ -253,13 +262,45 @@ public class AdminController {
 		scheduleMapper.update(startDate4, endDate4, schedule4.getId(), schedule4.getManageId());
 		return "redirect:survey";
 	}
-	
-	
+
+
 	@RequestMapping(value="mento_open", method=RequestMethod.GET)
 	public String mento_open(Model model) {
 		List<Mento> mentos = mentoMapper.findWithStudent();
 		model.addAttribute("mentos", mentos);
+		for(Mento mento : mentos) {
+			if(mentoAdvertiseService.findByMentoId(mento.getId())!=null) {
+				mento.setAdvFileName(mentoAdvertiseService.findByMentoId(mento.getId()).getFileName());
+				mento.setAdvId(mentoAdvertiseService.findByMentoId(mento.getId()).getId());
+			}
+			if(mentoQualificService.findByMentoId(mento.getId())!=null) {
+				mento.setQuaFileName(mentoQualificService.findByMentoId(mento.getId()).getFileName());
+				mento.setQuaId(mentoQualificService.findByMentoId(mento.getId()).getId());
+			}
+		}
 		return "mentoring/mento_open";
+	}
+	@RequestMapping(value="mento_open/advDownload")
+	public void advDownload(@RequestParam("id") int id, HttpServletResponse response) throws Exception{
+		MentoAdvertise mentoAdvertise=mentoAdvertiseService.findOne(id);
+		if(mentoAdvertise == null) return;
+		String fileName=URLEncoder.encode(mentoAdvertise.getFileName(), "UTF-8");
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition", "attachment;filename="+fileName+";");
+		try(BufferedOutputStream output=new BufferedOutputStream(response.getOutputStream())){
+			output.write(mentoAdvertise.getData());
+		}
+	}
+	@RequestMapping(value="mento_open/quaDownload")
+	public void quaDownload(@RequestParam("id") int id, HttpServletResponse response) throws Exception{
+		MentoQualific mentoQualific=mentoQualificService.findOne(id);
+		if(mentoQualific == null) return;
+		String fileName=URLEncoder.encode(mentoQualific.getFileName(), "UTF-8");
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition", "attachment;filename="+fileName+";");
+		try(BufferedOutputStream output=new BufferedOutputStream(response.getOutputStream())){
+			output.write(mentoQualific.getData());
+		}
 	}
 }
 
