@@ -45,20 +45,25 @@ public class SignController {
 	
     @RequestMapping(value="create", method=RequestMethod.POST)
     public String create(Model model, User user) {
-    	Student student =new Student();
-    	 
-    	student.setStudentNumber(user.getStudentNumber());
-    	student.setName(user.getUserName());
-    	student.setAddress(user.getAddress());
-    	student.setEmail(user.getEmail());
-    	student.setDepartmentId(user.getDepartmentId());
-    	user.setPassword(Encryption.encrypt(user.getPassword(), Encryption.MD5));
-    	userMapper.insert(user);
-    	student.setUserId(user.getUserId());
     	
-        studentMapper.insert(student);
-       
-        return "redirect:login";
+ 
+	    	String phone=user.getPhone1()+"-"+user.getPhone2()+"-"+user.getPhone3();
+	    	System.out.println(phone);
+	    	Student student =new Student();
+	    	
+	    	student.setStudentNumber(user.getStudentNumber());
+	    	student.setName(user.getUserName());
+	    	student.setAddress(user.getAddress());
+	    	student.setEmail(user.getEmail());
+	    	student.setDepartmentId(user.getDepartmentId());
+	    	user.setPassword(Encryption.encrypt(user.getPassword(), Encryption.MD5));
+	    	userMapper.insert(user);
+	    	student.setUserId(user.getUserId());
+	    	student.setPhoneNumber(phone);
+	    	
+	        studentMapper.insert(student);
+	        return "redirect:login";
+  
     }
 
 }
