@@ -19,12 +19,14 @@ import net.skhu.mentoring.dto.NoticeBBSPost;
 import net.skhu.mentoring.dto.Professor;
 import net.skhu.mentoring.dto.Student;
 import net.skhu.mentoring.dto.User;
+import net.skhu.mentoring.dto.Mento;
 import net.skhu.mentoring.mapper.AdminMapper;
 import net.skhu.mentoring.mapper.DepartmentMapper;
 import net.skhu.mentoring.mapper.EmployeeMapper;
 import net.skhu.mentoring.mapper.ProfessorMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
+import net.skhu.mentoring.mapper.MentoMapper;
 import net.skhu.mentoring.service.NoticeBBSCommentService;
 import net.skhu.mentoring.service.NoticeBBSFileService;
 import net.skhu.mentoring.service.NoticeBBSService;
@@ -47,6 +49,8 @@ public class AdminController {
 	@Autowired NoticeBBSCommentService noticeBBSCommentService;
 	@Autowired ScheduleMapper scheduleMapper;
 	@Autowired ScheduleService scheduleService;
+	@Autowired MentoMapper mentoMapper;
+	
 	@RequestMapping("list")
 	public String index(Model model) {
 		List<Student> students = studentMapper.findAll();
@@ -250,6 +254,13 @@ public class AdminController {
 		return "redirect:survey";
 	}
 	
+	
+	@RequestMapping(value="mento_open", method=RequestMethod.GET)
+	public String mento_open(Model model) {
+		List<Mento> mentos = mentoMapper.findWithStudent();
+		model.addAttribute("mentos", mentos);
+		return "mentoring/mento_open";
+	}
 }
 
 

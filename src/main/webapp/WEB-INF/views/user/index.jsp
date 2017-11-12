@@ -105,7 +105,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="mento_open.html">멘토링 개설/폐쇄</a></li>
+              <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
               <li><a href="report_confirm.html">보고서 확인</a></li>
               <li><a href="${R}user/survey">설문조사 관리</a></li>
               <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>

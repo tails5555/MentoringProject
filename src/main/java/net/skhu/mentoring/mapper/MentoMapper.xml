@@ -17,6 +17,11 @@
 	where s.studentNumber = #{studentNumber}
 	order by applicationDate DESC
   </select>
+  <select id="findWithStudent" resultType="Mento">
+  	SELECT m.* , s.* 
+	FROM mento m left join student s
+	on m.userId=s.userId
+  </select>
   
   <insert id="insert" useGeneratedKeys="true" keyProperty="id">
   	INSERT into Mento(teamName,advertiseContext,subject,qualificContext,userId,applicationDate)

@@ -12,4 +12,6 @@ public class Mento {
 	int userId;
 	String name;
 	Date applicationDate;
+	String email;
+	String phoneNumber;
 }

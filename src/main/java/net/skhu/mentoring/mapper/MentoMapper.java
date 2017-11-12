@@ -12,4 +12,5 @@ public interface MentoMapper {
 	Mento findLastMento();
 	void insert(Mento mento);
 	void update(Mento mento);
+	List<Mento> findWithStudent();
 }
