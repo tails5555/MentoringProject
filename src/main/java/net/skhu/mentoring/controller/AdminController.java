@@ -1,6 +1,7 @@
 package net.skhu.mentoring.controller;
 
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import net.skhu.mentoring.dto.Admin;
 import net.skhu.mentoring.dto.Employee;
 import net.skhu.mentoring.dto.NoticeBBSPost;
@@ -25,6 +28,9 @@ import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.service.NoticeBBSCommentService;
 import net.skhu.mentoring.service.NoticeBBSFileService;
 import net.skhu.mentoring.service.NoticeBBSService;
+import net.skhu.mentoring.dto.Schedule;
+import net.skhu.mentoring.mapper.ScheduleMapper;
+import net.skhu.mentoring.service.ScheduleService;
 
 @RequestMapping("/user")
 @Controller
@@ -39,7 +45,8 @@ public class AdminController {
 	@Autowired NoticeBBSService noticeBBSService;
 	@Autowired NoticeBBSFileService noticeBBSFileService;
 	@Autowired NoticeBBSCommentService noticeBBSCommentService;
-
+	@Autowired ScheduleMapper scheduleMapper;
+	@Autowired ScheduleService scheduleService;
 	@RequestMapping("list")
 	public String index(Model model) {
 		List<Student> students = studentMapper.findAll();
@@ -169,6 +176,45 @@ public class AdminController {
         return "redirect:list";
     }
 
+    @RequestMapping(value="schedule",method=RequestMethod.GET)
+	public String schedule(Model model) {
+		Schedule schedule1= scheduleMapper.findById(1);
+		schedule1.setManageName(scheduleService.findManageNameByManageId(schedule1.getId()));
+		Schedule schedule2= scheduleMapper.findById(2);
+		model.addAttribute("schedule1", schedule1);
+		model.addAttribute("schedule2", schedule2);
+		return "schedule/candidate_boolean";
+	}
+    
+	@RequestMapping(value="schedule",method=RequestMethod.POST)
+	public String schedule(Model model,@RequestParam("startDate1") Date startDate1,@RequestParam("endDate1") Date endDate1,@RequestParam("startDate2") Date startDate2,@RequestParam("endDate2") Date endDate2) {
+		
+		Schedule schedule1=scheduleMapper.findById(1);
+		Schedule schedule2=scheduleMapper.findById(2);
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String manageId=authentication.getName();
+		if(studentMapper.findOne(manageId)!=null) {
+			Student student=studentMapper.findOne(manageId);
+			Admin admin=adminMapper.findByUserId(student.getUserId());
+			schedule1.setManageId(admin.getId());
+			schedule2.setManageId(admin.getId());
+		}
+		else if(professorMapper.findOne(manageId)!=null) {
+			Professor professor=professorMapper.findOne(manageId);
+			Admin admin=adminMapper.findByUserId(professor.getUserId());
+			schedule1.setManageId(admin.getId());
+			schedule2.setManageId(admin.getId());
+		}
+		else if(employeeMapper.findOne(manageId)!=null) {
+			Employee employee=employeeMapper.findOne(manageId);
+			Admin admin=adminMapper.findByUserId(employee.getUserId());
+			schedule1.setManageId(admin.getId());
+			schedule2.setManageId(admin.getId());
+		}
+		scheduleMapper.update(startDate1, endDate1, schedule1.getId(), schedule1.getManageId());
+		scheduleMapper.update(startDate2, endDate2, schedule2.getId(), schedule2.getManageId());
+		return "redirect:schedule";
+	}
 
 }
 

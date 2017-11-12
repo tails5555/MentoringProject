@@ -9,4 +9,5 @@ public class Schedule {
 	Date startDate;
 	Date endDate;
 	int manageId;
+	String manageName;
 }

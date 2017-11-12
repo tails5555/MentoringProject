@@ -7,4 +7,15 @@
   <select id="findAll" resultType="Schedule">
     select * from Schedule
   </select>
+  <select id="findById" resultType="Schedule">
+  	select * from Schedule
+  	where id=#{id}
+  </select>
+  <update id="update">
+  	update schedule
+  	set startDate = #{startDate},
+  		endDate= #{endDate},
+  		manageId=#{manageId}
+  	where id =#{id}
+  </update>
 </mapper>
