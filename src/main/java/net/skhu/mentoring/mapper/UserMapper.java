@@ -14,6 +14,7 @@ public interface UserMapper {
 	List<User> findListProfessor();
 	List<User> findList();
 	List<User> findAll();
+	User findByIdList(int id);
 	User findOne(int id);
 	int findLast();
 	void insert(User user);
@@ -22,5 +23,6 @@ public interface UserMapper {
 	void update(User user);
 	void delete(int id);
 	User findByUserType(int id);
+	
 
 }

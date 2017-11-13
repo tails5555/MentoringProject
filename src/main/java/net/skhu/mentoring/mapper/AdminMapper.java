@@ -8,6 +8,8 @@ import net.skhu.mentoring.dto.Admin;
 import net.skhu.mentoring.dto.User;
 @Mapper
 public interface AdminMapper {
+	
+
 	Admin findOne(int id);
 	List<Admin> findAll();
 	Admin findByUserId(@Param("userId") int userId);

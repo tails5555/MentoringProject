@@ -263,18 +263,25 @@
         <div class="col-md-9">
           <h1 class="my-4"><strong>회원 목록 관리</strong></h1>
           <br/>
+          
+          
            <div class="row search">
               <form class="form-inline" align="right">
-                <select class="form-control">
-                  <option>id</option>
-                  <option>학번</option>
-                  <option>학과</option>
-                  <option>사용자유형</option>
-                </select>
-                <input type="text" class="form-control" id="searchKeyword" placeholder="검색어를 입력하세요."/>
-                <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"> 검색하기</i></button>
-              </form>
+	            <select class="form-control" name="order">   
+				<option value="id" ${ param.order == "id" ? "selected" : "" }>id</option> 
+				<option value="학번" ${ param.order == "학번" ? "selected" : "" }>학번</option> 
+				
+				<option value="학과" ${ param.order == "학과" ? "selected" : "" }>학과</option> 
+				<option value="사용자 유형" ${ param.order == "사용자 유형" ? "selected" : "" }>사용자 유형</option>
+			</select>
+          
+          
+                <form type="text" class="form-control" id="searchKeyword" placeholder="검색어를 입력하세요."> 
+                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"> 검색하기</i></button>
+          </form>
+          </form>
           </div>
+          
           <p></p>
 		  <table class="table table-bordered">
           <thead class="userEntity">

@@ -62,16 +62,11 @@ public class AdminController {
 
 	@RequestMapping("list")
 	public String index(Model model) {
-		List<Student> students = studentMapper.findAll();
-        model.addAttribute("students", students);
-		List<Professor> professor = professorMapper.findAll();
-		 model.addAttribute("professor", professor);
-        List<Employee> employee = employeeMapper.findAll();
-        model.addAttribute("employee", employee);
 
+		
         List<User> user =userMapper.findList();
         model.addAttribute("user", user);
-
+		
 		return "userManage/userManage";
 	}
 
