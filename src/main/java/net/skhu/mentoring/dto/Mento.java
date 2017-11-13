@@ -1,7 +1,8 @@
 package net.skhu.mentoring.dto;
 
-import lombok.Data;
 import java.util.Date;
+
+import lombok.Data;
 @Data
 public class Mento {
 	int id;
@@ -14,4 +15,8 @@ public class Mento {
 	Date applicationDate;
 	String email;
 	String phoneNumber;
+	int advId;
+	String advFileName;
+	int quaId;
+	String quaFileName;
 }

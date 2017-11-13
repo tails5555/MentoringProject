@@ -370,7 +370,7 @@
         <a class="navbar-brand" href="index"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="index">
+        <li><a href="index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">알립니다
@@ -404,13 +404,13 @@
             </ul>
         </li>
         <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
-        <li class="dropdown ">
+        <li class="dropdown active">
           <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
               <li><a href="report_confirm.html">보고서 확인</a></li>
-              <li><a href="${R}user/survey">설문조사 관리</a></li>
+              <li class="active"><a href="${R}user/survey">설문조사 관리</a></li>
               <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
               <li><a href="${R}user/list">회원 목록 관리</a></li>
               <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
@@ -444,7 +444,8 @@
         </div>
         <!-- /.col-lg-3 -->
         <div class="col-md-9">
-          
+          <h1 class="my-4"><strong>설문조사 관리</strong></h1>
+          <hr/>
         <form method="post">
         	
                 <label>설문조사 기간 설정 : </label>
@@ -476,7 +477,7 @@
     <hr/>
     <div class="row">
       <div class="col-md-3" align="center">
-        <img src="img/skhuniv.jpg"/>
+        <img src="${R}img/skhuniv.jpg"/>
       </div>
       <div class="col-md-9">
         <p>08359 서울시 구로구 연동로 320 / 지하철 1, 7호선 온수역(성공회대입구역)</p>

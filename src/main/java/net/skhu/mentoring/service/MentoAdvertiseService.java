@@ -2,7 +2,6 @@ package net.skhu.mentoring.service;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +14,11 @@ import net.skhu.mentoring.mapper.MentoAdvertiseMapper;
 @Service
 public class MentoAdvertiseService {
 	@Autowired MentoAdvertiseMapper mentoAdvertiseMapper;
-	public List<MentoAdvertise> findByMentoId(int mentoId){
+	public MentoAdvertise findByMentoId(int mentoId){
 		return mentoAdvertiseMapper.findByMentoId(mentoId);
+	}
+	public MentoAdvertise findOne(int id) {
+		return mentoAdvertiseMapper.findOne(id);
 	}
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void upload(MultipartFile[] uploadFiles, int mentoId) throws IOException{
@@ -35,7 +37,7 @@ public class MentoAdvertiseService {
 	public void delete(int id) throws Exception{
 		mentoAdvertiseMapper.delete(id);
 	}
-	public void deleteByPostId(int mentoId) throws Exception{
+	public void deleteByMentoId(int mentoId) throws Exception{
 		mentoAdvertiseMapper.deleteByMentoId(mentoId);
 	}
 }

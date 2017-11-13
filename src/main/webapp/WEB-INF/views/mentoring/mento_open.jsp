@@ -370,7 +370,7 @@
         <a class="navbar-brand" href="index"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="index">
+        <li><a href="index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">알립니다
@@ -404,11 +404,11 @@
             </ul>
         </li>
         <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
-        <li class="dropdown ">
+        <li class="dropdown active">
           <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="mento_open.html">멘토링 개설/폐쇄</a></li>
+              <li class="active"><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
               <li><a href="report_confirm.html">보고서 확인</a></li>
               <li><a href="${R}user/survey">설문조사 관리</a></li>
               <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
@@ -425,21 +425,21 @@
     </div>
    </nav>
    
-   <div>
+   	<div>
       <img src="${R}img/topimage.jpg" class="img-responsive"/>
-  </div>
+  	</div>
 
-  <div class="container">
+  	<div class="container">
       <div class="row">
         <div class="col-md-3">
           <h1 class="my-4"><strong>사이트 관리</strong></h1>
           <div class="list-group">
-           <a href="mento_open.html" class="list-group-item active ">멘토링 개설/폐쇄</a>
+           <a href="${R}user/mento_open" class="list-group-item active ">멘토링 개설/폐쇄</a>
             <a href="report_confirm.html" class="list-group-item ">보고서 확인</a>
-            <a href="survey_manage.html" class="list-group-item ">설문조사 관리</a>
-            <a href="candidate_boolean.html" class="list-group-item  ">멘토, 멘티 신청기간 여부</a>
-            <a href="student_manage.html" class="list-group-item ">회원 목록 관리</a>
-            <a href="intro_update.html" class="list-group-item ">사업 안내문 수정</a>
+            <a href="${R}user/survey" class="list-group-item ">설문조사 관리</a>
+            <a href="${R}user/schedule" class="list-group-item  ">멘토, 멘티 신청기간 여부</a>
+            <a href="${R}user/list" class="list-group-item ">회원 목록 관리</a>
+            <a href="${R}user/intro/titleList" class="list-group-item ">사업 안내문 수정</a>
           </div>
         </div>
         <!-- /.col-lg-3 -->
@@ -454,7 +454,7 @@
             </c:forEach>  
             </ul>
             <div class="tab-content mentoProfile">
-            	<c:forEach var="mento" items="${mentos}" varStatus="status">
+              <c:forEach var="mento" items="${mentos}" varStatus="status">
               <div role="tabpanel" class="tab-pane fade in <c:if test="${status.index eq 0 }">active</c:if>" id="mentoring${mento.id}">
                 <div class="row">
                   <div class="col-md-4 col-sm-6 text-center mb-4">
@@ -482,6 +482,30 @@
                         <td class="entity">멘토링 자격 증명</td>
                         <td colspan="3" class="context">${mento.qualificContext }</td>
                       </tr>
+                      <c:if test="${mento.advFileName ne null }">
+                      <tr>
+                      	<td colspan="4" class="entity">
+                      		팀 광고 파일
+                      	</td>
+                      </tr>
+                      <tr>
+                      	<td colspan="4" class="context">
+                      		<i class="glyphicon glyphicon-floppy-disk"></i> <a href="${R}user/mento_open/advDownload?id=${mento.advId }">${mento.advFileName }</a>
+                      	</td>
+                      </tr>
+                      </c:if>
+                      <c:if test="${mento.quaFileName ne null }">
+                      <tr>
+                      	<td colspan="4" class="entity">
+                      		자격 증명 파일
+                      	</td>
+                      </tr>
+                      <tr>
+                      	<td colspan="4" class="context">
+                      		<i class="glyphicon glyphicon-floppy-disk"></i> <a href="${R}user/mento_open/quaDownload?id=${mento.quaId }">${mento.quaFileName }</a>
+                      	</td>
+                      </tr>
+                      </c:if>
                       <tr>
                         <td colspan="4" class="entity">
                         	  멘티 목록
@@ -544,31 +568,30 @@
                     </table>
                   </div>
                 </div>
-
-          </div>
-
-		</c:forEach>
-      </div>
-          <br/>
-            <div  align="right" style="margin-right: 10px">
-                <a href="mento_open1.html"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-ok">개설</i></button></a>
-                <a href="#"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove">폐쇄</i></button></a>
-              </div>
-
-              <hr /> <div class="alert alert-success">개설되었습니다.</div>
-
+                <br/>
+            	<div  align="right" style="margin-right: 10px">
+	                <a href="mento_open1.html"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-ok">개설</i></button></a>
+	                <a href="#"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove">폐쇄</i></button></a>
+              	</div>
+              	<hr /> <div class="alert alert-success">개설되었습니다.</div>
+              	</div>
+				</c:forEach>
+	          </div>
+	          
+	      </div>
+          
+		
 
        
           <!-- Introduction Row -->
         </div>
       </div>
     </div>
-  
     <!-- /.container -->
     <hr/>
     <div class="row">
       <div class="col-md-3" align="center">
-        <img src="img/skhuniv.jpg"/>
+        <img src="${R}img/skhuniv.jpg"/>
       </div>
       <div class="col-md-9">
         <p>08359 서울시 구로구 연동로 320 / 지하철 1, 7호선 온수역(성공회대입구역)</p>
