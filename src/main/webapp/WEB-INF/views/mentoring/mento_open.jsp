@@ -570,7 +570,7 @@
                 </div>
                 <br/>
             	<div  align="right" style="margin-right: 10px">
-	                <a href="mento_open1.html"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-ok">개설</i></button></a>
+	                <a href="${R}user/mento_open/insert?id=${mento.id}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-ok">개설</i></button></a>
 	                <a href="#"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove">폐쇄</i></button></a>
               	</div>
               	<hr /> <div class="alert alert-success">개설되었습니다.</div>

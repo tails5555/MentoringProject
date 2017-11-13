@@ -27,11 +27,13 @@ import net.skhu.mentoring.dto.Employee;
 import net.skhu.mentoring.dto.Mento;
 import net.skhu.mentoring.dto.MentoAdvertise;
 import net.skhu.mentoring.dto.MentoQualific;
+import net.skhu.mentoring.dto.MentoringGroup;
 import net.skhu.mentoring.dto.NoticeBBSPost;
 import net.skhu.mentoring.dto.Professor;
 import net.skhu.mentoring.dto.Schedule;
 import net.skhu.mentoring.dto.Student;
 import net.skhu.mentoring.dto.User;
+import net.skhu.mentoring.mapper.MentoringGroupMapper;
 import net.skhu.mentoring.mapper.AdminMapper;
 import net.skhu.mentoring.mapper.DepartmentMapper;
 import net.skhu.mentoring.mapper.EmployeeMapper;
@@ -65,7 +67,8 @@ public class AdminController {
 	@Autowired MentoMapper mentoMapper;
 	@Autowired MentoAdvertiseService mentoAdvertiseService;
 	@Autowired MentoQualificService mentoQualificService;
-
+	@Autowired MentoringGroupMapper mentoringGroupMapper;
+	
 	@RequestMapping("list")
 	public String index(Model model) {
 		List<Student> students = studentMapper.findAll();
@@ -343,6 +346,34 @@ public class AdminController {
     		}
     	}
 		return "redirect:/user/list";
+	}
+	
+	@RequestMapping(value="mento_open/insert")
+	public String  insertMentoringGroup(Model model , @RequestParam("id") int mentoId) {
+		int managerId=0;
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String manageId=authentication.getName();
+		if(studentMapper.findOne(manageId)!=null) {
+			Student student=studentMapper.findOne(manageId);
+			Admin admin=adminMapper.findByUserId(student.getUserId());
+			managerId=admin.getId();
+		}
+		else if(professorMapper.findOne(manageId)!=null) {
+			Professor professor=professorMapper.findOne(manageId);
+			Admin admin=adminMapper.findByUserId(professor.getUserId());
+			managerId=admin.getId();
+		}
+		else if(employeeMapper.findOne(manageId)!=null) {
+			Employee employee=employeeMapper.findOne(manageId);
+			Admin admin=adminMapper.findByUserId(employee.getUserId());
+			managerId=admin.getId();
+		}
+		
+		MentoringGroup mentoringGroup=new MentoringGroup();
+		mentoringGroup.setMentoId(mentoId);
+		mentoringGroup.setAllowManagerId(managerId);
+		mentoringGroupMapper.insert(mentoringGroup);
+		return"redirect:/user/mento_open";
 	}
 }
 
