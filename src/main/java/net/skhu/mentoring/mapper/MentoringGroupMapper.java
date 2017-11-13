@@ -9,4 +9,5 @@ import net.skhu.mentoring.dto.MentoringGroup;
 public interface MentoringGroupMapper {
 	void insert(MentoringGroup mentoringGroup);
 	MentoringGroup findByMentoId(@Param("mentoId") int mentoId);
+	void delete(@Param("mentoId") int mentoId);
 }

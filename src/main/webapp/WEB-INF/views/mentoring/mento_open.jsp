@@ -578,7 +578,7 @@
 				       	<button type="button" class="btn btn-success"><i class="glyphicon glyphicon-ok">이미 승인된 멘토입니다.</i></button>
 				    </c:otherwise>
 				</c:choose>
-	                <a href="#"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove">폐쇄</i></button></a>
+	                <a href="${R}user/mento_open/delete?id=${mento.id}"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove">폐쇄</i></button></a>
               	</div>
               	</div>
 				</c:forEach>

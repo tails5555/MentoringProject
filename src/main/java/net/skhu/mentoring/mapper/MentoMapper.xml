@@ -33,4 +33,9 @@
   	set teamName=#{teamName},advertiseContext=#{advertiseContext} , subject=#{subject} , qualificContext=#{qualificContext}
   	where userId=#{userId}
   </update>
+  
+  <delete id="delete">
+  	delete from mento
+  	where id=#{id}
+  </delete>
 </mapper>

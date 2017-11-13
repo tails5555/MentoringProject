@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +38,9 @@ import net.skhu.mentoring.dto.User;
 import net.skhu.mentoring.mapper.AdminMapper;
 import net.skhu.mentoring.mapper.DepartmentMapper;
 import net.skhu.mentoring.mapper.EmployeeMapper;
+import net.skhu.mentoring.mapper.MentoAdvertiseMapper;
 import net.skhu.mentoring.mapper.MentoMapper;
+import net.skhu.mentoring.mapper.MentoQualificMapper;
 import net.skhu.mentoring.mapper.MentoringGroupMapper;
 import net.skhu.mentoring.mapper.ProfessorMapper;
 import net.skhu.mentoring.mapper.ScheduleMapper;
@@ -65,6 +69,8 @@ public class AdminController {
 	@Autowired ScheduleMapper scheduleMapper;
 	@Autowired ScheduleService scheduleService;
 	@Autowired MentoMapper mentoMapper;
+	@Autowired MentoAdvertiseMapper mentoAdvertiseMapper;
+	@Autowired MentoQualificMapper mentoQualificMapper;
 	@Autowired MentoAdvertiseService mentoAdvertiseService;
 	@Autowired MentoQualificService mentoQualificService;
 	@Autowired MentoringGroupMapper mentoringGroupMapper;
@@ -384,6 +390,21 @@ public class AdminController {
 		mentoringGroup.setAllowManagerId(managerId);
 		mentoringGroupMapper.insert(mentoringGroup);
 
+		return"redirect:/user/mento_open";
+	}
+	@RequestMapping(value="mento_open/delete")
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public String  deleteMentoringGroup(Model model , @RequestParam("id") int mentoId) {
+		Mento mento=mentoMapper.findOne(mentoId);
+		User mentoUser=userMapper.findOne(mento.getUserId());
+		if(!mentoUser.getUserType().equals("학생회장")) {
+			mentoUser.setUserType("멘티");
+			userMapper.update(mentoUser);
+		}
+		mentoQualificMapper.deleteByMentoId(mentoId);
+		mentoAdvertiseMapper.deleteByMentoId(mentoId);
+		mentoringGroupMapper.delete(mentoId);
+		mentoMapper.delete(mentoId);
 		return"redirect:/user/mento_open";
 	}
 }

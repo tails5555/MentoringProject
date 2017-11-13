@@ -15,4 +15,9 @@
   	FROM MentoringGroup
   	WHERE mentoId=#{mentoId}
   </select>
+  
+  <delete id="delete">
+  	delete from MentoringGroup
+  	WHERE mentoId=#{mentoId}
+  </delete>
 </mapper>
