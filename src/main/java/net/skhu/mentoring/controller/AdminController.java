@@ -373,11 +373,17 @@ public class AdminController {
 			Admin admin=adminMapper.findByUserId(employee.getUserId());
 			managerId=admin.getId();
 		}
-
+		Mento mento=mentoMapper.findOne(mentoId);
+		User mentoUser=userMapper.findOne(mento.getUserId());
+		if(!mentoUser.getUserType().equals("학생회장")) {
+			mentoUser.setUserType("멘토");
+			userMapper.update(mentoUser);
+		}
 		MentoringGroup mentoringGroup=new MentoringGroup();
 		mentoringGroup.setMentoId(mentoId);
 		mentoringGroup.setAllowManagerId(managerId);
 		mentoringGroupMapper.insert(mentoringGroup);
+
 		return"redirect:/user/mento_open";
 	}
 }
