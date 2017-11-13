@@ -408,7 +408,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="mento_open.html">멘토링 개설/폐쇄</a></li>
+              <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
               <li><a href="report_confirm.html">보고서 확인</a></li>
               <li><a href="${R}user/survey">설문조사 관리</a></li>
               <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
@@ -434,12 +434,12 @@
         <div class="col-md-3">
           <h1 class="my-4"><strong>사이트 관리</strong></h1>
           <div class="list-group">
-           <a href="mento_open.html" class="list-group-item ">멘토링 개설/폐쇄</a>
+           <a href="${R}user/mento_open" class="list-group-item ">멘토링 개설/폐쇄</a>
             <a href="report_confirm.html" class="list-group-item ">보고서 확인</a>
-            <a href="survey_manage.html" class="list-group-item active ">설문조사 관리</a>
-            <a href="candidate_boolean.html" class="list-group-item  ">멘토, 멘티 신청기간 여부</a>
-            <a href="student_manage.html" class="list-group-item ">회원 목록 관리</a>
-            <a href="intro_update.html" class="list-group-item ">사업 안내문 수정</a>
+            <a href="${R}user/survey" class="list-group-item active ">설문조사 관리</a>
+            <a href="${R}user/schedule" class="list-group-item  ">멘토, 멘티 신청기간 여부</a>
+            <a href="${R}user/list" class="list-group-item ">회원 목록 관리</a>
+            <a href="${R}user/intro/titleList" class="list-group-item ">사업 안내문 수정</a>
           </div>
         </div>
         <!-- /.col-lg-3 -->

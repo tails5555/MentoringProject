@@ -194,14 +194,14 @@
             </ul>
         </li>
         <li>
-          <a href="intro.html">멘토링 사업소개</a>
+            <a href="intro.html">멘토링 사업소개</a>
         </li>
          <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="menti_apli.html">멘티 신청</a></li>
-              <li><a href="mento_apli.html">멘토 신청</a></li>
+            <li><a href="${R}user/mento_apli">멘토 신청</a></li>
               <li><a href="mento_list.html">멘토/멘티 목록</a></li>
               <li><a href="mento_board.html">멘토링 게시판</a></li>
               <li><a href="survey.html">설문조사</a></li>
@@ -220,12 +220,12 @@
           <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="mento_open.html">멘토링 개설/폐쇄</a></li>
-              <li ><a href="report_confirm.html">보고서 확인</a></li>
-              <li><a href="survey_manage.html">설문조사 관리</a></li>
-              <li><a href="candidate_boolean.html">멘토, 멘티 신청기간 여부</a></li>
-              <li class="active"><a href="student_manage.html">회원 목록 관리</a></li>
-              <li><a href="intro_update.html">사업 안내문 수정</a></li>
+               <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
+              <li><a href="report_confirm.html">보고서 확인</a></li>
+              <li><a href="${R}user/survey">설문조사 관리</a></li>
+              <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
+              <li class="active"><a href="${R}user/list">회원 목록 관리</a></li>
+         	 <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
             </ul>
         </li>
       </ul>
@@ -244,12 +244,12 @@
         <div class="col-md-3">
           <h1 class="my-4"><strong>사이트 관리</strong></h1>
           <div class="list-group">
-            <a href="mento_open.html" class="list-group-item ">멘토링 개설/폐쇄</a>
-            <a href="report_confirm.html" class="list-group-item">보고서 확인</a>
-            <a href="survey_manage.html" class="list-group-item ">설문조사 관리</a>
-            <a href="candidate_boolean.html" class="list-group-item ">멘토, 멘티 신청기간 여부</a>
-            <a href="student_manage.html" class="list-group-item active">회원 목록 관리</a>
-            <a href="intro_update.html" class="list-group-item ">사업 안내문 수정</a>
+         <a href="${R}user/mento_open" class="list-group-item ">멘토링 개설/폐쇄</a>
+            <a href="report_confirm.html" class="list-group-item ">보고서 확인</a>
+            <a href="${R}user/survey" class="list-group-item ">설문조사 관리</a>
+            <a href="${R}user/schedule" class="list-group-item  ">멘토, 멘티 신청기간 여부</a>
+            <a href="${R}user/list" class="list-group-item active">회원 목록 관리</a>
+            <a href="${R}user/intro/titleList" class="list-group-item ">사업 안내문 수정</a>
           </div>
         </div>
         <div class="col-md-9">
@@ -319,6 +319,8 @@
                 </li>
               </ul>
             </nav>
+            
+            
             <button type="button" class="btn btn-primary" style="width: 350px; padding:5px" data-toggle="modal" data-target="#myModal">관리자 비밀번호 설정</button>
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
