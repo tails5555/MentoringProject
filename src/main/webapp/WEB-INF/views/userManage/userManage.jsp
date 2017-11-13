@@ -252,10 +252,7 @@
           <h1 class="my-4"><strong>사이트 관리</strong></h1>
           <div class="list-group">
 
-         <a href="${R}user/mento_open" class="list-group-item ">멘토링 개설/폐쇄</a>
-
-           <a href="${R}user/mento_open" class="list-group-item">멘토링 개설/폐쇄</a>
-
+         <a href="${R}user/mento_open" class="list-group-item ">멘토링 개설/폐쇄</a>    
             <a href="report_confirm.html" class="list-group-item ">보고서 확인</a>
             <a href="${R}user/survey" class="list-group-item ">설문조사 관리</a>
             <a href="${R}user/schedule" class="list-group-item  ">멘토, 멘티 신청기간 여부</a>

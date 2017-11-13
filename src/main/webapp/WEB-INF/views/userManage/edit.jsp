@@ -250,7 +250,6 @@
           <h1 class="my-4"><strong>사이트 관리</strong></h1>
           <div class="list-group">
 			<a href="${R}user/mento_open" class="list-group-item ">멘토링 개설/폐쇄</a>
-           <a href="${R}user/mento_open" class="list-group-item">멘토링 개설/폐쇄</a>
             <a href="report_confirm.html" class="list-group-item ">보고서 확인</a>
             <a href="${R}user/survey" class="list-group-item ">설문조사 관리</a>
             <a href="${R}user/schedule" class="list-group-item  ">멘토, 멘티 신청기간 여부</a>
@@ -318,19 +317,33 @@
               <td class="userValue" colspan="2">
                   <c:choose>
        <c:when test="${user.userType == '멘티'}">
-                  <form:select path="userType" class="form-control w200"
-                   itemValue="userType" itemLabel="userType" items="${ userType }" />
-
+             <select class="form-control" name="order">   
+			 
+			<option value="멘토" ${ param.order == "멘토" ? "selected" : "" }>멘토</option> 
+			<option value="학생회장" ${ param.order == "학생회장" ? "selected" : "" }>학생회장</option>
+			<option value="직원" ${ param.order == "직원" ? "selected" : "" }>직원</option> 
+			<option value="교수" ${ param.order == "교수" ? "selected" : "" }>교수</option>
+			</select>
        </c:when>
     
        <c:when test="${user.userType == '멘토'}">
-                  <form:select path="userType" class="form-control w200"
-                   itemValue="userType" itemLabel="userType" items="${ userType }" />
+                  <select class="form-control" name="order">   
+			<option value="멘티" ${ param.order == "멘티" ? "selected" : "" }>멘티</option> 
+	
+			<option value="학생회장" ${ param.order == "학생회장" ? "selected" : "" }>학생회장</option>
+			<option value="직원" ${ param.order == "직원" ? "selected" : "" }>직원</option> 
+			<option value="교수" ${ param.order == "교수" ? "selected" : "" }>교수</option>
+			</select>
        </c:when>
        
   <c:when test="${user.userType == '학생회장'}">
-                  <form:select path="userType" class="form-control w200"
-                   itemValue="userType" itemLabel="userType" items="${ userType }" />
+              <select class="form-control" name="order">   
+			<option value="멘티" ${ param.order == "멘티" ? "selected" : "" }>멘티</option> 
+			<option value="멘토" ${ param.order == "멘토" ? "selected" : "" }>멘토</option> 
+			
+			<option value="직원" ${ param.order == "직원" ? "selected" : "" }>직원</option> 
+			<option value="교수" ${ param.order == "교수" ? "selected" : "" }>교수</option>
+			</select>
        </c:when>
 
        <c:otherwise>

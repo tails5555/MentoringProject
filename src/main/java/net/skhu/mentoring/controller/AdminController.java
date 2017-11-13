@@ -86,8 +86,11 @@ public class AdminController {
     }
 
     @RequestMapping(value="edit", method=RequestMethod.POST)
-    public String edit(Model model, User user) {
+    public String edit(Model model,@RequestParam("order") String userType, User user) {
 
+    	user.setUserType(userType);
+    	
+    	System.out.println(user.getUserType());
     	System.out.println(user.getUserId());
     	Student student = studentMapper.findByUserId(user.getUserId());
     	Admin admin = new Admin();
