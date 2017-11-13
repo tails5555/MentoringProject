@@ -570,10 +570,16 @@
                 </div>
                 <br/>
             	<div  align="right" style="margin-right: 10px">
-	                <a href="${R}user/mento_open/insert?id=${mento.id}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-ok">개설</i></button></a>
+				<c:choose>
+				    <c:when test="${mento.mentoGroupId eq -1 }">
+				        <a href="${R}user/mento_open/insert?id=${mento.id}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-ok">개설</i></button></a>
+				    </c:when>
+				    <c:otherwise>
+				       	<button type="button" class="btn btn-success"><i class="glyphicon glyphicon-ok">이미 승인된 멘토입니다.</i></button>
+				    </c:otherwise>
+				</c:choose>
 	                <a href="#"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove">폐쇄</i></button></a>
               	</div>
-              	<hr /> <div class="alert alert-success">개설되었습니다.</div>
               	</div>
 				</c:forEach>
 	          </div>

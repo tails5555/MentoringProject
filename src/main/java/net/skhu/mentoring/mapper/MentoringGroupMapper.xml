@@ -10,5 +10,9 @@
   	values(#{mentoId}, #{allowManagerId})
   </insert>
   
-
+  <select id="findByMentoId" resultType="MentoringGroup">
+  	SELECT *
+  	FROM MentoringGroup
+  	WHERE mentoId=#{mentoId}
+  </select>
 </mapper>
