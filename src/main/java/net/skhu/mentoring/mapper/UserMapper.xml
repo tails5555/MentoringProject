@@ -12,6 +12,9 @@
   	SELECT * FROM User WHERE id=#{id}
   </select>
   
+  <select id="findLastUser" resultType="User">
+  	SELECT * FROM User Order By id desc Limit 1
+  </select>
     <select id="findLast" resultType="User">
   	SELECT LAST_INSERT_ID()
   </select>

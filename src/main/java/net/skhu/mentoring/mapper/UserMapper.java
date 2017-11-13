@@ -4,8 +4,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import net.skhu.mentoring.dto.User;
-import net.skhu.mentoring.dto.Employee;
-import net.skhu.mentoring.dto.Professor;
 @Mapper
 public interface UserMapper {
 	List<User> findWithPerson();
@@ -16,6 +14,7 @@ public interface UserMapper {
 	List<User> findAll();
 	User findByIdList(int id);
 	User findOne(int id);
+	User findLastUser();
 	int findLast();
 	void insert(User user);
 	User findEdit(int id);

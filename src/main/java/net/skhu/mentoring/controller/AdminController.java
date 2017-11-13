@@ -2,6 +2,9 @@ package net.skhu.mentoring.controller;
 
 
 import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.List;
@@ -16,7 +19,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import au.com.bytecode.opencsv.CSVReader;
 import net.skhu.mentoring.dto.Admin;
 import net.skhu.mentoring.dto.Employee;
 import net.skhu.mentoring.dto.Mento;
@@ -41,6 +46,7 @@ import net.skhu.mentoring.service.NoticeBBSCommentService;
 import net.skhu.mentoring.service.NoticeBBSFileService;
 import net.skhu.mentoring.service.NoticeBBSService;
 import net.skhu.mentoring.service.ScheduleService;
+import net.skhu.mentoring.utils.Encryption;
 @RequestMapping("/user")
 @Controller
 public class AdminController {
@@ -84,7 +90,7 @@ public class AdminController {
     public String edit(Model model,@RequestParam("order") String userType, User user) {
 
     	user.setUserType(userType);
-    	
+
     	System.out.println(user.getUserType());
     	System.out.println(user.getUserId());
     	Student student = studentMapper.findByUserId(user.getUserId());
@@ -299,6 +305,39 @@ public class AdminController {
 		try(BufferedOutputStream output=new BufferedOutputStream(response.getOutputStream())){
 			output.write(mentoQualific.getData());
 		}
+	}
+	@RequestMapping(value="list/primaryUpload")
+	public String primaryUpload(@RequestParam("csvFile") MultipartFile[] uploadFile) throws IOException{
+		for(MultipartFile upload : uploadFile) {
+	    	if(upload.getSize()<=0) continue;
+	    	try {
+	    		InputStream is = upload.getInputStream();
+	    		InputStreamReader isr=new InputStreamReader(is, "EUC-KR");
+	            CSVReader reader = new CSVReader(isr);
+	            List<String[]> list = reader.readAll();
+	            for(int k=1;k<list.size();k++) {
+	            	String[] temp=list.get(k);
+	            	Student student=new Student();
+	            	User user=new User();
+	            	user.setUserType("멘티");
+	            	user.setPassword(Encryption.encrypt(String.format("a%s", temp[1].substring(9, 13)), Encryption.MD5));
+	            	userMapper.insert(user);
+	            	int userId=userMapper.findLastUser().getId();
+	            	student.setStudentNumber(temp[0]);
+	            	student.setPhoneNumber(temp[1]);
+	            	student.setName(temp[2]);
+	            	student.setAddress(temp[3]);
+	            	student.setEmail(temp[4]);
+	            	student.setDepartmentId(temp[5]);
+	            	student.setUserId(userId);
+	            	studentMapper.insert(student);
+	            }
+    		}
+    		catch(Exception e){
+                e.printStackTrace();
+    		}
+    	}
+		return "redirect:/user/list";
 	}
 }
 

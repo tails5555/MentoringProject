@@ -336,35 +336,27 @@
             </nav>
             
             
-            <button type="button" class="btn btn-primary" style="width: 350px; padding:5px" data-toggle="modal" data-target="#myModal">관리자 비밀번호 설정</button>
+            <button type="button" class="btn btn-primary" style="width: 350px; padding:5px" data-toggle="modal" data-target="#myModal">신입생 목록 등록하기</button>
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">관리자 비밀번호 설정</h4>
+                    <h4 class="modal-title" id="myModalLabel">신입생 회원 목록 추가</h4>
                   </div>
                   <div class="modal-body">
-                    <h5>비밀번호는 매달 10일이 되면 메인 관리자가 변경을 해주셔야 합니다.</h5>
-                    <h5>현재 비밀번호는 q1w2e3r4입니다.</h5>
+                    <h5>신입생 회원 목록들만 추가가 가능합니다.</h5>
+                    <h5>비밀번호는 a+휴대폰 뒷번호 4자리로 설정됩니다.</h5>
+                    <h5>CSV 파일을 통해서 삽입이 가능합니다.</h5>
                   </div>
                   <div class="control-group">
                     <div class="form-group floating-label-form-group controls">
-                      <label>비밀번호:  </label>
-                      <input type="password" class="form-control" placeholder="비밀번호" id="password" >
-                      <p class="help-block text-danger"></p>
+                      <form method="post" enctype="multipart/form-data" action="${R}user/list/primaryUpload">
+					  	<input type="file" name="csvFile" multiple/><br/>
+					  	<button type="submit" class="btn btn-primary">등록하기</button>
+					  	<button type="button" class="btn btn-warning" data-dismiss="modal">취소</button>
+					  </form>
                     </div>
-                  </div>
-          		    <div class="control-group">
-                    <div class="form-group floating-label-form-group controls">
-                      <label>비밀번호 확인:  </label>
-                      <input type="password" class="form-control" placeholder="비밀번호" id="password2" >
-                      <p class="help-block text-danger"></p>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">설정</button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">취소</button>
                   </div>
                 </div>
               </div>
