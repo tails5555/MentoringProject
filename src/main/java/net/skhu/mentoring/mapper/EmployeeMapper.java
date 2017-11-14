@@ -14,4 +14,5 @@ public interface EmployeeMapper {
 	List<UserList> findList();
 	void deleteByUserId(int userId);
 	void insert(Employee employee);
+	void update(Employee employee);
 }

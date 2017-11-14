@@ -15,4 +15,5 @@ public interface ProfessorMapper {
 	List<UserList> findList();
 	void deleteByUserId(int userId);
 	void insert(Professor professor);
+	void update(Professor professor);
 }

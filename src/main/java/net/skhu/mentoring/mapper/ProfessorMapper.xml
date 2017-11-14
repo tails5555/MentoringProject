@@ -30,4 +30,15 @@
     VALUES (#{profId},#{phoneNumber}, #{name},#{address},#{email}, #{officeId},#{officePhone}, #{userId})
   </insert>
   
+  <update id="update">
+    UPDATE Professor SET 
+       profId = #{profId}, 
+      name = #{name}, 
+      officeId = #{officeId}, 
+      email = #{email},
+      address =#{address},
+      phoneNumber=#{phoneNumber}
+    WHERE userId = #{userId}
+  </update>
+  
 </mapper>

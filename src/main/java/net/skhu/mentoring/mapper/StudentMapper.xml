@@ -29,4 +29,16 @@
     DELETE FROM student WHERE userId = #{userId}
   </delete>
 
+   <update id="update">
+    UPDATE Student SET 
+      studentNumber = #{studentNumber}, 
+      name = #{name}, 
+      departmentId = #{departmentId}, 
+      email = #{email},
+      address =#{address},
+      phoneNumber=#{phoneNumber}
+    WHERE userId = #{userId}
+  </update>
+
+
 </mapper>

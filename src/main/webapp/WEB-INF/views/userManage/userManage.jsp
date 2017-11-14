@@ -187,7 +187,7 @@
         <li><a href="index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown">참여마당
+          <a class="dropdown-toggle" data-toggle="dropdown">알립니다
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
              <li ><a href="${R}user/notice/list?bd=1">공지사항</a></li>

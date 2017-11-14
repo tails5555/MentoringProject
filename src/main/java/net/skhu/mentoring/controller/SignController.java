@@ -47,7 +47,7 @@ public class SignController {
     public String create(Model model, User user) {
     	
  
-	    	String phone=user.getPhone1()+"-"+user.getPhone2()+"-"+user.getPhone3();
+	    	String phone=user.getPhone1()+""+user.getPhone2()+""+user.getPhone3();
 	    	System.out.println(phone);
 	    	Student student =new Student();
 	    	
