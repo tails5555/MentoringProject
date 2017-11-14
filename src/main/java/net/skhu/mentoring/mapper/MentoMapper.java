@@ -13,4 +13,5 @@ public interface MentoMapper {
 	void insert(Mento mento);
 	void update(Mento mento);
 	List<Mento> findWithStudent();
+	void delete(int id);
 }

@@ -19,4 +19,5 @@ public class Mento {
 	String advFileName;
 	int quaId;
 	String quaFileName;
+	int mentoGroupId;
 }

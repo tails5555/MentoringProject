@@ -360,6 +360,17 @@
     })
 
    </script>
+   <script>
+   $(function() {
+	   $("[data-confirm-apply]").click(function() {
+	     return confirm("멘토링을 승인합니다. 계속 하시겠습니까?");
+	   })
+	   $("[data-confirm-cancel]").click(function() {
+	     return confirm("신청한 멘토의 기록이 사라집니다. 계속 하시겠습니까?");
+	   })
+	})
+
+   </script>
  </head>
 
  <body>
@@ -570,10 +581,16 @@
                 </div>
                 <br/>
             	<div  align="right" style="margin-right: 10px">
-	                <a href="mento_open1.html"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-ok">개설</i></button></a>
-	                <a href="#"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove">폐쇄</i></button></a>
+				<c:choose>
+				    <c:when test="${mento.mentoGroupId eq -1 }">
+				        <a href="${R}user/mento_open/insert?id=${mento.id}"><button type="button" class="btn btn-primary" data-confirm-apply><i class="glyphicon glyphicon-ok">개설</i></button></a>
+				    </c:when>
+				    <c:otherwise>
+				       	<button type="button" class="btn btn-success"><i class="glyphicon glyphicon-ok">이미 승인된 멘토입니다.</i></button>
+				    </c:otherwise>
+				</c:choose>
+	                <a href="${R}user/mento_open/delete?id=${mento.id}"><button type="button" class="btn btn-danger" data-confirm-cancel><i class="glyphicon glyphicon-remove">폐쇄</i></button></a>
               	</div>
-              	<hr /> <div class="alert alert-success">개설되었습니다.</div>
               	</div>
 				</c:forEach>
 	          </div>
