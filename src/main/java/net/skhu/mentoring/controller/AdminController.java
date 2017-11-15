@@ -51,6 +51,7 @@ import net.skhu.mentoring.service.MentoQualificService;
 import net.skhu.mentoring.service.NoticeBBSCommentService;
 import net.skhu.mentoring.service.NoticeBBSFileService;
 import net.skhu.mentoring.service.NoticeBBSService;
+import net.skhu.mentoring.service.ProfileService;
 import net.skhu.mentoring.service.ScheduleService;
 import net.skhu.mentoring.utils.Encryption;
 @RequestMapping("/user")
@@ -74,14 +75,14 @@ public class AdminController {
 	@Autowired MentoAdvertiseService mentoAdvertiseService;
 	@Autowired MentoQualificService mentoQualificService;
 	@Autowired MentoringGroupMapper mentoringGroupMapper;
-
+	@Autowired ProfileService profileService;
 	@RequestMapping("list")
 	public String index(Model model) {
 
-		
+
         List<User> user =userMapper.findList();
         model.addAttribute("user", user);
-		
+
 		return "userManage/userManage";
 	}
 
@@ -295,6 +296,11 @@ public class AdminController {
 			}else {
 				mento.setMentoGroupId(-1);
 			}
+			if(profileService.findByUserId(mento.getUserId())!=null) {
+				mento.setProfileId(profileService.findByUserId(mento.getUserId()).getId());
+			}else mento.setProfileId(-1);
+			String deptName=studentMapper.findByUserId(mento.getUserId()).getDepartmentName();
+			mento.setDepartmentName(deptName);
 		}
 		return "mentoring/mento_open";
 	}

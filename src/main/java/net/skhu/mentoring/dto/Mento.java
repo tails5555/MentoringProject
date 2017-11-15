@@ -12,6 +12,7 @@ public class Mento {
 	String qualificContext;
 	int userId;
 	String name;
+	String departmentName;
 	Date applicationDate;
 	String email;
 	String phoneNumber;
@@ -20,4 +21,5 @@ public class Mento {
 	int quaId;
 	String quaFileName;
 	int mentoGroupId;
+	int profileId;
 }

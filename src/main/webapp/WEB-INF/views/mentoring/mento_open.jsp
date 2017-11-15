@@ -469,9 +469,10 @@
               <div role="tabpanel" class="tab-pane fade in <c:if test="${status.index eq 0 }">active</c:if>" id="mentoring${mento.id}">
                 <div class="row">
                   <div class="col-md-4 col-sm-6 text-center mb-4">
-                    <img class="rounded-circle img-fluid d-block mx-auto" src="http://placehold.it/200x200" alt="">
+                    <img class="rounded-circle img-fluid d-block mx-auto" 
+                    src="<c:choose><c:when test="${mento.profileId ne -1}">${R}user/image/profile/${mento.profileId}</c:when><c:otherwise>${R}img/mento_photo.jpg</c:otherwise></c:choose>" alt="" width="200" height="200">
                     <h3>${mento.name}
-                      <small>소프트웨어 공학과</small>
+                      <small>${mento.departmentName }</small>
                     </h3>
                     <p>${mento.advertiseContext }</p>
                   </div>

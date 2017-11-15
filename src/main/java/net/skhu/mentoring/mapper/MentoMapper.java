@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import net.skhu.mentoring.dto.Mento;
 @Mapper
 public interface MentoMapper {
+	List<Mento> findAll();
 	Mento findOne(int id);
 	List<Mento> findByStudentNumber(String studentNumber);
 	Mento findLastMento();
