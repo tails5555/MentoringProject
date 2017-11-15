@@ -126,13 +126,13 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="User">
     INSERT User (password)
     VALUES ( #{password})
-     <selectKey resultType="int" keyProperty="userId" order="AFTER">
+     <selectKey resultType="int" keyProperty="userId" order="AFTER" >
         SELECT LAST_INSERT_ID()
     </selectKey>    
   </insert>
 
 	  <select id="findEdit" resultType="User">
-  	  SELECT u.id userId, 
+  	  SELECT u.id userId,u.password,
    CASE
          WHEN p.profId is NULL and s.studentNumber is NULL
          THEN e.empId

@@ -13,11 +13,14 @@ import java.util.List;
 import net.skhu.mentoring.dto.User;
 import net.skhu.mentoring.dto.Department;
 import net.skhu.mentoring.dto.Student;
+import net.skhu.mentoring.dto.TimeTable;
 
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.utils.Encryption;
 import net.skhu.mentoring.mapper.DepartmentMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
+import net.skhu.mentoring.mapper.TimeTableMapper;
+
 
 @RequestMapping("/guest")
 @Controller
@@ -26,6 +29,7 @@ public class SignController {
 	@Autowired UserMapper userMapper;
 	@Autowired DepartmentMapper departmentMapper;
 	@Autowired StudentMapper studentMapper;
+	@Autowired TimeTableMapper timetableMapper;
 	
 	
     @RequestMapping(value="create", method=RequestMethod.GET)
@@ -50,6 +54,7 @@ public class SignController {
 	    	String phone=user.getPhone1()+""+user.getPhone2()+""+user.getPhone3();
 	    	System.out.println(phone);
 	    	Student student =new Student();
+	    	TimeTable timetable =new TimeTable();
 	    	
 	    	student.setStudentNumber(user.getStudentNumber());
 	    	student.setName(user.getUserName());
@@ -59,9 +64,14 @@ public class SignController {
 	    	user.setPassword(Encryption.encrypt(user.getPassword(), Encryption.MD5));
 	    	userMapper.insert(user);
 	    	student.setUserId(user.getUserId());
-	    	student.setPhoneNumber(phone);
+	    	student.setPhoneNumber(phone);    	
 	    	
 	        studentMapper.insert(student);
+	        
+	        timetable.setStudentId(student.getStudentNumber());
+	        
+	        timetableMapper.insert(timetable);
+	        
 	        return "redirect:login";
   
     }

@@ -8,4 +8,23 @@
     select * from TimeTable Where studentId=#{studentId}
   </select>
   
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    INSERT Timetable (studentId)   
+    VALUES (#{studentId})
+  </insert>
+  
+  
+  <update id="update">
+    UPDATE Timetable SET 
+     mon1=#{mon1},mon2=#{mon2},mon3=#{mon3},mon4=#{mon4},mon5=#{mon5},mon6=#{mon6},mon7=#{mon7},mon8=#{mon8},
+    tue1=#{tue1},tue2=#{tue2},tue3=#{tue3},tue4=#{tue4},tue5=#{tue5},tue6=#{tue6},tue7=#{tue7},tue8=#{tue8},
+    wed1=#{wed1},wed2=#{wed2},wed3=#{wed3},wed4=#{wed4},wed5=#{wed5},wed6=#{wed6},wed7=#{wed7},wed8=#{wed8},
+    thu1=#{thu1},thu2=#{thu2},thu3=#{thu3},thu4=#{thu4},thu5=#{thu5},thu6=#{thu6},thu7=#{thu7},thu8=#{thu8},
+    fri1=#{fri1},fri2=#{fri2},fri3=#{fri3},fri4=#{fri4},fri5=#{fri5},fri6=#{fri6},fri7=#{fri7},fri8=#{fri8}
+    WHERE studentId = #{studentId}
+  </update>
+  
+ 
+  
 </mapper>

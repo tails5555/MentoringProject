@@ -14,14 +14,17 @@ import net.skhu.mentoring.dto.Employee;
 import net.skhu.mentoring.dto.Professor;
 import net.skhu.mentoring.dto.Student;
 import net.skhu.mentoring.dto.User;
+import net.skhu.mentoring.dto.TimeTable;
 
 import net.skhu.mentoring.mapper.ScheduleMapper;
 import net.skhu.mentoring.service.NoticeBBSService;
+import net.skhu.mentoring.utils.Encryption;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.mapper.DepartmentMapper;
 import net.skhu.mentoring.mapper.EmployeeMapper;
 import net.skhu.mentoring.mapper.ProfessorMapper;
+import net.skhu.mentoring.mapper.TimeTableMapper;
 
 
 @Controller
@@ -33,6 +36,7 @@ public class UserController {
 	@Autowired StudentMapper studentMapper;
 	@Autowired ProfessorMapper professorMapper;
 	@Autowired EmployeeMapper employeeMapper;
+	@Autowired TimeTableMapper timetableMapper;
 	
 	
 	@RequestMapping("user/index")
@@ -50,12 +54,18 @@ public class UserController {
 		if(studentMapper.findOne(userNumber) !=null) {
 			Student student=studentMapper.findOne(userNumber);
 			User my = userMapper.findEdit(student.getUserId());
-			
+			TimeTable timetable = timetableMapper.findOne(userNumber);
 			String s=my.getPhoneNumber();
 			my.setPhone1((String)s.subSequence(0, 3));
 			my.setPhone2((String)s.subSequence(3, 7));
 			my.setPhone3((String)s.subSequence(7, 11));
+			
+			System.out.println(my.getPassword());
+			my.setPassword(Encryption.encrypt(my.getPassword(), Encryption.MD5));
+			
 			model.addAttribute("my", my);
+			model.addAttribute("timetable",timetable);
+			System.out.println(timetable.getMon5());
 		}
 		
 		else if(professorMapper.findOne(userNumber)!=null) {

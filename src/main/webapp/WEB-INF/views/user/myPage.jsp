@@ -5,40 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:url var="R" value="/" />
 
-
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script>
- $(function(){
-  $('#password1').keyup(function(){
-   $('font[name=check]').text('');
-  }); //#user_pass.keyup
-
-  $('#password2').keyup(function(){
-   if($('#password1').val()!=$('#password2').val()){
-    $('font[name=check]').text('');
-    $('font[name=check]').html("암호틀림");
-   }else{
-    $('font[name=check]').text('');
-    $('font[name=check]').html("암호맞음");
-   }
-  }); //#chpass.keyup
- });
-</script>
-
-<script type="text/javascript">
- window.onload=function(){
-	 
-  document.getElementById('my-form').onsubmit=function(){
-
-	  if($('#password1').val()!=$('#password2').val()){
-		  alert('다시입력');
-		     return false; 
-   }
-   
-  }
- }
-</script>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,6 +15,47 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="${R}res/common.js"></script>
+  
+  
+  <script type="text/javascript">
+
+	$(document).ready(function() {
+		
+		 $('input:checkbox[name="monCheck"]').each(function() {
+		     if(this.value == "true"){ //값 비교
+		            this.checked = true; //checked 처리
+		      }
+		 });
+
+		 $('input:checkbox[name="tueCheck"]').each(function() {
+		     if(this.value == "true"){ //값 비교
+		            this.checked = true; //checked 처리
+		      }
+		 });
+		 $('input:checkbox[name="wedCheck"]').each(function() {
+		     if(this.value == "true"){ //값 비교
+		            this.checked = true; //checked 처리
+		      }
+		 });
+		 $('input:checkbox[name="thuCheck"]').each(function() {
+		     if(this.value == "true"){ //값 비교
+		            this.checked = true; //checked 처리
+		      }
+		 });
+		 $('input:checkbox[name="friCheck"]').each(function() {
+		     if(this.value == "true"){ //값 비교
+		            this.checked = true; //checked 처리
+		      }
+		 });
+
+		 
+		 
+	});
+	
+
+
+</script>
+
   <link rel="stylesheet" href="${R}res/common.css">
 
 	 <style>
@@ -443,6 +450,8 @@
                       </div>
                     </div>
 
+
+  <sec:authorize access="hasAnyRole('ROLE_MENTI', 'ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
 <form class="form-inline">
                     <div class="row">
                       <div class="col-md-12">
@@ -457,56 +466,56 @@
                             <div class="col-md-2 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="monCheck" /> 9:00~10:30
+                                  <input type="checkbox" name="monCheck" value="${timetable.mon1}" /> 9:00~10:30
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-2 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="monCheck" /> 10:30~12:00
+                                  <input type="checkbox" name="monCheck" value="${timetable.mon2}"/> 10:30~12:00
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-1 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="monCheck" /> ~13:00
+                                  <input type="checkbox" name="monCheck" value="${timetable.mon3}"/> ~13:00
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-1 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="monCheck" /> ~14:00
+                                  <input type="checkbox" name="monCheck" value="${timetable.mon4}"/> ~14:00
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-1 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="monCheck" /> ~15:00
+                                  <input type="checkbox" name="monCheck" value="${timetable.mon5}"/> ~15:00
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-2 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="monCheck" /> 15:00~16:30
+                                  <input type="checkbox" name="monCheck" value="${timetable.mon6}"/> 15:00~16:30
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-2 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="monCheck" /> 16:30~18:00
+                                  <input type="checkbox" name="monCheck" value="${timetable.mon7}" /> 16:30~18:00
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-1 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="monCheck" /> 18:00~
+                                  <input type="checkbox" name="monCheck" value="${timetable.mon8}" /> 18:00~
                                 </label>
                               </div>
                             </div>
@@ -535,56 +544,56 @@
                             <div class="col-md-2 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="tueCheck" /> 9:00~10:30
+                                  <input type="checkbox" name="tueCheck" value="${timetable.tue1}"/> 9:00~10:30
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-2 impossible">
                               <div class="checkbox" >
                                 <label>
-                                  <input type="checkbox" name="tueCheck" /> 10:30~12:00
+                                  <input type="checkbox" name="tueCheck" value="${timetable.tue2}"/> 10:30~12:00
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-1 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="tueCheck" /> ~13:00
+                                  <input type="checkbox" name="tueCheck" value="${timetable.tue3}"/> ~13:00
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-1 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="tueCheck" /> ~14:00
+                                  <input type="checkbox" name="tueCheck" value="${timetable.tue4}" /> ~14:00
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-1 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="tueCheck" /> ~15:00
+                                  <input type="checkbox" name="tueCheck" value="${timetable.tue5}" /> ~15:00
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-2 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="tueCheck" /> 15:00~16:30
+                                  <input type="checkbox" name="tueCheck" value="${timetable.tue6}" /> 15:00~16:30
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-2 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="tueCheck" /> 16:30~18:00
+                                  <input type="checkbox" name="tueCheck" value="${timetable.tue7}" /> 16:30~18:00
                                 </label>
                               </div>
                             </div>
                             <div class="col-md-1 impossible">
                               <div class="checkbox">
                                 <label>
-                                  <input type="checkbox" name="tueCheck" /> 18:00~
+                                  <input type="checkbox" name="tueCheck" value="${timetable.tue8}"/> 18:00~
                                 </label>
                               </div>
                             </div>
@@ -614,56 +623,56 @@
                               <div class="col-md-2 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="wedCheck" /> 9:00~10:30
+                                    <input type="checkbox" name="wedCheck" value="${timetable.wed1}" /> 9:00~10:30
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-2 impossible">
                                 <div class="checkbox" >
                                   <label>
-                                    <input type="checkbox" name="wedCheck" /> 10:30~12:00
+                                    <input type="checkbox" name="wedCheck" value="${timetable.wed2}"/> 10:30~12:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-1 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="wedCheck" /> ~13:00
+                                    <input type="checkbox" name="wedCheck" value="${timetable.wed3}"/> ~13:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-1 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="wedCheck" /> ~14:00
+                                    <input type="checkbox" name="wedCheck" value="${timetable.wed4}" /> ~14:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-1 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="wedCheck" /> ~15:00
+                                    <input type="checkbox" name="wedCheck" value="${timetable.wed5}"/> ~15:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-2 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="wedCheck" /> 15:00~16:30
+                                    <input type="checkbox" name="wedCheck" value="${timetable.wed6}"/> 15:00~16:30
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-2 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="wedCheck" /> 16:30~18:00
+                                    <input type="checkbox" name="wedCheck" value="${timetable.wed7}"/> 16:30~18:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-1 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="wedCheck" /> 18:00~
+                                    <input type="checkbox" name="wedCheck" value="${timetable.wed8}" /> 18:00~
                                   </label>
                                 </div>
                               </div>
@@ -693,56 +702,56 @@
                               <div class="col-md-2 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="thuCheck" /> 9:00~10:30
+                                    <input type="checkbox" name="thuCheck" value="${timetable.thu1}" /> 9:00~10:30
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-2 impossible">
                                 <div class="checkbox" >
                                   <label>
-                                    <input type="checkbox" name="thuCheck" /> 10:30~12:00
+                                    <input type="checkbox" name="thuCheck" value="${timetable.thu2}"/> 10:30~12:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-1 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="thuCheck" /> ~13:00
+                                    <input type="checkbox" name="thuCheck" value="${timetable.thu3}"/> ~13:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-1 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="thuCheck" /> ~14:00
+                                    <input type="checkbox" name="thuCheck" value="${timetable.thu4}" /> ~14:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-1 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="thuCheck" /> ~15:00
+                                    <input type="checkbox" name="thuCheck" value="${timetable.thu5}"/> ~15:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-2 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="thuCheck" /> 15:00~16:30
+                                    <input type="checkbox" name="thuCheck" value="${timetable.thu6}"/> 15:00~16:30
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-2 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="thuCheck" /> 16:30~18:00
+                                    <input type="checkbox" name="thuCheck" value="${timetable.thu7}"/> 16:30~18:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-1 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="thuCheck" /> 18:00~
+                                    <input type="checkbox" name="thuCheck" value="${timetable.thu8}" /> 18:00~
                                   </label>
                                 </div>
                               </div>
@@ -772,56 +781,56 @@
                               <div class="col-md-2 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="friCheck" /> 9:00~10:30
+                                    <input type="checkbox" name="friCheck"value="${timetable.fri1}" /> 9:00~10:30
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-2 impossible">
                                 <div class="checkbox" >
                                   <label>
-                                    <input type="checkbox" name="friCheck" /> 10:30~12:00
+                                    <input type="checkbox" name="friCheck"value="${timetable.fri2}" /> 10:30~12:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-1 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="friCheck" /> ~13:00
+                                    <input type="checkbox" name="friCheck"value="${timetable.fri3}" /> ~13:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-1 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="friCheck" /> ~14:00
+                                    <input type="checkbox" name="friCheck"value="${timetable.fri4}" /> ~14:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-1 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="friCheck" /> ~15:00
+                                    <input type="checkbox" name="friCheck"value="${timetable.fri5}" /> ~15:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-2 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="friCheck" /> 15:00~16:30
+                                    <input type="checkbox" name="friCheck"value="${timetable.fri6}" /> 15:00~16:30
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-2 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="friCheck" /> 16:30~18:00
+                                    <input type="checkbox" name="friCheck"value="${timetable.fri7}" /> 16:30~18:00
                                   </label>
                                 </div>
                               </div>
                               <div class="col-md-1 impossible">
                                 <div class="checkbox">
                                   <label>
-                                    <input type="checkbox" name="friCheck" /> 18:00~
+                                    <input type="checkbox" name="friCheck"value="${timetable.fri8}" /> 18:00~
                                   </label>
                                 </div>
                               </div>
@@ -843,22 +852,12 @@
                         </div>
                       </div>
                     </form>
-
+ </sec:authorize>
        <hr>
-
-		<div class="control-group">
-              <div class="form-group floating-label-form-group controls">
-                <label>비밀번호:  </label>
-                <input type="password" class="form-control"  id="password" >
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-
-
 
 
       <div style="margin-top: 40px">
-        <p><h3>비밀번호를 입력하시고 밑에 저장 버튼을 눌러 주세요.</h3></p>
+        <p><h3>수정이 끝났으면 저장 버튼을 눌러 주세요.</h3></p>
 
       <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"> 저장</i></button>
       <a href="${R}user/index"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-remove"> 취소</i></button></a>
