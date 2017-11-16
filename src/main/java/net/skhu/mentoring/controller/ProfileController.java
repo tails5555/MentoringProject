@@ -18,7 +18,7 @@ import net.skhu.mentoring.service.ProfileService;
 @Controller
 public class ProfileController {
 	@Autowired ProfileService profileService;
-	@RequestMapping("user/image/profile/{id}")
+	@RequestMapping({"user/image/profile/{id}", "guest/image/profile/{id}"})
 	public void profileView(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) throws IOException{
 		res.setContentType("image/jpeg");
 		Profile profile=profileService.findOne(id);

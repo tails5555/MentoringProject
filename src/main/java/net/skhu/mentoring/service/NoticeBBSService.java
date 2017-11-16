@@ -10,20 +10,25 @@ import net.skhu.mentoring.dto.Employee;
 import net.skhu.mentoring.dto.NoticeBBS;
 import net.skhu.mentoring.dto.NoticeBBSPost;
 import net.skhu.mentoring.dto.Professor;
+import net.skhu.mentoring.dto.Profile;
 import net.skhu.mentoring.dto.Student;
 import net.skhu.mentoring.dto.User;
 import net.skhu.mentoring.mapper.EmployeeMapper;
+import net.skhu.mentoring.mapper.NoticeBBSCommentMapper;
 import net.skhu.mentoring.mapper.NoticeBBSMapper;
 import net.skhu.mentoring.mapper.NoticeBBSPostMapper;
 import net.skhu.mentoring.mapper.ProfessorMapper;
+import net.skhu.mentoring.mapper.ProfileMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.model.NoticeBBSPostModel;
 @Service
 public class NoticeBBSService {
 	@Autowired NoticeBBSPostMapper noticeBBSPostMapper;
+	@Autowired NoticeBBSCommentMapper noticeBBSCommentMapper;
 	@Autowired NoticeBBSMapper noticeBBSMapper;
 	@Autowired UserMapper userMapper;
+	@Autowired ProfileMapper profileMapper;
 	@Autowired ProfessorMapper professorMapper;
 	@Autowired EmployeeMapper employeeMapper;
 	@Autowired StudentMapper studentMapper;
@@ -31,6 +36,7 @@ public class NoticeBBSService {
 		List<NoticeBBSPost> notices=noticeBBSPostMapper.findByPartyBBSId(id);
 		for(NoticeBBSPost list : notices) {
 			setUser(list);
+			list.setCommentCount(noticeBBSCommentMapper.countByBBSPostId(list.getId()));
 		}
 		return notices;
 	}
@@ -48,6 +54,9 @@ public class NoticeBBSService {
 	}
 	public void setUser(NoticeBBSPost noticeBBSPost) {
 		User writeUser=userMapper.findOne(noticeBBSPost.getUserId());
+		Profile profile=profileMapper.findByUserId(writeUser.getId());
+		if(profile!=null) noticeBBSPost.setProfileId(profile.getId());
+		else noticeBBSPost.setProfileId(-1);
 		if(writeUser.getUserType().equals("학생회장")) {
 			Student student=studentMapper.findByUserId(writeUser.getId());
 			noticeBBSPost.setUserName(student.getName());

@@ -137,7 +137,6 @@
         margin-left : auto;
         margin-right : auto;
       }
-
       .footer { border: 1px padding: 30px 10px; }
       .footer{ position: absolute; bottom: 0; text-align: center; width: 100% }
       .footer img { margin-right: 20px;  }
@@ -342,22 +341,33 @@
           <!-- Team Members Row -->
           <div class="row">
             <h1 class="my-4"><strong>${noticeBBS.bbsName}</strong></h1><h3><b>게시물 확인</b></h3>
+            
             <div class="row">
-            	<div class="col-md-2 reportEntity">제목</div>
-            	<div class="col-md-10 reportInput">${ noticePost.title }</div>
+              <div class="col-md-2"><br/><img class="img-thumbnail img-responsive" 
+                    src="<c:choose><c:when test="${noticePost.profileId ne -1}">
+                    <sec:authorize access="not authenticated">${R}guest/image/profile/${noticePost.profileId}</sec:authorize>
+                    <sec:authorize access="authenticated">${R}user/image/profile/${noticePost.profileId}</sec:authorize></c:when><c:otherwise>${R}img/mento_photo.jpg</c:otherwise></c:choose>" alt="Responsive image">
+              </div>
+              <div class="col-md-10">
+	            <div class="row">
+	            	<div class="col-md-2 reportEntity">제목</div>
+	            	<div class="col-md-10 reportInput">${ noticePost.title }</div>
+	            </div>
+              	<div class="row">
+              		<div class="col-md-2 reportEntity">올린이</div>
+		            <div class="col-md-4 reportInput">${ noticePost.userName }</div>
+		            <div class="col-md-2 reportEntity">올린 날짜</div>
+		            <div class="col-md-4 reportInput"><fmt:formatDate value="${noticePost.writeDate}" pattern="yyyy-MM-dd HH:mm"/></div>
+              	</div>
+              	<div class="row">
+	              <div class="col-md-2 reportEntity">연락</div>
+	              <div class="col-md-4 reportInput">${ noticePost.userEmail }</div>
+	              <div class="col-md-2 reportEntity">조회수</div>
+	              <div class="col-md-4 reportInput">${ noticePost.views }</div>
+	            </div>
+              </div>
             </div>
-            <div class="row">
-              <div class="col-md-2 reportEntity">올린이</div>
-              <div class="col-md-4 reportInput">${ noticePost.userName }</div>
-              <div class="col-md-2 reportEntity">올린 날짜</div>
-              <div class="col-md-4 reportInput"><fmt:formatDate value="${noticePost.writeDate}" pattern="yyyy-MM-dd HH:mm"/></div>
-            </div>
-            <div class="row">
-              <div class="col-md-2 reportEntity">연락</div>
-              <div class="col-md-4 reportInput">${ noticePost.userEmail }</div>
-              <div class="col-md-2 reportEntity">조회수</div>
-              <div class="col-md-4 reportInput">${ noticePost.views }</div>
-            </div>
+            <br/>
             <c:if test="${noticeFile.size() ne 0}">
 	            <div class="row">
 	            	<div class="col-md-12 reportEntity">첨부 파일</div>
@@ -422,41 +432,61 @@
 				</div>
             </sec:authorize>
             <sec:authorize access="authenticated">
-            	<div class="panel panel-info">
-				  <div class="panel-heading">
-				    <h3 class="panel-title">댓글 추가하기</h3>
-				  </div>
-				  <div class="panel-body">
-				    <form:form method="post" modelAttribute="newComment">
-				    	<form:textarea path="context" class="form-control"/>
-				    	<br/>
-				    	<div class="pull-right">
-				    		<button type="submit" class="btn btn-success">등록</button>
-				    	</div>
-				    </form:form>
-				  </div>
-				</div>
+            	<div class="row">
+	            		<div class="col-md-2">
+	            			<img class="img-thumbnail img-responsive" 
+                    src="<c:choose><c:when test="${noticePost.currentUserProfileId ne -1}">
+                    <sec:authorize access="not authenticated">${R}guest/image/profile/${noticePost.currentUserProfileId}</sec:authorize>
+                    <sec:authorize access="authenticated">${R}user/image/profile/${noticePost.currentUserProfileId}</sec:authorize></c:when><c:otherwise>${R}img/mento_photo.jpg</c:otherwise></c:choose>" alt="Responsive image" width="80%" height="80%">
+	            		</div>
+	            		<div class="col-md-10">
+			            	<div class="panel panel-info">
+							  <div class="panel-heading">
+							    <h3 class="panel-title">댓글 추가하기</h3>
+							  </div>
+							  <div class="panel-body">
+							    <form:form method="post" modelAttribute="newComment">
+							    	<form:textarea path="context" class="form-control"/>
+							    	<br/>
+							    	<div class="pull-right">
+							    		<button type="submit" class="btn btn-success">등록</button>
+							    	</div>
+							    </form:form>
+							  </div>
+							</div>
+						</div>
+					</div>
             </sec:authorize>
             <c:if test="${ noticeComment.size() ne 0 }">
             	<hr/>
             	<h4>Comment</h4>
             	<c:forEach var="comment" items="${ noticeComment }">
-            		<div class="panel panel-success">
-					  <div class="panel-heading">
-					    <h3 class="panel-title">${ comment.userName }(${comment.userType})&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${comment.uploadTime}" pattern="yyyy-MM-dd HH:mm:ss"/></h3>
-					  </div>
-					  <div class="panel-body">
-					    ${ comment.context }
-					    <sec:authorize access="authenticated">    	
-					    	<div class="pull-right">
-						    	<sec:authentication property="user.id" var="userId"/>
-						    	<c:if test="${userId eq comment.userId }">
-						    		<br/><br/>
-						    		<a href="commentDelete.do?bd=${noticeBBS.id }&id=${noticePost.id}&cmdId=${comment.id}" class="btn btn-danger" data-confirm-comment-delete><i class="glyphicon glyphicon-remove"></i>삭제</a>
-						    	</c:if>
-					    	</div>
-					    </sec:authorize>
-					  </div>
+            		<div class="row">
+	            		<div class="col-md-2">
+	            			<img class="img-thumbnail img-responsive" 
+                    src="<c:choose><c:when test="${comment.profileId ne -1}">
+                    <sec:authorize access="not authenticated">${R}guest/image/profile/${comment.profileId}</sec:authorize>
+                    <sec:authorize access="authenticated">${R}user/image/profile/${comment.profileId}</sec:authorize></c:when><c:otherwise>${R}img/mento_photo.jpg</c:otherwise></c:choose>" alt="Responsive image" width="80%" height="80%">
+	            		</div>
+	            		<div class="col-md-10">
+		            		<div class="panel panel-success">
+							  <div class="panel-heading">
+							    <h3 class="panel-title">${ comment.userName }(${comment.userType})&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${comment.uploadTime}" pattern="yyyy-MM-dd HH:mm:ss"/></h3>
+							  </div>
+							  <div class="panel-body">
+							    ${ comment.context }
+							    <sec:authorize access="authenticated">    	
+							    	<div class="pull-right">
+								    	<sec:authentication property="user.id" var="userId"/>
+								    	<c:if test="${userId eq comment.userId }">
+								    		<br/><br/>
+								    		<a href="commentDelete.do?bd=${noticeBBS.id }&id=${noticePost.id}&cmdId=${comment.id}" class="btn btn-danger" data-confirm-comment-delete><i class="glyphicon glyphicon-remove"></i>삭제</a>
+								    	</c:if>
+							    	</div>
+							    </sec:authorize>
+							  </div>
+							</div>
+						</div>
 					</div>
             	</c:forEach>
             </c:if>

@@ -6,6 +6,8 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +17,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import net.skhu.mentoring.dto.Employee;
 import net.skhu.mentoring.dto.NoticeBBSComment;
 import net.skhu.mentoring.dto.NoticeBBSFile;
 import net.skhu.mentoring.dto.NoticeBBSPost;
+import net.skhu.mentoring.dto.Professor;
+import net.skhu.mentoring.dto.Profile;
+import net.skhu.mentoring.dto.Student;
+import net.skhu.mentoring.mapper.EmployeeMapper;
 import net.skhu.mentoring.mapper.NoticeBBSFileMapper;
 import net.skhu.mentoring.mapper.NoticeBBSPostMapper;
+import net.skhu.mentoring.mapper.ProfessorMapper;
+import net.skhu.mentoring.mapper.ProfileMapper;
+import net.skhu.mentoring.mapper.StudentMapper;
+import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.model.NoticeBBSPostModel;
 import net.skhu.mentoring.service.NoticeBBSCommentService;
 import net.skhu.mentoring.service.NoticeBBSFileService;
@@ -31,6 +42,11 @@ public class NoticeBBSController {
 	@Autowired NoticeBBSCommentService noticeBBSCommentService;
 	@Autowired NoticeBBSFileService noticeBBSFileService;
 	@Autowired NoticeBBSFileMapper noticeBBSFileMapper;
+	@Autowired UserMapper userMapper;
+	@Autowired ProfileMapper profileMapper;
+	@Autowired ProfessorMapper professorMapper;
+	@Autowired EmployeeMapper employeeMapper;
+	@Autowired StudentMapper studentMapper;
 	@RequestMapping({"guest/notice/list", "user/notice/list"})
 	public String noticeList(Model model, @RequestParam("bd") int bd) {
 		model.addAttribute("noticeBBS", noticeBBSService.getBBSTitle(bd));
@@ -39,9 +55,36 @@ public class NoticeBBSController {
 	}
 	@RequestMapping(value={"guest/notice/view", "user/notice/view"}, method=RequestMethod.GET)
 	public String noticeView(Model model, @RequestParam("bd") int bd, @RequestParam("id") int id) {
+		NoticeBBSPost noticePost=noticeBBSService.views(id);
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber;
+		if(authentication!=null) {
+			userNumber=authentication.getName();
+			if(studentMapper.findOne(userNumber)!=null) {
+				Student student=studentMapper.findOne(userNumber);
+				if(profileMapper.findByUserId(student.getUserId())!=null) {
+					Profile profile=profileMapper.findByUserId(student.getUserId());
+					noticePost.setCurrentUserProfileId(profile.getId());
+				}else noticePost.setCurrentUserProfileId(-1);
+			}
+			else if(professorMapper.findOne(userNumber)!=null) {
+				Professor professor=professorMapper.findOne(userNumber);
+				if(profileMapper.findByUserId(professor.getUserId())!=null) {
+					Profile profile=profileMapper.findByUserId(professor.getUserId());
+					noticePost.setCurrentUserProfileId(profile.getId());
+				}else noticePost.setCurrentUserProfileId(-1);
+			}
+			else if(employeeMapper.findOne(userNumber)!=null) {
+				Employee employee=employeeMapper.findOne(userNumber);
+				if(profileMapper.findByUserId(employee.getUserId())!=null) {
+					Profile profile=profileMapper.findByUserId(employee.getUserId());
+					noticePost.setCurrentUserProfileId(profile.getId());
+				}else noticePost.setCurrentUserProfileId(-1);
+			}
+		}
 		NoticeBBSComment newComment=new NoticeBBSComment();
 		model.addAttribute("noticeBBS", noticeBBSService.getBBSTitle(bd));
-		model.addAttribute("noticePost", noticeBBSService.views(id));
+		model.addAttribute("noticePost", noticePost);
 		model.addAttribute("noticeFile", noticeBBSFileService.findByPostId(id));
 		model.addAttribute("noticeComment", noticeBBSCommentService.findByBBSId(id));
 		model.addAttribute("newComment", newComment);

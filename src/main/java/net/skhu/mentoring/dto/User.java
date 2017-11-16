@@ -15,11 +15,11 @@ public class User {
 	String departmentName;
 	String number;
 	int userId;
-	
+
 	String phone1;
 	String phone2;
 	String phone3;
-	
+
 	Boolean tue1;
 	Boolean tue2;
 	Boolean tue3;
@@ -28,7 +28,7 @@ public class User {
 	Boolean tue6;
 	Boolean tue7;
 	Boolean tue8;
-	
+
 	Boolean mon1;
 	Boolean mon2;
 	Boolean mon3;
@@ -37,7 +37,7 @@ public class User {
 	Boolean mon6;
 	Boolean mon7;
 	Boolean mon8;
-	
+
 	Boolean wed1;
 	Boolean wed2;
 	Boolean wed3;
@@ -46,7 +46,7 @@ public class User {
 	Boolean wed6;
 	Boolean wed7;
 	Boolean wed8;
-	
+
 	Boolean thu1;
 	Boolean thu2;
 	Boolean thu3;
@@ -55,7 +55,7 @@ public class User {
 	Boolean thu6;
 	Boolean thu7;
 	Boolean thu8;
-	
+
 	Boolean fri1;
 	Boolean fri2;
 	Boolean fri3;

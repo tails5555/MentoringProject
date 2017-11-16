@@ -307,7 +307,7 @@
                 <c:forEach var="post" items="${ postList }">
 	              <tr data-url="view.do?bd=${noticeBBS.id}&id=${post.id}">
 	              	<td>${ post.id }
-	              	<td>${ post.title }</td>
+	              	<td>${ post.title }  <span class="label label-success">${post.commentCount }</span></td>
 	              	<td>${ post.userName }</td>
 	              	<td><fmt:formatDate value="${post.writeDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 	              	<td>${ post.views }
