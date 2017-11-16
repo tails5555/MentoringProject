@@ -22,4 +22,5 @@ public class Mento {
 	String quaFileName;
 	int mentoGroupId;
 	int profileId;
+	Boolean permited;
 }

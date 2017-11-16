@@ -299,6 +299,7 @@
                     <td>멘토링 이름</td>
                     <td>과목</td>
                     <td>멘토 이름</td>
+                    <td>선정 결과</td>
                   </tr>
                 </thead>
                 <tbody>
@@ -308,6 +309,8 @@
                   		<td>${mento.teamName }</td>
                   		<td>${mento.subject }</td>
                   		<td>${mento.name }</td>
+                  		<c:if test="${mento.permited eq true}"><td class="success">승인</td></c:if>
+                  		<c:if test="${mento.permited eq false}"><td>대기</td></c:if>
                   	</tr>
                   </c:forEach>
                 </tbody>

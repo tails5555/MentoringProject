@@ -2,6 +2,7 @@ package net.skhu.mentoring.controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import net.skhu.mentoring.dto.Mento;
 import net.skhu.mentoring.mapper.MentoMapper;
+import net.skhu.mentoring.mapper.MentoringGroupMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.TimeTableMapper;
 import net.skhu.mentoring.mapper.UserMapper;
@@ -27,6 +29,7 @@ public class MentoringController {
 	@Autowired TimeTableMapper timeTableMapper;
 	@Autowired UserMapper userMapper;
 	@Autowired StudentMapper studentMapper;
+	@Autowired MentoringGroupMapper mentoringGroupMapper;
 	@Autowired MentoAdvertiseService mentoAdvertiseService;
 	@Autowired MentoQualificService mentoQualificService;
 	@RequestMapping(value="user/mento_apli" ,method=RequestMethod.GET)
@@ -35,7 +38,13 @@ public class MentoringController {
 		String studentNumber=authentication.getName();
 		Mento newMento=new Mento();
 		model.addAttribute("mento", newMento);
-		model.addAttribute("mentos", mentoMapper.findByStudentNumber(studentNumber));
+		List<Mento> mentoList=mentoMapper.findByStudentNumber(studentNumber);
+		for(Mento m : mentoList) {
+			if(mentoringGroupMapper.findByMentoId(m.getId())!=null) {
+				m.setPermited(true);
+			}else m.setPermited(false);
+		}
+		model.addAttribute("mentos", mentoList);
 		model.addAttribute("timetable", timeTableMapper.findOne(studentNumber));
 		return "mentoring/mento_apli";
 	}
