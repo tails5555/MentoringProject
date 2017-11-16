@@ -65,6 +65,7 @@ public class UserController {
 			
 			model.addAttribute("my", my);
 			model.addAttribute("timetable",timetable);
+			System.out.println(timetable.getTue4());
 			System.out.println(timetable.getMon5());
 		}
 		
@@ -168,6 +169,7 @@ public class UserController {
        		
        		System.out.println(type);
        		Student student = new Student();
+       		TimeTable timetable = new TimeTable();
        		
        		student.setStudentNumber(user.getNumber());
        		student.setPhoneNumber(phone);
@@ -178,6 +180,65 @@ public class UserController {
        		student.setUserId(id);
        		
        		studentMapper.update(student);
+       		
+       		timetable.setStudentId(student.getStudentNumber());
+       		
+       		timetable.setMon1(user.getMon1());
+       		timetable.setMon2(user.getMon2());
+       		timetable.setMon3(user.getMon3());
+       		timetable.setMon4(user.getMon4());
+       		timetable.setMon5(user.getMon5());
+       		timetable.setMon6(user.getMon6());
+       		timetable.setMon7(user.getMon7());
+       		timetable.setMon8(user.getMon8());
+       		
+       	
+       		timetable.setTue1(user.getTue1());
+       		timetable.setTue2(user.getTue2());
+       		timetable.setTue3(user.getTue3());
+       		timetable.setTue4(user.getTue4());
+       		timetable.setTue5(user.getTue5());
+       		timetable.setTue6(user.getTue6());
+       		timetable.setTue7(user.getTue7());
+       		timetable.setTue8(user.getTue8());
+       	
+       		
+     		timetable.setWed1(user.getWed1());
+       		timetable.setWed2(user.getWed2());
+       		timetable.setWed3(user.getWed3());
+       		timetable.setWed4(user.getWed4());
+       		timetable.setWed5(user.getWed5());
+       		timetable.setWed6(user.getWed6());
+       		timetable.setWed7(user.getWed7());
+       		timetable.setWed8(user.getWed8());
+       		
+       		timetable.setThu1(user.getThu1());
+       		timetable.setThu2(user.getThu2());
+       		timetable.setThu3(user.getThu3());
+       		timetable.setThu4(user.getThu4());
+       		timetable.setThu5(user.getThu5());
+       		timetable.setThu6(user.getThu6());
+       		timetable.setThu7(user.getThu7());
+       		timetable.setThu8(user.getThu8());
+       		
+       		timetable.setFri1(user.getFri1());
+       		timetable.setFri2(user.getFri2());
+       		timetable.setFri3(user.getFri3());
+       		timetable.setFri4(user.getFri4());
+       		timetable.setFri5(user.getFri5());
+       		timetable.setFri6(user.getFri6());
+       		timetable.setFri7(user.getFri7());
+       		timetable.setFri8(user.getFri8());
+       		
+       		System.out.println(user.getWed1());
+       		
+       		System.out.println(timetable.getMon1());
+       		System.out.println(timetable.getWed1());
+       		
+       		timetableMapper.update(timetable);
+       		
+       		
+       		
        		
        	}    	
     	

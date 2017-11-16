@@ -20,15 +20,6 @@ public class User {
 	String phone2;
 	String phone3;
 	
-	Boolean mon1;
-	Boolean mon2;
-	Boolean mon3;
-	Boolean mon4;
-	Boolean mon5;
-	Boolean mon6;
-	Boolean mon7;
-	Boolean mon8;
-	
 	Boolean tue1;
 	Boolean tue2;
 	Boolean tue3;
@@ -37,6 +28,15 @@ public class User {
 	Boolean tue6;
 	Boolean tue7;
 	Boolean tue8;
+	
+	Boolean mon1;
+	Boolean mon2;
+	Boolean mon3;
+	Boolean mon4;
+	Boolean mon5;
+	Boolean mon6;
+	Boolean mon7;
+	Boolean mon8;
 	
 	Boolean wed1;
 	Boolean wed2;

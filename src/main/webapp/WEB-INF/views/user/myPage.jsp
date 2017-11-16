@@ -21,18 +21,18 @@
 
 	$(document).ready(function() {
 		
-		 $('input:checkbox[name="monCheck"]').each(function() {
+		 $('form:checkbox[name="monCheck"]').each(function() {
 		     if(this.value == "true"){ //값 비교
 		            this.checked = true; //checked 처리
 		      }
 		 });
 
-		 $('input:checkbox[name="tueCheck"]').each(function() {
+		 $('form:checkbox[name="tueCheck"]').each(function() {
 		     if(this.value == "true"){ //값 비교
 		            this.checked = true; //checked 처리
 		      }
 		 });
-		 $('input:checkbox[name="wedCheck"]').each(function() {
+		 $('form:checkbox[name="wedCheck"]').each(function() {
 		     if(this.value == "true"){ //값 비교
 		            this.checked = true; //checked 처리
 		      }
@@ -452,406 +452,565 @@
 
 
   <sec:authorize access="hasAnyRole('ROLE_MENTI', 'ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
-<form class="form-inline">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <label>가능한 시간대(멘토링이 가능한 시간대를 표시해주세요.)</label>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <form class="form-inline" name="monday_available">
-                          <h3>월</h3>
-                          <div class="row">
-                            <div class="col-md-2 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="monCheck" value="${timetable.mon1}" /> 9:00~10:30
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-2 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="monCheck" value="${timetable.mon2}"/> 10:30~12:00
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-1 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="monCheck" value="${timetable.mon3}"/> ~13:00
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-1 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="monCheck" value="${timetable.mon4}"/> ~14:00
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-1 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="monCheck" value="${timetable.mon5}"/> ~15:00
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-2 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="monCheck" value="${timetable.mon6}"/> 15:00~16:30
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-2 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="monCheck" value="${timetable.mon7}" /> 16:30~18:00
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-1 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="monCheck" value="${timetable.mon8}" /> 18:00~
-                                </label>
-                              </div>
-                            </div>
+		<form class="form-inline">
+                       <div class="row">
+          <div class="col-md-12">
+    
+                <br/>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label>가능한 시간대(멘토링이 가능한 시간대를 표시해주세요.)</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                      <h3>월</h3>
+                      <div class="row">
+                        <div class="col-md-2 impossible <c:if test="${ timetable.mon1 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="mon1" value="${timetable.mon1}" /> 9:00~<br/>10:30
+                            </label>
                           </div>
-                        </form>
-                        <br/>
-                        <button id='monEmpty' type='button' class="btn btn-success"><i class="glyphicon glyphicon-plane"> 공강</i></button>
-                        <button id='monClass' type='button' class="btn btn-success"><i class="glyphicon glyphicon-refresh"> 해제</i></button>
-                        <script>
-                        $("#monEmpty").click(function() {
-                          $("input[name=monCheck]:checkbox").prop("checked", true);
-                          $("input[name=monCheck]:checkbox").parent().parent().parent().addClass("available");
-                        });
-                        $("#monClass").click(function() {
-                          $("input[name=monCheck]:checkbox").prop("checked", false);
-                          $("input[name=monCheck]:checkbox").parent().parent().parent().removeClass("available");
-                        });
-                        </script>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <form class="form-inline" name="tuesday_available">
-                          <h3>화</h3>
-                          <div class="row">
-                            <div class="col-md-2 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="tueCheck" value="${timetable.tue1}"/> 9:00~10:30
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-2 impossible">
-                              <div class="checkbox" >
-                                <label>
-                                  <input type="checkbox" name="tueCheck" value="${timetable.tue2}"/> 10:30~12:00
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-1 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="tueCheck" value="${timetable.tue3}"/> ~13:00
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-1 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="tueCheck" value="${timetable.tue4}" /> ~14:00
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-1 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="tueCheck" value="${timetable.tue5}" /> ~15:00
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-2 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="tueCheck" value="${timetable.tue6}" /> 15:00~16:30
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-2 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="tueCheck" value="${timetable.tue7}" /> 16:30~18:00
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-1 impossible">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" name="tueCheck" value="${timetable.tue8}"/> 18:00~
-                                </label>
-                              </div>
-                            </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.mon2 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="mon2" value="${timetable.mon2 }" /> 10:30~<br/>12:00
+                            </label>
                           </div>
-                        </form>
-                        <br/>
-                        <button id='tueEmpty' type='button' class="btn btn-success"><i class="glyphicon glyphicon-plane"> 공강</i></button>
-                        <button id='tueClass' type='button' class="btn btn-success"><i class="glyphicon glyphicon-refresh"> 해제</i></button>
-                        <script>
-                        $("#tueEmpty").click(function() {
-                          $("input[name=tueCheck]:checkbox").prop("checked", true);
-                          $("input[name=tueCheck]:checkbox").parent().parent().parent().addClass("available");
-                        });
-                        $("#tueClass").click(function() {
-                          $("input[name=tueCheck]:checkbox").prop("checked", false);
-                          $("input[name=tueCheck]:checkbox").parent().parent().parent().removeClass("available");
-                        });
-                        </script>
-                      </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <form class="form-inline" name="wednesday_available">
-                            <br/>
-                            <h3>수</h3>
-                            <div class="row">
-                              <div class="col-md-2 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="wedCheck" value="${timetable.wed1}" /> 9:00~10:30
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-2 impossible">
-                                <div class="checkbox" >
-                                  <label>
-                                    <input type="checkbox" name="wedCheck" value="${timetable.wed2}"/> 10:30~12:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-1 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="wedCheck" value="${timetable.wed3}"/> ~13:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-1 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="wedCheck" value="${timetable.wed4}" /> ~14:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-1 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="wedCheck" value="${timetable.wed5}"/> ~15:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-2 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="wedCheck" value="${timetable.wed6}"/> 15:00~16:30
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-2 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="wedCheck" value="${timetable.wed7}"/> 16:30~18:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-1 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="wedCheck" value="${timetable.wed8}" /> 18:00~
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-                          </form>
-                          <br/>
-                          <button id='wedEmpty' type='button' class="btn btn-success"><i class="glyphicon glyphicon-plane"> 공강</i></button>
-                          <button id='wedClass' type='button' class="btn btn-success"><i class="glyphicon glyphicon-refresh"> 해제</i></button>
-                          <script>
-                          $("#wedEmpty").click(function() {
-                            $("input[name=wedCheck]:checkbox").prop("checked", true);
-                            $("input[name=wedCheck]:checkbox").parent().parent().parent().addClass("available");
-                          });
-                          $("#wedClass").click(function() {
-                            $("input[name=wedCheck]:checkbox").prop("checked", false);
-                            $("input[name=wedCheck]:checkbox").parent().parent().parent().removeClass("available");
-                          });
-                          </script>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.mon3 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="mon3" value= "${timetable.mon3 }"/> ~13:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.mon4 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="mon4" value="${timetable.mon4 }"/> ~14:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.mon5 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label> 
+                              <form:checkbox path="mon5" value="${timetable.mon5 }"/> ~15:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.mon6 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="mon6" value="${timetable.mon6 }"/> 15:00~<br/>16:30
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.mon7 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="mon7" value="${timetable.mon7 }"/> 16:30~<br/>18:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.mon8 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+								<form:checkbox path="mon8" value="${timetable.mon8 }"/> 18:00~
+                            </label>
+                          </div>
                         </div>
                       </div>
+                    <br/>
+                    <button id='monEmpty' type='button' class="btn btn-success"><i class="glyphicon glyphicon-plane"> 공강</i></button>
+                    <button id='monClass' type='button' class="btn btn-success"><i class="glyphicon glyphicon-refresh"> 해제</i></button>
+                    <script>
+                    $("#monEmpty").click(function() {
+                      $("input[name=mon1]:checkbox").prop("checked", true);
+                      $("input[name=mon2]:checkbox").prop("checked", true);
+                      $("input[name=mon3]:checkbox").prop("checked", true);
+                      $("input[name=mon4]:checkbox").prop("checked", true);
+                      $("input[name=mon5]:checkbox").prop("checked", true);
+                      $("input[name=mon6]:checkbox").prop("checked", true);
+                      $("input[name=mon7]:checkbox").prop("checked", true);
+                      $("input[name=mon8]:checkbox").prop("checked", true);
+                      $("input[name=mon1]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=mon2]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=mon3]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=mon4]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=mon5]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=mon6]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=mon7]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=mon8]:checkbox").parent().parent().parent().addClass("available");
+                    });
+                    $("#monClass").click(function() {
+                  	  $("input[name=mon1]:checkbox").prop("checked", false);
+                      $("input[name=mon2]:checkbox").prop("checked", false);
+                      $("input[name=mon3]:checkbox").prop("checked", false);
+                      $("input[name=mon4]:checkbox").prop("checked", false);
+                      $("input[name=mon5]:checkbox").prop("checked", false);
+                      $("input[name=mon6]:checkbox").prop("checked", false);
+                      $("input[name=mon7]:checkbox").prop("checked", false);
+                      $("input[name=mon8]:checkbox").prop("checked", false);
+                      $("input[name=mon1]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=mon2]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=mon3]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=mon4]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=mon5]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=mon6]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=mon7]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=mon8]:checkbox").parent().parent().parent().removeClass("available");
+                    });
+                    </script>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-12">
+                      <h3>화</h3>
                       <div class="row">
-                        <div class="col-md-12">
-                          <form class="form-inline" name="thursday_available">
-                            <br/>
-                            <h3>목</h3>
-                            <div class="row">
-                              <div class="col-md-2 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="thuCheck" value="${timetable.thu1}" /> 9:00~10:30
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-2 impossible">
-                                <div class="checkbox" >
-                                  <label>
-                                    <input type="checkbox" name="thuCheck" value="${timetable.thu2}"/> 10:30~12:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-1 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="thuCheck" value="${timetable.thu3}"/> ~13:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-1 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="thuCheck" value="${timetable.thu4}" /> ~14:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-1 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="thuCheck" value="${timetable.thu5}"/> ~15:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-2 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="thuCheck" value="${timetable.thu6}"/> 15:00~16:30
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-2 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="thuCheck" value="${timetable.thu7}"/> 16:30~18:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-1 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="thuCheck" value="${timetable.thu8}" /> 18:00~
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-                          </form>
-                          <br/>
-                          <button id='thuEmpty' type='button' class="btn btn-success"><i class="glyphicon glyphicon-plane"> 공강</i></button>
-                          <button id='thuClass' type='button' class="btn btn-success"><i class="glyphicon glyphicon-refresh"> 해제</i></button>
-                          <script>
-                          $("#thuEmpty").click(function() {
-                            $("input[name=thuCheck]:checkbox").prop("checked", true);
-                            $("input[name=thuCheck]:checkbox").parent().parent().parent().addClass("available");
-                          });
-                          $("#thuClass").click(function() {
-                            $("input[name=thuCheck]:checkbox").prop("checked", false);
-                            $("input[name=thuCheck]:checkbox").parent().parent().parent().removeClass("available");
-                          });
-                          </script>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.tue1 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="tue1" value="${timetable.tue1 }"/> 9:00~<br/>10:30
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.tue2 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="tue2" value="${timetable.tue2 }"/> 10:30~<br/>12:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.tue3 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="tue3" value="${timetable.tue3 }" /> ~13:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.tue4 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="tue4" value="${timetable.tue4 }" /> ~14:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.tue5 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="tue5" value="${timetable.tue5 }" /> ~15:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.tue6 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="tue6" value="${timetable.tue6 }" /> 15:00~<br/>16:30
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.tue7 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="tue7" value="${timetable.tue7 }" /> 16:30~<br/>18:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.tue8 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+								<form:checkbox path="tue8" value="${timetable.tue8 }" /> 18:00~
+                            </label>
+                          </div>
                         </div>
                       </div>
+                    <br/>
+                    <button id='tueEmpty' type='button' class="btn btn-success"><i class="glyphicon glyphicon-plane"> 공강</i></button>
+                    <button id='tueClass' type='button' class="btn btn-success"><i class="glyphicon glyphicon-refresh"> 해제</i></button>
+                    <script>
+                    $("#tueEmpty").click(function() {
+                      $("input[name=tue1]:checkbox").prop("checked", true);
+                      $("input[name=tue2]:checkbox").prop("checked", true);
+                      $("input[name=tue3]:checkbox").prop("checked", true);
+                      $("input[name=tue4]:checkbox").prop("checked", true);
+                      $("input[name=tue5]:checkbox").prop("checked", true);
+                      $("input[name=tue6]:checkbox").prop("checked", true);
+                      $("input[name=tue7]:checkbox").prop("checked", true);
+                      $("input[name=tue8]:checkbox").prop("checked", true);
+                      $("input[name=tue1]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=tue2]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=tue3]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=tue4]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=tue5]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=tue6]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=tue7]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=tue8]:checkbox").parent().parent().parent().addClass("available");
+                    });
+                    $("#tueClass").click(function() {
+                  	  $("input[name=tue1]:checkbox").prop("checked", false);
+                      $("input[name=tue2]:checkbox").prop("checked", false);
+                      $("input[name=tue3]:checkbox").prop("checked", false);
+                      $("input[name=tue4]:checkbox").prop("checked", false);
+                      $("input[name=tue5]:checkbox").prop("checked", false);
+                      $("input[name=tue6]:checkbox").prop("checked", false);
+                      $("input[name=tue7]:checkbox").prop("checked", false);
+                      $("input[name=tue8]:checkbox").prop("checked", false);
+                      $("input[name=tue1]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=tue2]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=tue3]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=tue4]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=tue5]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=tue6]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=tue7]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=tue8]:checkbox").parent().parent().parent().removeClass("available");
+                    });
+                    </script>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-12">
+                      <h3>수</h3>
                       <div class="row">
-                        <div class="col-md-12">
-                          <form class="form-inline" name="friday_available">
-                            <br/>
-                            <h3>금</h3>
-                            <div class="row">
-                              <div class="col-md-2 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="friCheck"value="${timetable.fri1}" /> 9:00~10:30
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-2 impossible">
-                                <div class="checkbox" >
-                                  <label>
-                                    <input type="checkbox" name="friCheck"value="${timetable.fri2}" /> 10:30~12:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-1 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="friCheck"value="${timetable.fri3}" /> ~13:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-1 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="friCheck"value="${timetable.fri4}" /> ~14:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-1 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="friCheck"value="${timetable.fri5}" /> ~15:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-2 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="friCheck"value="${timetable.fri6}" /> 15:00~16:30
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-2 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="friCheck"value="${timetable.fri7}" /> 16:30~18:00
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-md-1 impossible">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" name="friCheck"value="${timetable.fri8}" /> 18:00~
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-                          </form>
-                          <br/>
-                          <button id='friEmpty' type='button' class="btn btn-success"><i class="glyphicon glyphicon-plane"> 공강</i></button>
-                          <button id='friClass' type='button' class="btn btn-success"><i class="glyphicon glyphicon-refresh"> 해제</i></button>
-                          <script>
-                          $("#friEmpty").click(function() {
-                            $("input[name=friCheck]:checkbox").prop("checked", true);
-                            $("input[name=friCheck]:checkbox").parent().parent().parent().addClass("available");
-                          });
-                          $("#friClass").click(function() {
-                            $("input[name=friCheck]:checkbox").prop("checked", false);
-                            $("input[name=friCheck]:checkbox").parent().parent().parent().removeClass("available");
-                          });
-                          </script>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.wed1 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="wed1" value="${timetable.wed1 }" /> 9:00~<br/>10:30
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.wed2 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="wed2" value="${timetable.wed2 }"/> 10:30~<br/>12:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.wed3 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="wed3" value="${timetable.wed3 }"/> ~13:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.wed4 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="wed4" value="${timetable.wed4 }"/> ~14:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.wed5 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="wed5" value="${timetable.wed5 }"/> ~15:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.wed6 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="wed6" value="${timetable.wed6 }" /> 15:00~<br/>16:30
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.wed7 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="wed7" value="${timetable.wed7 }"/> 16:30~<br/>18:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.wed8 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+								<form:checkbox path="wed8" value="${timetable.wed8 }" /> 18:00~
+                            </label>
+                          </div>
                         </div>
                       </div>
+                    <br/>
+                    <button id='wedEmpty' type='button' class="btn btn-success"><i class="glyphicon glyphicon-plane"> 공강</i></button>
+                    <button id='wedClass' type='button' class="btn btn-success"><i class="glyphicon glyphicon-refresh"> 해제</i></button>
+                    <script>
+                    $("#wedEmpty").click(function() {
+                      $("input[name=wed1]:checkbox").prop("checked", true);
+                      $("input[name=wed2]:checkbox").prop("checked", true);
+                      $("input[name=wed3]:checkbox").prop("checked", true);
+                      $("input[name=wed4]:checkbox").prop("checked", true);
+                      $("input[name=wed5]:checkbox").prop("checked", true);
+                      $("input[name=wed6]:checkbox").prop("checked", true);
+                      $("input[name=wed7]:checkbox").prop("checked", true);
+                      $("input[name=wed8]:checkbox").prop("checked", true);
+                      $("input[name=wed1]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=wed2]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=wed3]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=wed4]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=wed5]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=wed6]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=wed7]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=wed8]:checkbox").parent().parent().parent().addClass("available");
+                    });
+                    $("#wedClass").click(function() {
+                  	  $("input[name=wed1]:checkbox").prop("checked", false);
+                      $("input[name=wed2]:checkbox").prop("checked", false);
+                      $("input[name=wed3]:checkbox").prop("checked", false);
+                      $("input[name=wed4]:checkbox").prop("checked", false);
+                      $("input[name=wed5]:checkbox").prop("checked", false);
+                      $("input[name=wed6]:checkbox").prop("checked", false);
+                      $("input[name=wed7]:checkbox").prop("checked", false);
+                      $("input[name=wed8]:checkbox").prop("checked", false);
+                      $("input[name=wed1]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=wed2]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=wed3]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=wed4]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=wed5]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=wed6]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=wed7]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=wed8]:checkbox").parent().parent().parent().removeClass("available");
+                    });
+                    </script>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-12">
+                      <h3>목</h3>
+                      <div class="row">
+                        <div class="col-md-2 impossible <c:if test="${ timetable.thu1 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="thu1" value="${timetable.thu1 }" /> 9:00~<br/>10:30
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.thu2 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="thu2" value="${timetable.thu2 }" /> 10:30~<br/>12:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.thu3 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="thu3" value="${timetable.thu3 }" /> ~13:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.thu4 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="thu4" value="${timetable.thu4 }" /> ~14:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.thu5 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="thu5" value="${timetable.thu5 }" /> ~15:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.thu6 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="thu6" value="${timetable.thu6 }" /> 15:00~<br/>16:30
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.thu7 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="thu7" value="${timetable.thu7 }" /> 16:30~<br/>18:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.thu8 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+								<form:checkbox path="thu8" value="${timetable.thu8 }" /> 18:00~
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    <br/>
+                    <button id='thuEmpty' type='button' class="btn btn-success"><i class="glyphicon glyphicon-plane"> 공강</i></button>
+                    <button id='thuClass' type='button' class="btn btn-success"><i class="glyphicon glyphicon-refresh"> 해제</i></button>
+                    <script>
+                    $("#thuEmpty").click(function() {
+                      $("input[name=thu1]:checkbox").prop("checked", true);
+                      $("input[name=thu2]:checkbox").prop("checked", true);
+                      $("input[name=thu3]:checkbox").prop("checked", true);
+                      $("input[name=thu4]:checkbox").prop("checked", true);
+                      $("input[name=thu5]:checkbox").prop("checked", true);
+                      $("input[name=thu6]:checkbox").prop("checked", true);
+                      $("input[name=thu7]:checkbox").prop("checked", true);
+                      $("input[name=thu8]:checkbox").prop("checked", true);
+                      $("input[name=thu1]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=thu2]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=thu3]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=thu4]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=thu5]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=thu6]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=thu7]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=thu8]:checkbox").parent().parent().parent().addClass("available");
+                    });
+                    $("#thuClass").click(function() {
+                  	  $("input[name=thu1]:checkbox").prop("checked", false);
+                      $("input[name=thu2]:checkbox").prop("checked", false);
+                      $("input[name=thu3]:checkbox").prop("checked", false);
+                      $("input[name=thu4]:checkbox").prop("checked", false);
+                      $("input[name=thu5]:checkbox").prop("checked", false);
+                      $("input[name=thu6]:checkbox").prop("checked", false);
+                      $("input[name=thu7]:checkbox").prop("checked", false);
+                      $("input[name=thu8]:checkbox").prop("checked", false);
+                      $("input[name=thu1]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=thu2]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=thu3]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=thu4]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=thu5]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=thu6]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=thu7]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=thu8]:checkbox").parent().parent().parent().removeClass("available");
+                    });
+                    </script>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-12">
+                      <h3>금</h3>
+                      <div class="row">
+                        <div class="col-md-2 impossible <c:if test="${ timetable.fri1 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="fri1" value="${timetable.fri1 }"/> 9:00~<br/>10:30
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.fri2 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="fri2" value="${timetable.fri2 }"/> 10:30~<br/>12:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.fri3 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="fri3" value="${timetable.fri3 }" /> ~13:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.fri4 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="fri4" value="${timetable.fri4 }" /> ~14:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.fri5 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="fri5" value="${timetable.fri5 }" /> ~15:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.fri6 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="fri6" value="${timetable.fri6 }" /> 15:00~<br/>16:30
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ timetable.fri7 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+                              <form:checkbox path="fri7" value="${timetable.fri7 }" /> 16:30~<br/>18:00
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ timetable.fri8 eq true }">available</c:if>">
+                          <div class="checkbox">
+                            <label>
+								<form:checkbox path="fri8" value="${timetable.fri8 }" /> 18:00~
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    <br/>
+                    <button id='friEmpty' type='button' class="btn btn-success"><i class="glyphicon glyphicon-plane"> 공강</i></button>
+                    <button id='friClass' type='button' class="btn btn-success"><i class="glyphicon glyphicon-refresh"> 해제</i></button>
+                    <script>
+                    $("#friEmpty").click(function() {
+                      $("input[name=fri1]:checkbox").prop("checked", true);
+                      $("input[name=fri2]:checkbox").prop("checked", true);
+                      $("input[name=fri3]:checkbox").prop("checked", true);
+                      $("input[name=fri4]:checkbox").prop("checked", true);
+                      $("input[name=fri5]:checkbox").prop("checked", true);
+                      $("input[name=fri6]:checkbox").prop("checked", true);
+                      $("input[name=fri7]:checkbox").prop("checked", true);
+                      $("input[name=fri8]:checkbox").prop("checked", true);
+                      $("input[name=fri1]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=fri2]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=fri3]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=fri4]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=fri5]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=fri6]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=fri7]:checkbox").parent().parent().parent().addClass("available");
+                      $("input[name=fri8]:checkbox").parent().parent().parent().addClass("available");
+                    });
+                    $("#friClass").click(function() {
+                  	  $("input[name=fri1]:checkbox").prop("checked", false);
+                      $("input[name=fri2]:checkbox").prop("checked", false);
+                      $("input[name=fri3]:checkbox").prop("checked", false);
+                      $("input[name=fri4]:checkbox").prop("checked", false);
+                      $("input[name=fri5]:checkbox").prop("checked", false);
+                      $("input[name=fri6]:checkbox").prop("checked", false);
+                      $("input[name=fri7]:checkbox").prop("checked", false);
+                      $("input[name=fri8]:checkbox").prop("checked", false);
+                      $("input[name=fri1]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=fri2]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=fri3]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=fri4]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=fri5]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=fri6]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=fri7]:checkbox").parent().parent().parent().removeClass("available");
+                      $("input[name=fri8]:checkbox").parent().parent().parent().removeClass("available");
+                    });
+                    </script>
+                  </div>
+                </div>
+               
+            
+              </div>
+            </div>
+            <script>
+            $(document).ready(function() {
+              $("input:checkbox").on('click', function() {
+                if ( $(this).prop('checked')) {
+                  $(this).parent().parent().parent().addClass("available"); }
+                else { $(this).parent().parent().parent().removeClass("available"); }
+                });
+              });
+            </script>
+            <hr/>
+            <div class="row">
+              <div class="col-md-12 information">
+                <p> ⊙ 시간표 조율은 수업이 없는 날만 체크하는 것이 아닙니다. 멘티가 가능한 시간들을 조율해서 체크해주시길 바랍니다.</p>
+                <p> ⊙ 멘토링 매치 결과는 일주일 후에 문자로 연락드립니다. </p>
+              </div>
+            </div>
+                      
+                      
+                      
                     </form>
+                  </form>  
  </sec:authorize>
        <hr>
 
@@ -863,7 +1022,6 @@
       <a href="${R}user/index"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-remove"> 취소</i></button></a>
       </div>
 
-    </form>
 </form:form>
         </div>
 
