@@ -284,19 +284,21 @@
             <div class="col-md-12">
               <h2 class="my-4"><i>Mento</i></h2>
             </div>
-			<c:forEach var="mento" items="${ mentos }">
-            <div class="col-md-4 col-sm-6 text-center mb-4">
-              <a href="report_confirm_view.html"><img class="rounded-circle img-fluid d-block mx-auto" 
-              	src="<c:choose>
-              			<c:when test="${mento.profileId ne -1}">${R}user/image/profile/${mento.profileId}</c:when>
-              			<c:otherwise>${R}img/mento_photo.jpg</c:otherwise>
-              		</c:choose>" alt="" width="200" height="200"></a>
-              <h3>${ mento.name }
-                <small>${ mento.departmentName }</small>
-              </h3>
-              <p><b>${ mento.teamName }</b></p>
-              <p>${ mento.advertiseContext }</p>
-            </div>
+			<c:forEach var="mento" items="${ mentos }" varStatus="status">
+				<c:if test="${status.index %3 eq 0 }"><div class="row"></c:if>
+	            <div class="col-md-4 text-center mb-4">
+	              <a href="${R}user/report/confirmReportList?mento=${mento.id}"><img class="rounded-circle img-fluid d-block mx-auto" 
+	              	src="<c:choose>
+	              			<c:when test="${mento.profileId ne -1}">${R}user/image/profile/${mento.profileId}</c:when>
+	              			<c:otherwise>${R}img/mento_photo.jpg</c:otherwise>
+	              		</c:choose>" alt="" width="200" height="200"></a>
+	              <h3>${ mento.name }
+	                <small>${ mento.departmentName }</small>
+	              </h3>
+	              <p><b>${ mento.teamName }</b></p>
+	              <p>${ mento.advertiseContext }</p>
+	            </div>
+            <c:if test="${status.index % 3 eq 2 || status.index+1 eq mentos.size() }"></div><br/></c:if>
 			</c:forEach>
           </div>
         </div>
