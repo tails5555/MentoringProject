@@ -218,6 +218,8 @@ public class ReportController {
             sheet.addImage(cPhoto);
             workbook.write();
             workbook.close();
+            inputImage.close();
+            baos.close();
         }catch(Exception e){
             e.printStackTrace();
         }
