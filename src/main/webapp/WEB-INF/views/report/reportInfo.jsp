@@ -291,16 +291,18 @@
               <td class="reportEntity">시간</td>
               <td class="reportValue"><fmt:formatDate value="${report.startTime}" pattern="HH:mm"/> ~ <fmt:formatDate value="${report.endTime}" pattern="HH:mm"/></td>
             </tr>
-            <tr>
-              <td class="reportEntity">멘토 결석 여부</td>
-              <td colspan="3" class="reportValue">${ report.absentPerson }</td>
-            </tr>
-            <tr>
-              <td colspan="4" class="reportEntity">결석 사유</td>
-            </tr>
-            <tr>
-            	<td colspan="4" class="reportValue">${ report.absentContext }</td>
-            </tr>
+            <c:if test="${ report.absentPerson ne null }">
+	            <tr>
+	              <td class="reportEntity">멘토 결석 여부</td>
+	              <td colspan="3" class="reportValue">${ report.absentPerson }</td>
+	            </tr>
+	            <tr>
+	              <td colspan="4" class="reportEntity">결석 사유</td>
+	            </tr>
+	            <tr>
+	            	<td colspan="4" class="reportValue">${ report.absentContext }</td>
+	            </tr>
+	        </c:if>
             <tr>
               <td class="reportEntity">수업 주제</td>
               <td colspan="3" class="reportValue">${ report.classSubject}</td>

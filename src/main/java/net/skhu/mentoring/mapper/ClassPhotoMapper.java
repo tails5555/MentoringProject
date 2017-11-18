@@ -8,4 +8,5 @@ import net.skhu.mentoring.dto.ClassPhoto;
 public interface ClassPhotoMapper {
 	ClassPhoto findOne(int id);
 	ClassPhoto findByReportId(@Param("reportId") int reportId);
+	void insert(ClassPhoto classPhoto);
 }

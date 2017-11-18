@@ -9,4 +9,8 @@
   <select id="findByReportId" resultType="ClassPhoto">
   	SELECT * FROM ClassPhoto WHERE reportId=#{reportId}
   </select>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+  	INSERT INTO ClassPhoto(fileName, fileSize, fileTime, data, reportId)
+  	VALUES(#{fileName}, #{fileSize}, #{fileTime}, #{data, javaType=[B, jdbcType=BLOB}, #{reportId})
+  </insert>
 </mapper>

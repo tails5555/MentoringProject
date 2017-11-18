@@ -21,4 +21,5 @@ public class Report {
 	Boolean confirm;
 	String comment;
 	int confirmManagerId;
+	String confirmManagerName;
 }

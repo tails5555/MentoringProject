@@ -91,15 +91,17 @@
               <li><a href="survey.html">설문조사</a></li>
             </ul>
         </li>
+        <sec:authorize access="hasAnyRole('ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="mento_timetable.html">멘티 시간표 확인</a></li>
-              <li><a href="report_write.html">보고서 작성</a></li>
+              <li><a href="${R}user/report/write">보고서 작성</a></li>
               <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
             </ul>
         </li>
+        </sec:authorize>
         <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리

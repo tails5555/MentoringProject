@@ -10,4 +10,6 @@ import net.skhu.mentoring.dto.Report;
 public interface ReportMapper {
 	List<Report> findByMentoId(@Param("mentoId") int mentoId);
 	Report findOne(int id);
+	Report findLastReport();
+	void insert(Report report);
 }

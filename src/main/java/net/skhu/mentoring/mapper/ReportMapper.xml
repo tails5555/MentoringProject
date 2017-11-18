@@ -13,4 +13,11 @@
   <select id="findOne" resultType="Report">
     select * from Report Where id=#{id}
   </select>
+  <select id="findLastReport" resultType="Report">
+  	select * from Report Order By id DESC LIMIT 1
+  </select>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+  	Insert Into Report(mentoId, classSubject, classTarget, classType, classDate, presentDate, startTime, endTime, absentPerson, absentContext, classImplass, classPlace)
+  	values(#{mentoId}, #{classSubject}, #{classTarget}, #{classType}, #{classDate}, #{presentDate}, #{startTime}, #{endTime}, #{absentPerson}, #{absentContext}, #{classImplass}, #{classPlace})
+  </insert>
 </mapper>

@@ -2,6 +2,7 @@ package net.skhu.mentoring.controller;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -11,11 +12,14 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import jxl.Workbook;
 import jxl.format.Alignment;
@@ -38,6 +42,7 @@ import net.skhu.mentoring.mapper.DepartmentMapper;
 import net.skhu.mentoring.mapper.MentoMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
+import net.skhu.mentoring.model.ReportModel;
 import net.skhu.mentoring.service.ClassPhotoService;
 import net.skhu.mentoring.service.ProfileService;
 import net.skhu.mentoring.service.ReportService;
@@ -77,6 +82,48 @@ public class ReportController {
 		model.addAttribute(mentoMapper.findOne(mento));
 		model.addAttribute("report", reportService.findOne(id));
 		return "report/reportInfo";
+	}
+	@RequestMapping(value="user/report/view", method=RequestMethod.GET)
+	public String reportView(Model model, @RequestParam("id") int id) {
+		Report report=reportService.findOne(id);
+		model.addAttribute("report", report);
+		ReportModel reportModel=reportService.getEditModel(id);
+		model.addAttribute("editReport", reportModel);
+		return "report/view";
+	}
+	@RequestMapping(value="user/report/write", method=RequestMethod.GET)
+	public String reportWrite(Model model) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber;
+		Mento mento;
+		ReportModel reportModel=new ReportModel();
+		if(authentication!=null) {
+			userNumber=authentication.getName();
+			if(studentMapper.findOne(userNumber)!=null) {
+				Student student=studentMapper.findOne(userNumber);
+				if(mentoMapper.findByUserId(student.getUserId())!=null) {
+					mento=mentoMapper.findByUserId(student.getUserId());
+					mento.setName(student.getName());
+					reportModel.setMentoId(mento.getId());
+					List<Report> reportList=reportService.mentoReportList(mento);
+					double time=reportService.getMentoringTime(mento.getId());
+					model.addAttribute("mento", mento);
+					model.addAttribute("time", time);
+					model.addAttribute("reports", reportList);
+				}
+			}
+		}
+		model.addAttribute("now", new java.util.Date());
+		model.addAttribute("report", reportModel);
+		System.out.println(reportModel);
+		return "report/reportList";
+	}
+	@RequestMapping(value="user/report/write", method=RequestMethod.POST)
+	public String reportWrite(Model model, @RequestParam("classPhoto") MultipartFile[] uploadFiles, ReportModel reportModel) throws IOException {
+		Report lastReport=reportService.findLastReport();
+		if(uploadFiles.length!=0)
+			classPhotoService.upload(uploadFiles, lastReport.getId());
+		return "redirect:write";
 	}
 	@RequestMapping("user/report/download")
 	public void download(@RequestParam("id") int id, HttpServletResponse response) throws Exception{
