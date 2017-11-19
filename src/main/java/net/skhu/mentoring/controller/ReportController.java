@@ -137,7 +137,7 @@ public class ReportController {
 		report.setTeamName(mento.getTeamName());
 		report.setMentoSubject(mento.getSubject());
 		java.util.Date presentDate=report.getPresentDate();
-		String fileName=URLEncoder.encode(String.format("%s_보고서파일_%d%02d%02d.xls", report.getTeamName(), presentDate.getYear()+1900, presentDate.getMonth()+1, presentDate.getDay()), "UTF-8");
+		String fileName=URLEncoder.encode(String.format("%s_보고서파일_%d%02d%02d.xls", report.getTeamName(), presentDate.getYear()+1900, presentDate.getMonth()+1, presentDate.getDate()), "UTF-8");
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition", "attachment;filename="+fileName+";");
 		WritableWorkbook workbook = Workbook.createWorkbook(response.getOutputStream());
