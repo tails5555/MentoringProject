@@ -328,18 +328,31 @@
             <a href="${R}user/report/confirm"><button class="btn btn-info"><i class="glyphicon glyphicon-user"> 멘토목록으로</i></button></a>
             <a href="${R}user/report/confirmReportList?mento=${mento.id}"><button class="btn btn-info"><i class="glyphicon glyphicon-folder-close"> 보고서 목록으로</i></button></a>
             <a href="${R}user/report/download?id=${report.id}"><button class="btn btn-info"><i class="glyphicon glyphicon-floppy-disk"> 보고서 다운로드</i></button></a>
+            <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#comment"><i class="glyphicon glyphicon-pencil"></i> 코멘트</button>
           </div>
+          <hr/>
+          <div id="comment" class="collapse">
+             <h3>코멘트 추가 / 확인 완료 처리</h3>
+             <form:form method="post" modelAttribute="report">
+             	<form:input path="comment" class="form-control" placeholder="코멘트를 입력해주세요."/>
+             	<br/>
+              	<button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-pencil"></i> 코멘트 추가</button>
+              	<c:if test="${ report.confirm eq true }"><button type="button" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> 이미 확인 완료된 보고서입니다.</button></c:if>
+              	<c:if test="${ report.confirm eq false }"><button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-ok"></i> 확인 완료</button></c:if>
+                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#comment"><i class="glyphicon glyphicon-remove"> 취소</i></button>
+           	  </form:form>              
+       	  </div>
+   		</div>
       </div>
-    </div>
-  </div>
-  <hr/>
+	</div>
+  	<hr/>
     <div class="row">
       <div class="col-md-3" align="center">
         <img src="${R}img/skhuniv.jpg"/>
       </div>
       <div class="col-md-9">
         <p>08359 서울시 구로구 연동로 320 / 지하철 1, 7호선 온수역(성공회대입구역)</p>
-        <p><i class="glyphicon glyphicon-earphone"></i> TEL : 02-2610-4114 &nbsp&nbsp|&nbsp&nbsp <i class="glyphicon glyphicon-print"></i> FAX : 02-2683-8858</p>
+        <p><i class="glyphicon glyphicon-earphone"></i> TEL : 02-2610-4114 &nbsp;&nbsp;|&nbsp;&nbsp; <i class="glyphicon glyphicon-print"></i> FAX : 02-2683-8858</p>
       </div>
     </div>
  </body>

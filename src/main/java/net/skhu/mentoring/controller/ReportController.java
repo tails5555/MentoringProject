@@ -80,8 +80,14 @@ public class ReportController {
 	@RequestMapping(value="user/report/reportInfo", method=RequestMethod.GET)
 	public String reportInfo(Model model, @RequestParam("mento") int mento, @RequestParam("id") int id) {
 		model.addAttribute(mentoMapper.findOne(mento));
-		model.addAttribute("report", reportService.findOne(id));
+		Report report=reportService.findOne(id);
+		model.addAttribute("report", report);
 		return "report/reportInfo";
+	}
+	@RequestMapping(value="user/report/reportInfo", method=RequestMethod.POST)
+	public String reportInfo(Model model, @RequestParam("mento") int mento, @RequestParam("id") int id, Report report) {
+		System.out.println(report);
+		return "redirect:reportInfo?mento="+mento+"&id="+id;
 	}
 	@RequestMapping(value="user/report/view", method=RequestMethod.GET)
 	public String reportView(Model model, @RequestParam("id") int id) {
@@ -91,6 +97,7 @@ public class ReportController {
 		model.addAttribute("editReport", reportModel);
 		return "report/view";
 	}
+
 	@RequestMapping(value="user/report/write", method=RequestMethod.GET)
 	public String reportWrite(Model model) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
