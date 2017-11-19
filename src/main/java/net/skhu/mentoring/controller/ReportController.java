@@ -120,6 +120,7 @@ public class ReportController {
 	}
 	@RequestMapping(value="user/report/write", method=RequestMethod.POST)
 	public String reportWrite(Model model, @RequestParam("classPhoto") MultipartFile[] uploadFiles, ReportModel reportModel) throws IOException {
+		reportService.insert(reportModel);
 		Report lastReport=reportService.findLastReport();
 		if(uploadFiles.length!=0)
 			classPhotoService.upload(uploadFiles, lastReport.getId());
