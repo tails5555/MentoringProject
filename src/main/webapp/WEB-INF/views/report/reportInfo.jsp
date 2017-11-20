@@ -179,6 +179,16 @@
       $('[data-toggle="popover"]').popover();
     });
    </script>
+   <script>
+   $(function() {
+	   $("[data-confirm-comment]").click(function() {
+	     return confirm("커멘트를 등록합니다. 계속 하시겠습니까?");
+	   })
+	   $("[data-confirm-confirm]").click(function() {
+	     return confirm("확인 여부를 체크합니다. 보고서에 문제 있을 시에 언제든지 커멘트를 추가하면 됩니다.");
+	   })
+	})
+   </script>
  </head>
 
  <body>
@@ -336,10 +346,11 @@
              <form:form method="post" modelAttribute="report">
              	<form:input path="comment" class="form-control" placeholder="코멘트를 입력해주세요."/>
              	<br/>
-              	<button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-pencil"></i> 코멘트 추가</button>
+              	<button type="submit" class="btn btn-info" data-confirm-comment><i class="glyphicon glyphicon-pencil"></i> 코멘트 추가</button>
               	<c:if test="${ report.confirm eq true }"><button type="button" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> 이미 확인 완료된 보고서입니다.</button></c:if>
-              	<c:if test="${ report.confirm eq false }"><button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-ok"></i> 확인 완료</button></c:if>
+              	<c:if test="${ report.confirm eq false }"><a href="${R}user/report/checking?mento=${param.mento }&id=${report.id}" class="btn btn-warning" data-confirm-confirm><i class="glyphicon glyphicon-ok" data-confirm-confirm></i> 확인 완료</a></c:if>
                 <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#comment"><i class="glyphicon glyphicon-remove"> 취소</i></button>
+                <c:if test="${ report.confirmManagerName ne '' }">최종 수정자 : ${ report.confirmManagerName }</c:if>
            	  </form:form>              
        	  </div>
    		</div>

@@ -12,12 +12,14 @@ import net.skhu.mentoring.dto.Mento;
 import net.skhu.mentoring.dto.Professor;
 import net.skhu.mentoring.dto.Report;
 import net.skhu.mentoring.dto.Student;
+import net.skhu.mentoring.dto.User;
 import net.skhu.mentoring.mapper.AdminMapper;
 import net.skhu.mentoring.mapper.EmployeeMapper;
 import net.skhu.mentoring.mapper.MentoMapper;
 import net.skhu.mentoring.mapper.ProfessorMapper;
 import net.skhu.mentoring.mapper.ReportMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
+import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.model.ReportModel;
 @Service
 public class ReportService {
@@ -27,6 +29,7 @@ public class ReportService {
 	@Autowired ProfessorMapper professorMapper;
 	@Autowired EmployeeMapper employeeMapper;
 	@Autowired AdminMapper adminMapper;
+	@Autowired UserMapper userMapper;
 	public Report findOne(int id) {
 		Report report=reportMapper.findOne(id);
 		Mento mento=mentoMapper.findOne(report.getMentoId());
@@ -34,6 +37,22 @@ public class ReportService {
 		report.setMentoName(student.getName());
 		report.setTeamName(mento.getTeamName());
 		report.setMentoSubject(mento.getSubject());
+		Admin admin=adminMapper.findOne(report.getConfirmManagerId());
+		if(admin!=null) {
+			User adminUser=userMapper.findOne(admin.getUserId());
+			if(studentMapper.findByUserId(adminUser.getId())!=null) {
+				Student stdChair=studentMapper.findByUserId(adminUser.getId());
+				report.setConfirmManagerName(stdChair.getName());
+			}
+			else if(professorMapper.findByUserId(adminUser.getId())!=null) {
+				Professor professor=professorMapper.findByUserId(adminUser.getId());
+				report.setConfirmManagerName(professor.getName());
+			}
+			else if(employeeMapper.findByUserId(adminUser.getId())!=null) {
+				Employee employee=employeeMapper.findByUserId(adminUser.getId());
+				report.setConfirmManagerName(employee.getName());
+			}
+		}else report.setConfirmManagerName("");
 		return report;
 	}
 	public List<Report> findByMentoId(int mentoId) {
@@ -44,6 +63,7 @@ public class ReportService {
 		for(Report r : reportList) {
 			Admin admin=adminMapper.findOne(r.getConfirmManagerId());
 			if(admin!=null) {
+				Student student=studentMapper.findByUserId(admin.getUserId());
 				Professor professor=professorMapper.findByUserId(admin.getUserId());
 				Employee employee=employeeMapper.findByUserId(admin.getUserId());
 				if(professor!=null) {
@@ -51,6 +71,9 @@ public class ReportService {
 				}
 				if(employee!=null) {
 					r.setConfirmManagerName(employee.getName()+" 직원");
+				}
+				if(student!=null) {
+					r.setConfirmManagerName(student.getName()+" 회장");
 				}
 			}
 		}
@@ -126,6 +149,45 @@ public class ReportService {
 		reportModel.setAbsentContext(report.getAbsentContext());
 		reportModel.setAbsentPerson(report.getAbsentPerson());
 		return reportModel;
+	}
+	public void updateComment(Report report) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber=authentication.getName();
+		if(studentMapper.findOne(userNumber)!=null) {
+			Student student=studentMapper.findOne(userNumber);
+			Admin admin=adminMapper.findByUserId(student.getUserId());
+			report.setConfirmManagerId(admin.getId());
+		}
+		else if(professorMapper.findOne(userNumber)!=null) {
+			Professor professor=professorMapper.findOne(userNumber);
+			Admin admin=adminMapper.findByUserId(professor.getUserId());
+			report.setConfirmManagerId(admin.getId());
+		}
+		else if(employeeMapper.findOne(userNumber)!=null) {
+			Employee employee=employeeMapper.findOne(userNumber);
+			Admin admin=adminMapper.findByUserId(employee.getUserId());
+			report.setConfirmManagerId(admin.getId());
+		}
+		reportMapper.updateComment(report.getId(), report.getComment(), report.getConfirmManagerId());
+	}
+	public void checkConfirm(int id) {
+		Report report=reportMapper.findOne(id);
+		Admin admin=null;
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber=authentication.getName();
+		if(studentMapper.findOne(userNumber)!=null) {
+			Student student=studentMapper.findOne(userNumber);
+			admin=adminMapper.findByUserId(student.getUserId());
+		}
+		else if(professorMapper.findOne(userNumber)!=null) {
+			Professor professor=professorMapper.findOne(userNumber);
+			admin=adminMapper.findByUserId(professor.getUserId());
+		}
+		else if(employeeMapper.findOne(userNumber)!=null) {
+			Employee employee=employeeMapper.findOne(userNumber);
+			admin=adminMapper.findByUserId(employee.getUserId());
+		}
+		reportMapper.checkConfirm(id, admin.getId());
 	}
 	public Report findLastReport() {
 		return reportMapper.findLastReport();

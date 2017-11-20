@@ -20,4 +20,12 @@
   	Insert Into Report(mentoId, classSubject, classTarget, classType, classDate, presentDate, startTime, endTime, absentPerson, absentContext, classImplass, classPlace)
   	values(#{mentoId}, #{classSubject}, #{classTarget}, #{classType}, #{classDate}, #{presentDate}, #{startTime}, #{endTime}, #{absentPerson}, #{absentContext}, #{classImplass}, #{classPlace})
   </insert>
+  <update id="updateComment">
+  	Update Report SET
+  	comment=#{comment}, confirmManagerId=#{confirmManagerId}, confirm=false
+  	where id=#{id}	
+  </update>
+  <update id="checkConfirm">
+  	Update Report Set confirm=true, comment='', confirmManagerId=#{confirmManagerId} WHERE id=#{id}
+  </update>
 </mapper>

@@ -86,7 +86,12 @@ public class ReportController {
 	}
 	@RequestMapping(value="user/report/reportInfo", method=RequestMethod.POST)
 	public String reportInfo(Model model, @RequestParam("mento") int mento, @RequestParam("id") int id, Report report) {
-		System.out.println(report);
+		reportService.updateComment(report);
+		return "redirect:reportInfo?mento="+mento+"&id="+id;
+	}
+	@RequestMapping("user/report/checking")
+	public String checking(Model model, @RequestParam("mento") int mento, @RequestParam("id") int id) {
+		reportService.checkConfirm(id);
 		return "redirect:reportInfo?mento="+mento+"&id="+id;
 	}
 	@RequestMapping(value="user/report/view", method=RequestMethod.GET)

@@ -214,12 +214,12 @@
               <div class="row">
                 <div class="col-md-12 inside_percent">
                   <div class="true_percent" style="width : ${time/24*100}%">
-                    <p><fmt:formatNumber value="${time}" pattern=".0"/></p>
+                    <p><fmt:formatNumber value="${time}" pattern="0.0"/></p>
                   </div>
                 </div>
               </div>
               <div class="row" style="text-align : right;">
-                	총 진행 시간 : <fmt:formatNumber value="${time}" pattern=".0"/>/24 시간
+                	총 진행 시간 : <fmt:formatNumber value="${time}" pattern="0.0"/>/24 시간
               </div>
               <hr/>
               <table class="table">
@@ -229,6 +229,7 @@
                   <td><center>수업 일자</center></td>
                   <td><center>멘토링 주제</center></td>
                   <td><center>멘티 결석자</center></td>
+                  <td><center>수업 시간</center></td>
                   <td><center>확인 여부</center></td>
                   <td><center>보고서 확인하기</center></td>
                 </tr>
@@ -239,12 +240,15 @@
 		                <c:forEach var="report" items="${ reports }">
 		                  <tr>
 		                    <td><center><fmt:formatDate value="${report.presentDate}" pattern="yyyy-MM-dd HH:mm"/></center></td>
-		                    <td><center>${ report.classDate }</center></td>
+		                    <td><center><fmt:formatDate value="${report.classDate}" pattern="yyyy-MM-dd E"/></center></td>
 		                    <td><center>${ report.classSubject }</center></td>
 		                    <td><center>${ report.absentPerson }</center></td>
+		                    <td <c:if test="${ report.confirm }">class="success"</c:if>><center><fmt:formatDate value="${report.startTime}" pattern="HH:mm"/>~<fmt:formatDate value="${report.endTime}" pattern="HH:mm"/><br/><u>${ (report.endTime.getTime() - report.startTime.getTime() ) / 3600000 }시간</u></center></td>
 		                    <c:choose> 
 		                    	<c:when test="${ report.confirm eq true}">
-		                    		<td class="success"><center>확인 완료</center></td>
+		                    		<td><center><button type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left" title="확인이 완료되었습니다." data-content="이 날에 한 멘토링은 인정되었습니다.">
+		                        			<i class="glyphicon glyphicon-ok"></i> 확인 완료
+		                      		</button></center></td>
 		                    	</c:when>
 		                    	<c:when test="${ report.confirm eq false && report.comment eq null }">
 		                    		<td><center>보류 중</center></td>
@@ -273,6 +277,17 @@
 		         </c:choose>
                 </tbody>
               </table>
+              <hr/>
+              <div class="row">
+                <div class="col-md-12 information">
+                  <p> ⊙ 보고서에 문제가 있다면 커멘트를 참고해서 수정해주세요. </p>
+                  <p> ⊙ 보류 중인 문서는 현재 관리자들이 확인을 하고 있는 중입니다. </p>
+                  <p> ⊙ 보고서 다운로드는 확인이 완료된 후에 다운로드 받을 수 있습니다. </p>
+                  <p> ⊙ 누적 시간은 보고서를 통해서 확인이 완료된 시간들에 대해서 인정을 합니다. </p>
+                  <p> ⊙ 기본 이수 시간인 24시간을 초과하면 보고서를 작성할 수 없습니다. 이 점 참고하시길 바랍니다. </p>
+                </div>
+              </div>
+              <br/>
             </div>
             <c:choose>
 	            <c:when test="${ time le 24 }">

@@ -269,101 +269,103 @@
             </div>
             <a href="${R}user/report/write"><button class="btn btn-info"><i class="glyphicon glyphicon-folder-close"> 보고서 목록으로</i></button></a>
             <c:if test="${report.confirm eq true}"><a href="${R}user/report/download?id=${report.id}"><button class="btn btn-info"><i class="glyphicon glyphicon-floppy-disk"> 보고서 다운로드</i></button></a></c:if>
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-pencil"> 수정</i></button>
+            <c:if test="${report.confirm eq false}"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-pencil"> 수정</i></button></c:if>
           </div>
+          <c:if test="${ report.confirm eq false }">
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h2><b>보고서 수정</b></h2>
-              </div>
-              <div class="modal-body">
-                <form:form method="post" modelAttribute="editReport" enctype="multipart/form-data">
-                <div class="row">
-                  <div class="col-md-2 reportEntity2">멘토 이름</div>
-                  <div class="col-md-4 reportInput">${report.mentoName }</div>
-                  <div class="col-md-2 reportEntity2">제출 일자</div>
-                  <div class="col-md-4 reportInput"><fmt:formatDate value="${report.presentDate}" pattern="yyyy-MM-dd"/></div>
-                </div>
-                <div class="row">
-                  <div class="col-md-2 reportEntity2">팀 이름</div>
-                  <div class="col-md-4 reportInput">${report.teamName }</div>
-                  <div class="col-md-2 reportEntity2">교과목</div>
-                  <div class="col-md-4 reportInput">${report.mentoSubject }</div>
-                </div>
-                <div class="row">
-                  <div class="col-md-2 reportEntity">진행 장소</div>
-                  <div class="col-md-4 reportInput"><form:input path="classPlace" class="form-control" placeholder="강의실 입력(축제는 장소)"/></div>
-                  <div class="col-md-2 reportEntity">수업 방식</div>
-                  <div class="col-md-4 reportInput">
-                  	<form:input path="classType" class="form-control" placeholder="수업 방식을 입력해주세요."/>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-2 reportEntity">수업 일자</div>
-                  <div class="col-md-4 reportInput">
-                    <input type="date" name="classDate" class="form-control" value="${ editReport.classDate }"/>
-                  </div>
-                  <div class="col-md-1 reportEntity">시간</div>
-                  <div class="col-md-5 reportInput2 time">
-					<form:input path="start1" class="number_input" />&nbsp;:&nbsp;<form:input path="start2" class="number_input" />
-                    <h7>&nbsp;&nbsp;~&nbsp;&nbsp;</h7>
-                    <form:input path="end1" class="number_input" />&nbsp;:&nbsp;<form:input path="end2" class="number_input" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-2 reportEntity">결석 인원</div>
-                  <div class="col-md-10 reportInput">
-                    <form:input path="absentPerson" class="form-control" placeholder="결석 인원을 작성해 주세요. 없으면 비워도 됩니다."/>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 reportEntity">결석 사유</div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 reportInput"><form:textarea path="absentContext" class="form-control" rows="7" placeholder="결석 사유를 입력해주세요. 멘티와 이유를 구분해서 써주세요. 없으면 생략해도 됩니다."/></div>
-                </div>
-                <div class="row">
-                  <div class="col-md-2 reportEntity">수업 주제</div>
-                  <div class="col-md-10 reportInput"><form:input path="classSubject" class="form-control" placeholder="수업 주제 입력(축제, 컴퍼런스는 참석한 축제, 컴퍼런스 이름 작성.)"/></div>
-                </div>
-                <div class="row">
-                  <div class="col-md-2 reportEntity">수업 목표</div>
-                  <div class="col-md-10 reportInput"><form:input path="classTarget" class="form-control" placeholder="수업 목표 입력(축제, 컴퍼런스는 비워두셔도 됩니다.)"/></div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 reportEntity">멘토 소감</div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 reportInput"><form:textarea path="classImplass" class="form-control" rows="7" placeholder="적어도 500자 이내로 입력(축제, 컴퍼런스도 해당됩니다.)"/></div>
-                </div>
-                <div class="row">
-                  <div class="col-md-2 reportEntity">사진 불러오기</div>
-                  <div class="col-md-10 reportInput">
-                    <input type="file" name="classPhoto" class="form-control" multiple/>
-                  </div>
-                </div>
-                <hr/>
-                <div class="row">
-                  <div class="col-md-12 information">
-                    <p> ⊙ 보고서의 제출 기한은 따로 없습니다. 다만 수업 끝나는데로 작성해주시면 감사하겠습니다. </p>
-                    <p> ⊙ 시간은 멘토와 멘티들이 협상한 시간대에서 작성을 해주셔야 인정됩니다. </p>
-                    <p> ⊙ 멘토링 참석 비율이 2/3 미만인 경우에는 인정이 되지 않으니 참고하시길 바랍니다. </p>
-                    <p> ⊙ 축제, 컨퍼런스 참석 보고서에 대해서는 수업 방식에 축제/컴퍼런스 참석으로 선택하시고, 수업 주제에는 참석한 축제, 컴퍼런스 이름을 작성해주고, 목표는 비워두셔도 됩니다. 교과목은 그대로 작성해주시면 되고 진행 장소는 축제나 컴퍼런스를 진행한 장소를 작성해주시면 됩니다</p>
-                    <p> ⊙ 사진은 jpg, png 등 쉽게 구분이 가능한 확장명으로 올려주시고, 학번_n번째_멘토링.jpg, 학번_n번째_축제.jpg 이름으로 올려주셔야 합니다. </p>
-                    <p> ⊙ 수업 방식은 오리엔테이션, 강의/실습, 토론/팀워크, 프로젝트 진행 방식, 시험기간 중 질의응답, 축제/컨퍼런스 참석 6개 중 하나로 입력해주세요. </p>
-                  </div>
-                </div>
-                </form:form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal"><i class="glyphicon glyphicon-remove"> 취소</i></button>
-                <button type="button" class="btn btn-info" data-dismiss="modal"><i class="glyphicon glyphicon-ok"> 완료</i></button>
-              </div>
-            </div>
-          </div>
-        </div>
+	          <div class="modal-dialog modal-lg">
+	            <div class="modal-content">
+	              <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h2><b>보고서 수정</b></h2>
+	              </div>
+	              <div class="modal-body">
+	                <form:form method="post" modelAttribute="editReport" enctype="multipart/form-data">
+	                <div class="row">
+	                  <div class="col-md-2 reportEntity2">멘토 이름</div>
+	                  <div class="col-md-4 reportInput">${report.mentoName }</div>
+	                  <div class="col-md-2 reportEntity2">제출 일자</div>
+	                  <div class="col-md-4 reportInput"><fmt:formatDate value="${report.presentDate}" pattern="yyyy-MM-dd"/></div>
+	                </div>
+	                <div class="row">
+	                  <div class="col-md-2 reportEntity2">팀 이름</div>
+	                  <div class="col-md-4 reportInput">${report.teamName }</div>
+	                  <div class="col-md-2 reportEntity2">교과목</div>
+	                  <div class="col-md-4 reportInput">${report.mentoSubject }</div>
+	                </div>
+	                <div class="row">
+	                  <div class="col-md-2 reportEntity">진행 장소</div>
+	                  <div class="col-md-4 reportInput"><form:input path="classPlace" class="form-control" placeholder="강의실 입력(축제는 장소)"/></div>
+	                  <div class="col-md-2 reportEntity">수업 방식</div>
+	                  <div class="col-md-4 reportInput">
+	                  	<form:input path="classType" class="form-control" placeholder="수업 방식을 입력해주세요."/>
+	                  </div>
+	                </div>
+	                <div class="row">
+	                  <div class="col-md-2 reportEntity">수업 일자</div>
+	                  <div class="col-md-4 reportInput">
+	                    <input type="date" name="classDate" class="form-control" value="${ editReport.classDate }"/>
+	                  </div>
+	                  <div class="col-md-1 reportEntity">시간</div>
+	                  <div class="col-md-5 reportInput2 time">
+						<form:input path="start1" class="number_input" />&nbsp;:&nbsp;<form:input path="start2" class="number_input" />
+	                    <h7>&nbsp;&nbsp;~&nbsp;&nbsp;</h7>
+	                    <form:input path="end1" class="number_input" />&nbsp;:&nbsp;<form:input path="end2" class="number_input" />
+	                  </div>
+	                </div>
+	                <div class="row">
+	                  <div class="col-md-2 reportEntity">결석 인원</div>
+	                  <div class="col-md-10 reportInput">
+	                    <form:input path="absentPerson" class="form-control" placeholder="결석 인원을 작성해 주세요. 없으면 비워도 됩니다."/>
+	                  </div>
+	                </div>
+	                <div class="row">
+	                  <div class="col-md-12 reportEntity">결석 사유</div>
+	                </div>
+	                <div class="row">
+	                  <div class="col-md-12 reportInput"><form:textarea path="absentContext" class="form-control" rows="7" placeholder="결석 사유를 입력해주세요. 멘티와 이유를 구분해서 써주세요. 없으면 생략해도 됩니다."/></div>
+	                </div>
+	                <div class="row">
+	                  <div class="col-md-2 reportEntity">수업 주제</div>
+	                  <div class="col-md-10 reportInput"><form:input path="classSubject" class="form-control" placeholder="수업 주제 입력(축제, 컴퍼런스는 참석한 축제, 컴퍼런스 이름 작성.)"/></div>
+	                </div>
+	                <div class="row">
+	                  <div class="col-md-2 reportEntity">수업 목표</div>
+	                  <div class="col-md-10 reportInput"><form:input path="classTarget" class="form-control" placeholder="수업 목표 입력(축제, 컴퍼런스는 비워두셔도 됩니다.)"/></div>
+	                </div>
+	                <div class="row">
+	                  <div class="col-md-12 reportEntity">멘토 소감</div>
+	                </div>
+	                <div class="row">
+	                  <div class="col-md-12 reportInput"><form:textarea path="classImplass" class="form-control" rows="7" placeholder="적어도 500자 이내로 입력(축제, 컴퍼런스도 해당됩니다.)"/></div>
+	                </div>
+	                <div class="row">
+	                  <div class="col-md-2 reportEntity">사진 불러오기</div>
+	                  <div class="col-md-10 reportInput">
+	                    <input type="file" name="classPhoto" class="form-control" multiple/>
+	                  </div>
+	                </div>
+	                <hr/>
+	                <div class="row">
+	                  <div class="col-md-12 information">
+	                    <p> ⊙ 보고서의 제출 기한은 따로 없습니다. 다만 수업 끝나는데로 작성해주시면 감사하겠습니다. </p>
+	                    <p> ⊙ 시간은 멘토와 멘티들이 협상한 시간대에서 작성을 해주셔야 인정됩니다. </p>
+	                    <p> ⊙ 멘토링 참석 비율이 2/3 미만인 경우에는 인정이 되지 않으니 참고하시길 바랍니다. </p>
+	                    <p> ⊙ 축제, 컨퍼런스 참석 보고서에 대해서는 수업 방식에 축제/컴퍼런스 참석으로 선택하시고, 수업 주제에는 참석한 축제, 컴퍼런스 이름을 작성해주고, 목표는 비워두셔도 됩니다. 교과목은 그대로 작성해주시면 되고 진행 장소는 축제나 컴퍼런스를 진행한 장소를 작성해주시면 됩니다</p>
+	                    <p> ⊙ 사진은 jpg, png 등 쉽게 구분이 가능한 확장명으로 올려주시고, 학번_n번째_멘토링.jpg, 학번_n번째_축제.jpg 이름으로 올려주셔야 합니다. </p>
+	                    <p> ⊙ 수업 방식은 오리엔테이션, 강의/실습, 토론/팀워크, 프로젝트 진행 방식, 시험기간 중 질의응답, 축제/컨퍼런스 참석 6개 중 하나로 입력해주세요. </p>
+	                  </div>
+	                </div>
+	                </form:form>
+	              </div>
+	              <div class="modal-footer">
+	                <button type="button" class="btn btn-info" data-dismiss="modal"><i class="glyphicon glyphicon-remove"> 취소</i></button>
+	                <button type="button" class="btn btn-info" data-dismiss="modal"><i class="glyphicon glyphicon-ok"> 완료</i></button>
+	              </div>
+	            </div>
+	          </div>
+        	</div>
+        </c:if>
       </div>
       </div>
     </div>
