@@ -271,12 +271,12 @@
 	              <table class="table table-bordered">
 	                <thead class="reportEntity">
 	                <tr>
-	                  <td>제출 기간</td>
-	                  <td>수업 일자</td>
-	                  <td>멘토링 주제</td>
-	                  <td>멘티 결석 인원</td>
-	                  <td>확인 여부</td>
-	                  <td>보고서 확인하기</td>
+	                  <td><center>제출 기간</center></td>
+	                  <td><center>수업 일자</center></td>
+	                  <td><center>멘토링 주제</center></td>
+	                  <td><center>멘티 결석 인원</center></td>
+	                  <td><center>확인 여부</center></td>
+	                  <td><center>보고서 확인하기</center></td>
 	                </tr>
 	                </thead>
 	                <tbody>
@@ -284,13 +284,17 @@
 	                	<c:when test="${ reports.size() ne 0 }">
 			                <c:forEach var="report" items="${ reports }">
 			                  <tr>
-			                    <td><fmt:formatDate value="${report.presentDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-			                    <td>${ report.classDate }</td>
-			                    <td>${ report.classSubject }</td>
-			                    <td>${ report.absentPerson }</td>
-			                    <td><c:choose> <c:when test="${ report.confirm eq true}">확인 완료</c:when><c:otherwise>보류 중</c:otherwise></c:choose></td>
+			                    <td><center><fmt:formatDate value="${report.presentDate}" pattern="yyyy-MM-dd HH:mm"/></center></td>
+			                    <td><center>${ report.classDate }</center></td>
+			                    <td><center>${ report.classSubject }</center></td>
+			                    <td><center>${ report.absentPerson }</center></td>
+			                    <c:choose> 
+			                    	<c:when test="${ report.confirm eq true}"><td class="success"><center>확인 완료</center></td></c:when>
+			                    	<c:when test="${ report.confirm eq false && report.comment eq null }"><td><center>보류 중</center></td></c:when>
+									<c:when test="${ report.confirm eq false && report.comment ne null }"><td class="danger"><center>문제 있음</center></td></c:when>
+			                    </c:choose>
 			                    <td>
-			                      <a href="${R}user/report/reportInfo?mento=${param.mento}&id=${report.id}"><button class="btn btn-info" type="button"><i class="glyphicon glyphicon-pencil"> 확인</i></button></a>
+			                      <center><a href="${R}user/report/reportInfo?mento=${param.mento}&id=${report.id}"><button class="btn btn-info" type="button"><i class="glyphicon glyphicon-pencil"> 확인</i></button></a></center>
 			                    </td>
 			                  </tr>
 			                 </c:forEach>
@@ -321,6 +325,16 @@
             </div>
             <a href="${R}user/report/confirm"><button class="btn btn-info"><i class="glyphicon glyphicon-th-list"> 멘토목록으로</i></button></a>&nbsp;
             <c:if test="${ confirmCount ne 0 }"><a href="${R}user/report/allDownload?id=${param.mento}"><button class="btn btn-info"><i class="glyphicon glyphicon-floppy-disk"></i> 전체 보고서 다운</button></a></c:if>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md-12 information">
+              <p> ⊙ 관리자는 각 멘토링 보고서에 들어가면 확인을 할 수 있습니다. </p>
+              <p> ⊙ 보고서에 문제가 있다면 코멘트를 추가해서 문제 여부를 알리시면 됩니다. </p>
+              <p> ⊙ 보고서에 문제가 없다면 확인 완료 버튼을 누르시면 됩니다. </p>
+              <p> ⊙ 보고서 다운로드는 확인이 완료된 보고서만 다운로드 가능합니다. </p>
+              <p> ⊙ 전체 다운로드는 확인이 완료된 보고서들로 엑셀로 묶어서 다운로드가 진행됩니다. </p>
+            </div>
           </div>
       </div>
     </div>

@@ -337,7 +337,7 @@
             </div>
             <a href="${R}user/report/confirm"><button class="btn btn-info"><i class="glyphicon glyphicon-user"> 멘토목록으로</i></button></a>
             <a href="${R}user/report/confirmReportList?mento=${mento.id}"><button class="btn btn-info"><i class="glyphicon glyphicon-folder-close"> 보고서 목록으로</i></button></a>
-            <a href="${R}user/report/download?id=${report.id}"><button class="btn btn-info"><i class="glyphicon glyphicon-floppy-disk"> 보고서 다운로드</i></button></a>
+            <c:if test="${ report.confirm eq true }"><a href="${R}user/report/download?id=${report.id}"><button class="btn btn-info"><i class="glyphicon glyphicon-floppy-disk"> 보고서 다운로드</i></button></a></c:if>
             <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#comment"><i class="glyphicon glyphicon-pencil"></i> 코멘트</button>
           </div>
           <hr/>
