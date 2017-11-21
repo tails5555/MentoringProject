@@ -34,4 +34,18 @@ public class ClassPhotoService {
 			classPhotoMapper.insert(classPhoto);
 		}
 	}
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void updatePhoto(MultipartFile[] uploadFiles, int reportId) throws IOException{
+		for(MultipartFile uploadFile : uploadFiles) {
+			if(uploadFile.getSize() <= 0 ) continue;
+			String fileName=Paths.get(uploadFile.getOriginalFilename()).getFileName().toString();
+			ClassPhoto classPhoto=new ClassPhoto();
+			classPhoto.setFileName(fileName);
+			classPhoto.setFileSize((int)uploadFile.getSize());
+			classPhoto.setFileTime(new Date());
+			classPhoto.setReportId(reportId);
+			classPhoto.setData(uploadFile.getBytes());
+			classPhotoMapper.update(classPhoto);
+		}
+	}
 }

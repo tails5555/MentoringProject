@@ -28,4 +28,9 @@
   <update id="checkConfirm">
   	Update Report Set confirm=true, comment='', confirmManagerId=#{confirmManagerId} WHERE id=#{id}
   </update>
+  <update id="update">
+  	UPDATE Report SET
+  	classSubject=#{classSubject}, classTarget=#{classTarget}, classType=#{classType}, startTime=#{startTime}, endTime=#{endTime}, absentPerson=#{absentPerson}, absentContext=#{absentContext}, classImplass=#{classImplass}, classPlace=#{classPlace}
+  	WHERE id=#{id}
+  </update>
 </mapper>

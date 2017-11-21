@@ -14,4 +14,5 @@ public interface ReportMapper {
 	void insert(Report report);
 	void updateComment(@Param("id") int id, @Param("comment") String comment, @Param("confirmManagerId") int confirmManagerId);
 	void checkConfirm(@Param("id") int id, @Param("confirmManagerId") int confirmManagerId);
+	void update(Report report);
 }

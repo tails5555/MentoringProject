@@ -281,6 +281,7 @@
 	              </div>
 	              <div class="modal-body">
 	                <form:form method="post" modelAttribute="editReport" enctype="multipart/form-data">
+	                <form:hidden path="mentoId" />
 	                <div class="row">
 	                  <div class="col-md-2 reportEntity2">멘토 이름</div>
 	                  <div class="col-md-4 reportInput">${report.mentoName }</div>
@@ -340,7 +341,7 @@
 	                  <div class="col-md-12 reportInput"><form:textarea path="classImplass" class="form-control" rows="7" placeholder="적어도 500자 이내로 입력(축제, 컴퍼런스도 해당됩니다.)"/></div>
 	                </div>
 	                <div class="row">
-	                  <div class="col-md-2 reportEntity">사진 불러오기</div>
+	                  <div class="col-md-2 reportEntity">사진 다시 올리기</div>
 	                  <div class="col-md-10 reportInput">
 	                    <input type="file" name="classPhoto" class="form-control" multiple/>
 	                  </div>
@@ -354,13 +355,14 @@
 	                    <p> ⊙ 축제, 컨퍼런스 참석 보고서에 대해서는 수업 방식에 축제/컴퍼런스 참석으로 선택하시고, 수업 주제에는 참석한 축제, 컴퍼런스 이름을 작성해주고, 목표는 비워두셔도 됩니다. 교과목은 그대로 작성해주시면 되고 진행 장소는 축제나 컴퍼런스를 진행한 장소를 작성해주시면 됩니다</p>
 	                    <p> ⊙ 사진은 jpg, png 등 쉽게 구분이 가능한 확장명으로 올려주시고, 학번_n번째_멘토링.jpg, 학번_n번째_축제.jpg 이름으로 올려주셔야 합니다. </p>
 	                    <p> ⊙ 수업 방식은 오리엔테이션, 강의/실습, 토론/팀워크, 프로젝트 진행 방식, 시험기간 중 질의응답, 축제/컨퍼런스 참석 6개 중 하나로 입력해주세요. </p>
+	                    <p> ⊙ 사진을 다시 올리실 분들만 업로드를 진행해주시면 됩니다. 사진 변경이 없으신 분은 보고서만 수정하고 저장하기를 누르세요. </p>
 	                  </div>
 	                </div>
+	                <div class="modal-footer">
+	                	<button type="button" class="btn btn-info" data-dismiss="modal"><i class="glyphicon glyphicon-remove"> 취소</i></button>
+	                	<button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-ok"> 완료</i></button>
+	              	</div>
 	                </form:form>
-	              </div>
-	              <div class="modal-footer">
-	                <button type="button" class="btn btn-info" data-dismiss="modal"><i class="glyphicon glyphicon-remove"> 취소</i></button>
-	                <button type="button" class="btn btn-info" data-dismiss="modal"><i class="glyphicon glyphicon-ok"> 완료</i></button>
 	              </div>
 	            </div>
 	          </div>

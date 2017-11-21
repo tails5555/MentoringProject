@@ -243,7 +243,7 @@
 		                    <td><center><fmt:formatDate value="${report.classDate}" pattern="yyyy-MM-dd E"/></center></td>
 		                    <td><center>${ report.classSubject }</center></td>
 		                    <td><center>${ report.absentPerson }</center></td>
-		                    <td <c:if test="${ report.confirm }">class="success"</c:if>><center><fmt:formatDate value="${report.startTime}" pattern="HH:mm"/>~<fmt:formatDate value="${report.endTime}" pattern="HH:mm"/><br/><u>${ (report.endTime.getTime() - report.startTime.getTime() ) / 3600000 }시간</u></center></td>
+		                    <td <c:if test="${ report.confirm }">class="success"</c:if>><center><fmt:formatDate value="${report.startTime}" pattern="HH:mm"/>~<fmt:formatDate value="${report.endTime}" pattern="HH:mm"/><br/><u>${ (report.endTime.time - report.startTime.time) / 3600000 }시간</u></center></td>
 		                    <c:choose> 
 		                    	<c:when test="${ report.confirm eq true}">
 		                    		<td><center><button type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left" title="확인이 완료되었습니다." data-content="이 날에 한 멘토링은 인정되었습니다.">

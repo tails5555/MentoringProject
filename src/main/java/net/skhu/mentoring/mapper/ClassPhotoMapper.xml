@@ -13,4 +13,9 @@
   	INSERT INTO ClassPhoto(fileName, fileSize, fileTime, data, reportId)
   	VALUES(#{fileName}, #{fileSize}, #{fileTime}, #{data, javaType=[B, jdbcType=BLOB}, #{reportId})
   </insert>
+  <update id="update">
+  	UPDATE ClassPhoto SET 
+  	fileName=#{fileName}, fileSize=#{fileSize}, fileTime=now(), data=#{data, javaType=[B, jdbcType=BLOB}
+  	WHERE reportId=#{reportId}
+  </update>
 </mapper>

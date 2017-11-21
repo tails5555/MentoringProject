@@ -102,7 +102,14 @@ public class ReportController {
 		model.addAttribute("editReport", reportModel);
 		return "report/view";
 	}
-
+	@RequestMapping(value="user/report/view", method=RequestMethod.POST)
+	public String reportView(Model model, @RequestParam("classPhoto") MultipartFile[] uploadFiles, @RequestParam("id") int id, ReportModel reportModel) throws IOException {
+		if(uploadFiles.length>0) {
+			classPhotoService.updatePhoto(uploadFiles, id);
+		}
+		reportService.updateReport(reportModel);
+		return "redirect:view?id="+id;
+	}
 	@RequestMapping(value="user/report/write", method=RequestMethod.GET)
 	public String reportWrite(Model model) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();

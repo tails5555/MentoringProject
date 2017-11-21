@@ -133,9 +133,40 @@ public class ReportService {
 		report.setPresentDate(new java.util.Date());
 		reportMapper.insert(report);
 	}
+	public void updateReport(ReportModel reportModel) {
+		Report report=new Report();
+		java.sql.Date classDay=reportModel.getClassDate();
+		java.util.Date sTime=new java.util.Date();
+		sTime.setYear(classDay.getYear());
+		sTime.setMonth(classDay.getMonth());
+		sTime.setDate(classDay.getDate());
+		sTime.setHours(reportModel.getStart1());
+		sTime.setMinutes(reportModel.getStart2());
+		sTime.setSeconds(0);
+		java.util.Date eTime=new java.util.Date();
+		eTime.setYear(classDay.getYear());
+		eTime.setMonth(classDay.getMonth());
+		eTime.setDate(classDay.getDate());
+		eTime.setHours(reportModel.getEnd1());
+		eTime.setMinutes(reportModel.getEnd2());
+		eTime.setSeconds(0);
+		report.setClassPlace(reportModel.getClassPlace());
+		report.setClassImplass(reportModel.getClassImplass());
+		report.setClassDate(reportModel.getClassDate());
+		report.setClassSubject(reportModel.getClassSubject());
+		report.setClassTarget(reportModel.getClassTarget());
+		report.setClassType(reportModel.getClassType());
+		report.setStartTime(sTime);
+		report.setEndTime(eTime);
+		report.setAbsentContext(reportModel.getAbsentContext());
+		report.setAbsentPerson(reportModel.getAbsentPerson());
+		report.setId(reportModel.getId());
+		reportMapper.update(report);
+	}
 	public ReportModel getEditModel(int id) {
 		ReportModel reportModel=new ReportModel();
 		Report report=reportMapper.findOne(id);
+		reportModel.setMentoId(report.getMentoId());
 		reportModel.setClassPlace(report.getClassPlace());
 		reportModel.setClassImplass(report.getClassImplass());
 		reportModel.setClassDate(report.getClassDate());
