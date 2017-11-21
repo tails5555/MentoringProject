@@ -10,6 +10,11 @@
   	where mentoId=#{mentoId}
   	Order By presentDate desc
   </select>
+  <select id="findByMentoIdASC" resultType="Report">
+  	select * from Report
+  	where mentoId=#{mentoId}
+  	Order By presentDate
+  </select>
   <select id="findOne" resultType="Report">
     select * from Report Where id=#{id}
   </select>
@@ -33,4 +38,7 @@
   	classSubject=#{classSubject}, classTarget=#{classTarget}, classType=#{classType}, startTime=#{startTime}, endTime=#{endTime}, absentPerson=#{absentPerson}, absentContext=#{absentContext}, classImplass=#{classImplass}, classPlace=#{classPlace}
   	WHERE id=#{id}
   </update>
+  <select id="checkConfirmCount" resultType="java.lang.Integer">
+  	SELECT count(*) FROM Report WHERE mentoId=#{mentoId} AND confirm=true
+  </select>
 </mapper>

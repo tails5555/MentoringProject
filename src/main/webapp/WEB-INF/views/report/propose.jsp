@@ -267,43 +267,60 @@
               <h2>보고서 리스트</h2>
               <hr/>
               <h3><b>${ mento.teamName }</b></h3>
-              <table class="table table-bordered">
-                <thead class="reportEntity">
-                <tr>
-                  <td>제출 기간</td>
-                  <td>수업 일자</td>
-                  <td>멘토링 주제</td>
-                  <td>멘티 결석 인원</td>
-                  <td>확인 여부</td>
-                  <td>보고서 확인하기</td>
-                </tr>
-                </thead>
-                <tbody>
-                <c:choose>
-                	<c:when test="${ reports.size() ne 0 }">
-		                <c:forEach var="report" items="${ reports }">
-		                  <tr>
-		                    <td><fmt:formatDate value="${report.presentDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-		                    <td>${ report.classDate }</td>
-		                    <td>${ report.classSubject }</td>
-		                    <td>${ report.absentPerson }</td>
-		                    <td><c:choose> <c:when test="${ report.confirm eq true}">확인 완료</c:when><c:otherwise>보류 중</c:otherwise></c:choose></td>
-		                    <td>
-		                      <a href="${R}user/report/reportInfo?mento=${param.mento}&id=${report.id}"><button class="btn btn-info" type="button"><i class="glyphicon glyphicon-pencil"> 확인</i></button></a>
-		                    </td>
-		                  </tr>
-		                 </c:forEach>
-		             </c:when>
-		             <c:otherwise>
-			             <tr>
-			             	<td colspan="6"><center>제출한 보고서 내역이 없습니다.</center></td>
-			             </tr>
-		             </c:otherwise>
-		         </c:choose>
-                </tbody>
-              </table>
+              <c:if test="${ mentoring ne null }">
+	              <table class="table table-bordered">
+	                <thead class="reportEntity">
+	                <tr>
+	                  <td>제출 기간</td>
+	                  <td>수업 일자</td>
+	                  <td>멘토링 주제</td>
+	                  <td>멘티 결석 인원</td>
+	                  <td>확인 여부</td>
+	                  <td>보고서 확인하기</td>
+	                </tr>
+	                </thead>
+	                <tbody>
+	                <c:choose>
+	                	<c:when test="${ reports.size() ne 0 }">
+			                <c:forEach var="report" items="${ reports }">
+			                  <tr>
+			                    <td><fmt:formatDate value="${report.presentDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+			                    <td>${ report.classDate }</td>
+			                    <td>${ report.classSubject }</td>
+			                    <td>${ report.absentPerson }</td>
+			                    <td><c:choose> <c:when test="${ report.confirm eq true}">확인 완료</c:when><c:otherwise>보류 중</c:otherwise></c:choose></td>
+			                    <td>
+			                      <a href="${R}user/report/reportInfo?mento=${param.mento}&id=${report.id}"><button class="btn btn-info" type="button"><i class="glyphicon glyphicon-pencil"> 확인</i></button></a>
+			                    </td>
+			                  </tr>
+			                 </c:forEach>
+			             </c:when>
+			             <c:otherwise>
+				             <tr>
+				             	<td colspan="6"><center>제출한 보고서 내역이 없습니다.</center></td>
+				             </tr>
+			             </c:otherwise>
+			         </c:choose>
+	                </tbody>
+	              </table>
+	           </c:if>
+	           <c:if test="${ mentoring eq null }">
+	           <table class="table table-bordered">
+	                <thead class="reportEntity">
+		                <tr>
+		                  <td>멘토링을 허가받지 않은 멘토입니다.</td>
+		                </tr>
+	                </thead>
+	                <tbody>
+	                	<tr>
+	                		<td><center>멘토링 허가를 진행하시고 작업해주시길 바랍니다.</center></td>
+	                	</tr>
+	               	</tbody>
+	           </table>
+	           </c:if>
             </div>
-            <a href="${R}user/report/confirm"><button class="btn btn-info"><i class="glyphicon glyphicon-th-list"> 멘토목록으로</i></button></a>
+            <a href="${R}user/report/confirm"><button class="btn btn-info"><i class="glyphicon glyphicon-th-list"> 멘토목록으로</i></button></a>&nbsp;
+            <c:if test="${ confirmCount ne 0 }"><a href="${R}user/report/allDownload?id=${param.mento}"><button class="btn btn-info"><i class="glyphicon glyphicon-floppy-disk"></i> 전체 보고서 다운</button></a></c:if>
           </div>
       </div>
     </div>

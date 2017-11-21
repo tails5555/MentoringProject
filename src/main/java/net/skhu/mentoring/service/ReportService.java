@@ -163,6 +163,9 @@ public class ReportService {
 		report.setId(reportModel.getId());
 		reportMapper.update(report);
 	}
+	public int confirmedReportCount(int id) {
+		return reportMapper.checkConfirmCount(id);
+	}
 	public ReportModel getEditModel(int id) {
 		ReportModel reportModel=new ReportModel();
 		Report report=reportMapper.findOne(id);
@@ -222,5 +225,8 @@ public class ReportService {
 	}
 	public Report findLastReport() {
 		return reportMapper.findLastReport();
+	}
+	public List<Report> findByMentoIdASC(int mentoId){
+		return reportMapper.findByMentoIdASC(mentoId);
 	}
 }
