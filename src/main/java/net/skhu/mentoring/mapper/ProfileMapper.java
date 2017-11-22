@@ -9,4 +9,6 @@ import net.skhu.mentoring.dto.Profile;
 public interface ProfileMapper {
 	Profile findOne(int id);
 	Profile findByUserId(@Param("userId") int userId);
+	void insert(Profile profile);
+	void update(Profile profile);
 }

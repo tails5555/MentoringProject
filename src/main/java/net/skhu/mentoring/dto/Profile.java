@@ -6,7 +6,7 @@ import lombok.Data;
 public class Profile {
 	int id;
 	String fileName;
-	String fileSize;
+	int fileSize;
 	Date fileTime;
 	byte[] data;
 	int userId;

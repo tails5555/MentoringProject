@@ -1,4 +1,5 @@
 package net.skhu.mentoring.controller;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import net.skhu.mentoring.dto.Department;
 import net.skhu.mentoring.dto.Employee;
 import net.skhu.mentoring.dto.Professor;
+import net.skhu.mentoring.dto.Profile;
 import net.skhu.mentoring.dto.Student;
 import net.skhu.mentoring.dto.TimeTable;
 import net.skhu.mentoring.dto.User;
@@ -23,6 +27,7 @@ import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.TimeTableMapper;
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.service.NoticeBBSService;
+import net.skhu.mentoring.service.ProfileService;
 import net.skhu.mentoring.utils.Encryption;
 
 
@@ -36,6 +41,7 @@ public class UserController {
 	@Autowired ProfessorMapper professorMapper;
 	@Autowired EmployeeMapper employeeMapper;
 	@Autowired TimeTableMapper timetableMapper;
+	@Autowired ProfileService profileService;
 
 
 	@RequestMapping("user/index")
@@ -55,13 +61,23 @@ public class UserController {
 			User my = userMapper.findEdit(student.getUserId());
 			timetable = timetableMapper.findOne(userNumber);
 			String s=my.getPhoneNumber();
+			if(s.length()==11) {
 			my.setPhone1((String)s.subSequence(0, 3));
 			my.setPhone2((String)s.subSequence(3, 7));
 			my.setPhone3((String)s.subSequence(7, 11));
+			}
+			else {
+				my.setPhone1((String)s.subSequence(0, 3));
+				my.setPhone2((String)s.subSequence(4, 8));
+				my.setPhone3((String)s.subSequence(9, 13));
+			}
 
 			System.out.println(my.getPassword());
 			my.setPassword(Encryption.encrypt(my.getPassword(), Encryption.MD5));
-
+			Profile profile=profileService.findByUserId(student.getUserId());
+			if(profile!=null) {
+				my.setProfileId(profile.getId());
+			}else my.setProfileId(-1);
 			model.addAttribute("my", my);
 			model.addAttribute("timetable",timetable);
 			System.out.println(timetable.getTue4());
@@ -73,9 +89,20 @@ public class UserController {
 			User my = userMapper.findEdit(professor.getUserId());
 
 			String s=my.getPhoneNumber();
-			my.setPhone1((String)s.subSequence(0, 3));
-			my.setPhone2((String)s.subSequence(3, 7));
-			my.setPhone3((String)s.subSequence(7, 11));
+			if(s.length()==11) {
+				my.setPhone1((String)s.subSequence(0, 3));
+				my.setPhone2((String)s.subSequence(3, 7));
+				my.setPhone3((String)s.subSequence(7, 11));
+			}
+			else {
+				my.setPhone1((String)s.subSequence(0, 3));
+				my.setPhone2((String)s.subSequence(4, 8));
+				my.setPhone3((String)s.subSequence(9, 13));
+			}
+			Profile profile=profileService.findByUserId(professor.getUserId());
+			if(profile!=null) {
+				my.setProfileId(profile.getId());
+			}else my.setProfileId(-1);
 			model.addAttribute("my", my);
 		}
 
@@ -84,9 +111,20 @@ public class UserController {
 			User my = userMapper.findEdit(employee.getUserId());
 
 			String s=my.getPhoneNumber();
-			my.setPhone1((String)s.subSequence(0, 3));
-			my.setPhone2((String)s.subSequence(3, 7));
-			my.setPhone3((String)s.subSequence(7, 11));
+			if(s.length()==11) {
+				my.setPhone1((String)s.subSequence(0, 3));
+				my.setPhone2((String)s.subSequence(3, 7));
+				my.setPhone3((String)s.subSequence(7, 11));
+			}
+			else {
+				my.setPhone1((String)s.subSequence(0, 3));
+				my.setPhone2((String)s.subSequence(4, 8));
+				my.setPhone3((String)s.subSequence(9, 13));
+			}
+			Profile profile=profileService.findByUserId(employee.getUserId());
+			if(profile!=null) {
+				my.setProfileId(profile.getId());
+			}else my.setProfileId(-1);
 			model.addAttribute("my", my);
 		}
 
@@ -145,7 +183,7 @@ public class UserController {
 
 
 	@RequestMapping(value="user/Edit", method=RequestMethod.POST)
-	public String myPage(Model model, User user) {
+	public String myPage(Model model, User user, @RequestParam("profile") MultipartFile[] uploadFiles) throws IOException {
 
 		String phone=user.getPhone1()+""+user.getPhone2()+""+user.getPhone3();
     	System.out.println(phone);
@@ -283,7 +321,10 @@ public class UserController {
 
        	}
 
-
+    	Profile profile=profileService.findByUserId(id);
+    	if(profile!=null) {
+    		profileService.updatePhoto(uploadFiles, id);
+    	}else profileService.insertPhoto(uploadFiles, id);
 
 		return "redirect:/user/index";
 	}

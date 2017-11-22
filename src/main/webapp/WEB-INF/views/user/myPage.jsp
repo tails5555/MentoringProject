@@ -323,7 +323,7 @@
       <hr/>
       <div class="row">
         <div class="col-md-4 col-sm-6 text-center mb-4">
-          <img class="rounded-circle img-fluid d-block mx-auto" src="http://placehold.it/200x200" alt="">
+          <img class="rounded-circle img-fluid d-block mx-auto" src="<c:choose><c:when test="${my.profileId ne -1}">${R}user/image/profile/${my.profileId}</c:when><c:otherwise>${R}img/mento_photo.jpg</c:otherwise></c:choose>" alt="" width="200px" height="200px">
           <h3>${ my.userName }
             <small>${ my.departmentName }</small>
           </h3>
@@ -345,7 +345,7 @@
             </tr>
             <tr>
               <td class="entity">전화번호</td>
-              <td colspan="2" class="context">${ my.phoneNumber}</td>
+              <td colspan="2" class="context">${ my.phone1 } - ${ my.phone2 } - ${ my.phone3 }</td>
             </tr>
             <tr>
               <td class="entity">이메일</td>
@@ -365,7 +365,7 @@
         <div class="col-md-12">
         
         
- <form:form method="post" modelAttribute="user" class="form-inline" id="my-form">       
+ <form:form method="post" modelAttribute="user" class="form-inline" id="my-form"  enctype="multipart/form-data">       
         
     <form class="form-inline">
       <div class="application">
@@ -427,12 +427,11 @@
             <span class="help-block text-danger"></span>
 			</div>
 
-
+			
              <div class="control-group">
               <div class="form-group floating-label-form-group controls">
-                <label style="vertical-align: top;">사진등록/변경:  </label>
-                 <a href="#"><img class="rounded-circle img-fluid d-block mx-auto" src="http://placehold.it/200x200" alt=""></a>
-                <p class="help-block text-danger"></p>
+                <label style="vertical-align: top;">사진 등록 / 변경 :  </label>
+                 <input type="file" name="profile" class="form-control" multiple/>
               </div>
             </div>
 

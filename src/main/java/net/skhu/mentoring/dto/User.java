@@ -15,7 +15,7 @@ public class User {
 	String departmentName;
 	String number;
 	int userId;
-
+	int profileId;
 	String phone1;
 	String phone2;
 	String phone3;
