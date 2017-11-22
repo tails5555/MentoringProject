@@ -22,6 +22,8 @@ import net.skhu.mentoring.mapper.ProfileMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.model.NoticeBBSPostModel;
+import net.skhu.mentoring.model.Option;
+import net.skhu.mentoring.model.Pagination;
 @Service
 public class NoticeBBSService {
 	@Autowired NoticeBBSPostMapper noticeBBSPostMapper;
@@ -32,12 +34,23 @@ public class NoticeBBSService {
 	@Autowired ProfessorMapper professorMapper;
 	@Autowired EmployeeMapper employeeMapper;
 	@Autowired StudentMapper studentMapper;
-	public List<NoticeBBSPost> getBBSList(int id){
-		List<NoticeBBSPost> notices=noticeBBSPostMapper.findByPartyBBSId(id);
+	public Option[] getSearchOptions() {
+		return noticeBBSPostMapper.searchBy;
+	}
+	public List<NoticeBBSPost> findFiveNoticePost(){
+		List<NoticeBBSPost> notices=noticeBBSPostMapper.findFiveNoticePost();
+		for(NoticeBBSPost list : notices) {
+			setUser(list);
+		}
+		return notices;
+	}
+	public List<NoticeBBSPost> getBBSList(Pagination pagination){
+		List<NoticeBBSPost> notices=noticeBBSPostMapper.findByPartyBBSId(pagination);
 		for(NoticeBBSPost list : notices) {
 			setUser(list);
 			list.setCommentCount(noticeBBSCommentMapper.countByBBSPostId(list.getId()));
 		}
+		pagination.setRecordCount(noticeBBSPostMapper.count(pagination));
 		return notices;
 	}
 	public NoticeBBS getBBSTitle(int id) {

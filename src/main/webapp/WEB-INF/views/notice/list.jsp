@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <c:url var="R" value="/" />
 <!DOCTYPE html>
 <html>
@@ -153,8 +155,12 @@
         margin-right : auto;
       }
       .search{
-        margin-top : 10px;
+        margin-top : 20px;
         margin-bottom : 10px;
+        text-align : right;
+      }
+      .page{
+      	text-align : center;
       }
       thead{
         background-color : #A9F5BC;
@@ -267,28 +273,31 @@
           <h1 class="my-4"><strong>알립니다</strong></h1>
           <div class="list-group">
             <sec:authorize access="not authenticated">
-            	<a href="${R}guest/notice/list?bd=1" class="list-group-item <c:if test="${param.bd eq 1}">active</c:if>">공지사항</a>
+            	<a href="${R}guest/notice/list?bd=1&pg=1" class="list-group-item <c:if test="${param.bd eq 1}">active</c:if>">공지사항</a>
             </sec:authorize>
           	<sec:authorize access="authenticated">
-            	<a href="${R}user/notice/list?bd=1" class="list-group-item <c:if test="${param.bd eq 1}">active</c:if>">공지사항</a>
+            	<a href="${R}user/notice/list?bd=1&pg=1" class="list-group-item <c:if test="${param.bd eq 1}">active</c:if>">공지사항</a>
             </sec:authorize>
-            <a href="${R}user/notice/list?bd=2" class="list-group-item <c:if test="${param.bd eq 2}">active</c:if>">참여마당</a>
+            <a href="${R}user/notice/list?bd=2&pg=1" class="list-group-item <c:if test="${param.bd eq 2}">active</c:if>">참여마당</a>
           </div>
         </div>
         <!-- /.col-lg-3 -->
 
         <div class="col-md-9">
           <h1 class="my-4"><strong>${ noticeBBS.bbsName }</strong></h1>
+          <hr/>
           <div class="row search">
-              <form class="form-inline" align="right">
-                <select class="form-control">
-                  <option>제목</option>
-                  <option>작성자</option>
-                  <option>제목+내용</option>
-                </select>
-                <input type="text" class="form-control" id="searchKeyword" placeholder="검색어를 입력하세요."/>
-                <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"> 검색하기</i></button>
-              </form>
+          <form:form method="get" modelAttribute="pagination" class="form-inline">
+          	<form:hidden path="bd"/>
+          	<form:select path="sb" class="form-control" itemValue="value" itemLabel="label" items="${ searchBy }"/>
+            <form:input path="st" class="form-control" placeholder="검색할 문자열" />
+            
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"> 검색하기</i></button>
+            <c:if test="${ pagination.sb > 0}">
+		      <a class="btn btn-default" href="list?bd=${noticeBBS.id}&pg=1">
+		        <i class="glyphicon glyphicon-ban-circle"></i> 검색취소</a>
+		    </c:if>      
+          </form:form>
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -305,7 +314,7 @@
 
                 <tbody>
                 <c:forEach var="post" items="${ postList }">
-	              <tr data-url="view.do?bd=${noticeBBS.id}&id=${post.id}">
+	              <tr data-url="view.do?id=${post.id}&${pagination.queryString}">
 	              	<td>${ post.id }
 	              	<td>${ post.title }  <span class="label label-success">${post.commentCount }</span></td>
 	              	<td>${ post.userName }</td>
@@ -325,7 +334,7 @@
             <sec:authorize access="authenticated">
               <c:if test="${ noticeBBS.writeable eq false }">
               	<sec:authorize access="hasAnyRole({'ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN'})">
-	              	<a href="create.do?bd=${ noticeBBS.id }"><button type="button" class="btn btn-info">
+	              	<a href="create.do?${pagination.queryString}"><button type="button" class="btn btn-info">
 	              		<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button></a>
               	</sec:authorize>
               	<sec:authorize access="hasAnyRole({'ROLE_MENTO', 'ROLE_MENTI'})">
@@ -334,31 +343,14 @@
               	</sec:authorize>
               </c:if>
               <c:if test="${ noticeBBS.writeable eq true }">
-	              <a href="create.do?bd=${ noticeBBS.id }"><button type="button" class="btn btn-info">
+	              <a href="create.do?${pagination.queryString}"><button type="button" class="btn btn-info">
 	              	<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button></a>
               </c:if>
 		    </sec:authorize>
           </div>
-          <nav aria-label="Page navigation">
-            <ul class="pagination">
-              <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li>
-                <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-
+          <div class="page">
+          	<page:pagination pageSize="${ pagination.sz }" recordCount="${ pagination.recordCount }" />
+          </div>
         </div>
       </div>
 

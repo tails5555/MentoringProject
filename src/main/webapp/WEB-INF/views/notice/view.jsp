@@ -378,13 +378,13 @@
 		            		<c:forEach var="file" items="${ noticeFile }">
 		            			<tr>
 		            				<td style="text-align : center;"><i class="glyphicon glyphicon-save-file"></i></td>
-		            				<td style="text-align : center;"><a href="download?id=${file.id}">${ file.fileName }</a></td>
+		            				<td style="text-align : center;"><a href="download?id=${file.id}&${pagination.queryString}">${ file.fileName }</a></td>
 		            				<td style="text-align : center;"><fmt:formatDate pattern="yy-MM-dd HH:mm" value="${ file.fileTime }"></fmt:formatDate></td>
 		            				<td style="text-align : center;"><fmt:formatNumber pattern="0.00" value="${ file.fileSize/1024/1024 }"/>MB</td>
 		            				<sec:authorize access="authenticated">
 			            				<sec:authentication property="user.id" var="userId"/>
 									    <c:if test="${userId eq noticePost.userId }">
-									    	<td style="text-align : center;"><a href="fileDelete?bd=${noticeBBS.id}&id=${noticePost.id}&fId=${file.id}" class="btn btn-danger" data-confirm-file-delete><i class="glyphicon glyphicon-trash"></i> 파일 삭제</a></td>
+									    	<td style="text-align : center;"><a href="fileDelete?id=${noticePost.id}&fId=${file.id}&${pagination.queryString}" class="btn btn-danger" data-confirm-file-delete><i class="glyphicon glyphicon-trash"></i> 파일 삭제</a></td>
 									    </c:if>
 									</sec:authorize>
 		            			</tr>
@@ -394,7 +394,7 @@
 			            	<sec:authentication property="user.id" var="userId"/>
 		            		<c:if test="${userId eq noticePost.userId }">
 							    	<hr/>
-							    	<a href="fileAllDelete?bd=${noticeBBS.id}&id=${noticePost.id}" class="btn btn-danger" data-confirm-fileAll-delete><i class="glyphicon glyphicon-trash"></i> 모든 파일 삭제</a>
+							    	<a href="fileAllDelete?id=${noticePost.id}&${pagination.queryString}" class="btn btn-danger" data-confirm-fileAll-delete><i class="glyphicon glyphicon-trash"></i> 모든 파일 삭제</a>
 							</c:if>
 						</sec:authorize>
 	            	</div>
@@ -409,14 +409,14 @@
               </div>
             </div>
             <div class="complete" align="right">
-              <a href="list.do?bd=${noticeBBS.id}"><button class="btn btn-info" type="button"><i class="glyphicon glyphicon-arrow-left"> 뒤로가기</i></button></a>
+              <a href="list.do?${pagination.queryString}"><button class="btn btn-info" type="button"><i class="glyphicon glyphicon-arrow-left"> 뒤로가기</i></button></a>
               <sec:authorize access="authenticated">    	
 			    <sec:authentication property="user.id" var="userId"/>
 			    <c:if test="${userId eq noticePost.userId }">
 			    	&nbsp;&nbsp;
-			    	<a href="edit.do?bd=${noticeBBS.id }&id=${noticePost.id}" class="btn btn-info" ><i class="glyphicon glyphicon-pencil"></i> 수정하기 / ${ noticeFile.size() > 0 ? "파일 추가" : "새로운 파일 추가" }</a>
+			    	<a href="edit.do?id=${noticePost.id}&${pagination.queryString}" class="btn btn-info" ><i class="glyphicon glyphicon-pencil"></i> 수정하기 / ${ noticeFile.size() > 0 ? "파일 추가" : "새로운 파일 추가" }</a>
 			    	&nbsp;&nbsp;
-			    	<a href="postDelete.do?bd=${noticeBBS.id }&id=${noticePost.id}" class="btn btn-info" data-confirm-post-delete><i class="glyphicon glyphicon-remove"></i> 삭제하기</a>
+			    	<a href="postDelete.do?id=${noticePost.id}&${pagination.queryString}" class="btn btn-info" data-confirm-post-delete><i class="glyphicon glyphicon-remove"></i> 삭제하기</a>
 			    </c:if>
 			  </sec:authorize>
             </div>
@@ -480,7 +480,7 @@
 								    	<sec:authentication property="user.id" var="userId"/>
 								    	<c:if test="${userId eq comment.userId }">
 								    		<br/><br/>
-								    		<a href="commentDelete.do?bd=${noticeBBS.id }&id=${noticePost.id}&cmdId=${comment.id}" class="btn btn-danger" data-confirm-comment-delete><i class="glyphicon glyphicon-remove"></i>삭제</a>
+								    		<a href="commentDelete.do?id=${noticePost.id}&cmdId=${comment.id}&${pagination.queryString}" class="btn btn-danger" data-confirm-comment-delete><i class="glyphicon glyphicon-remove"></i>삭제</a>
 								    	</c:if>
 							    	</div>
 							    </sec:authorize>

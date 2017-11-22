@@ -191,10 +191,10 @@
                       <div class="search" align="right">
                         <button type="submit" onclick="save()" class="btn btn-default"><i class="glyphicon glyphicon-pencil"> 작성</i></button>
                         <c:if test="${ newPost.id > 0 }">
-                        	<a href="view?bd=${noticeBBS.id}&id=${newPost.id}"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-modal-window"> 이전으로</i></button></a>
+                        	<a href="view?id=${newPost.id}&${pagination.queryString}"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-modal-window"> 이전으로</i></button></a>
                         </c:if>
                         <c:if test="${ newPost.id eq 0 }">
-                        	<a href="list?bd=${noticeBBS.id}"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-menu-hamburger"> ${noticeBBS.bbsName } 목록으로</i></button></a>
+                        	<a href="list?${pagination.queryString}"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-menu-hamburger"> ${noticeBBS.bbsName } 목록으로</i></button></a>
                         </c:if>
                       </div>
                       <script>
