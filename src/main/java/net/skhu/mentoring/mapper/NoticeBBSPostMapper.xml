@@ -23,7 +23,7 @@
     <if test="sb == 3"> AND (INSTR(context, #{st}) > 0 OR INSTR(title, #{st}) > 0)</if> 
   </select>
   <select id="findFiveNoticePost" resultType="NoticeBBSPost">
-  	SELECT * FROM NoticeBBSPost WHERE partyBBSId=1 ORDER BY id LIMIT 5
+  	SELECT * FROM NoticeBBSPost WHERE partyBBSId=1 ORDER BY id DESC LIMIT 5
   </select>
   <select id="findByUserId" resultType="NoticeBBSPost">
   	select * from NoticeBBSPost WHERE userId=#{userId}

@@ -166,7 +166,14 @@
             <tbody>
               <c:forEach var="notice" items="${ notices }">
               <tr>
-              	<td><a href="${R}user/notice/view.do?bd=1&id=${notice.id}">${ notice.title }</a></td>
+              	<td>
+              	<a href="${R}user/notice/view.do?bd=1&id=${notice.id}">
+              		<c:choose>
+              			<c:when test="${ notice.title.length() gt 18 }">${ notice.title.substring(0, 18) }...</c:when>
+              			<c:otherwise>${ notice.title }</c:otherwise>
+              		</c:choose>
+              	</a>
+              	</td>
               	<td>${ notice.userName }</td>
               	<td><fmt:formatDate value="${notice.writeDate}" pattern="yy-MM-dd HH:mm"/></td>
               </tr>
