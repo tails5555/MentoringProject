@@ -315,11 +315,11 @@
                 <tbody>
                 <c:forEach var="post" items="${ postList }">
 	              <tr data-url="view.do?id=${post.id}&${pagination.queryString}">
-	              	<td>${ post.id }
+	              	<td><center>${ post.id }</center></td>
 	              	<td>${ post.title }  <span class="label label-success">${post.commentCount }</span></td>
-	              	<td>${ post.userName }</td>
-	              	<td><fmt:formatDate value="${post.writeDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-	              	<td>${ post.views }
+	              	<td><center>${ post.userName }</center></td>
+	              	<td><center><fmt:formatDate value="${post.writeDate}" pattern="yyyy-MM-dd HH:mm"/></center></td>
+	              	<td><center>${ post.views }</center></td>
 	              </tr>
 	            </c:forEach> 
                 </tbody>
