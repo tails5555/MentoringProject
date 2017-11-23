@@ -15,7 +15,7 @@ public class Pagination {
 		String url=null;
 		try {
 			String temp=(st==null) ? "" : URLEncoder.encode(st, "UTF-8");
-			url=String.format("bd=%d&pg=%d&sz=%d&sb=%d&st=%s", bd, pg, sz, sb, st);
+			url=String.format("bd=%d&pg=%d&sz=%d&sb=%d&st=%s", bd, pg, sz, sb, temp);
 		}catch(UnsupportedEncodingException e) {}
 		return url;
 	}

@@ -11,6 +11,9 @@
     <if test="sb == 1"> AND INSTR(title, #{st}) > 0</if> 
     <if test="sb == 2"> AND INSTR(context, #{st}) > 0</if> 
     <if test="sb == 3"> AND (INSTR(context, #{st}) > 0 OR INSTR(title, #{st}) > 0)</if> 
+    <if test="sb == 4"> AND (userId IN (Select userId FROM Student WHERE INSTR(name, #{st})>0)
+    					OR userId IN (Select userId FROM Professor WHERE INSTR(name, #{st})>0)
+    					OR userId IN (Select userId FROM Employee WHERE INSTR(name, #{st})>0))</if>
     Order By id desc
     LIMIT ${start}, ${sz}
   </select>
