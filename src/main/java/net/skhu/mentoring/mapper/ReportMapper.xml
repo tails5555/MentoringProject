@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.skhu.mentoring.mapper.ReportMapper">
+
+ 
+  <select id="findByMentoId" resultType="Report">
+  	select * from Report
+  	where mentoId=#{mentoId}
+  	Order By presentDate desc
+  </select>
+  <select id="findByMentoIdASC" resultType="Report">
+  	select * from Report
+  	where mentoId=#{mentoId}
+  	Order By presentDate
+  </select>
+  <select id="findOne" resultType="Report">
+    select * from Report Where id=#{id}
+  </select>
+  <select id="findLastReport" resultType="Report">
+  	select * from Report Order By id DESC LIMIT 1
+  </select>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+  	Insert Into Report(mentoId, classSubject, classTarget, classType, classDate, presentDate, startTime, endTime, absentPerson, absentContext, classImplass, classPlace)
+  	values(#{mentoId}, #{classSubject}, #{classTarget}, #{classType}, #{classDate}, #{presentDate}, #{startTime}, #{endTime}, #{absentPerson}, #{absentContext}, #{classImplass}, #{classPlace})
+  </insert>
+  <update id="updateComment">
+  	Update Report SET
+  	comment=#{comment}, confirmManagerId=#{confirmManagerId}, confirm=false
+  	where id=#{id}	
+  </update>
+  <update id="checkConfirm">
+  	Update Report Set confirm=true, comment='', confirmManagerId=#{confirmManagerId} WHERE id=#{id}
+  </update>
+  <update id="update">
+  	UPDATE Report SET
+  	classSubject=#{classSubject}, classTarget=#{classTarget}, classType=#{classType}, startTime=#{startTime}, endTime=#{endTime}, absentPerson=#{absentPerson}, absentContext=#{absentContext}, classImplass=#{classImplass}, classPlace=#{classPlace}
+  	WHERE id=#{id}
+  </update>
+  <select id="checkConfirmCount" resultType="java.lang.Integer">
+  	SELECT count(*) FROM Report WHERE mentoId=#{mentoId} AND confirm=true
+  </select>
+</mapper>

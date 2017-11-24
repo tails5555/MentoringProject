@@ -10,5 +10,6 @@ public class NoticeBBSComment {
 	String userName;
 	String userType;
 	int bbsPostId;
+	int profileId;
 	Timestamp uploadTime;
 }

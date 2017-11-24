@@ -13,5 +13,6 @@ public interface StudentMapper {
 	   List<UserList> findList();
 	   void deleteByUserId(int userId);
 	   void update(Student student);
-
+	   Student findTime(String studentNumber);  
+	
 }

@@ -7,6 +7,12 @@
   <select id="findOne" resultType="Student">
     select * from Student Where studentNumber=#{studentNumber}
   </select>
+  
+   <select id="findTime" resultType="Student">
+   select t.studentId time from Student s LEFT JOIN TimeTable t ON s.studentNumber=t.studentId Where s.studentNumber=#{studentNumber}
+  </select>
+  
+  
   <select id="findByUserId" resultType="Student">
     select * from Student Where userId=#{userId}
   </select>

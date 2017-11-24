@@ -323,7 +323,7 @@
       <hr/>
       <div class="row">
         <div class="col-md-4 col-sm-6 text-center mb-4">
-          <img class="rounded-circle img-fluid d-block mx-auto" src="http://placehold.it/200x200" alt="">
+          <img class="rounded-circle img-fluid d-block mx-auto" src="<c:choose><c:when test="${my.profileId ne -1}">${R}user/image/profile/${my.profileId}</c:when><c:otherwise>${R}img/mento_photo.jpg</c:otherwise></c:choose>" alt="" width="200px" height="200px">
           <h3>${ my.userName }
             <small>${ my.departmentName }</small>
           </h3>
@@ -345,7 +345,7 @@
             </tr>
             <tr>
               <td class="entity">전화번호</td>
-              <td colspan="2" class="context">${ my.phoneNumber}</td>
+              <td colspan="2" class="context">${ my.phone1 } - ${ my.phone2 } - ${ my.phone3 }</td>
             </tr>
             <tr>
               <td class="entity">이메일</td>
@@ -365,7 +365,7 @@
         <div class="col-md-12">
         
         
- <form:form method="post" modelAttribute="user" class="form-inline" id="my-form">       
+ <form:form method="post" modelAttribute="user" class="form-inline" id="my-form"  enctype="multipart/form-data">       
         
     <form class="form-inline">
       <div class="application">
@@ -427,12 +427,11 @@
             <span class="help-block text-danger"></span>
 			</div>
 
-
+			
              <div class="control-group">
               <div class="form-group floating-label-form-group controls">
-                <label style="vertical-align: top;">사진등록/변경:  </label>
-                 <a href="#"><img class="rounded-circle img-fluid d-block mx-auto" src="http://placehold.it/200x200" alt=""></a>
-                <p class="help-block text-danger"></p>
+                <label style="vertical-align: top;">사진 등록 / 변경 :  </label>
+                 <input type="file" name="profile" class="form-control" multiple/>
               </div>
             </div>
 
@@ -469,56 +468,73 @@
                         <div class="col-md-2 impossible <c:if test="${ timetable.mon1 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
+
                               <form:checkbox path="mon1" value="${timetable.mon1}" name="time" /> 9:00~<br/>10:30
+
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.mon2 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
+
                               <form:checkbox path="mon2" value="${timetable.mon2 }" name="time" /> 10:30~<br/>12:00
+
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.mon3 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
+
                               <form:checkbox path="mon3" value= "${timetable.mon3 }" name="time" /> ~13:00
+
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.mon4 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
+
                               <form:checkbox path="mon4" value="${timetable.mon4 }" name="time" /> ~14:00
+
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.mon5 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label> 
+
                               <form:checkbox path="mon5" value="${timetable.mon5 }" name="time" /> ~15:00
+
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.mon6 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
+
                               <form:checkbox path="mon6" value="${timetable.mon6 }" name="time" /> 15:00~<br/>16:30
+
+
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.mon7 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
+
                               <form:checkbox path="mon7" value="${timetable.mon7 }" name="time" /> 16:30~<br/>18:00
+
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.mon8 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
+
 								<form:checkbox path="mon8" value="${timetable.mon8 }" name="time" /> 18:00~
+
                             </label>
                           </div>
                         </div>
@@ -574,56 +590,56 @@
                         <div class="col-md-2 impossible <c:if test="${ timetable.tue1 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="tue1" value="${timetable.tue1 }"/> 9:00~<br/>10:30
+                              <form:checkbox path="tue1" /> 9:00~<br/>10:30
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.tue2 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="tue2" value="${timetable.tue2 }"/> 10:30~<br/>12:00
+                              <form:checkbox path="tue2" /> 10:30~<br/>12:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.tue3 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="tue3" value="${timetable.tue3 }" /> ~13:00
+                              <form:checkbox path="tue3"  /> ~13:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.tue4 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="tue4" value="${timetable.tue4 }" /> ~14:00
+                              <form:checkbox path="tue4"  /> ~14:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.tue5 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="tue5" value="${timetable.tue5 }" /> ~15:00
+                              <form:checkbox path="tue5"  /> ~15:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.tue6 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="tue6" value="${timetable.tue6 }" /> 15:00~<br/>16:30
+                              <form:checkbox path="tue6" /> 15:00~<br/>16:30
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.tue7 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="tue7" value="${timetable.tue7 }" /> 16:30~<br/>18:00
+                              <form:checkbox path="tue7" /> 16:30~<br/>18:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.tue8 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-								<form:checkbox path="tue8" value="${timetable.tue8 }" /> 18:00~
+								<form:checkbox path="tue8" /> 18:00~
                             </label>
                           </div>
                         </div>
@@ -679,56 +695,56 @@
                         <div class="col-md-2 impossible <c:if test="${ timetable.wed1 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="wed1" value="${timetable.wed1 }" /> 9:00~<br/>10:30
+                              <form:checkbox path="wed1" /> 9:00~<br/>10:30
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.wed2 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="wed2" value="${timetable.wed2 }"/> 10:30~<br/>12:00
+                              <form:checkbox path="wed2" /> 10:30~<br/>12:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.wed3 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="wed3" value="${timetable.wed3 }"/> ~13:00
+                              <form:checkbox path="wed3" /> ~13:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.wed4 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="wed4" value="${timetable.wed4 }"/> ~14:00
+                              <form:checkbox path="wed4" /> ~14:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.wed5 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="wed5" value="${timetable.wed5 }"/> ~15:00
+                              <form:checkbox path="wed5" /> ~15:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.wed6 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="wed6" value="${timetable.wed6 }" /> 15:00~<br/>16:30
+                              <form:checkbox path="wed6" /> 15:00~<br/>16:30
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.wed7 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="wed7" value="${timetable.wed7 }"/> 16:30~<br/>18:00
+                              <form:checkbox path="wed7" /> 16:30~<br/>18:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.wed8 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-								<form:checkbox path="wed8" value="${timetable.wed8 }" /> 18:00~
+								<form:checkbox path="wed8" /> 18:00~
                             </label>
                           </div>
                         </div>
@@ -784,56 +800,56 @@
                         <div class="col-md-2 impossible <c:if test="${ timetable.thu1 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="thu1" value="${timetable.thu1 }" /> 9:00~<br/>10:30
+                              <form:checkbox path="thu1" /> 9:00~<br/>10:30
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.thu2 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="thu2" value="${timetable.thu2 }" /> 10:30~<br/>12:00
+                              <form:checkbox path="thu2" /> 10:30~<br/>12:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.thu3 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="thu3" value="${timetable.thu3 }" /> ~13:00
+                              <form:checkbox path="thu3" /> ~13:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.thu4 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="thu4" value="${timetable.thu4 }" /> ~14:00
+                              <form:checkbox path="thu4" /> ~14:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.thu5 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="thu5" value="${timetable.thu5 }" /> ~15:00
+                              <form:checkbox path="thu5" /> ~15:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.thu6 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="thu6" value="${timetable.thu6 }" /> 15:00~<br/>16:30
+                              <form:checkbox path="thu6" /> 15:00~<br/>16:30
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.thu7 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="thu7" value="${timetable.thu7 }" /> 16:30~<br/>18:00
+                              <form:checkbox path="thu7" /> 16:30~<br/>18:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.thu8 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-								<form:checkbox path="thu8" value="${timetable.thu8 }" /> 18:00~
+								<form:checkbox path="thu8" /> 18:00~
                             </label>
                           </div>
                         </div>
@@ -889,56 +905,56 @@
                         <div class="col-md-2 impossible <c:if test="${ timetable.fri1 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="fri1" value="${timetable.fri1 }"/> 9:00~<br/>10:30
+                              <form:checkbox path="fri1" /> 9:00~<br/>10:30
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.fri2 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="fri2" value="${timetable.fri2 }"/> 10:30~<br/>12:00
+                              <form:checkbox path="fri2" /> 10:30~<br/>12:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.fri3 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="fri3" value="${timetable.fri3 }" /> ~13:00
+                              <form:checkbox path="fri3" /> ~13:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.fri4 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="fri4" value="${timetable.fri4 }" /> ~14:00
+                              <form:checkbox path="fri4" /> ~14:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.fri5 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="fri5" value="${timetable.fri5 }" /> ~15:00
+                              <form:checkbox path="fri5" /> ~15:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.fri6 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="fri6" value="${timetable.fri6 }" /> 15:00~<br/>16:30
+                              <form:checkbox path="fri6" /> 15:00~<br/>16:30
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.fri7 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="fri7" value="${timetable.fri7 }" /> 16:30~<br/>18:00
+                              <form:checkbox path="fri7" /> 16:30~<br/>18:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.fri8 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-								<form:checkbox path="fri8" value="${timetable.fri8 }" /> 18:00~
+								<form:checkbox path="fri8" /> 18:00~
                             </label>
                           </div>
                         </div>

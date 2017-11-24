@@ -3,11 +3,11 @@ import java.util.Date;
 
 import lombok.Data;
 @Data
-public class Profile {
+public class ClassPhoto {
 	int id;
 	String fileName;
 	int fileSize;
 	Date fileTime;
 	byte[] data;
-	int userId;
+	int reportId;
 }

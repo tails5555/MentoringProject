@@ -5,10 +5,40 @@
 <mapper namespace="net.skhu.mentoring.mapper.NoticeBBSPostMapper">
 
   <select id="findByPartyBBSId" resultType="NoticeBBSPost">
-    select * from NoticeBBSPost WHERE partyBBSId=#{partyBBSId} Order By id desc
+  <bind name="start" value="(pg-1)*sz"/>
+    select * from NoticeBBSPost 
+    WHERE partyBBSId=#{bd}
+    <if test="sb == 1"> AND INSTR(title, #{st}) > 0</if> 
+    <if test="sb == 2"> AND INSTR(context, #{st}) > 0</if> 
+    <if test="sb == 3"> AND (INSTR(context, #{st}) > 0 OR INSTR(title, #{st}) > 0)</if> 
+    <if test="sb == 4"> AND (userId IN (Select userId FROM Student WHERE INSTR(name, #{st})>0)
+    					OR userId IN (Select userId FROM Professor WHERE INSTR(name, #{st})>0)
+    					OR userId IN (Select userId FROM Employee WHERE INSTR(name, #{st})>0))</if>
+    Order By id desc
+    LIMIT ${start}, ${sz}
+  </select>
+  <select id="count" resultType="int">
+  	SELECT count(*) 
+  	FROM NoticeBBSPost 
+  	WHERE partyBBSId=#{bd}
+  	<if test="sb == 1"> AND INSTR(title, #{st}) > 0</if> 
+    <if test="sb == 2"> AND INSTR(context, #{st}) > 0</if> 
+    <if test="sb == 3"> AND (INSTR(context, #{st}) > 0 OR INSTR(title, #{st}) > 0)</if> 
+    <if test="sb == 4"> AND (userId IN (Select userId FROM Student WHERE INSTR(name, #{st})>0)
+    					OR userId IN (Select userId FROM Professor WHERE INSTR(name, #{st})>0)
+    					OR userId IN (Select userId FROM Employee WHERE INSTR(name, #{st})>0))</if>
+  </select>
+  <select id="findFiveNoticePost" resultType="NoticeBBSPost">
+  	SELECT * FROM NoticeBBSPost WHERE partyBBSId=1 ORDER BY id DESC LIMIT 5
   </select>
   <select id="findByUserId" resultType="NoticeBBSPost">
   	select * from NoticeBBSPost WHERE userId=#{userId}
+  </select>
+  <select id="findTopByBdOrderByIdDesc" resultType="NoticeBBSPost">
+  	SELECT * FROM NoticeBBSPost
+  	WHERE partyBBSId=#{bd}
+  	ORDER BY id DESC
+  	LIMIT 0, 1
   </select>
   <select id="findById" resultType="NoticeBBSPost">
     select * from NoticeBBSPost WHERE id=#{id}

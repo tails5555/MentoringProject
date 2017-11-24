@@ -19,6 +19,9 @@
 	where s.studentNumber = #{studentNumber}
 	order by applicationDate DESC
   </select>
+  <select id="findByUserId" resultType="Mento">
+  	SELECT * FROM Mento WHERE userId=#{userId}
+  </select>
   <select id="findWithStudent" resultType="Mento">
   	SELECT m.* , s.* 
 	FROM mento m left join student s

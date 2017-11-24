@@ -8,6 +8,7 @@ import net.skhu.mentoring.dto.NoticeBBSComment;
 @Mapper
 public interface NoticeBBSCommentMapper {
 	List<NoticeBBSComment> findByBBSId(int bbsId);
+	int countByBBSPostId(@Param("bbsPostId") int bbsPostId);
 	void insertComment(NoticeBBSComment noticeBBSComment);
 	void deleteComment(int id);
 	void deleteByPostId(@Param("bbsPostId") int bbsPostId);

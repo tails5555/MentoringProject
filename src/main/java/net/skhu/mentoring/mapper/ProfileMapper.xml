@@ -9,4 +9,13 @@
   <select id="findByUserId" resultType="Profile">
   	SELECT * FROM Profile WHERE userId=#{userId}
   </select>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+  	INSERT INTO Profile(fileName, fileSize, fileTime, data, userId)
+  	VALUES(#{fileName}, #{fileSize}, #{fileTime}, #{data, javaType=[B, jdbcType=BLOB}, #{userId})
+  </insert>
+  <update id="update">
+  	UPDATE Profile SET 
+  	fileName=#{fileName}, fileSize=#{fileSize}, fileTime=now(), data=#{data, javaType=[B, jdbcType=BLOB}
+  	WHERE userId=#{userId}
+  </update>
 </mapper>

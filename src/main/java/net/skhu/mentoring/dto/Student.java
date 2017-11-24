@@ -14,4 +14,5 @@ public class Student {
 	String departmentName;
 	String password;
 	String userType;
+	
 }

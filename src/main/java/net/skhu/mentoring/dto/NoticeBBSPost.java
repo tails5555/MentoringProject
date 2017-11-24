@@ -11,6 +11,9 @@ public class NoticeBBSPost {
     int views;
     int userId;
     int partyBBSId;
+    int profileId;
+    int currentUserProfileId;
+    int commentCount;
     String userName;
     String userEmail;
 }

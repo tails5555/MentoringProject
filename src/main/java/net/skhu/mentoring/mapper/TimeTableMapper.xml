@@ -8,11 +8,18 @@
     select * from TimeTable Where studentId=#{studentId}
   </select>
   
+    <select id="findId" resultType="String">
+    select max(t.studentId) from TimeTable t Where t.studentId=#{studentId}
+  </select>
   
   <insert id="insert" useGeneratedKeys="true" keyProperty="id">
     INSERT Timetable (studentId)   
     VALUES (#{studentId})
   </insert>
+  
+     <select id="findStudentId" resultType="User">
+  	SELECT t.studentId FROM TimeTable t
+  </select>
   
   
   <update id="update">

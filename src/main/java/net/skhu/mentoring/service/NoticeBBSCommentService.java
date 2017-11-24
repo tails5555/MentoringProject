@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import net.skhu.mentoring.dto.Employee;
 import net.skhu.mentoring.dto.NoticeBBSComment;
 import net.skhu.mentoring.dto.Professor;
+import net.skhu.mentoring.dto.Profile;
 import net.skhu.mentoring.dto.Student;
 import net.skhu.mentoring.dto.User;
 import net.skhu.mentoring.mapper.EmployeeMapper;
 import net.skhu.mentoring.mapper.NoticeBBSCommentMapper;
 import net.skhu.mentoring.mapper.ProfessorMapper;
+import net.skhu.mentoring.mapper.ProfileMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
 @Service
@@ -24,6 +26,7 @@ public class NoticeBBSCommentService {
 	@Autowired ProfessorMapper professorMapper;
 	@Autowired EmployeeMapper employeeMapper;
 	@Autowired StudentMapper studentMapper;
+	@Autowired ProfileMapper profileMapper;
 	public List<NoticeBBSComment> findByBBSId(int id){
 		List<NoticeBBSComment> commentList=noticeBBSCommentMapper.findByBBSId(id);
 		for(NoticeBBSComment n : commentList) {
@@ -33,6 +36,9 @@ public class NoticeBBSCommentService {
 	}
 	public void setCommentUser(NoticeBBSComment noticeBBSComment) {
 		User writeUser=userMapper.findOne(noticeBBSComment.getUserId());
+		Profile profile=profileMapper.findByUserId(writeUser.getId());
+		if(profile!=null) noticeBBSComment.setProfileId(profile.getId());
+		else noticeBBSComment.setProfileId(-1);
 		if(writeUser.getUserType().equals("학생회장")) {
 			Student student=studentMapper.findByUserId(writeUser.getId());
 			noticeBBSComment.setUserName(student.getName());

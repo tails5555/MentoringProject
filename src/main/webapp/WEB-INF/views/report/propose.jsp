@@ -2,8 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <c:url var="R" value="/" />
 <!DOCTYPE html>
 <html>
@@ -14,9 +12,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="${R}res/common.js"></script>
-
-
     <style>
       .navbar {
         background-color: #ffffff;
@@ -137,7 +132,7 @@
         color: #090909;
         background-color: #a2a39f;
       }
-      div.row{
+      .row {
         margin-left : auto;
         margin-right : auto;
       }
@@ -148,26 +143,34 @@
       .footer div:nth-child(2) { font: normal 9pt 굴림; color: #666;  }
       .footer div:nth-child(3) { font: normal 9pt arial; color: #aaa; }
 
-
       .container {
         margin-top: 30px;
         margin-left : auto;
         margin-right : auto;
       }
-      .search{
-        margin-top : 20px;
-        margin-bottom : 10px;
-        text-align : right;
+      .information{
+        padding-top : 10px;
+        padding-bottom : 5px;
+        background-color : #E6E6E6;
+        border : 1px solid #D8D8D8;
+        border-radius : 5px;
+        text-align : left;
       }
-      .page{
-      	text-align : center;
+      .reportEntity{
+        padding-left : 5px;
+        padding-right : 5px;
+        padding-top : 5px;
+        padding-bottom : 5px;
+        border : 1px solid #A4A4A4;
+        background-color : #D8D8D8;
+        font-weight : bold;
+        text-align : center;
       }
-      thead{
-        background-color : #A9F5BC;
-      }
-      tbody tr:hover {
-        background-color: #CEF6D8;
-        cursor : pointer;
+      .reportValue{
+        padding-left : 5px;
+        padding-right : 5px;
+        padding-top : 5px;
+        padding-bottom : 5px;
       }
    </style>
    <script type="text/javascript">
@@ -181,43 +184,27 @@
    <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-      	<sec:authorize access="not authenticated">
-	      <a class="navbar-brand" href="${R}"><img src="${R}img\title.png"/></a>
-	    </sec:authorize>
-	    <sec:authorize access="authenticated">
-	      <a class="navbar-brand" href="${R}user/index"><img src="${R}img\title.png"/></a>
-	    </sec:authorize>
+        <a class="navbar-brand" href="${R}user/index"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <sec:authorize access="not authenticated">
-        <li><a href="${R}">
-          <i class="glyphicon glyphicon-home"> 홈</i></a></li>
-      	</sec:authorize>
-        <sec:authorize access="authenticated">
         <li><a href="${R}user/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
-        </sec:authorize>
-        <li class="dropdown active">
+        <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">알립니다
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li <c:if test="${param.bd eq 1}">class="active"</c:if>><a href="${R}user/notice/list?bd=1">공지사항</a></li>
-              <li <c:if test="${param.bd eq 2}">class="active"</c:if>><a href="${R}user/notice/list?bd=2">참여마당</a></li>
+              <li ><a href="${R}user/notice/list?bd=1">공지사항</a></li>
+              <li><a href="${R}user/notice/list?bd=2">참여마당</a></li>
             </ul>
         </li>
-        <li>
-        	<sec:authorize access="not authenticated">
-	      		<a href="${R}guest/intro">멘토링 사업소개</a>
-		    </sec:authorize>
-		  	<sec:authorize access="authenticated">
-		      	<a href="${R}user/intro">멘토링 사업소개</a>
-		  	</sec:authorize>
+        <li >
+          <a href="${R}user/intro">멘토링 사업소개</a>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="menti_apli.html">멘티 신청</a></li>
+              <li ><a href="menti_apli.html">멘티 신청</a></li>
               <li><a href="${R}user/mento_apli">멘토 신청</a></li>
               <li ><a href="mento_list.html">멘토/멘티 목록</a></li>
               <li><a href="mento_board.html">멘토링 게시판</a></li>
@@ -233,129 +220,126 @@
               <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
             </ul>
         </li>
-        <sec:authorize access="authenticated">
-	        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
-	        <li class="dropdown">
-	          <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
-	          <span class="caret"></span></a>
-	            <ul class="dropdown-menu">
-	              <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
-	              <li><a href="report_confirm.html">보고서 확인</a></li>
-	              <li ><a href="${R}user/survey">설문조사 관리</a></li>
-	              <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
-	              <li><a href="${R}user/list">회원 목록 관리</a></li>
-	              <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
-	            </ul>
-	        </li>
-	        </sec:authorize>
+        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
+        <li class="dropdown active">
+          <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
+          <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
+              <li><a href="${R}user/report/confirm">보고서 확인</a></li>
+              <li class="active"><a href="${R}user/survey">설문조사 관리</a></li>
+              <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
+              <li><a href="${R}user/list">회원 목록 관리</a></li>
+              <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
+            </ul>
+        </li>
         </sec:authorize>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <sec:authorize access="not authenticated">
-	      <li><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
-	      <li><a href="${R}guest/create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
-	    </sec:authorize>
-	    <sec:authorize access="authenticated">
-	      <li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
-	      <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
-	    </sec:authorize>
+      	<li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
+        <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
       </ul>
     </div>
    </nav>
    <div>
        <img src="${R}img/topimage.jpg" class="img-responsive"/>
    </div>
-  <div class="container">
+   <div class="container">
 
       <div class="row">
 
         <div class="col-md-3">
-          <h1 class="my-4"><strong>알립니다</strong></h1>
+          <h1 class="my-4"><strong>사이트 관리</strong></h1>
           <div class="list-group">
-            <sec:authorize access="not authenticated">
-            	<a href="${R}guest/notice/list?bd=1&pg=1" class="list-group-item <c:if test="${param.bd eq 1}">active</c:if>">공지사항</a>
-            </sec:authorize>
-          	<sec:authorize access="authenticated">
-            	<a href="${R}user/notice/list?bd=1&pg=1" class="list-group-item <c:if test="${param.bd eq 1}">active</c:if>">공지사항</a>
-            </sec:authorize>
-            <a href="${R}user/notice/list?bd=2&pg=1" class="list-group-item <c:if test="${param.bd eq 2}">active</c:if>">참여마당</a>
+            <a href="${R}user/mento_open" class="list-group-item ">멘토링 개설/폐쇄</a>
+            <a href="${R}user/report/confirm" class="list-group-item active">보고서 확인</a>
+            <a href="${R}user/survey" class="list-group-item ">설문조사 관리</a>
+            <a href="${R}user/schedule" class="list-group-item">멘토, 멘티 신청기간 여부</a>
+            <a href="${R}user/list" class="list-group-item ">회원 목록 관리</a>
+            <a href="${R}user/intro/titleList" class="list-group-item">사업 안내문 수정</a>
           </div>
         </div>
-        <!-- /.col-lg-3 -->
-
         <div class="col-md-9">
-          <h1 class="my-4"><strong>${ noticeBBS.bbsName }</strong></h1>
-          <hr/>
-          <div class="row search">
-          <form:form method="get" modelAttribute="pagination" class="form-inline">
-          	<form:hidden path="bd"/>
-          	<form:select path="sb" class="form-control" itemValue="value" itemLabel="label" items="${ searchBy }"/>
-            <form:input path="st" class="form-control" placeholder="검색할 문자열" />
-            
-            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"> 검색하기</i></button>
-            <c:if test="${ pagination.sb > 0}">
-		      <a class="btn btn-default" href="list?bd=${noticeBBS.id}&pg=1">
-		        <i class="glyphicon glyphicon-ban-circle"></i> 검색취소</a>
-		    </c:if>      
-          </form:form>
-          </div>
+          <h1 class="my-4">보고서 확인</h1>
+          <!-- Team Members Row -->
           <div class="row">
             <div class="col-md-12">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="text-align: center" width="20px">번호</th>
-                    <th style="text-align: center" width="200px">제목 </th>
-                    <th style="text-align: center" width="80px">작성자</th>
-                    <th style="text-align: center" width="80px">작성시간</th>
-                    <th style="text-align: center" width="80px">조회</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                <c:forEach var="post" items="${ postList }">
-	              <tr data-url="view.do?id=${post.id}&${pagination.queryString}">
-	              	<td><center>${ post.id }</center></td>
-	              	<td>${ post.title }  <span class="label label-success">${post.commentCount }</span></td>
-	              	<td><center>${ post.userName }</center></td>
-	              	<td><center><fmt:formatDate value="${post.writeDate}" pattern="yyyy-MM-dd HH:mm"/></center></td>
-	              	<td><center>${ post.views }</center></td>
-	              </tr>
-	            </c:forEach> 
-                </tbody>
-              </table>
+              <h2>보고서 리스트</h2>
+              <hr/>
+              <h3><b>${ mento.teamName }</b></h3>
+              <c:if test="${ mentoring ne null }">
+	              <table class="table table-bordered">
+	                <thead class="reportEntity">
+	                <tr>
+	                  <td><center>제출 기간</center></td>
+	                  <td><center>수업 일자</center></td>
+	                  <td><center>멘토링 주제</center></td>
+	                  <td><center>멘티 결석 인원</center></td>
+	                  <td><center>확인 여부</center></td>
+	                  <td><center>보고서 확인하기</center></td>
+	                </tr>
+	                </thead>
+	                <tbody>
+	                <c:choose>
+	                	<c:when test="${ reports.size() ne 0 }">
+			                <c:forEach var="report" items="${ reports }">
+			                  <tr>
+			                    <td><center><fmt:formatDate value="${report.presentDate}" pattern="yyyy-MM-dd HH:mm"/></center></td>
+			                    <td><center>${ report.classDate }</center></td>
+			                    <td><center>${ report.classSubject }</center></td>
+			                    <td><center>${ report.absentPerson }</center></td>
+			                    <c:choose> 
+			                    	<c:when test="${ report.confirm eq true}"><td class="success"><center>확인 완료</center></td></c:when>
+			                    	<c:when test="${ report.confirm eq false && report.comment eq null }"><td><center>보류 중</center></td></c:when>
+									<c:when test="${ report.confirm eq false && report.comment ne null }"><td class="danger"><center>문제 있음</center></td></c:when>
+			                    </c:choose>
+			                    <td>
+			                      <center><a href="${R}user/report/reportInfo?mento=${param.mento}&id=${report.id}"><button class="btn btn-info" type="button"><i class="glyphicon glyphicon-pencil"> 확인</i></button></a></center>
+			                    </td>
+			                  </tr>
+			                 </c:forEach>
+			             </c:when>
+			             <c:otherwise>
+				             <tr>
+				             	<td colspan="6"><center>제출한 보고서 내역이 없습니다.</center></td>
+				             </tr>
+			             </c:otherwise>
+			         </c:choose>
+	                </tbody>
+	              </table>
+	           </c:if>
+	           <c:if test="${ mentoring eq null }">
+	           <table class="table table-bordered">
+	                <thead class="reportEntity">
+		                <tr>
+		                  <td>멘토링을 허가받지 않은 멘토입니다.</td>
+		                </tr>
+	                </thead>
+	                <tbody>
+	                	<tr>
+	                		<td><center>멘토링 허가를 진행하시고 작업해주시길 바랍니다.</center></td>
+	                	</tr>
+	               	</tbody>
+	           </table>
+	           </c:if>
+            </div>
+            <a href="${R}user/report/confirm"><button class="btn btn-info"><i class="glyphicon glyphicon-th-list"> 멘토목록으로</i></button></a>&nbsp;
+            <c:if test="${ confirmCount ne 0 }"><a href="${R}user/report/allDownload?id=${param.mento}"><button class="btn btn-info"><i class="glyphicon glyphicon-floppy-disk"></i> 전체 보고서 다운</button></a></c:if>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md-12 information">
+              <p> ⊙ 관리자는 각 멘토링 보고서에 들어가면 확인을 할 수 있습니다. </p>
+              <p> ⊙ 보고서에 문제가 있다면 코멘트를 추가해서 문제 여부를 알리시면 됩니다. </p>
+              <p> ⊙ 보고서에 문제가 없다면 확인 완료 버튼을 누르시면 됩니다. </p>
+              <p> ⊙ 보고서 다운로드는 확인이 완료된 보고서만 다운로드 가능합니다. </p>
+              <p> ⊙ 전체 다운로드는 확인이 완료된 보고서들로 엑셀로 묶어서 다운로드가 진행됩니다. </p>
             </div>
           </div>
-          <div class="search" align="right">
-          	<sec:authorize access="not authenticated">
-		      <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="로그인 후 이용해주세요.">
-              	<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button>
-		    </sec:authorize>
-            <sec:authorize access="authenticated">
-              <c:if test="${ noticeBBS.writeable eq false }">
-              	<sec:authorize access="hasAnyRole({'ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN'})">
-	              	<a href="create.do?${pagination.queryString}"><button type="button" class="btn btn-info">
-	              		<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button></a>
-              	</sec:authorize>
-              	<sec:authorize access="hasAnyRole({'ROLE_MENTO', 'ROLE_MENTI'})">
-	              	<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="글쓰기 권한이 없습니다.">
-	              		<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button>
-              	</sec:authorize>
-              </c:if>
-              <c:if test="${ noticeBBS.writeable eq true }">
-	              <a href="create.do?${pagination.queryString}"><button type="button" class="btn btn-info">
-	              	<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button></a>
-              </c:if>
-		    </sec:authorize>
-          </div>
-          <div class="page">
-          	<page:pagination pageSize="${ pagination.sz }" recordCount="${ pagination.recordCount }" />
-          </div>
-        </div>
       </div>
-
     </div>
-    <hr/>
+  </div>
+  <hr/>
     <div class="row">
       <div class="col-md-3" align="center">
         <img src="${R}img/skhuniv.jpg"/>

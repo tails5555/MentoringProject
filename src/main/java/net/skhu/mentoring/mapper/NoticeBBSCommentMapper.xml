@@ -7,6 +7,9 @@
   <select id="findByBBSId" resultType="NoticeBBSComment">
     select * from NoticeBBSComment WHERE bbsPostId=#{bbsId} ORDER BY id DESC
   </select>
+  <select id="countByBBSPostId" resultType="java.lang.Integer">
+  	select count(*) from NoticeBBSComment WHERE bbsPostId=#{bbsPostId}
+  </select>
   <insert id="insertComment" useGeneratedKeys="true" keyProperty="id">
   	INSERT NoticeBBSComment(context, bbsPostId, userId)
   	values(#{context}, #{bbsPostId}, #{userId})
