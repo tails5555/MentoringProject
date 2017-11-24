@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.skhu.mentoring.mapper.GroupBBSCommentMapper">
+
+  <select id="findByBBSId" resultType="GroupBBSComment">
+    select * from GroupBBSComment WHERE bbsPostId=#{bbsId} ORDER BY id DESC
+  </select>
+  <select id="countByBBSPostId" resultType="java.lang.Integer">
+  	select count(*) from GroupBBSComment WHERE bbsPostId=#{bbsPostId}
+  </select>
+  <insert id="insertComment" useGeneratedKeys="true" keyProperty="id">
+  	INSERT GroupBBSComment(context, bbsPostId, userId)
+  	values(#{context}, #{bbsPostId}, #{userId})
+  </insert>
+  <delete id="deleteComment">
+  	DELETE FROM GroupBBSComment
+  	WHERE id=#{id}
+  </delete>
+  <delete id="deleteByPostId">
+  	DELETE FROM GroupBBSComment
+  	WHERE bbsPostId=#{bbsPostId}
+  </delete>
+  <delete id="deleteByUserId">
+  	DELETE FROM GroupBBSComment
+  	WHERE userId=#{userId}
+  </delete>
+</mapper>
