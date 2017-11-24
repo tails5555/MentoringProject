@@ -21,7 +21,7 @@
 
 	$(document).ready(function() {
 		
-		 $('form:checkbox[name="monCheck"]').each(function() {
+		 $('checkbox[name="time"]').each(function() {
 		     if(this.value == "true"){ //값 비교
 		            this.checked = true; //checked 처리
 		      }
@@ -469,56 +469,56 @@
                         <div class="col-md-2 impossible <c:if test="${ timetable.mon1 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="mon1" value="${timetable.mon1}" /> 9:00~<br/>10:30
+                              <form:checkbox path="mon1" value="${timetable.mon1}" name="time" /> 9:00~<br/>10:30
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.mon2 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="mon2" value="${timetable.mon2 }" /> 10:30~<br/>12:00
+                              <form:checkbox path="mon2" value="${timetable.mon2 }" name="time" /> 10:30~<br/>12:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.mon3 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="mon3" value= "${timetable.mon3 }"/> ~13:00
+                              <form:checkbox path="mon3" value= "${timetable.mon3 }" name="time" /> ~13:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.mon4 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="mon4" value="${timetable.mon4 }"/> ~14:00
+                              <form:checkbox path="mon4" value="${timetable.mon4 }" name="time" /> ~14:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.mon5 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label> 
-                              <form:checkbox path="mon5" value="${timetable.mon5 }"/> ~15:00
+                              <form:checkbox path="mon5" value="${timetable.mon5 }" name="time" /> ~15:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.mon6 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="mon6" value="${timetable.mon6 }"/> 15:00~<br/>16:30
+                              <form:checkbox path="mon6" value="${timetable.mon6 }" name="time" /> 15:00~<br/>16:30
                             </label>
                           </div>
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.mon7 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-                              <form:checkbox path="mon7" value="${timetable.mon7 }"/> 16:30~<br/>18:00
+                              <form:checkbox path="mon7" value="${timetable.mon7 }" name="time" /> 16:30~<br/>18:00
                             </label>
                           </div>
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.mon8 eq true }">available</c:if>">
                           <div class="checkbox">
                             <label>
-								<form:checkbox path="mon8" value="${timetable.mon8 }"/> 18:00~
+								<form:checkbox path="mon8" value="${timetable.mon8 }" name="time" /> 18:00~
                             </label>
                           </div>
                         </div>
