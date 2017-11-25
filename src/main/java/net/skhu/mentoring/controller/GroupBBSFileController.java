@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,5 +27,15 @@ public class GroupBBSFileController {
 		try(BufferedOutputStream output=new BufferedOutputStream(response.getOutputStream())){
 			output.write(groupBBSFile.getData());
 		}
+	}
+	@RequestMapping("user/groupBBS/fileDelete")
+	public String fileDelete(Model model, @RequestParam("id") int id, @RequestParam("fId") int fId, GroupBBSPagination groupBBSPagination) {
+		groupBBSFileService.delete(fId);
+		return "redirect:view?id="+id+"&"+groupBBSPagination.getQueryString();
+	}
+	@RequestMapping("user/groupBBS/fileAllDelete")
+	public String fileAllDelete(Model model, @RequestParam("id") int id, GroupBBSPagination groupBBSPagination) {
+		groupBBSFileService.deleteByPostId(id);
+		return "redirect:view?id="+id+"&"+groupBBSPagination.getQueryString();
 	}
 }

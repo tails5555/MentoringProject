@@ -89,4 +89,7 @@ public class GroupBBSCommentService {
 	public void delete(int id) {
 		groupBBSCommentMapper.deleteComment(id);
 	}
+	public void deleteByPostId(int bbsPostId) {
+		groupBBSCommentMapper.deleteByPostId(bbsPostId);
+	}
 }

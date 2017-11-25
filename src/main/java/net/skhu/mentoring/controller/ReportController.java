@@ -104,6 +104,7 @@ public class ReportController {
 		model.addAttribute("report", report);
 		ReportModel reportModel=reportService.getEditModel(id);
 		model.addAttribute("editReport", reportModel);
+		model.addAttribute("classType", reportService.getAvailableType());
 		return "report/view";
 	}
 	@RequestMapping(value="user/report/view", method=RequestMethod.POST)
@@ -138,6 +139,7 @@ public class ReportController {
 		}
 		model.addAttribute("now", new java.util.Date());
 		model.addAttribute("report", reportModel);
+		model.addAttribute("classType", reportService.getAvailableType());
 		System.out.println(reportModel);
 		return "report/reportList";
 	}

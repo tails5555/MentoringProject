@@ -20,6 +20,7 @@ import net.skhu.mentoring.mapper.ProfessorMapper;
 import net.skhu.mentoring.mapper.ReportMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
+import net.skhu.mentoring.model.Option;
 import net.skhu.mentoring.model.ReportModel;
 @Service
 public class ReportService {
@@ -95,6 +96,7 @@ public class ReportService {
 		String userNumber;
 		Mento mento;
 		Report report=new Report();
+		double time=0;
 		if(authentication!=null) {
 			userNumber=authentication.getName();
 			if(studentMapper.findOne(userNumber)!=null) {
@@ -102,6 +104,7 @@ public class ReportService {
 				if(mentoMapper.findByUserId(student.getUserId())!=null) {
 					mento=mentoMapper.findByUserId(student.getUserId());
 					report.setMentoId(mento.getId());
+					time=getMentoringTime(mento.getId());
 				}
 			}
 		}
@@ -125,7 +128,14 @@ public class ReportService {
 		report.setClassDate(reportModel.getClassDate());
 		report.setClassSubject(reportModel.getClassSubject());
 		report.setClassTarget(reportModel.getClassTarget());
-		report.setClassType(reportModel.getClassType());
+		if(reportModel.getClassType()>0) {
+			if(time<24) {
+				report.setClassType(reportMapper.availableType[reportModel.getClassType()].getLabel());
+			}
+			else {
+				report.setClassType("컨퍼런스 참석");
+			}
+		}
 		report.setStartTime(sTime);
 		report.setEndTime(eTime);
 		report.setAbsentContext(reportModel.getAbsentContext());
@@ -155,7 +165,7 @@ public class ReportService {
 		report.setClassDate(reportModel.getClassDate());
 		report.setClassSubject(reportModel.getClassSubject());
 		report.setClassTarget(reportModel.getClassTarget());
-		report.setClassType(reportModel.getClassType());
+		report.setClassType(reportMapper.availableType[reportModel.getClassType()].getLabel());
 		report.setStartTime(sTime);
 		report.setEndTime(eTime);
 		report.setAbsentContext(reportModel.getAbsentContext());
@@ -175,7 +185,11 @@ public class ReportService {
 		reportModel.setClassDate(report.getClassDate());
 		reportModel.setClassSubject(report.getClassSubject());
 		reportModel.setClassTarget(report.getClassTarget());
-		reportModel.setClassType(report.getClassType());
+		for(Option o : reportMapper.availableType) {
+			if(report.getClassType().equals(o.getLabel())) {
+				reportModel.setClassType(o.getValue());
+			}
+		}
 		reportModel.setStart1(report.getStartTime().getHours());
 		reportModel.setStart2(report.getStartTime().getMinutes());
 		reportModel.setEnd1(report.getEndTime().getHours());
@@ -228,5 +242,8 @@ public class ReportService {
 	}
 	public List<Report> findByMentoIdASC(int mentoId){
 		return reportMapper.findByMentoIdASC(mentoId);
+	}
+	public Option[] getAvailableType() {
+		return reportMapper.availableType;
 	}
 }
