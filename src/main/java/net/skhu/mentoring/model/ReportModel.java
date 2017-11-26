@@ -6,7 +6,7 @@ public class ReportModel {
 	int mentoId;
 	String classSubject;
 	String classTarget;
-	String classType;
+	int classType;
 	java.sql.Date classDate;
 	int start1;
 	int start2;

@@ -31,7 +31,7 @@
     INSERT Student (studentNumber,name,address,email,departmentId,userId,phoneNumber)
     VALUES (#{studentNumber}, #{name},#{address},#{email}, #{departmentId},#{userId},#{phoneNumber})
   </insert>
-      <select id="findList" resultType="UserList">
+  <select id="findList" resultType="UserList">
    SELECT s.studentNumber number,s.name, d.name departmentName ,u.id userId,u.userType
     FROM Student s LEFT JOIN department d ON s.departmentId = d.deptId LEFT JOIN user u ON s.userId = u.id
   </select>

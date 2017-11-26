@@ -299,7 +299,7 @@
 	                  <div class="col-md-4 reportInput"><form:input path="classPlace" class="form-control" placeholder="강의실 입력(축제는 장소)"/></div>
 	                  <div class="col-md-2 reportEntity">수업 방식</div>
 	                  <div class="col-md-4 reportInput">
-	                  	<form:input path="classType" class="form-control" placeholder="수업 방식을 입력해주세요."/>
+	                  	<form:select path="classType" class="form-control" itemValue="value" itemLabel="label" items="${ classType }" />
 	                  </div>
 	                </div>
 	                <div class="row">
@@ -354,7 +354,6 @@
 	                    <p> ⊙ 멘토링 참석 비율이 2/3 미만인 경우에는 인정이 되지 않으니 참고하시길 바랍니다. </p>
 	                    <p> ⊙ 축제, 컨퍼런스 참석 보고서에 대해서는 수업 방식에 축제/컴퍼런스 참석으로 선택하시고, 수업 주제에는 참석한 축제, 컴퍼런스 이름을 작성해주고, 목표는 비워두셔도 됩니다. 교과목은 그대로 작성해주시면 되고 진행 장소는 축제나 컴퍼런스를 진행한 장소를 작성해주시면 됩니다</p>
 	                    <p> ⊙ 사진은 jpg, png 등 쉽게 구분이 가능한 확장명으로 올려주시고, 학번_n번째_멘토링.jpg, 학번_n번째_축제.jpg 이름으로 올려주셔야 합니다. </p>
-	                    <p> ⊙ 수업 방식은 오리엔테이션, 강의/실습, 토론/팀워크, 프로젝트 진행 방식, 시험기간 중 질의응답, 축제/컨퍼런스 참석 6개 중 하나로 입력해주세요. </p>
 	                    <p> ⊙ 사진을 다시 올리실 분들만 업로드를 진행해주시면 됩니다. 사진 변경이 없으신 분은 보고서만 수정하고 저장하기를 누르세요. </p>
 	                  </div>
 	                </div>

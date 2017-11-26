@@ -271,7 +271,7 @@
 		             </c:when>
 		             <c:otherwise>
 			             <tr>
-			             	<td colspan="6"><center>제출한 보고서 내역이 없습니다.</center></td>
+			             	<td colspan="7"><center>제출한 보고서 내역이 없습니다.</center></td>
 			             </tr>
 		             </c:otherwise>
 		         </c:choose>
@@ -284,21 +284,14 @@
                   <p> ⊙ 보류 중인 문서는 현재 관리자들이 확인을 하고 있는 중입니다. </p>
                   <p> ⊙ 보고서 다운로드는 확인이 완료된 후에 다운로드 받을 수 있습니다. </p>
                   <p> ⊙ 누적 시간은 보고서를 통해서 확인이 완료된 시간들에 대해서 인정을 합니다. </p>
-                  <p> ⊙ 기본 이수 시간인 24시간을 초과하면 보고서를 작성할 수 없습니다. 이 점 참고하시길 바랍니다. </p>
+                  <p> ⊙ 기본 이수 시간인 24시간을 초과하면 컨퍼런스 관련된 보고서 이외에 작성이 불가능합니다. 불이익 없으시길 바랍니다. </p>
                 </div>
               </div>
               <br/>
             </div>
-            <c:choose>
-	            <c:when test="${ time le 24 }">
-	            	<button class="btn btn-info" type="button" data-toggle="collapse" data-target="#reportAdd"><i class="glyphicon glyphicon-plus"></i> 보고서등록</button>
-	            </c:when>
-	            <c:otherwise>
-	            	<button type="button" class="btn btn-danger" data-container="body" data-toggle="popover" data-placement="left" title="멘토링 이수 시간을 초과하였습니다." data-content="멘토링 최대 이수 시간은 24시간입니다.">
-		               <i class="glyphicon glyphicon-plus"></i> 보고서등록
-		            </button>
-	            </c:otherwise>
-            </c:choose>
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#reportAdd">
+		       <i class="glyphicon glyphicon-plus"></i> 보고서등록
+		    </button>
           </div>
           <hr/>
               <div id="reportAdd" class="collapse">
@@ -321,7 +314,15 @@
                   <div class="col-md-4 reportInput"><form:input path="classPlace" class="form-control" placeholder="강의실 입력(축제는 장소)"/></div>
                   <div class="col-md-2 reportEntity">수업 방식</div>
                   <div class="col-md-4 reportInput">
-                  	<form:input path="classType" class="form-control" placeholder="수업 방식을 입력해주세요."/>
+                  <c:choose>
+                  	<c:when test="${ time le 24 }">
+                  		<form:select path="classType" class="form-control" itemValue="value" itemLabel="label" items="${ classType }" />
+                  	</c:when>
+                  	<c:otherwise>
+                  		<form:hidden path="classType" value="6"/>
+                  		<input type="text" value="컨퍼런스 참석" class="form-control" readonly="readonly"/>
+                  	</c:otherwise>
+                  </c:choose>
                   </div>
                 </div>
                 <div class="row">
@@ -376,7 +377,6 @@
                     <p> ⊙ 멘토링 참석 비율이 2/3 미만인 경우에는 인정이 되지 않으니 참고하시길 바랍니다. </p>
                     <p> ⊙ 축제, 컨퍼런스 참석 보고서에 대해서는 수업 방식에 축제/컴퍼런스 참석으로 선택하시고, 수업 주제에는 참석한 축제, 컴퍼런스 이름을 작성해주고, 목표는 비워두셔도 됩니다. 교과목은 그대로 작성해주시면 되고 진행 장소는 축제나 컴퍼런스를 진행한 장소를 작성해주시면 됩니다</p>
                     <p> ⊙ 사진은 jpg, png 등 쉽게 구분이 가능한 확장명으로 올려주시고, 학번_n번째_멘토링.jpg, 학번_n번째_축제.jpg 이름으로 올려주셔야 합니다. </p>
-                    <p> ⊙ 수업 방식은 오리엔테이션, 강의/실습, 토론/팀워크, 프로젝트 진행 방식, 시험기간 중 질의응답, 축제/컨퍼런스 참석 6개 중 하나로 입력해주세요. </p>
                   </div>
                 </div>
                 <div class="complete" align="right">

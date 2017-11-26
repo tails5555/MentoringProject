@@ -4,7 +4,7 @@
 
 <mapper namespace="net.skhu.mentoring.mapper.MentoMapper">
   <select id="findAll" resultType="Mento">
-  	Select * FROM Mento
+  	Select * FROM Mento 
   </select>
   <select id="findOne" resultType="Mento">
     select * from Mento Where id=#{id}

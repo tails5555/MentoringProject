@@ -21,6 +21,7 @@ import net.skhu.mentoring.mapper.ProfileMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.model.GroupBBSPagination;
+import net.skhu.mentoring.model.GroupBBSPostModel;
 import net.skhu.mentoring.model.Option;
 @Service
 public class GroupBBSPostService {
@@ -109,5 +110,50 @@ public class GroupBBSPostService {
 			groupBBSPost.setUserName(student.getName());
 			groupBBSPost.setUserEmail(student.getEmail());
 		}
+	}
+	public GroupBBSPostModel getGroupPostModel(int id) {
+		GroupBBSPostModel model=new GroupBBSPostModel();
+		GroupBBSPost post=groupBBSPostMapper.findOne(id);
+		model.setId(post.getId());
+		model.setTitle(post.getTitle());
+		model.setContext(post.getContext());
+		return model;
+	}
+	public void updatePost(GroupBBSPostModel groupBBSPostModel) {
+		groupBBSPostMapper.updatePost(groupBBSPostModel.getTitle(), groupBBSPostModel.getContext(), groupBBSPostModel.getId());
+	}
+	public void insertPost(GroupBBSPostModel groupBBSPostModel, int gd) {
+		GroupBBSPost newPost=new GroupBBSPost();
+		newPost.setBbsId(gd);
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber=authentication.getName();
+		if(studentMapper.findOne(userNumber)!=null) {
+			Student student=studentMapper.findOne(userNumber);
+			newPost.setUserId(student.getUserId());
+			newPost.setUserName(student.getName());
+			newPost.setUserEmail(student.getEmail());
+		}
+		else if(professorMapper.findOne(userNumber)!=null) {
+			Professor professor=professorMapper.findOne(userNumber);
+			newPost.setUserId(professor.getUserId());
+			newPost.setUserName(professor.getName());
+			newPost.setUserEmail(professor.getEmail());
+		}
+		else if(employeeMapper.findOne(userNumber)!=null) {
+			Employee employee=employeeMapper.findOne(userNumber);
+			newPost.setUserId(employee.getUserId());
+			newPost.setUserName(employee.getName());
+			newPost.setUserEmail(employee.getEmail());
+		}
+		newPost.setViews(1);
+		newPost.setTitle(groupBBSPostModel.getTitle());
+		newPost.setContext(groupBBSPostModel.getContext());
+		groupBBSPostMapper.insertPost(newPost);
+	}
+	public GroupBBSPost findLastPost() {
+		return groupBBSPostMapper.findLastPost();
+	}
+	public void deletePost(int id) {
+		groupBBSPostMapper.delete(id);
 	}
 }
