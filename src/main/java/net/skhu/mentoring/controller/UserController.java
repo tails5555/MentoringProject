@@ -46,8 +46,17 @@ public class UserController {
 
 	@RequestMapping("user/index")
 	public String index(Model model) {
+		
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber=authentication.getName();
+		
+		Student student=studentMapper.findOne(userNumber);
+	
+		model.addAttribute("student",student);
+		
 		model.addAttribute("schedules", scheduleMapper.findAll());
 		model.addAttribute("notices", noticeBBSService.findFiveNoticePost());
+		
 		return "user/index";
 	}
 

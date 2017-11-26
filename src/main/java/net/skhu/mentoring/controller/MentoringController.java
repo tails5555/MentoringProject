@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import net.skhu.mentoring.dto.Mento;
+import net.skhu.mentoring.dto.Student;
+import net.skhu.mentoring.dto.TimeTable;
 import net.skhu.mentoring.mapper.MentoMapper;
 import net.skhu.mentoring.mapper.MentoringGroupMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
@@ -32,6 +34,8 @@ public class MentoringController {
 	@Autowired MentoringGroupMapper mentoringGroupMapper;
 	@Autowired MentoAdvertiseService mentoAdvertiseService;
 	@Autowired MentoQualificService mentoQualificService;
+
+	
 	@RequestMapping(value="user/mento_apli" ,method=RequestMethod.GET)
 	public String mento_apli(Model model) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
@@ -66,4 +70,24 @@ public class MentoringController {
 		}
 		return "redirect:mento_apli";
 	}
+	
+    @RequestMapping(value="user/mento_timetable")
+    public String mento_timetable(@RequestParam("timetableView") String timetableView, Model model) {
+    	
+    	
+    	System.out.println(timetableView);
+    	
+
+    		Student student=studentMapper.findOneByName(timetableView);
+    		TimeTable timetable=null;
+    		
+    		timetable = timeTableMapper.findOne(student.getStudentNumber());
+    		model.addAttribute("timetable",timetable);
+    		model.addAttribute("student",student);
+    		
+    	
+        return "mentoring/mento_timetable";
+    }
+
+	
 }
