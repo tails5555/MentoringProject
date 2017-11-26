@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import net.skhu.mentoring.dto.MentiList;
 import net.skhu.mentoring.dto.Mento;
+import net.skhu.mentoring.dto.MentoringGroup;
+import net.skhu.mentoring.mapper.MentiListMapper;
 import net.skhu.mentoring.mapper.MentoMapper;
 import net.skhu.mentoring.mapper.MentoringGroupMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
@@ -32,6 +35,8 @@ public class MentoringController {
 	@Autowired MentoringGroupMapper mentoringGroupMapper;
 	@Autowired MentoAdvertiseService mentoAdvertiseService;
 	@Autowired MentoQualificService mentoQualificService;
+	@Autowired MentiListMapper mentiListMapper;
+	
 	@RequestMapping(value="user/mento_apli" ,method=RequestMethod.GET)
 	public String mento_apli(Model model) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
@@ -65,5 +70,46 @@ public class MentoringController {
 			mentoQualificService.upload(quaFile, newMento.getId());
 		}
 		return "redirect:mento_apli";
+	}
+	
+	
+	@RequestMapping("user/menti_apli")
+	public String menti_apli(Model model) {
+		List<MentoringGroup> mentos = mentoringGroupMapper.findwithMentoWithStudent();
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String studentNumber=authentication.getName();
+		int userId=studentMapper.findOne(studentNumber).getUserId();
+		for(MentoringGroup m : mentos) {
+			m.setCount(mentiListMapper.findCount(m.getId()));
+			m.setIncluded(false);
+			for(MentiList mentiList : mentiListMapper.findByGroupId(m.getId())) {
+				if(userId==mentiList.getUserId()) {
+					m.setIncluded(true);
+					break;
+				}
+			}
+		}
+		model.addAttribute("mentos",mentos);
+		return "mentoring/menti_apli";
+	}
+	
+	@RequestMapping("user/menti_application")
+	public String menti_application(Model model ,@RequestParam("id")int id) {
+		MentiList mentiList = new MentiList();
+		mentiList.setGroupId(id);
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String studentNumber=authentication.getName();
+		mentiList.setUserId(studentMapper.findOne(studentNumber).getUserId());
+		mentiListMapper.insert(mentiList);
+		return "redirect:menti_apli";
+	}
+	
+	@RequestMapping("user/menti_remove")
+	public String menti_remove(Model model) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String studentNumber=authentication.getName();
+		int userid=studentMapper.findOne(studentNumber).getUserId();
+		mentiListMapper.delete(userid);
+		return "redirect:menti_apli";
 	}
 }

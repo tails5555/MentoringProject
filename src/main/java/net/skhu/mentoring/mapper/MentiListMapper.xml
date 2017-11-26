@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.skhu.mentoring.mapper.MentiListMapper">
+	<select id="findAll" resultType="MentiList">
+		select * from mentiList
+	</select>
+	<select id="findByGroupId" resultType="MentiList">
+		SELECT * FROM MentiList WHERE groupId=#{groupId}
+	</select>
+  <insert id="insert" >
+  	INSERT into MentiList(groupId,userId)
+  	values(#{groupId},#{userId})
+  </insert>
+  <select id="findCount" resultType="java.lang.Integer">
+  	SELECT count(*) FROM mentiList
+	where groupId=#{groupId}; 
+  </select>
+  <delete id="delete">
+  	delete from mentiList
+  	where userId=#{userId};
+  </delete>
+</mapper>

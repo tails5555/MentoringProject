@@ -20,4 +20,14 @@
   	delete from MentoringGroup
   	WHERE mentoId=#{mentoId}
   </delete>
+  
+  <select id="findwithMentoWithStudent" resultType="MentoringGroup">
+  	SELECT mg.* ,m.* ,s.*
+	FROM mentoringgroup mg left join mento m
+	on mg.mentoId = m.id
+	left join student s
+	on m.userId = s.userId;
+  </select>
+  
+  
 </mapper>
