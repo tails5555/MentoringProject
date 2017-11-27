@@ -179,6 +179,23 @@
           background-color : #F5ECCE;
         }
    </style>
+   <script>
+   $(function() {
+	   $("[data-confirm-menti]").click(function() {
+	     return confirm("멘티를 신청합니다. 계속 하시겠습니까?");
+	   })
+	})
+	$(function() {
+	   $("[data-confirm-cancel]").click(function() {
+	     return confirm("멘티를 취소합니다. 계속 하시겠습니까?");
+	   })
+	})
+	$(function() {
+	   $("[data-confirm-all-cancel]").click(function() {
+	     return confirm("멘티 신청 기록을 취소합니다. 계속 하시겠습니까?");
+	   })
+	})
+   </script>
  </head>
 
  <body>
@@ -320,21 +337,22 @@
                 </thead>
                 <tbody>
                   <c:forEach var="mentoringGroup" items="${mentos}">
-                  	<tr>
-                  		
+                  	<tr <c:if test="${mentoringGroup.count gt 5}">class="danger"</c:if>>
                   		<td>${mentoringGroup.teamName }</td>
                   		<td>${mentoringGroup.subject }</td>
                   		<td>${mentoringGroup.name }</td>
                   		<td>${mentoringGroup.count }/5</td>
                   		<td><c:choose>
-                  			<c:when test="${ mentoringGroup.included eq false }"><a href="menti_application?id=${mentoringGroup.id}"><button class="btn btn-warning" type="button">신청하기</button></a></c:when>
-                  			<c:otherwise><a href="menti_remove"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>신청 취소</button></a></c:otherwise>
+                  			<c:when test="${ mentoringGroup.mentoConfirm eq true }">이미 멘토입니다.</c:when>
+                  			<c:when test="${ mentoringGroup.included eq false }"><a href="menti_application?id=${mentoringGroup.id}"><button class="btn btn-warning" type="button" data-confirm-menti>신청하기</button></a></c:when>
+                  			<c:otherwise><a href="menti_each_remove?id=${mentoringGroup.id }" data-confirm-cancel><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>신청 취소</button></a></c:otherwise>
                   		</c:choose></td>
                   	</tr>
                   </c:forEach>
                 </tbody>
               </table>
-              
+              <hr/>
+              <a href="menti_remove" data-confirm-all-cancel><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-certificate"></i> 전체 취소</button></a>
             </div>
           </div>
       </sec:authorize>

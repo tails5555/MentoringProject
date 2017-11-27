@@ -26,6 +26,10 @@
   	delete from mentiList
   	where userId=#{userId};
   </delete>
+  <delete id="deleteWithUserId">
+  	DELETE FROM MentiList
+  	WHERE userId=#{userId} AND groupId=#{groupId}
+  </delete>
 
   <select id="findwithStudents" resultType="MentiList">
   	select m.* , s.studentNumber , s.name,s.email 

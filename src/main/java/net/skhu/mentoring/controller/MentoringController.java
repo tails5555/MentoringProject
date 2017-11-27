@@ -115,12 +115,19 @@ public class MentoringController {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String studentNumber=authentication.getName();
 		int userId=-1;
+		int mentoId=-1;
 		if(studentMapper.findOne(studentNumber)!=null) {
 			userId=studentMapper.findOne(studentNumber).getUserId();
+			if(mentoMapper.findByUserId(userId)!=null) {
+				mentoId=mentoMapper.findByUserId(userId).getId();
+			}
 		}
 		for(MentoringGroup m : mentos) {
 			m.setCount(mentiListMapper.findCount(m.getId()));
 			m.setIncluded(false);
+			m.setMentoConfirm(false);
+			if(m.getMentoId()==mentoId)
+				m.setMentoConfirm(true);
 			for(MentiList mentiList : mentiListMapper.findByGroupId(m.getId())) {
 				if(userId==mentiList.getUserId()) {
 					m.setIncluded(true);
@@ -142,7 +149,14 @@ public class MentoringController {
 		mentiListMapper.insert(mentiList);
 		return "redirect:menti_apli";
 	}
-
+	@RequestMapping("user/menti_each_remove")
+	public String menti_each_remove(Model model, @RequestParam("id") int id) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String studentNumber=authentication.getName();
+		int userid=studentMapper.findOne(studentNumber).getUserId();
+		mentiListMapper.deleteWithUserId(id, userid);
+		return "redirect:menti_apli";
+	}
 	@RequestMapping("user/menti_remove")
 	public String menti_remove(Model model) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
@@ -175,6 +189,9 @@ public class MentoringController {
 			}else mento.setProfileId(-1);
 			String deptName=studentMapper.findByUserId(mento.getUserId()).getDepartmentName();
 			mento.setDepartmentName(deptName);
+			String studentNumber=studentMapper.findByUserId(mento.getUserId()).getStudentNumber();
+			TimeTable timetable=timeTableMapper.findOne(studentNumber);
+			mento.setTimeTable(timetable);
 			System.out.println(mento.getId());
 			MentoringGroup mentoringGroup = mentoringGroupMapper.findByMentoId(mento.getId());
 			if(mentoringGroup!=null) {
