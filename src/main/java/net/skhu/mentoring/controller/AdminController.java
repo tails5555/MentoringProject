@@ -420,6 +420,13 @@ public class AdminController {
 		mentoMapper.delete(mentoId);
 		return"redirect:/user/mento_open";
 	}
+	
+	@RequestMapping(value="mento_open/menti_remove")
+	public String mentiRemove(Model model , @RequestParam("userId")int userId) {
+		mentiListMapper.delete(userId);
+		
+		return "redirect:/user/mento_open";
+	}
 }
 
 

@@ -539,7 +539,7 @@
                         <td class="context">${mentiList.name}</td>
                         <td class="context">${mentiList.email }</td>
 
-                        <td><button type="button" class="btn btn-danger" data-confirm-mentiRemove><i class="glyphicon glyphicon-remove">삭제</i></button> </td>
+                        <td><a href="${R}user/mento_open/menti_remove?userId=${mentiList.userId}"><button type="button" class="btn btn-danger" data-confirm-mentiRemove><i class="glyphicon glyphicon-remove">삭제</i></button> </a></td>
                       </tr>
                     </c:forEach>
                     
