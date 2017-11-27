@@ -448,9 +448,9 @@
        <div class="col-md-3">
           <h1 class="my-4"><strong>멘토링</strong></h1>
           <div class="list-group">
-            <a href="menti_apli" class="list-group-item">멘티 신청</a>
-            <a href="mento_apli" class="list-group-item">멘토 신청</a>
-            <a href="mento_list.html" class="list-group-item active">멘토/멘티 목록</a>
+            <a href="${R}user/menti_apli" class="list-group-item">멘티 신청</a>
+            <a href="${R}user/mento_list" class="list-group-item">멘토 신청</a>
+            <a href="${R}user/mento_list" class="list-group-item active">멘토/멘티 목록</a>
             
           </div>
         </div>
