@@ -9,6 +9,11 @@
 	<select id="findByGroupId" resultType="MentiList">
 		SELECT * FROM MentiList WHERE groupId=#{groupId}
 	</select>
+	
+	<select id="findByTimetable" resultType="MentiList">
+		SELECT m.* , s.name name  FROM MentiList m left JOIN student s on s.userId=m.userId where groupId=#{groupId}
+	</select>
+
   <insert id="insert" >
   	INSERT into MentiList(groupId,userId)
   	values(#{groupId},#{userId})
@@ -21,10 +26,12 @@
   	delete from mentiList
   	where userId=#{userId};
   </delete>
+
   <select id="findwithStudents" resultType="MentiList">
   	select m.* , s.studentNumber , s.name,s.email 
 	from mentiList m left join student s
 	on m.userId = s.userId
 	where m.groupId=#{groupId}
   </select>
+
 </mapper>

@@ -7,7 +7,11 @@ import lombok.Data;
 public class MentiList {
 	int groupId;
 	int userId;
-	String studentNumber;
+
 	String name;
+
+	String studentNumber;
+
 	String email;
+
 }
