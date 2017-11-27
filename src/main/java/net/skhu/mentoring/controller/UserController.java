@@ -46,8 +46,17 @@ public class UserController {
 
 	@RequestMapping("user/index")
 	public String index(Model model) {
+		
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber=authentication.getName();
+		
+		Student student=studentMapper.findOne(userNumber);
+	
+		model.addAttribute("student",student);
+		
 		model.addAttribute("schedules", scheduleMapper.findAll());
 		model.addAttribute("notices", noticeBBSService.findFiveNoticePost());
+		
 		return "user/index";
 	}
 
@@ -56,11 +65,31 @@ public class UserController {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String userNumber=authentication.getName();
 		TimeTable timetable=null;
+		
 		if(studentMapper.findOne(userNumber) !=null) {
+			
 			Student student=studentMapper.findOne(userNumber);
 			User my = userMapper.findEdit(student.getUserId());
+			String check = "있음";
+			
+			String t = timetableMapper.findId(userNumber);
+			
+			System.out.println(t);
+
+			if(t==null) {
+				TimeTable timetable1 =new TimeTable();
+				 timetable1.setStudentId(userNumber); 
+			     timetableMapper.insert(timetable1);
+			     
+			    
+			}
+		
 			timetable = timetableMapper.findOne(userNumber);
+			
+			
+			
 			String s=my.getPhoneNumber();
+			
 			if(s.length()==11) {
 			my.setPhone1((String)s.subSequence(0, 3));
 			my.setPhone2((String)s.subSequence(3, 7));
@@ -78,6 +107,11 @@ public class UserController {
 			if(profile!=null) {
 				my.setProfileId(profile.getId());
 			}else my.setProfileId(-1);
+			
+			
+			System.out.println(timetable.getMon1());
+			
+	
 			model.addAttribute("my", my);
 			model.addAttribute("timetable",timetable);
 			System.out.println(timetable.getTue4());
