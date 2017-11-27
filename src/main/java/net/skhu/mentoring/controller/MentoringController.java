@@ -16,13 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import net.skhu.mentoring.dto.MentiList;
 import net.skhu.mentoring.dto.Mento;
-
+import net.skhu.mentoring.dto.MentoringGroup;
 import net.skhu.mentoring.dto.Student;
 import net.skhu.mentoring.dto.TimeTable;
-
-import net.skhu.mentoring.dto.MentoringGroup;
 import net.skhu.mentoring.mapper.MentiListMapper;
-
 import net.skhu.mentoring.mapper.MentoMapper;
 import net.skhu.mentoring.mapper.MentoringGroupMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
@@ -79,38 +76,35 @@ public class MentoringController {
 		}
 		return "redirect:mento_apli";
 	}
-	
+
     @RequestMapping(value="user/mento_timetable")
     public String mento_timetable(@RequestParam("timetableView") String timetableView, Model model) {
-    	
-    	
-    	
+
+
+
     	System.out.println(timetableView);
-    	
+
     	Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String studentNumber=authentication.getName();
-		
 		Student mento= studentMapper.findOne(studentNumber);
 		Mento mento1 = mentoMapper.findByUserId(mento.getUserId());
-		
-		MentoringGroup mg = mentoringGroupMapper.findByMentoId(mento1.getId());
-    	
-		System.out.println(mg.getId());
-		
-		List<MentiList> mt = mentiListMapper.findByTimetable(mg.getId());
 
-		
-		
-    		Student student=studentMapper.findOneByName(timetableView);
-    		TimeTable timetable=null;
-    		
-    		
-    		timetable = timeTableMapper.findOne(student.getStudentNumber());
-    		model.addAttribute("timetable",timetable);
-    		model.addAttribute("student",student);
-    		model.addAttribute("mento",mento);
-    		model.addAttribute("mt",mt);
-    	
+		MentoringGroup mg = mentoringGroupMapper.findByMentoId(mento1.getId());
+
+		System.out.println(mg.getId());
+
+		List<MentiList> mt = mentiListMapper.findByTimetable(mg.getId());
+		if(timetableView.equals("")) {
+			timetableView=mento.getName();
+		}
+    	Student student=studentMapper.findOneByName(timetableView);
+    	TimeTable timetable=null;
+    	timetable = timeTableMapper.findOne(student.getStudentNumber());
+    	model.addAttribute("timetable",timetable);
+    	model.addAttribute("student",student);
+    	model.addAttribute("mento",mento);
+    	model.addAttribute("mt",mt);
+
         return "mentoring/mento_timetable";
     }
 
@@ -120,7 +114,10 @@ public class MentoringController {
 		List<MentoringGroup> mentos = mentoringGroupMapper.findwithMentoWithStudent();
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String studentNumber=authentication.getName();
-		int userId=studentMapper.findOne(studentNumber).getUserId();
+		int userId=-1;
+		if(studentMapper.findOne(studentNumber)!=null) {
+			userId=studentMapper.findOne(studentNumber).getUserId();
+		}
 		for(MentoringGroup m : mentos) {
 			m.setCount(mentiListMapper.findCount(m.getId()));
 			m.setIncluded(false);
@@ -134,7 +131,7 @@ public class MentoringController {
 		model.addAttribute("mentos",mentos);
 		return "mentoring/menti_apli";
 	}
-	
+
 	@RequestMapping("user/menti_application")
 	public String menti_application(Model model ,@RequestParam("id")int id) {
 		MentiList mentiList = new MentiList();
@@ -145,7 +142,7 @@ public class MentoringController {
 		mentiListMapper.insert(mentiList);
 		return "redirect:menti_apli";
 	}
-	
+
 	@RequestMapping("user/menti_remove")
 	public String menti_remove(Model model) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
@@ -154,11 +151,11 @@ public class MentoringController {
 		mentiListMapper.delete(userid);
 		return "redirect:menti_apli";
 	}
-	
+
 	@RequestMapping(value="user/mento_list")
 	public String mento_list(Model model) {
 		List<Mento> mentos = mentoMapper.findWithStudent();
-		
+
 		for(Mento mento : mentos) {
 			if(mentoAdvertiseService.findByMentoId(mento.getId())!=null) {
 				mento.setAdvFileName(mentoAdvertiseService.findByMentoId(mento.getId()).getFileName());
@@ -187,7 +184,7 @@ public class MentoringController {
 			}
 		}
 		model.addAttribute("mentos", mentos);
-		
+
 		return "mentoring/mento_list";
 	}
 

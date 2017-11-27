@@ -197,19 +197,19 @@
     <div class="container-fluid">
       <div class="navbar-header">
       <sec:authorize access="not authenticated">
-        <a class="navbar-brand" href="${R}"><img src="${R}img\title.png"/></a>
+        <a class="navbar-brand" href="${R}guest/index"><img src="${R}img\title.png"/></a>
       </sec:authorize>
       <sec:authorize access="authenticated">
-        <a class="navbar-brand" href="index"><img src="${R}img\title.png"/></a>
+        <a class="navbar-brand" href="${R}user/index"><img src="${R}img\title.png"/></a>
       </sec:authorize>
       </div>
       <ul class="nav navbar-nav">
       	<sec:authorize access="not authenticated">
-        <li><a href="${R}">
+        <li><a href="${R}guest/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
       	</sec:authorize>
         <sec:authorize access="authenticated">
-        <li><a href="index">
+        <li><a href="${R}user/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         </sec:authorize>
         <li class="dropdown ">
@@ -233,27 +233,37 @@
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li ><a href="menti_apli.html">멘티 신청</a></li>
+              <sec:authorize access="not authenticated">
+		        <li><a href="login">멘티 신청</a></li>
+		      </sec:authorize>
+		      <sec:authorize access="authenticated">
+		        <li><a href="${R}user/menti_apli">멘토 신청</a></li>
+		      </sec:authorize>
               <sec:authorize access="not authenticated">
 		        <li><a href="login">멘토 신청</a></li>
 		      </sec:authorize>
 		      <sec:authorize access="authenticated">
-		        <li><a href="mento_apli">멘토 신청</a></li>
+		        <li><a href="${R}user/mento_apli">멘토 신청</a></li>
 		      </sec:authorize>
-              <li ><a href="mento_list.html">멘토/멘티 목록</a></li>
-              <li><a href="mento_board.html">멘토링 게시판</a></li>
+              <li ><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
+              <li><a href="${R}user/groupBBS">멘토링 게시판</a></li>
               <li><a href="survey.html">설문조사</a></li>
             </ul>
         </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="mento_timetable.html">멘티 시간표 확인</a></li>
-              <li><a href="report_write.html">보고서 작성</a></li>
-              <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
-            </ul>
-        </li>
+        <sec:authorize access="authenticated">
+	        <sec:authorize access="hasAnyRole('ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
+	        <li class="dropdown">
+	          <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
+	          <span class="caret"></span></a>
+	            <ul class="dropdown-menu">
+	              
+	              <li><a href="${R}user/mento_timetable?timetableView=">멘티 시간표 확인</a></li>
+	              <li><a href="${R}user/report/write">보고서 작성</a></li>
+	              <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
+	            </ul>
+	        </li>
+	        </sec:authorize>
+        </sec:authorize>
         <sec:authorize access="authenticated">
 	        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
 	        <li class="dropdown">
@@ -261,7 +271,7 @@
 	          <span class="caret"></span></a>
 	            <ul class="dropdown-menu">
 	              <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
-	              <li><a href="report_confirm.html">보고서 확인</a></li>
+	              <li><a href="${R}user/report/confirm">보고서 확인</a></li>
 	              <li ><a href="${R}user/survey">설문조사 관리</a></li>
 	              <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
 	              <li><a href="${R}user/list">회원 목록 관리</a></li>
@@ -278,7 +288,8 @@
       </sec:authorize>
       <sec:authorize access="authenticated">
         <li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
-        <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
+        <li><a href="${R}user/Edit.do"><i class="glyphicon glyphicon-user"> 내정보</i></a></li>
+        <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-remove-sign"> 로그아웃</i></a></li>
       </sec:authorize>
       </ul>
     </div>
