@@ -30,6 +30,7 @@ import net.skhu.mentoring.mapper.TimeTableMapper;
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.service.MentoAdvertiseService;
 import net.skhu.mentoring.service.MentoQualificService;
+import net.skhu.mentoring.service.ProfileService;
 @Controller
 public class MentoringController {
 
@@ -40,6 +41,7 @@ public class MentoringController {
 	@Autowired MentoringGroupMapper mentoringGroupMapper;
 	@Autowired MentoAdvertiseService mentoAdvertiseService;
 	@Autowired MentoQualificService mentoQualificService;
+	@Autowired ProfileService profileService;
 
 	@Autowired MentiListMapper mentiListMapper;
 
@@ -135,6 +137,42 @@ public class MentoringController {
 		int userid=studentMapper.findOne(studentNumber).getUserId();
 		mentiListMapper.delete(userid);
 		return "redirect:menti_apli";
+	}
+	
+	@RequestMapping(value="user/mento_list")
+	public String mento_list(Model model) {
+		List<Mento> mentos = mentoMapper.findWithStudent();
+		
+		for(Mento mento : mentos) {
+			if(mentoAdvertiseService.findByMentoId(mento.getId())!=null) {
+				mento.setAdvFileName(mentoAdvertiseService.findByMentoId(mento.getId()).getFileName());
+				mento.setAdvId(mentoAdvertiseService.findByMentoId(mento.getId()).getId());
+			}
+			if(mentoQualificService.findByMentoId(mento.getId())!=null) {
+				mento.setQuaFileName(mentoQualificService.findByMentoId(mento.getId()).getFileName());
+				mento.setQuaId(mentoQualificService.findByMentoId(mento.getId()).getId());
+			}
+			if(mentoringGroupMapper.findByMentoId(mento.getId())!=null) {
+				mento.setMentoGroupId(mentoringGroupMapper.findByMentoId(mento.getId()).getId());
+			}else {
+				mento.setMentoGroupId(-1);
+			}
+			if(profileService.findByUserId(mento.getUserId())!=null) {
+				mento.setProfileId(profileService.findByUserId(mento.getUserId()).getId());
+			}else mento.setProfileId(-1);
+			String deptName=studentMapper.findByUserId(mento.getUserId()).getDepartmentName();
+			mento.setDepartmentName(deptName);
+			System.out.println(mento.getId());
+			MentoringGroup mentoringGroup = mentoringGroupMapper.findByMentoId(mento.getId());
+			if(mentoringGroup!=null) {
+				System.out.println(mentoringGroup);
+				List<MentiList> menties = mentiListMapper.findwithStudents(mentoringGroup.getId());
+				mento.setMenties(menties);
+			}
+		}
+		model.addAttribute("mentos", mentos);
+		
+		return "mentoring/mento_list";
 	}
 
 }
