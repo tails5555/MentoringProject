@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import au.com.bytecode.opencsv.CSVReader;
 import net.skhu.mentoring.dto.Admin;
 import net.skhu.mentoring.dto.Employee;
+import net.skhu.mentoring.dto.MentiList;
 import net.skhu.mentoring.dto.Mento;
 import net.skhu.mentoring.dto.MentoAdvertise;
 import net.skhu.mentoring.dto.MentoQualific;
@@ -38,6 +39,7 @@ import net.skhu.mentoring.dto.User;
 import net.skhu.mentoring.mapper.AdminMapper;
 import net.skhu.mentoring.mapper.DepartmentMapper;
 import net.skhu.mentoring.mapper.EmployeeMapper;
+import net.skhu.mentoring.mapper.MentiListMapper;
 import net.skhu.mentoring.mapper.MentoAdvertiseMapper;
 import net.skhu.mentoring.mapper.MentoMapper;
 import net.skhu.mentoring.mapper.MentoQualificMapper;
@@ -72,6 +74,7 @@ public class AdminController {
 	@Autowired MentoMapper mentoMapper;
 	@Autowired MentoAdvertiseMapper mentoAdvertiseMapper;
 	@Autowired MentoQualificMapper mentoQualificMapper;
+	@Autowired MentiListMapper mentiListMapper;
 	@Autowired MentoAdvertiseService mentoAdvertiseService;
 	@Autowired MentoQualificService mentoQualificService;
 	@Autowired MentoringGroupMapper mentoringGroupMapper;
@@ -281,7 +284,7 @@ public class AdminController {
 	@RequestMapping(value="mento_open", method=RequestMethod.GET)
 	public String mento_open(Model model) {
 		List<Mento> mentos = mentoMapper.findWithStudent();
-		model.addAttribute("mentos", mentos);
+		
 		for(Mento mento : mentos) {
 			if(mentoAdvertiseService.findByMentoId(mento.getId())!=null) {
 				mento.setAdvFileName(mentoAdvertiseService.findByMentoId(mento.getId()).getFileName());
@@ -301,7 +304,16 @@ public class AdminController {
 			}else mento.setProfileId(-1);
 			String deptName=studentMapper.findByUserId(mento.getUserId()).getDepartmentName();
 			mento.setDepartmentName(deptName);
+			System.out.println(mento.getId());
+			MentoringGroup mentoringGroup = mentoringGroupMapper.findByMentoId(mento.getId());
+			if(mentoringGroup!=null) {
+				System.out.println(mentoringGroup);
+				List<MentiList> menties = mentiListMapper.findwithStudents(mentoringGroup.getId());
+				mento.setMenties(menties);
+			}
 		}
+		model.addAttribute("mentos", mentos);
+		
 		return "mentoring/mento_open";
 	}
 	@RequestMapping(value="mento_open/advDownload")
