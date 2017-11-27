@@ -6,4 +6,6 @@ import lombok.Data;
 public class MentiList {
 	int groupId;
 	int userId;
+	
+	String name;
 }

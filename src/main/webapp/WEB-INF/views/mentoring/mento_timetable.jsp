@@ -44,15 +44,19 @@
 		            this.checked = true; //checked 처리
 		      }
 		 });
+		 
+		 $("timetableView").val(${student.name}).attr("selected", "selected");
 
 	
-		 $("timetableView").val(${student.name});
+	
 	});
 
 	
 
 
 </script>
+
+
     <style>
 
       .row {
@@ -298,11 +302,12 @@
   				
   				
   				<optgroup label="멘토">
-                  <option value="장승훈">장승훈</option>
+                  <option value="${mento.name}" ${param.timetableView eq mento.name ? "selected" : "" } >${mento.name}</option>
                 </optgroup>
                 <optgroup label="멘티">
-                      <option value="강인성" >강인성</option>
-					  
+                   <c:forEach var="mt" items="${mt}">
+                      <option value="${mt.name}" ${param.timetableView eq mt.name ? "selected" : "" } >${mt.name}</option>
+					  </c:forEach>
                 </optgroup>
               </select>
             </div>

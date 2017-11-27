@@ -16,6 +16,12 @@
   	WHERE mentoId=#{mentoId}
   </select>
   
+    <select id="findOne" resultType="MentoringGroup">
+  	SELECT *
+  	FROM MentoringGroup
+  	WHERE mentoId=#{mentoId}
+  </select>
+  
   <delete id="delete">
   	delete from MentoringGroup
   	WHERE mentoId=#{mentoId}

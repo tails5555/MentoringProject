@@ -82,16 +82,32 @@ public class MentoringController {
     public String mento_timetable(@RequestParam("timetableView") String timetableView, Model model) {
     	
     	
+    	
     	System.out.println(timetableView);
     	
+    	Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String studentNumber=authentication.getName();
+		
+		Student mento= studentMapper.findOne(studentNumber);
+		Mento mento1 = mentoMapper.findByUserId(mento.getUserId());
+		
+		MentoringGroup mg = mentoringGroupMapper.findByMentoId(mento1.getId());
+    	
+		System.out.println(mg.getId());
+		
+		List<MentiList> mt = mentiListMapper.findByTimetable(mg.getId());
 
+		
+		
     		Student student=studentMapper.findOneByName(timetableView);
     		TimeTable timetable=null;
+    		
     		
     		timetable = timeTableMapper.findOne(student.getStudentNumber());
     		model.addAttribute("timetable",timetable);
     		model.addAttribute("student",student);
-    		
+    		model.addAttribute("mento",mento);
+    		model.addAttribute("mt",mt);
     	
         return "mentoring/mento_timetable";
     }
