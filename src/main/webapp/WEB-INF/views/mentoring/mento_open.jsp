@@ -525,6 +525,7 @@
                       	</td>
                       </tr>
                       </c:if>
+                      <c:if test="${ mento.menties.size() ne 0 and mento.menties ne null }">
                       <tr>
                         <td colspan="4" class="entity">
                         	  멘티 목록
@@ -537,16 +538,17 @@
                         <td class="entity">이메일</td>
                         <td class="entity">멘티 승인</td>
                       </tr>
-                      <c:forEach var="mentiList" items="${mento.menties}">
-                      <tr>
-                        <td class="context">${mentiList.studentNumber}</td>
-                        <td class="context">${mentiList.name}</td>
-                        <td class="context">${mentiList.email }</td>
-
-                        <td><a href="${R}user/mento_open/menti_remove?userId=${mentiList.userId}"><button type="button" class="btn btn-danger" data-confirm-mentiRemove><i class="glyphicon glyphicon-remove">삭제</i></button> </a></td>
-                      </tr>
-                    </c:forEach>
-                    
+                      
+                      	<c:forEach var="mentiList" items="${mento.menties}">
+	                      <tr>
+	                        <td class="context">${mentiList.studentNumber}</td>
+	                        <td class="context">${mentiList.name}</td>
+	                        <td class="context">${mentiList.email }</td>
+	
+	                        <td><center><a href="${R}user/mento_open/menti_remove?groupId=${ mento.mentoGroupId }&userId=${mentiList.userId}"><button type="button" class="btn btn-danger" data-confirm-mentiRemove><i class="glyphicon glyphicon-remove">삭제</i></button> </a></center></td>
+	                      </tr>
+	                    </c:forEach>
+                      </c:if>
                     </table>
                   </div>
                 </div>

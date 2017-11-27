@@ -284,7 +284,7 @@ public class AdminController {
 	@RequestMapping(value="mento_open", method=RequestMethod.GET)
 	public String mento_open(Model model) {
 		List<Mento> mentos = mentoMapper.findWithStudent();
-		
+
 		for(Mento mento : mentos) {
 			if(mentoAdvertiseService.findByMentoId(mento.getId())!=null) {
 				mento.setAdvFileName(mentoAdvertiseService.findByMentoId(mento.getId()).getFileName());
@@ -308,12 +308,13 @@ public class AdminController {
 			MentoringGroup mentoringGroup = mentoringGroupMapper.findByMentoId(mento.getId());
 			if(mentoringGroup!=null) {
 				System.out.println(mentoringGroup);
+				mento.setMentoGroupId(mentoringGroup.getId());
 				List<MentiList> menties = mentiListMapper.findwithStudents(mentoringGroup.getId());
 				mento.setMenties(menties);
 			}
 		}
 		model.addAttribute("mentos", mentos);
-		
+
 		return "mentoring/mento_open";
 	}
 	@RequestMapping(value="mento_open/advDownload")
@@ -420,11 +421,11 @@ public class AdminController {
 		mentoMapper.delete(mentoId);
 		return"redirect:/user/mento_open";
 	}
-	
+
 	@RequestMapping(value="mento_open/menti_remove")
-	public String mentiRemove(Model model , @RequestParam("userId")int userId) {
-		mentiListMapper.delete(userId);
-		
+	public String mentiRemove(Model model , @RequestParam("groupId") int groupId, @RequestParam("userId")int userId) {
+		mentiListMapper.deleteWithUserId(groupId, userId);
+
 		return "redirect:/user/mento_open";
 	}
 }

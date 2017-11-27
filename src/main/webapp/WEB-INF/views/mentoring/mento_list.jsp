@@ -531,7 +531,7 @@
                       	</td>
                       </tr>
                       </c:if>
-                     
+                      <c:if test="${mento.menties.size() ne 0 and mento.menties ne null}">
                       <tr>
                         <td colspan="4" class="entity">
                         	  멘티 목록
@@ -549,7 +549,9 @@
                         <td class="context">${mentiList.name}</td>
                         <td class="context">${mentiList.email }</td>
                       </tr>
-                    </c:forEach>
+                      </c:forEach>
+                      </c:if>
+                    
                     
                     </table>
                     
