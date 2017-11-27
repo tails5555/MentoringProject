@@ -368,6 +368,9 @@
 	   $("[data-confirm-cancel]").click(function() {
 	     return confirm("신청한 멘토의 기록이 사라집니다. 계속 하시겠습니까?");
 	   })
+	   $("[data-confirm-mentiRemove").click(function() {
+	     return confirm("멘티의 기록이 사라집니다. 계속 하시겠습니까?");
+	   })
 	})
 
    </script>
@@ -398,7 +401,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li ><a href="menti_apli.html">멘티 신청</a></li>
+              <li><a href="${R}user/menti_apli">멘티 신청</a></li>
               <li><a href="${R}user/mento_apli">멘토 신청</a></li>
               <li ><a href="mento_list.html">멘토/멘티 목록</a></li>
               <li><a href="mento_board.html">멘토링 게시판</a></li>
@@ -530,53 +533,16 @@
                         <td class="entity">이메일</td>
                         <td class="entity">멘티 승인</td>
                       </tr>
+                      <c:forEach var="mentiList" items="${mento.menties}">
                       <tr>
-                        <td class="context">201732000</td>
-                        <td class="context">멘티1</td>
-                        <td class="context">email@email.com</td>
+                        <td class="context">${mentiList.studentNumber}</td>
+                        <td class="context">${mentiList.name}</td>
+                        <td class="context">${mentiList.email }</td>
 
-                        <td><label for="r1" style="margin-left: 20px">승인</label>
-                        <input id="r1" type="radio" name="menti1" value="1" checked />
-
-                        <label for="r2" style="margin-left: 10px">거부</label>
-                        <input id="r2" type="radio" name="menti1" value="2" />
-                        </td>
+                        <td><a href="${R}user/mento_open/menti_remove?userId=${mentiList.userId}"><button type="button" class="btn btn-danger" data-confirm-mentiRemove><i class="glyphicon glyphicon-remove">삭제</i></button> </a></td>
                       </tr>
-                      <tr>
-                        <td class="context">201732000</td>
-                        <td class="context">멘티2</td>
-                        <td class="context">email@email.com</td>
-                         <td><label for="r1" style="margin-left: 20px">승인</label>
-                        <input id="r1" type="radio" name="menti2" value="1" checked />
-
-                        <label for="r2" style="margin-left: 10px">거부</label>
-                        <input id="r2" type="radio" name="menti2" value="2" />
-                      </td>
-
-
-                      </tr>
-                      <tr>
-                        <td class="context">201732000</td>
-                        <td class="context">멘티3</td>
-                        <td class="context">email@email.com</td>
-                        <td><label for="r1" style="margin-left: 20px">승인</label>
-                        <input id="r1" type="radio" name="menti3" value="1" checked />
-
-                        <label for="r2" style="margin-left: 10px">거부</label>
-                        <input id="r2" type="radio" name="menti3" value="2" />
-                      </td>
-                    </tr>
-                    <tr>
-                        <td class="context">201732000</td>
-                        <td class="context">멘티4</td>
-                        <td class="context">email@email.com</td>
-                        <td><label for="r1" style="margin-left: 20px">승인</label>
-                        <input id="r1" type="radio" name="menti4" value="1" checked />
-
-                        <label for="r2" style="margin-left: 10px">거부</label>
-                        <input id="r2" type="radio" name="menti4" value="2" />
-                      </td>
-                    </tr>
+                    </c:forEach>
+                    
                     </table>
                   </div>
                 </div>
