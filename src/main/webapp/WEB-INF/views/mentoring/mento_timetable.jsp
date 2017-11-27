@@ -24,26 +24,6 @@
 		      }
 		 });
 
-		 $('form:checkbox[name="tueCheck"]').each(function() {
-		     if(this.value == "true"){ //값 비교
-		            this.checked = true; //checked 처리
-		      }
-		 });
-		 $('form:checkbox[name="wedCheck"]').each(function() {
-		     if(this.value == "true"){ //값 비교
-		            this.checked = true; //checked 처리
-		      }
-		 });
-		 $('input:checkbox[name="thuCheck"]').each(function() {
-		     if(this.value == "true"){ //값 비교
-		            this.checked = true; //checked 처리
-		      }
-		 });
-		 $('input:checkbox[name="friCheck"]').each(function() {
-		     if(this.value == "true"){ //값 비교
-		            this.checked = true; //checked 처리
-		      }
-		 });
 		 
 		 $("timetableView").val(${student.name}).attr("selected", "selected");
 
@@ -160,9 +140,6 @@
 	  .number_input{
 	  	width : 40px;
 	  }
-	  
-	     .container { margin-top: 30px; margin-left: 300px }
-        .application{ margin-top: 20px; }
 
         label{
           margin-right: 1px
@@ -248,7 +225,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li class="active"><a href="mento_timetable.html">멘티 시간표 확인</a></li>
+              <li class="active"><a href="${R}user/mento_timetable?timetableView=">멘티 시간표 확인</a></li>
               <li><a href="${R}user/report/write">보고서 작성</a></li>
               <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
             </ul>
@@ -270,7 +247,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
       	<li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
-        <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
+      	<li><a href="${R}user/Edit.do"><i class="glyphicon glyphicon-user"> 내정보</i></a></li>
+        <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-remove-sign"> 로그아웃</i></a></li>
       </ul>
     </div>
    </nav>
@@ -283,38 +261,37 @@
         <div class="col-md-3">
           <h1 class="my-4"><strong>멘토링 관리</strong></h1>
           <div class="list-group">
-            <a href="mento_timetable.html" class="list-group-item  active">멘티 시간표 확인</a>
+            <a href="${R}user/mento_timetable?timetableView=" class="list-group-item active">멘티 시간표 확인</a>
             <a href="${R}user/report/write" class="list-group-item">보고서 작성</a>
             <a href="board_manage.html" class="list-group-item">멘토링 과제게시판 관리</a>
           </div>
         </div>
-        
-        
-        
         <div class="col-md-9">
           <h1 class="my-4"><strong>멘티 시간표 확인</strong></h1>
           <div class="row">
             <div class="col-md-6">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <form>
-              <select class="form-control" name="timetableView">
-  				
-  				
-  				<optgroup label="멘토">
-                  <option value="${mento.name}" ${param.timetableView eq mento.name ? "selected" : "" } >${mento.name}</option>
-                </optgroup>
-                <optgroup label="멘티">
-                   <c:forEach var="mt" items="${mt}">
-                      <option value="${mt.name}" ${param.timetableView eq mt.name ? "selected" : "" } >${mt.name}</option>
-					  </c:forEach>
-                </optgroup>
-              </select>
+              	<div class="row">
+              		<div class="col-md-7">
+              			<select class="form-control" name="timetableView">
+		  				<optgroup label="멘토">
+		                  <option value="${mento.name}" ${param.timetableView eq mento.name ? "selected" : "" } >${mento.name}</option>
+		                </optgroup>
+		                <optgroup label="멘티">
+		                   <c:forEach var="mt" items="${mt}">
+		                      <option value="${mt.name}" ${param.timetableView eq mt.name ? "selected" : "" } >${mt.name}</option>
+							  </c:forEach>
+		                </optgroup>
+		              </select>
+              		</div>
+              		<div class="col-md-5">
+              			<button class="btn btn-success" type="submit" role="button"><i class="glyphicon glyphicon-zoom-in"> 확인하기</i></button>
+              		</div>
+              	</div>
+              </form>
             </div>
-            <div class="col-md-2">
-              <button class="btn btn-success" type="submit" role="button" align="right"><i class="glyphicon glyphicon-zoom-in"> 확인하기</i></button>
-            </div>
-            </form>
           </div>
           <!-- Team Members Row -->
           <div class="row">
@@ -327,428 +304,163 @@
                       <h3>월</h3>
                       <div class="row">
                         <div class="col-md-2 impossible <c:if test="${ timetable.mon1 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox  value="${timetable.mon1}" name="time" /> 9:00~<br/>10:30
-
-                            </label>
-                          </div>
+							9:00<br/>~<br/>10:30
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.mon2 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox value="${timetable.mon2 }" name="time" /> 10:30~<br/>12:00
-
-                            </label>
-                          </div>
+							10:30<br/>~<br/>12:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.mon3 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~13:00
-                            <label>
-                              <checkbox value= "${timetable.mon3 }" name="time" />
-
-                            </label>
-                          </div>
+							12:00<br/>~<br/>13:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.mon4 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~14:00
-                            <label>
-
-                              <checkbox  value="${timetable.mon4 }" name="time" />
-
-                            </label>
-                          </div>
+							13:00<br/>~<br/>14:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.mon5 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~15:00
-                            <label> 
-
-                              <checkbox value="${timetable.mon5 }" name="time" />
-
-                            </label>
-                          </div>
+							14:00<br/>~<br/>15:00
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.mon6 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox value="${timetable.mon6 }" name="time" /> 15:00~<br/>16:30
-
-
-                            </label>
-                          </div>
+							15:00<br/>~<br/>16:30
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.mon7 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox  value="${timetable.mon7 }" name="time" /> 16:30~<br/>18:00
-
-                            </label>
-                          </div>
+							16:30<br/>~<br/>18:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.mon8 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          18:00~
-                            <label>
-
-								<checkbox  value="${timetable.mon8 }" name="time" /> 
-
-                            </label>
-                          </div>
+							18:00<br/>~<br/>21:00
                         </div>
                       </div>
-                      </div>
-                      </div>
-                    <br/>
-                    
-                    
+                   </div>
+                 </div>
+                 <br/>
                  <div class="row">
                   <div class="col-md-12">
                       <h3>화</h3>
                       <div class="row">
                         <div class="col-md-2 impossible <c:if test="${ timetable.tue1 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox  value="${timetable.tue1}" name="time" /> 9:00~<br/>10:30
-
-                            </label>
-                          </div>
+							9:00<br/>~<br/>10:30
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.tue2 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox value="${timetable.tue2 }" name="time" /> 10:30~<br/>12:00
-
-                            </label>
-                          </div>
+							10:30<br/>~<br/>12:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.tue3 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~13:00
-                            <label>
-                              <checkbox value= "${timetable.tue3 }" name="time" />
-
-                            </label>
-                          </div>
+							12:00<br/>~<br/>13:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.tue4 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~14:00
-                            <label>
-
-                              <checkbox  value="${timetable.tue4 }" name="time" />
-
-                            </label>
-                          </div>
+							13:00<br/>~<br/>14:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.tue5 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~15:00
-                            <label> 
-
-                              <checkbox value="${timetable.tue5 }" name="time" />
-
-                            </label>
-                          </div>
+							14:00<br/>~<br/>15:00
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.tue6 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox value="${timetable.tue6 }" name="time" /> 15:00~<br/>16:30
-
-
-                            </label>
-                          </div>
+							15:00<br/>~<br/>16:30
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.tue7 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox  value="${timetable.tue7 }" name="time" /> 16:30~<br/>18:00
-
-                            </label>
-                          </div>
+							16:30<br/>~<br/>18:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.tue8 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          18:00~
-                            <label>
-
-								<checkbox  value="${timetable.tue8 }" name="time" /> 
-
-                            </label>
-                          </div>
+							18:00<br/>~<br/>21:00
                         </div>
                       </div>
-                        </div>
-                      </div>
-                    <br/>
-                <div class="row">
+                   </div>
+                 </div>
+                 <br/>
+                 <div class="row">
                   <div class="col-md-12">
                       <h3>수</h3>
                       <div class="row">
                         <div class="col-md-2 impossible <c:if test="${ timetable.wed1 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox  value="${timetable.wed1}" name="time" /> 9:00~<br/>10:30
-
-                            </label>
-                          </div>
+							9:00<br/>~<br/>10:30
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.wed2 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox value="${timetable.wed2 }" name="time" /> 10:30~<br/>12:00
-
-                            </label>
-                          </div>
+							10:30<br/>~<br/>12:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.wed3 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~13:00
-                            <label>
-                              <checkbox value= "${timetable.wed3 }" name="time" />
-
-                            </label>
-                          </div>
+							12:00<br/>~<br/>13:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.wed4 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~14:00
-                            <label>
-
-                              <checkbox  value="${timetable.wed4 }" name="time" />
-
-                            </label>
-                          </div>
+							13:00<br/>~<br/>14:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.wed5 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~15:00
-                            <label> 
-
-                              <checkbox value="${timetable.wed5 }" name="time" />
-
-                            </label>
-                          </div>
+							14:00<br/>~<br/>15:00
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.wed6 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox value="${timetable.wed6 }" name="time" /> 15:00~<br/>16:30
-
-
-                            </label>
-                          </div>
+							15:00<br/>~<br/>16:30
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.wed7 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox  value="${timetable.wed7 }" name="time" /> 16:30~<br/>18:00
-
-                            </label>
-                          </div>
+							16:30<br/>~<br/>18:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.wed8 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          18:00~
-                            <label>
-
-								<checkbox  value="${timetable.wed8 }" name="time" /> 
-
-                            </label>
-                          </div>
+							18:00<br/>~<br/>21:00
                         </div>
                       </div>
-                        </div>
-                      </div>
-                    <br/>
-                    
-                            <div class="row">
+                   </div>
+                 </div>
+                 <br/>
+                 <div class="row">
                   <div class="col-md-12">
                       <h3>목</h3>
                       <div class="row">
                         <div class="col-md-2 impossible <c:if test="${ timetable.thu1 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox  value="${timetable.thu1}" name="time" /> 9:00~<br/>10:30
-
-                            </label>
-                          </div>
+							9:00<br/>~<br/>10:30
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.thu2 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox value="${timetable.thu2 }" name="time" /> 10:30~<br/>12:00
-
-                            </label>
-                          </div>
+							10:30<br/>~<br/>12:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.thu3 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~13:00
-                            <label>
-                              <checkbox value= "${timetable.thu3 }" name="time" />
-
-                            </label>
-                          </div>
+							12:00<br/>~<br/>13:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.thu4 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~14:00
-                            <label>
-
-                              <checkbox  value="${timetable.thu4 }" name="time" />
-
-                            </label>
-                          </div>
+							13:00<br/>~<br/>14:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.thu5 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~15:00
-                            <label> 
-
-                              <checkbox value="${timetable.thu5 }" name="time" />
-
-                            </label>
-                          </div>
+							14:00<br/>~<br/>15:00
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.thu6 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox value="${timetable.thu6 }" name="time" /> 15:00~<br/>16:30
-
-
-                            </label>
-                          </div>
+							15:00<br/>~<br/>16:30
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.thu7 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox  value="${timetable.thu7 }" name="time" /> 16:30~<br/>18:00
-
-                            </label>
-                          </div>
+							16:30<br/>~<br/>18:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.thu8 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          18:00~
-                            <label>
-
-								<checkbox  value="${timetable.thu8 }" name="time" /> 
-
-                            </label>
-                          </div>
+							18:00<br/>~<br/>21:00
                         </div>
                       </div>
-                        </div>
-                      </div>
-                    <br/>
-                            <div class="row">
+                   </div>
+                 </div>
+                 <br/>
+                 <div class="row">
                   <div class="col-md-12">
                       <h3>금</h3>
                       <div class="row">
                         <div class="col-md-2 impossible <c:if test="${ timetable.fri1 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox  value="${timetable.fri1}" name="time" /> 9:00~<br/>10:30
-
-                            </label>
-                          </div>
+							9:00<br/>~<br/>10:30
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.fri2 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox value="${timetable.fri2 }" name="time" /> 10:30~<br/>12:00
-
-                            </label>
-                          </div>
+							10:30<br/>~<br/>12:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.fri3 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~13:00
-                            <label>
-                              <checkbox value= "${timetable.fri3 }" name="time" />
-
-                            </label>
-                          </div>
+							12:00<br/>~<br/>13:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.fri4 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~14:00
-                            <label>
-
-                              <checkbox  value="${timetable.fri4 }" name="time" />
-
-                            </label>
-                          </div>
+							13:00<br/>~<br/>14:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.fri5 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          ~15:00
-                            <label> 
-
-                              <checkbox value="${timetable.fri5 }" name="time" />
-
-                            </label>
-                          </div>
+							14:00<br/>~<br/>15:00
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.fri6 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox value="${timetable.fri6 }" name="time" /> 15:00~<br/>16:30
-
-
-                            </label>
-                          </div>
+							15:00<br/>~<br/>16:30
                         </div>
                         <div class="col-md-2 impossible <c:if test="${ timetable.fri7 eq true }">available</c:if>">
-                          <div class="checkbox">
-                            <label>
-
-                              <checkbox  value="${timetable.fri7 }" name="time" /> 16:30~<br/>18:00
-
-                            </label>
-                          </div>
+							16:30<br/>~<br/>18:00
                         </div>
                         <div class="col-md-1 impossible <c:if test="${ timetable.fri8 eq true }">available</c:if>">
-                          <div class="checkbox">
-                          18:00~
-                            <label>
-
-								<checkbox  value="${timetable.fri8 }" name="time" /> 
-
-                            </label>
-                          </div>
+							18:00<br/>~<br/>21:00
                         </div>
                       </div>
-                    
-                    <br/>
-                  </div>
+                   </div>
+                 </div>
+                 <br/>
                 </div>
-                
-            
-          </div>
+              </div>
             <hr/>
             <div class="row">
               <div class="col-md-12 information">
@@ -760,8 +472,7 @@
             </div>
           </div>
       </div>
-    </div>
-  </div>
+   </div>
   <hr/>
     <div class="row">
       <div class="col-md-3" align="center">
