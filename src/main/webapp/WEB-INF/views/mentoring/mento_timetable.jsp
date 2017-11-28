@@ -277,7 +277,7 @@
               		<div class="col-md-7">
               			<select class="form-control" name="timetableView">
               			<optgroup label="공강">
-		                  <option value="공강"  >멘토링 그룹 공강</option>
+		                  <option value="공강" ${param.timetableView=="공강" ? "selected" : "" } >멘토링 그룹 공강</option>
 		                </optgroup>
 		  				<optgroup label="멘토">
 		                  <option value="${mento.name}" ${param.timetableView eq mento.name ? "selected" : "" } >${mento.name}</option>
