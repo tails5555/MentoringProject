@@ -397,44 +397,68 @@
         <li >
           <a href="${R}user/intro">멘토링 사업소개</a>
         </li>
-        <li class="dropdown">
+        <li class="dropdown active">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="${R}user/menti_apli">멘티 신청</a></li>
-              <li><a href="${R}user/mento_apli">멘토 신청</a></li>
-              <li ><a href="mento_list.html">멘토/멘티 목록</a></li>
-              <li><a href="mento_board.html">멘토링 게시판</a></li>
+              <sec:authorize access="not authenticated">
+		        <li><a href="login">멘티 신청</a></li>
+		      </sec:authorize>
+		      <sec:authorize access="authenticated">
+		        <li><a href="${R}user/menti_apli">멘티 신청</a></li>
+		      </sec:authorize>
+              <sec:authorize access="not authenticated">
+		        <li><a href="login">멘토 신청</a></li>
+		      </sec:authorize>
+		      <sec:authorize access="authenticated">
+		        <li><a href="${R}user/mento_apli">멘토 신청</a></li>
+		      </sec:authorize>
+              <li class="active"><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
+              <li><a href="${R}user/groupBBS">멘토링 게시판</a></li>
               <li><a href="survey.html">설문조사</a></li>
             </ul>
         </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="mento_timetable.html">멘티 시간표 확인</a></li>
-              <li><a href="report_write.html">보고서 작성</a></li>
-              <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
-            </ul>
-        </li>
-        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
-        <li class="dropdown active">
-          <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li class="active"><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
-              <li><a href="report_confirm.html">보고서 확인</a></li>
-              <li><a href="${R}user/survey">설문조사 관리</a></li>
-              <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
-              <li><a href="${R}user/list">회원 목록 관리</a></li>
-              <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
-            </ul>
-        </li>
+        <sec:authorize access="authenticated">
+	        <sec:authorize access="hasAnyRole('ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
+	        <li class="dropdown">
+	          <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
+	          <span class="caret"></span></a>
+	            <ul class="dropdown-menu">
+	              
+	              <li><a href="${R}user/mento_timetable?timetableView=">멘티 시간표 확인</a></li>
+	              <li><a href="${R}user/report/write">보고서 작성</a></li>
+	              <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
+	            </ul>
+	        </li>
+	        </sec:authorize>
+        </sec:authorize>
+        <sec:authorize access="authenticated">
+	        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
+	        <li class="dropdown">
+	          <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
+	          <span class="caret"></span></a>
+	            <ul class="dropdown-menu">
+	              <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
+	              <li><a href="${R}user/report/confirm">보고서 확인</a></li>
+	              <li ><a href="${R}user/survey">설문조사 관리</a></li>
+	              <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
+	              <li><a href="${R}user/list">회원 목록 관리</a></li>
+	              <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
+	            </ul>
+	        </li>
+	        </sec:authorize>
         </sec:authorize>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-      	<li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
-        <li><a href="logout_processing"><i class="glyphicon glyphicon-user"> 로그아웃</i></a></li>
+      <sec:authorize access="not authenticated">
+        <li><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
+        <li><a href="${R}guest/create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
+      </sec:authorize>
+      <sec:authorize access="authenticated">
+        <li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
+        <li><a href="${R}user/Edit.do"><i class="glyphicon glyphicon-user"> 내정보</i></a></li>
+        <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-remove-sign"> 로그아웃</i></a></li>
+      </sec:authorize>
       </ul>
     </div>
    </nav>
@@ -507,7 +531,7 @@
                       	</td>
                       </tr>
                       </c:if>
-                     
+                      <c:if test="${mento.menties.size() ne 0 and mento.menties ne null}">
                       <tr>
                         <td colspan="4" class="entity">
                         	  멘티 목록
@@ -525,12 +549,176 @@
                         <td class="context">${mentiList.name}</td>
                         <td class="context">${mentiList.email }</td>
                       </tr>
-                    </c:forEach>
+                      </c:forEach>
+                      </c:if>
+                    
                     
                     </table>
+                    
+                    
                   </div>
                 </div>
-                <br/>
+                <hr/>
+                <h4>가능한 시간대</h4>
+                    <div class="row">
+                  <div class="col-md-12">
+                      <h3>월</h3>
+                      <div class="row">
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.mon1 eq true }">available</c:if>">
+							9:00<br/>~<br/>10:30
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.mon2 eq true }">available</c:if>">
+							10:30<br/>~<br/>12:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.mon3 eq true }">available</c:if>">
+							12:00<br/>~<br/>13:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.mon4 eq true }">available</c:if>">
+							13:00<br/>~<br/>14:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.mon5 eq true }">available</c:if>">
+							14:00<br/>~<br/>15:00
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.mon6 eq true }">available</c:if>">
+							15:00<br/>~<br/>16:30
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.mon7 eq true }">available</c:if>">
+							16:30<br/>~<br/>18:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.mon8 eq true }">available</c:if>">
+							18:00<br/>~<br/>21:00
+                        </div>
+                      </div>
+                   </div>
+                 </div>
+                 <br/>
+                 <div class="row">
+                  <div class="col-md-12">
+                      <h3>화</h3>
+                      <div class="row">
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.tue1 eq true }">available</c:if>">
+							9:00<br/>~<br/>10:30
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.tue2 eq true }">available</c:if>">
+							10:30<br/>~<br/>12:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.tue3 eq true }">available</c:if>">
+							12:00<br/>~<br/>13:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.tue4 eq true }">available</c:if>">
+							13:00<br/>~<br/>14:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.tue5 eq true }">available</c:if>">
+							14:00<br/>~<br/>15:00
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.tue6 eq true }">available</c:if>">
+							15:00<br/>~<br/>16:30
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.tue7 eq true }">available</c:if>">
+							16:30<br/>~<br/>18:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.tue8 eq true }">available</c:if>">
+							18:00<br/>~<br/>21:00
+                        </div>
+                      </div>
+                   </div>
+                 </div>
+                 <br/>
+                 <div class="row">
+                  <div class="col-md-12">
+                      <h3>수</h3>
+                      <div class="row">
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.wed1 eq true }">available</c:if>">
+							9:00<br/>~<br/>10:30
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.wed2 eq true }">available</c:if>">
+							10:30<br/>~<br/>12:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.wed3 eq true }">available</c:if>">
+							12:00<br/>~<br/>13:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.wed4 eq true }">available</c:if>">
+							13:00<br/>~<br/>14:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.wed5 eq true }">available</c:if>">
+							14:00<br/>~<br/>15:00
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.wed6 eq true }">available</c:if>">
+							15:00<br/>~<br/>16:30
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.wed7 eq true }">available</c:if>">
+							16:30<br/>~<br/>18:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.wed8 eq true }">available</c:if>">
+							18:00<br/>~<br/>21:00
+                        </div>
+                      </div>
+                   </div>
+                 </div>
+                 <br/>
+                 <div class="row">
+                  <div class="col-md-12">
+                      <h3>목</h3>
+                      <div class="row">
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.thu1 eq true }">available</c:if>">
+							9:00<br/>~<br/>10:30
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.thu2 eq true }">available</c:if>">
+							10:30<br/>~<br/>12:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.thu3 eq true }">available</c:if>">
+							12:00<br/>~<br/>13:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.thu4 eq true }">available</c:if>">
+							13:00<br/>~<br/>14:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.thu5 eq true }">available</c:if>">
+							14:00<br/>~<br/>15:00
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.thu6 eq true }">available</c:if>">
+							15:00<br/>~<br/>16:30
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.thu7 eq true }">available</c:if>">
+							16:30<br/>~<br/>18:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.thu8 eq true }">available</c:if>">
+							18:00<br/>~<br/>21:00
+                        </div>
+                      </div>
+                   </div>
+                 </div>
+                 <br/>
+                 <div class="row">
+                  <div class="col-md-12">
+                      <h3>금</h3>
+                      <div class="row">
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.fri1 eq true }">available</c:if>">
+							9:00<br/>~<br/>10:30
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.fri2 eq true }">available</c:if>">
+							10:30<br/>~<br/>12:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.fri3 eq true }">available</c:if>">
+							12:00<br/>~<br/>13:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.fri4 eq true }">available</c:if>">
+							13:00<br/>~<br/>14:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.fri5 eq true }">available</c:if>">
+							14:00<br/>~<br/>15:00
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.fri6 eq true }">available</c:if>">
+							15:00<br/>~<br/>16:30
+                        </div>
+                        <div class="col-md-2 impossible <c:if test="${ mento.timeTable.fri7 eq true }">available</c:if>">
+							16:30<br/>~<br/>18:00
+                        </div>
+                        <div class="col-md-1 impossible <c:if test="${ mento.timeTable.fri8 eq true }">available</c:if>">
+							18:00<br/>~<br/>21:00
+                        </div>
+                      </div>
+                   </div>
+                 </div>
               	</div>
 				</c:forEach>
 	          </div>

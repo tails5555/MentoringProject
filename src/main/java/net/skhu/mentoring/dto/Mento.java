@@ -25,4 +25,5 @@ public class Mento {
 	int profileId;
 	Boolean permited;
 	List<MentiList> menties;
+	TimeTable timeTable;
 }

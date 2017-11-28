@@ -14,7 +14,7 @@ public interface MentiListMapper {
 	List<MentiList> findByGroupId(@Param("groupId") int groupId);
 	int findCount(@Param("groupId")int groupId);
 	void delete(@Param("userId")int userId);
-
+	void deleteWithUserId(@Param("groupId")int groupId, @Param("userId")int userId);
 	List<MentiList> findByTimetable(int groupId);
 
 	List<MentiList> findwithStudents(@Param("groupId")int groupId);

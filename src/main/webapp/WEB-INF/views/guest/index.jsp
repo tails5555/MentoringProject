@@ -92,6 +92,8 @@
             </ul>
         </li>
         <li class="dropdown">
+        <sec:authorize access="authenticated">
+	        <sec:authorize access="hasAnyRole('ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -99,7 +101,10 @@
               <li><a href="${R}guest/login">보고서 작성</a></li>
               <li><a href="${R}guest/login">멘토링 과제게시판 관리</a></li>
             </ul>
+            </sec:authorize>
+            </sec:authorize>
         </li>
+        
         <sec:authorize access="authenticated">
 	        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
 	        <li class="dropdown">
