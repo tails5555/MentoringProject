@@ -192,7 +192,7 @@
  	var auto_refresh=setInterval(
  			function(){
  				$('#dataArea').load('popup?type=0').fadeIn('slow');
- 			}, 10000
+ 			}, 60000
  	);
  	
     $(document).ready(function(){
