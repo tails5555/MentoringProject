@@ -310,7 +310,9 @@
                   		<td>${mentoringGroup.subject }</td>
                   		<td>${mentoringGroup.name }</td>
                   		<td>${mentoringGroup.count }/5</td>
-                  		<td><c:choose>
+                  		<td>
+                  		
+                  		<c:choose>
                   			<c:when test="${ mentoringGroup.included eq false }"><a href="menti_application?id=${mentoringGroup.id}"><button class="btn btn-warning" type="button">신청하기</button></a></c:when>
                   			<c:otherwise><a href="menti_remove"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>신청 취소</button></a></c:otherwise>
                   		</c:choose></td>
