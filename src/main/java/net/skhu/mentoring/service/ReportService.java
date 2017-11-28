@@ -31,6 +31,7 @@ public class ReportService {
 	@Autowired EmployeeMapper employeeMapper;
 	@Autowired AdminMapper adminMapper;
 	@Autowired UserMapper userMapper;
+	@Autowired ReportPopupService reportPopupService;
 	public Report findOne(int id) {
 		Report report=reportMapper.findOne(id);
 		Mento mento=mentoMapper.findOne(report.getMentoId());
@@ -96,6 +97,7 @@ public class ReportService {
 		String userNumber;
 		Mento mento;
 		Report report=new Report();
+		String teamName="";
 		double time=0;
 		if(authentication!=null) {
 			userNumber=authentication.getName();
@@ -103,6 +105,7 @@ public class ReportService {
 				Student student=studentMapper.findOne(userNumber);
 				if(mentoMapper.findByUserId(student.getUserId())!=null) {
 					mento=mentoMapper.findByUserId(student.getUserId());
+					teamName=mento.getTeamName();
 					report.setMentoId(mento.getId());
 					time=getMentoringTime(mento.getId());
 				}
@@ -142,9 +145,29 @@ public class ReportService {
 		report.setAbsentPerson(reportModel.getAbsentPerson());
 		report.setPresentDate(new java.util.Date());
 		reportMapper.insert(report);
+		String context=String.format("%s 팀 - 보고서 등록하였습니다. 수업 날짜 : %s", teamName, report.getClassDate().toString());
+		System.out.println(context);
+		reportPopupService.popupInsert(context, report.getPresentDate(), 1);
 	}
 	public void updateReport(ReportModel reportModel) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber;
+		Mento mento = null;
 		Report report=new Report();
+		String teamName="";
+		double time=0;
+		if(authentication!=null) {
+			userNumber=authentication.getName();
+			if(studentMapper.findOne(userNumber)!=null) {
+				Student student=studentMapper.findOne(userNumber);
+				if(mentoMapper.findByUserId(student.getUserId())!=null) {
+					mento=mentoMapper.findByUserId(student.getUserId());
+					teamName=mento.getTeamName();
+					report.setMentoId(mento.getId());
+					time=getMentoringTime(mento.getId());
+				}
+			}
+		}
 		java.sql.Date classDay=reportModel.getClassDate();
 		java.util.Date sTime=new java.util.Date();
 		sTime.setYear(classDay.getYear());
@@ -171,6 +194,9 @@ public class ReportService {
 		report.setAbsentContext(reportModel.getAbsentContext());
 		report.setAbsentPerson(reportModel.getAbsentPerson());
 		report.setId(reportModel.getId());
+		String context=String.format("%s 팀 - 보고서 수정하였습니다. 수업 날짜 : %s", mento.getTeamName(), report.getClassDate().toString());
+		System.out.println(context);
+		reportPopupService.popupInsert(context, new java.util.Date(), 2);
 		reportMapper.update(report);
 	}
 	public int confirmedReportCount(int id) {
@@ -201,41 +227,57 @@ public class ReportService {
 	public void updateComment(Report report) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String userNumber=authentication.getName();
+		String userName="";
 		if(studentMapper.findOne(userNumber)!=null) {
 			Student student=studentMapper.findOne(userNumber);
+			userName=student.getName();
 			Admin admin=adminMapper.findByUserId(student.getUserId());
 			report.setConfirmManagerId(admin.getId());
 		}
 		else if(professorMapper.findOne(userNumber)!=null) {
 			Professor professor=professorMapper.findOne(userNumber);
+			userName=professor.getName();
 			Admin admin=adminMapper.findByUserId(professor.getUserId());
 			report.setConfirmManagerId(admin.getId());
 		}
 		else if(employeeMapper.findOne(userNumber)!=null) {
 			Employee employee=employeeMapper.findOne(userNumber);
+			userName=employee.getName();
 			Admin admin=adminMapper.findByUserId(employee.getUserId());
 			report.setConfirmManagerId(admin.getId());
 		}
+		Mento mento=mentoMapper.findOne(report.getMentoId());
 		reportMapper.updateComment(report.getId(), report.getComment(), report.getConfirmManagerId());
+		String context=String.format("%s 팀의 %s 수업 보고서에 %s님이 코멘트를 추가하였습니다.\n코멘트 내용 : %s", mento.getTeamName(), report.getClassDate().toString(), userName, report.getComment());
+		System.out.println(context);
+		reportPopupService.popupInsert(context, new java.util.Date(), 4);
 	}
 	public void checkConfirm(int id) {
 		Report report=reportMapper.findOne(id);
+		Mento mento=mentoMapper.findOne(report.getMentoId());
 		Admin admin=null;
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String userNumber=authentication.getName();
+		String userName="";
 		if(studentMapper.findOne(userNumber)!=null) {
 			Student student=studentMapper.findOne(userNumber);
+			userName=student.getName();
 			admin=adminMapper.findByUserId(student.getUserId());
 		}
 		else if(professorMapper.findOne(userNumber)!=null) {
 			Professor professor=professorMapper.findOne(userNumber);
+			userName=professor.getName();
 			admin=adminMapper.findByUserId(professor.getUserId());
 		}
 		else if(employeeMapper.findOne(userNumber)!=null) {
 			Employee employee=employeeMapper.findOne(userNumber);
+			userName=employee.getName();
 			admin=adminMapper.findByUserId(employee.getUserId());
 		}
 		reportMapper.checkConfirm(id, admin.getId());
+		String context=String.format("%s 팀의 %s 수업 보고서에 %s님이 확인 완료하였습니다.", mento.getTeamName(), report.getClassDate().toString(), userName);
+		System.out.println(context);
+		reportPopupService.popupInsert(context, new java.util.Date(), 3);
 	}
 	public Report findLastReport() {
 		return reportMapper.findLastReport();
@@ -245,5 +287,29 @@ public class ReportService {
 	}
 	public Option[] getAvailableType() {
 		return reportMapper.availableType;
+	}
+	public void delete(int id) {
+
+		Report report=reportMapper.findOne(id);
+		Mento mento=mentoMapper.findOne(report.getMentoId());
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber=authentication.getName();
+		String userName="";
+		if(studentMapper.findOne(userNumber)!=null) {
+			Student student=studentMapper.findOne(userNumber);
+			userName=student.getName();
+		}
+		else if(professorMapper.findOne(userNumber)!=null) {
+			Professor professor=professorMapper.findOne(userNumber);
+			userName=professor.getName();
+		}
+		else if(employeeMapper.findOne(userNumber)!=null) {
+			Employee employee=employeeMapper.findOne(userNumber);
+			userName=employee.getName();
+		}
+		reportMapper.delete(id);
+		String context=String.format("%s 팀의 %s 수업 보고서를 %s님이 삭제했습니다.", mento.getTeamName(), report.getClassDate().toString(), userName);
+		System.out.println(context);
+		reportPopupService.popupInsert(context, new java.util.Date(), 5);
 	}
 }

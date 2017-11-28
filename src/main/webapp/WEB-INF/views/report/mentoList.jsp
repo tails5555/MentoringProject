@@ -188,6 +188,34 @@
 
         .container { margin-top: 30px;  }
    </style>
+	<script type="text/javascript" language="javascript">
+ 	var auto_refresh=setInterval(
+ 			function(){
+ 				$('#dataArea').load('popup?type=0').fadeIn('slow');
+ 			}, 60000
+ 	);
+ 	
+    $(document).ready(function(){
+         
+         
+        $.ajax({
+             
+            type : "GET",
+            url : "popup?type=0",
+            dataType : "text",
+            error : function(){
+                alert('통신실패!!');
+            },
+            success : function(data){
+                $("#dataArea").html(data) ;
+            }
+             
+        });
+         
+ 
+    });
+ 
+	</script>
  </head>
 
  <body>
@@ -276,13 +304,20 @@
         <!-- /.col-lg-3 -->
 
         <div class="col-md-9">
-
+	      <h1 class="my-4"><strong>보고서 확인</strong></h1>
+	      <hr/>
+	      <p style="padding-left: 20px">멘토의 사진을 클릭하시면 해당 멘토의 보고서들을 볼 수 있습니다.</p>
+	      <div id="dataArea">
+	      </div>
+	      <br/>
+	      <span class="badge">범례 별 알림</span>
+	      <a href="${R}user/report/popup?type=1" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-info"><i class="glyphicon glyphicon-plus"></i> 추가</span></a>
+  		  <a href="${R}user/report/popup?type=2" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-warning"><i class="glyphicon glyphicon-pencil"></i> 수정</span></a>
+  		  <a href="${R}user/report/popup?type=3" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-success"><i class="glyphicon glyphicon-ok"></i> 확인 완료</span></a>
+  		  <a href="${R}user/report/popup?type=4" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-danger"><i class="glyphicon glyphicon-bullhorn"></i> 커멘트 안내</span></a>
+  		  <a href="${R}user/report/popup?type=5" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-danger"><i class="glyphicon glyphicon-erase"></i> 보고서 삭제</span></a>
+	      <hr/>
           <!-- Introduction Row -->
-          <h1 class="my-4"><strong>보고서 확인</strong></h1>
-          <br/>
-          <p style="padding-left: 20px">멘토의 사진을 클릭하시면 해당 멘토의 보고서들을 볼 수 있습니다.</p>
-
-
           <!-- Team Members Row -->
           <div class="row">
             <div class="col-md-12">
