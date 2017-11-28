@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -150,6 +152,13 @@ public class ReportController {
 		if(uploadFiles.length!=0)
 			classPhotoService.upload(uploadFiles, lastReport.getId());
 		return "redirect:write";
+	}
+	@RequestMapping("user/report/delete")
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public String delete(Model model, @RequestParam("id") int id, @RequestParam("mento") int mento) {
+		classPhotoService.deleteByReportId(id);
+		reportService.delete(id);
+		return "redirect:confirmReportList?mento="+mento;
 	}
 	@RequestMapping("user/report/download")
 	public void download(@RequestParam("id") int id, HttpServletResponse response) throws Exception{

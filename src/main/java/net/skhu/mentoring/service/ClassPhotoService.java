@@ -48,4 +48,7 @@ public class ClassPhotoService {
 			classPhotoMapper.update(classPhoto);
 		}
 	}
+	public void deleteByReportId(int reportId) {
+		classPhotoMapper.deleteByReportId(reportId);
+	}
 }

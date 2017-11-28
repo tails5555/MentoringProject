@@ -18,4 +18,8 @@
   	fileName=#{fileName}, fileSize=#{fileSize}, fileTime=now(), data=#{data, javaType=[B, jdbcType=BLOB}
   	WHERE reportId=#{reportId}
   </update>
+  <delete id="deleteByReportId">
+  	DELETE FROM ClassPhoto
+  	WHERE reportId=#{reportId}
+  </delete>
 </mapper>

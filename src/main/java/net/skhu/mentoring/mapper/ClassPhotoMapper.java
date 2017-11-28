@@ -10,4 +10,5 @@ public interface ClassPhotoMapper {
 	ClassPhoto findByReportId(@Param("reportId") int reportId);
 	void insert(ClassPhoto classPhoto);
 	void update(ClassPhoto classPhoto);
+	void deleteByReportId(@Param("reportId") int reportId);
 }

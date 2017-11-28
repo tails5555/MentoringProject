@@ -187,8 +187,12 @@
 	   $("[data-confirm-confirm]").click(function() {
 	     return confirm("확인 여부를 체크합니다. 보고서에 문제 있을 시에 언제든지 커멘트를 추가하면 됩니다.");
 	   })
+	   $("[data-confirm-delete]").click(function() {
+	     return confirm("보고서를 삭제합니다. 계속 하시겠습니까?");
+	   })
 	})
    </script>
+   
  </head>
 
  <body>
@@ -341,6 +345,7 @@
             </div>
             <a href="${R}user/report/confirm"><button class="btn btn-info"><i class="glyphicon glyphicon-user"> 멘토목록으로</i></button></a>
             <a href="${R}user/report/confirmReportList?mento=${mento.id}"><button class="btn btn-info"><i class="glyphicon glyphicon-folder-close"> 보고서 목록으로</i></button></a>
+            <a href="${R}user/report/delete?mento=${mento.id}&id=${report.id}" data-confirm-delete><button class="btn btn-danger"><i class="glyphicon glyphicon-trash"> 보고서 삭제</i></button></a>
             <c:if test="${ report.confirm eq true }"><a href="${R}user/report/download?id=${report.id}"><button class="btn btn-info"><i class="glyphicon glyphicon-floppy-disk"> 보고서 다운로드</i></button></a></c:if>
             <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#comment"><i class="glyphicon glyphicon-pencil"></i> 코멘트</button>
           </div>
@@ -348,6 +353,8 @@
           <div id="comment" class="collapse">
              <h3>코멘트 추가 / 확인 완료 처리</h3>
              <form:form method="post" modelAttribute="report">
+             	<form:hidden path="mentoId" />
+             	<form:hidden path="classDate"/>
              	<form:input path="comment" class="form-control" placeholder="코멘트를 입력해주세요."/>
              	<br/>
               	<button type="submit" class="btn btn-info" data-confirm-comment><i class="glyphicon glyphicon-pencil"></i> 코멘트 추가</button>

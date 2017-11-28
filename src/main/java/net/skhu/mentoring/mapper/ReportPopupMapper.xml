@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+             "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.skhu.mentoring.mapper.ReportPopupMapper">
+	<select id="findAll" resultType="ReportPopup">
+		SELECT * FROM ReportPopup ORDER BY id DESC
+	</select>
+	<select id="findByType" resultType="ReportPopup">
+		SELECT * FROM ReportPopup WHERE popupType=#{type} ORDER BY id DESC
+	</select>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		Insert INTO ReportPopup(context, updateDate, popupType)
+		VALUES(#{context}, #{updateDate}, #{popupType})
+	</insert>
+</mapper>
