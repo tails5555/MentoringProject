@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import net.skhu.mentoring.model.Option;
+import net.skhu.mentoring.model.Pagination;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +44,15 @@ public class AdminService {
 	@Autowired ProfessorMapper professorMapper;
 	@Autowired EmployeeMapper employeeMapper;
 	@Autowired AdminMapper adminMapper;
+	
+    public List<User> findAll(Pagination pagination) {
+        int count = userMapper.count(pagination);
+        pagination.setRecordCount(count);
+        return userMapper.findAllList(pagination);
+    }
+
+	
+	
 	
 
 	

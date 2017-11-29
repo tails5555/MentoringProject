@@ -203,4 +203,51 @@
   </delete>
   
   
+<select id="findAllList" resultType="User">
+    <bind name="start" value="(pg - 1) * sz" />
+ SELECT u.id userId, 
+   CASE
+         WHEN p.profId is NULL and s.studentNumber is NULL
+         THEN e.empId
+         WHEN s.studentNumber is NULL and e.empId is NULL
+         THEN p.profId
+         ELSE s.studentNumber
+       END AS number
+   
+   ,u.userType,
+   CASE
+         WHEN p.name is NULL and s.name is NULL
+         THEN e.name
+         WHEN s.name is NULL and e.name is NULL
+         THEN p.name
+         ELSE s.name
+       END AS userName
+       
+	,   
+    
+    CASE
+         WHEN dp.name is NULL and ds.name is NULL
+         THEN de.name
+         WHEN de.name is NULL and ds.name is NULL
+         THEN dp.name
+         ELSE ds.name
+       END AS departmentName
+    
+  FROM User u LEFT JOIN professor p ON u.id = p.userId LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN department dp ON dp.deptId=d.deptId
+  LEFT JOIN student s ON u.id = s.userId LEFT JOIN employee e ON u.id = e.userId LEFT JOIN department de ON de.deptEmployeeId=e.empId LEFT JOIN department ds ON ds.deptId=s.departmentId 
+  GROUP BY userId
+
+    LIMIT ${start}, ${sz}
+  </select>
+  
+  <select id="count" resultType="int">
+    SELECT COUNT(u.id) 
+    
+  FROM User u 
+
+  </select>
+
+  
+  
+  
 </mapper>

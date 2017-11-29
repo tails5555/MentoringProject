@@ -56,6 +56,8 @@ import net.skhu.mentoring.service.NoticeBBSFileService;
 import net.skhu.mentoring.service.NoticeBBSService;
 import net.skhu.mentoring.service.ProfileService;
 import net.skhu.mentoring.service.ScheduleService;
+
+import net.skhu.mentoring.service.AdminService;
 import net.skhu.mentoring.utils.Encryption;
 @RequestMapping("/user")
 @Controller
@@ -80,12 +82,15 @@ public class AdminController {
 	@Autowired MentoQualificService mentoQualificService;
 	@Autowired MentoringGroupMapper mentoringGroupMapper;
 	@Autowired ProfileService profileService;
+	@Autowired AdminService adminService;
+	
+	
 	@RequestMapping("list")
 	public String index(Model model, Pagination pagination) {
 
 
         List<User> user =userMapper.findList();
-        model.addAttribute("user", user);
+        model.addAttribute("user", adminService.findAll(pagination));
 
 		return "userManage/userManage";
 	}
