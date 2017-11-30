@@ -31,6 +31,8 @@ public class GroupBBSPostController {
 		model.addAttribute("postList", groupBBSPostService.getBBSList(groupBBSPagination));
 		model.addAttribute("searchBy", groupBBSPostService.getSearchOptions());
 		model.addAttribute("mento", groupBBSService.findOne(groupBBSPagination.getGd()));
+		model.addAttribute("write", groupBBSPostService.isWrite(groupBBSPagination.getGd()));
+		model.addAttribute("opened", groupBBSPostService.accessConfirm(groupBBSPagination.getGd()));
 		return "groupBBS/list";
 	}
 	@RequestMapping(value="user/groupBBS/view", method=RequestMethod.GET)

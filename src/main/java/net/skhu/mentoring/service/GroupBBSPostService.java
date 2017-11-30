@@ -8,14 +8,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import net.skhu.mentoring.dto.Employee;
+import net.skhu.mentoring.dto.GroupBBS;
 import net.skhu.mentoring.dto.GroupBBSPost;
+import net.skhu.mentoring.dto.MentiList;
+import net.skhu.mentoring.dto.Mento;
 import net.skhu.mentoring.dto.Professor;
 import net.skhu.mentoring.dto.Profile;
 import net.skhu.mentoring.dto.Student;
 import net.skhu.mentoring.dto.User;
 import net.skhu.mentoring.mapper.EmployeeMapper;
 import net.skhu.mentoring.mapper.GroupBBSCommentMapper;
+import net.skhu.mentoring.mapper.GroupBBSMapper;
 import net.skhu.mentoring.mapper.GroupBBSPostMapper;
+import net.skhu.mentoring.mapper.MentiListMapper;
+import net.skhu.mentoring.mapper.MentoMapper;
 import net.skhu.mentoring.mapper.ProfessorMapper;
 import net.skhu.mentoring.mapper.ProfileMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
@@ -32,6 +38,9 @@ public class GroupBBSPostService {
 	@Autowired StudentMapper studentMapper;
 	@Autowired UserMapper userMapper;
 	@Autowired ProfileMapper profileMapper;
+	@Autowired MentiListMapper mentiListMapper;
+	@Autowired MentoMapper mentoMapper;
+	@Autowired GroupBBSMapper groupBBSMapper;
 	public Option[] getSearchOptions() {
 		 return groupBBSPostMapper.searchBy;
 	}
@@ -155,5 +164,72 @@ public class GroupBBSPostService {
 	}
 	public void deletePost(int id) {
 		groupBBSPostMapper.delete(id);
+	}
+	public boolean accessConfirm(int gd) {
+		GroupBBS groupBBS=groupBBSMapper.findOne(gd);
+		int userId=-1;
+		boolean access=false;
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber=authentication.getName();
+		if(studentMapper.findOne(userNumber)!=null) {
+			Student student=studentMapper.findOne(userNumber);
+			userId=student.getUserId();
+		}
+		else if(professorMapper.findOne(userNumber)!=null) {
+			Professor professor=professorMapper.findOne(userNumber);
+			userId=professor.getUserId();
+		}
+		else if(employeeMapper.findOne(userNumber)!=null) {
+			Employee employee=employeeMapper.findOne(userNumber);
+			userId=employee.getUserId();
+		}
+		Mento mento=mentoMapper.findOne(groupBBS.getManageMentoId());
+		List<MentiList> ml=mentiListMapper.findByGroupId(groupBBS.getGroupId());
+		if(groupBBS.getOpened()!=true) {
+			for(MentiList m : ml) {
+				if(userId==m.getUserId()) {
+					access=true;
+					break;
+				}
+			}
+			if(mento.getUserId()==userId) {
+				access=true;
+			}
+		}
+		else {
+			access=true;
+		}
+		return access;
+	}
+	public boolean isWrite(int gd) {
+		GroupBBS groupBBS=groupBBSMapper.findOne(gd);
+		int userId=-1;
+		boolean access=false;
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber=authentication.getName();
+		if(studentMapper.findOne(userNumber)!=null) {
+			Student student=studentMapper.findOne(userNumber);
+			userId=student.getUserId();
+		}
+		else if(professorMapper.findOne(userNumber)!=null) {
+			Professor professor=professorMapper.findOne(userNumber);
+			userId=professor.getUserId();
+		}
+		else if(employeeMapper.findOne(userNumber)!=null) {
+			Employee employee=employeeMapper.findOne(userNumber);
+			userId=employee.getUserId();
+		}
+		Mento mento=mentoMapper.findOne(groupBBS.getManageMentoId());
+		List<MentiList> ml=mentiListMapper.findByGroupId(groupBBS.getGroupId());
+		for(MentiList m : ml) {
+			if(userId==m.getUserId()) {
+				access=true;
+				break;
+			}
+		}
+		if(mento.getUserId()==userId) {
+			access=true;
+		}
+		return access;
 	}
 }
