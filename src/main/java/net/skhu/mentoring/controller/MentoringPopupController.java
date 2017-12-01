@@ -32,6 +32,9 @@ public class MentoringPopupController {
 		case 5 :
 			list=mentoringPopupService.findByPopupType(5);
 			break;
+		case 6 :
+			list=mentoringPopupService.findByPopupType(6);
+			break;
 		default :
 			list=mentoringPopupService.findAll();
 			break;

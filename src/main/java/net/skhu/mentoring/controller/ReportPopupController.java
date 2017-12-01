@@ -33,9 +33,6 @@ public class ReportPopupController {
 		case 5 :
 			list=reportPopupService.findByType(5);
 			break;
-		case 6 :
-			list=reportPopupService.findByType(6);
-			break;
 		default :
 			list=reportPopupService.findAll();
 			break;
