@@ -358,6 +358,7 @@
   		  <a href="${R}user/mentoringPopup?type=4" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-danger"><i class="glyphicon glyphicon-remove"></i> 멘토링 탈락</span></a>
   		  <a href="${R}user/mentoringPopup?type=5" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-danger"><i class="glyphicon glyphicon-thumbs-down"></i> 멘티 취소</span></a>
   		  <a href="${R}user/mentoringPopup?type=6" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-warning"><i class="glyphicon glyphicon-question-sign"></i> 멘티 전체 삭제</span></a>
+          <hr/>
           <div class="row">
             <div class="col-md-12">
               <h2><b>멘토 목록</b></h2>
