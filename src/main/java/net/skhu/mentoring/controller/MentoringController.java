@@ -79,7 +79,9 @@ public class MentoringController {
 		}
 		java.util.Date date=new java.util.Date();
 		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String context=String.format("%s 학생 멘토 신청을 하였습니다. 팀 이름 : %s, 날짜 : %s", name, mento.getTeamName(), dt.format(date));
+		StringBuilder n=new StringBuilder(name);
+		n.setCharAt(1, '*');
+		String context=String.format("%s 학생 멘토 신청을 하였습니다. 팀 이름 : %s, 날짜 : %s", new String(n), mento.getTeamName(), dt.format(date));
 		mentoringPopupService.insert(context, date, 1);
 
 		return "redirect:mento_apli";
@@ -451,9 +453,11 @@ public class MentoringController {
 		mentiList.setUserId(studentMapper.findOne(studentNumber).getUserId());
 		mentiListMapper.insert(mentiList);
 		String name=studentMapper.findOne(studentNumber).getName();
+		StringBuilder n=new StringBuilder(name);
+		n.setCharAt(1, '*');
 		java.util.Date date=new java.util.Date();
 		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String context=String.format("%s 학생 멘티 신청을 하였습니다. 팀 이름 : %s, 날짜 : %s", name, mento.getTeamName(), dt.format(date));
+		String context=String.format("%s 학생 멘티 신청을 하였습니다. 팀 이름 : %s, 날짜 : %s", new String(n), mento.getTeamName(), dt.format(date));
 		mentoringPopupService.insert(context, date, 3);
 		return "redirect:menti_apli";
 	}
@@ -466,9 +470,11 @@ public class MentoringController {
 		int userid=studentMapper.findOne(studentNumber).getUserId();
 		mentiListMapper.deleteWithUserId(id, userid);
 		String name=studentMapper.findOne(studentNumber).getName();
+		StringBuilder n=new StringBuilder(name);
+		n.setCharAt(1, '*');
 		java.util.Date date=new java.util.Date();
 		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String context=String.format("%s 학생 멘티 취소를 하였습니다. 팀 이름 : %s, 날짜 : %s", name, mento.getTeamName(), dt.format(date));
+		String context=String.format("%s 학생 멘티 취소를 하였습니다. 팀 이름 : %s, 날짜 : %s", new String(n), mento.getTeamName(), dt.format(date));
 		mentoringPopupService.insert(context, date, 5);
 		return "redirect:menti_apli";
 	}
@@ -479,9 +485,11 @@ public class MentoringController {
 		int userid=studentMapper.findOne(studentNumber).getUserId();
 		mentiListMapper.delete(userid);
 		String name=studentMapper.findOne(studentNumber).getName();
+		StringBuilder n=new StringBuilder(name);
+		n.setCharAt(1, '*');
 		java.util.Date date=new java.util.Date();
 		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String context=String.format("%s 학생 멘티 신청을 다시 진행합니다. 날짜 : %s", name, dt.format(date));
+		String context=String.format("%s 학생 멘티 신청을 다시 진행합니다. 날짜 : %s", new String(n), dt.format(date));
 		mentoringPopupService.insert(context, date, 6);
 		return "redirect:menti_apli";
 	}
@@ -516,8 +524,30 @@ public class MentoringController {
 			MentoringGroup mentoringGroup = mentoringGroupMapper.findByMentoId(mento.getId());
 			if(mentoringGroup!=null) {
 				System.out.println(mentoringGroup);
-				List<MentiList> menties = mentiListMapper.findwithStudents(mentoringGroup.getId());
-				mento.setMenties(menties);
+				if(!mentoringGroup.getInfoOpen()) {
+					List<MentiList> menties = mentiListMapper.findwithStudents(mentoringGroup.getId());
+					for(MentiList ml : menties) {
+						String mentiNumber=ml.getStudentNumber();
+						String name=ml.getName();
+						String email=ml.getEmail();
+						String[] split=email.split("@");
+						String[] splitDomain=split[1].split("\\.");
+						ml.setStudentNumber(mentiNumber.substring(0, 4)+"*****");
+						StringBuilder temp=new StringBuilder();
+						temp.append(name);
+						temp.setCharAt(1, '*');
+						ml.setName(new String(temp));
+						String id=split[0].substring(0, split[0].length()/2)+"******";
+						String domain=splitDomain[0].substring(0, splitDomain[0].length()/2)+"***";
+						String net=(splitDomain.length>2) ? splitDomain[1]+"."+splitDomain[2] : splitDomain[1];
+						ml.setEmail(id+"@"+domain+"."+net);
+					}
+					mento.setMenties(menties);
+				}
+				else {
+					List<MentiList> menties = mentiListMapper.findwithStudents(mentoringGroup.getId());
+					mento.setMenties(menties);
+				}
 			}
 		}
 		model.addAttribute("mentos", mentos);

@@ -34,6 +34,7 @@
 				<c:if test="${first.popupType eq 4 }"><c:set value="list-group-item-danger" var="type"/></c:if>
 				<c:if test="${first.popupType eq 5 }"><c:set value="list-group-item-danger" var="type"/></c:if>
 				<c:if test="${first.popupType eq 6 }"><c:set value="list-group-item-warning" var="type"/></c:if>
+				<c:if test="${first.popupType eq 7 }"><c:set value="list-group-item-danger" var="type"/></c:if>
 				<li class="list-group-item ${ type }">
 				<span class="badge">
 				  	<c:if test="${first.popupType eq 1 }"><i class="glyphicon glyphicon-plus"></i></c:if>
@@ -42,6 +43,7 @@
 				  	<c:if test="${first.popupType eq 4 }"><i class="glyphicon glyphicon-remove"></i></c:if>
 				  	<c:if test="${first.popupType eq 5 }"><i class="glyphicon glyphicon-thumbs-down"></i></c:if>
 				  	<c:if test="${first.popupType eq 6 }"><i class="glyphicon glyphicon-question-sign"></i></c:if>
+				  	<c:if test="${first.popupType eq 7 }"><i class="glyphicon glyphicon-certificate"></i></c:if>
 				  </span>
 				  ${ first.context }
 				</li>
@@ -58,6 +60,7 @@
 					<c:if test="${popup.popupType eq 4 }"><c:set value="list-group-item-danger" var="type"/></c:if>
 					<c:if test="${popup.popupType eq 5 }"><c:set value="list-group-item-danger" var="type"/></c:if>
 					<c:if test="${popup.popupType eq 6 }"><c:set value="list-group-item-warning" var="type"/></c:if>
+					<c:if test="${popup.popupType eq 7 }"><c:set value="list-group-item-danger" var="type"/></c:if>
 				  <li class="list-group-item ${ type }">
 				  	<span class="badge">
 				  		<c:if test="${popup.popupType eq 1 }"><i class="glyphicon glyphicon-plus"></i></c:if>
@@ -66,6 +69,7 @@
 				  		<c:if test="${popup.popupType eq 4 }"><i class="glyphicon glyphicon-remove"></i></c:if>
 				  		<c:if test="${popup.popupType eq 5 }"><i class="glyphicon glyphicon-thumbs-down"></i></c:if>
 				  		<c:if test="${popup.popupType eq 6 }"><i class="glyphicon glyphicon-question-sign"></i></c:if>
+				  		<c:if test="${popup.popupType eq 7 }"><i class="glyphicon glyphicon-certificate"></i></c:if>
 				  	</span>
 				  	${ popup.context }
 				  </li>

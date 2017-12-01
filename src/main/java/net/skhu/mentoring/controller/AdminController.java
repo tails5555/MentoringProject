@@ -462,8 +462,36 @@ public class AdminController {
 
 	@RequestMapping(value="mento_open/menti_remove")
 	public String mentiRemove(Model model , @RequestParam("groupId") int groupId, @RequestParam("userId")int userId) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String manageId=authentication.getName();
+		String userName="";
+		String phoneNumber="";
+		if(studentMapper.findOne(manageId)!=null) {
+			Student student=studentMapper.findOne(manageId);
+			userName=student.getName()+" 학생회장";
+			phoneNumber=student.getPhoneNumber();
+		}
+		else if(professorMapper.findOne(manageId)!=null) {
+			Professor professor=professorMapper.findOne(manageId);
+			userName=professor.getName()+" 교수";
+			phoneNumber=professor.getPhoneNumber();
+		}
+		else if(employeeMapper.findOne(manageId)!=null) {
+			Employee employee=employeeMapper.findOne(manageId);
+			userName=employee.getName()+" 직원";
+			phoneNumber=employee.getPhoneNumber();
+		}
+		Student student=studentMapper.findByUserId(userId);
+		String name=student.getName();
+		StringBuilder n=new StringBuilder(name);
+		n.setCharAt(1, '*');
+		MentoringGroup mentoringGroup=mentoringGroupMapper.findOne(groupId);
+		Mento mento=mentoMapper.findOne(mentoringGroup.getMentoId());
+		java.util.Date date=new java.util.Date();
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String context=String.format("%s 팀 - 멘티 %s님이 인원 조율로 인하여 멘티 선정이 안 되었습니다. 차후에 과정지도 시간을 통해서 다시 신청해주시길 바랍니다. 자세한 내용은 %s(%s)에게 연락 바랍니다. %s" , mento.getTeamName(), new String(n), userName, phoneNumber, dt.format(date));
 		mentiListMapper.deleteWithUserId(groupId, userId);
-
+		mentoringPopupService.insert(context, date, 7);
 		return "redirect:/user/mento_open";
 	}
 }

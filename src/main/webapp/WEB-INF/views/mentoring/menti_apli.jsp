@@ -196,17 +196,17 @@
 	   })
 	})
    </script>
-   <script type="text/javascript" language="javascript">
+   <script type="text/javascript">
  	var auto_refresh=setInterval(
  			function(){
  				$('#dataArea').load('/SKHUMentoring/user/mentoringPopup?type=0').fadeIn('slow');
- 			}, 60000
+ 			}, 5000
  	);
- 	
-    $(document).ready(function(){
+ 	$.noConflict();
+ 	jQuery(document).ready(function(){
          
          
-        $.ajax({
+ 		jQuery.ajax({
              
             type : "GET",
             url : "/SKHUMentoring/user/mentoringPopup?type=0",
@@ -215,19 +215,19 @@
                 alert('통신실패!!');
             },
             success : function(data){
-                $("#dataArea").html(data) ;
+            	jQuery("#dataArea").html(data) ;
             }
              
         });
          
  
     });
- 
+    
 	</script>
  </head>
 
  <body>
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav id="menu" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="${R}user/index"><img src="${R}img/title.png"/></a>
@@ -351,6 +351,7 @@
           <sec:authorize access="hasAnyRole({'ROLE_MENTO', 'ROLE_MENTI', 'ROLE_STUDCHAIRMAN'})">
           <div id="dataArea">
 	      </div>
+	      <br/>
 	      <span class="badge">범례 별 알림</span>
 	      <a href="${R}user/mentoringPopup?type=1" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-info"><i class="glyphicon glyphicon-plus"></i> 멘토 신청</span></a>
   		  <a href="${R}user/mentoringPopup?type=2" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-success"><i class="glyphicon glyphicon-ok"></i> 멘토 선정</span></a>
@@ -358,6 +359,7 @@
   		  <a href="${R}user/mentoringPopup?type=4" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-danger"><i class="glyphicon glyphicon-remove"></i> 멘토링 탈락</span></a>
   		  <a href="${R}user/mentoringPopup?type=5" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-danger"><i class="glyphicon glyphicon-thumbs-down"></i> 멘티 취소</span></a>
   		  <a href="${R}user/mentoringPopup?type=6" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-warning"><i class="glyphicon glyphicon-question-sign"></i> 멘티 전체 삭제</span></a>
+  		  <a href="${R}user/mentoringPopup?type=7" onClick="window.open(this.href,'','width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes');return false;"><span class="label label-danger"><i class="glyphicon glyphicon-certificate"></i> 멘티 선정 탈락</span></a>
           <hr/>
           <div class="row">
             <div class="col-md-12">
