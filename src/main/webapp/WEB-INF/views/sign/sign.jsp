@@ -237,15 +237,6 @@
               <li><a href="${R}guest/login">설문조사</a></li>
             </ul>
         </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="${R}guest/login">멘티 시간표 확인</a></li>
-              <li><a href="${R}guest/login">보고서 작성</a></li>
-              <li><a href="${R}guest/login">멘토링 과제게시판 관리</a></li>
-            </ul>
-        </li>
         <sec:authorize access="authenticated">
 	        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
 	        <li class="dropdown">
@@ -275,7 +266,7 @@
 <div class="container">
 
 
-<form:form method="post" modelAttribute="user" class="form-inline" id="my-form">
+<form:form method="post" modelAttribute="user" class="form-inline" id="my-form" enctype="multipart/form-data">
         <!-- /.col-lg-3 -->
 
         <div class="col-md-9">
@@ -369,9 +360,7 @@
              <div class="control-group">
               <div class="form-group floating-label-form-group controls">
                 <label style="vertical-align: top;">사진등록:  </label>
-                 <a href="#"><img class="rounded-circle img-fluid d-block mx-auto" src="http://placehold.it/200x200" alt=""></a>
-                <p class="help-block text-danger"></p>
-                <input type="file" name="photo"/>
+                <input type="file" name="uploadFile"/>
               </div>
             </div>
 

@@ -21,4 +21,11 @@
   	SET opened=#{opened}
   	WHERE id=#{id}
   </update>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+  	INSERT INTO GroupBBS(groupId, manageMentoId, opened)
+  	VALUES(#{groupId}, #{manageMentoId}, false)
+  </insert>
+  <delete id="delete">
+  	DELETE FROM GroupBBS WHERE manageMentoId=#{mentoId}
+  </delete>
 </mapper>

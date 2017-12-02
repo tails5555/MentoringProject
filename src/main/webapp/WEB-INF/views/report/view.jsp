@@ -258,7 +258,7 @@
               <td colspan="3" class="reportValue">${ report.classTarget }</td>
             </tr>
             <tr>
-              <td colspan="4" class="reportEntity">수업 소감</td>
+              <td colspan="4" class="reportEntity">수업 진행과 소감</td>
             </tr>
             <tr>
               <td colspan="4" class="reportValue">${ report.classImplass }</td>
@@ -339,7 +339,7 @@
 	                  <div class="col-md-10 reportInput"><form:input path="classTarget" class="form-control" placeholder="수업 목표 입력(축제, 컴퍼런스는 비워두셔도 됩니다.)"/></div>
 	                </div>
 	                <div class="row">
-	                  <div class="col-md-12 reportEntity">멘토 소감</div>
+	                  <div class="col-md-12 reportEntity">수업 진행과 소감</div>
 	                </div>
 	                <div class="row">
 	                  <div class="col-md-12 reportInput"><form:textarea path="classImplass" class="form-control" rows="7" placeholder="적어도 500자 이내로 입력(축제, 컴퍼런스도 해당됩니다.)"/></div>
@@ -347,13 +347,14 @@
 	                <div class="row">
 	                  <div class="col-md-2 reportEntity">사진 다시 올리기</div>
 	                  <div class="col-md-10 reportInput">
-	                    <input type="file" name="classPhoto" class="form-control" multiple/>
+	                    <input type="file" name="classPhoto" class="form-control"/>
 	                  </div>
 	                </div>
 	                <hr/>
 	                <div class="row">
 	                  <div class="col-md-12 information">
 	                    <p> ⊙ 보고서의 제출 기한은 따로 없습니다. 다만 수업 끝나는데로 작성해주시면 감사하겠습니다. </p>
+	                    <p> ⊙ 수업 진행 방식에 기타라고 체크하신 분은 수업 진행 내용과 소감 내부 첫 줄에 수업 방식을 제기해주시길 바랍니다. </p>
 	                    <p> ⊙ 시간은 멘토와 멘티들이 협상한 시간대에서 작성을 해주셔야 인정됩니다. </p>
 	                    <p> ⊙ 멘토링 참석 비율이 2/3 미만인 경우에는 인정이 되지 않으니 참고하시길 바랍니다. </p>
 	                    <p> ⊙ 축제, 컨퍼런스 참석 보고서에 대해서는 수업 방식에 축제/컴퍼런스 참석으로 선택하시고, 수업 주제에는 참석한 축제, 컴퍼런스 이름을 작성해주고, 목표는 비워두셔도 됩니다. 교과목은 그대로 작성해주시면 되고 진행 장소는 축제나 컴퍼런스를 진행한 장소를 작성해주시면 됩니다</p>

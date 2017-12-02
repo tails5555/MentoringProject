@@ -46,17 +46,17 @@ public class UserController {
 
 	@RequestMapping("user/index")
 	public String index(Model model) {
-		
+
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String userNumber=authentication.getName();
-		
+
 		Student student=studentMapper.findOne(userNumber);
-	
+
 		model.addAttribute("student",student);
-		
+
 		model.addAttribute("schedules", scheduleMapper.findAll());
 		model.addAttribute("notices", noticeBBSService.findFiveNoticePost());
-		
+
 		return "user/index";
 	}
 
@@ -65,31 +65,31 @@ public class UserController {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String userNumber=authentication.getName();
 		TimeTable timetable=null;
-		
+
 		if(studentMapper.findOne(userNumber) !=null) {
-			
+
 			Student student=studentMapper.findOne(userNumber);
 			User my = userMapper.findEdit(student.getUserId());
 			String check = "있음";
-			
+
 			String t = timetableMapper.findId(userNumber);
-			
+
 			System.out.println(t);
 
 			if(t==null) {
 				TimeTable timetable1 =new TimeTable();
-				 timetable1.setStudentId(userNumber); 
+				 timetable1.setStudentId(userNumber);
 			     timetableMapper.insert(timetable1);
-			     
-			    
+
+
 			}
-		
+
 			timetable = timetableMapper.findOne(userNumber);
-			
-			
-			
+
+
+
 			String s=my.getPhoneNumber();
-			
+
 			if(s.length()==11) {
 			my.setPhone1((String)s.subSequence(0, 3));
 			my.setPhone2((String)s.subSequence(3, 7));
@@ -107,11 +107,11 @@ public class UserController {
 			if(profile!=null) {
 				my.setProfileId(profile.getId());
 			}else my.setProfileId(-1);
-			
-			
+
+
 			System.out.println(timetable.getMon1());
-			
-	
+
+
 			model.addAttribute("my", my);
 			model.addAttribute("timetable",timetable);
 			System.out.println(timetable.getTue4());
@@ -217,7 +217,7 @@ public class UserController {
 
 
 	@RequestMapping(value="user/Edit", method=RequestMethod.POST)
-	public String myPage(Model model, User user, @RequestParam("profile") MultipartFile[] uploadFiles) throws IOException {
+	public String myPage(Model model, User user, @RequestParam("profile") MultipartFile uploadFile) throws IOException {
 
 		String phone=user.getPhone1()+""+user.getPhone2()+""+user.getPhone3();
     	System.out.println(phone);
@@ -255,7 +255,8 @@ public class UserController {
            	 employee.setName(user.getUserName());
            	 employee.setAddress(user.getAddress());
            	 employee.setEmail(user.getEmail());
-           	 employee.setOfficeId(user.getDepartmentId());
+           	 employee.setOfficeId(Integer.toString(user.getOfficeId()));
+           	 employee.setOfficePhone(user.getOfficePhone());
            	 employee.setUserId(id);
 
            	 employeeMapper.update(employee);
@@ -271,7 +272,8 @@ public class UserController {
 	       	 professor.setName(user.getUserName());
 	       	 professor.setAddress(user.getAddress());
 	       	 professor.setEmail(user.getEmail());
-	       	 professor.setOfficeId(user.getDepartmentId());
+	       	 professor.setOfficeId(Integer.toString(user.getOfficeId()));
+	       	 professor.setOfficePhone(user.getOfficePhone());
 	       	 professor.setUserId(id);
 
 	       	 professorMapper.update(professor);
@@ -357,8 +359,8 @@ public class UserController {
 
     	Profile profile=profileService.findByUserId(id);
     	if(profile!=null) {
-    		profileService.updatePhoto(uploadFiles, id);
-    	}else profileService.insertPhoto(uploadFiles, id);
+    		profileService.updatePhoto(uploadFile, id);
+    	}else profileService.insertPhoto(uploadFile, id);
 
 		return "redirect:/user/index";
 	}

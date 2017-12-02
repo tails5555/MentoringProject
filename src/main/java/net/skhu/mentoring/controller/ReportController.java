@@ -241,7 +241,7 @@ public class ReportController {
             sheet.addCell(entity11);
             Label entity12=new Label(0, 9, "수업 목표", entityFormat);
             sheet.addCell(entity12);
-            Label entity13=new Label(0, 10, "수업 소감", entityFormat);
+            Label entity13=new Label(0, 10, "수업 진행 내용과 소감", entityFormat);
             sheet.addCell(entity13);
             Label entity14=new Label(0, 12, "인증샷", entityFormat);
             sheet.addCell(entity14);
@@ -386,7 +386,7 @@ public class ReportController {
 	                sheet.addCell(entity11);
 	                Label entity12=new Label(0, 9, "수업 목표", entityFormat);
 	                sheet.addCell(entity12);
-	                Label entity13=new Label(0, 10, "수업 소감", entityFormat);
+	                Label entity13=new Label(0, 10, "수업 진행 내용과 소감", entityFormat);
 	                sheet.addCell(entity13);
 	                Label entity14=new Label(0, 12, "인증샷", entityFormat);
 	                sheet.addCell(entity14);

@@ -21,31 +21,27 @@ public class ProfileService {
 		return profileMapper.findByUserId(userId);
 	}
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void insertPhoto(MultipartFile[] uploadFiles, int userId) throws IOException{
-		for(MultipartFile uploadFile : uploadFiles) {
-			if(uploadFile.getSize() <= 0 ) continue;
-			String fileName=Paths.get(uploadFile.getOriginalFilename()).getFileName().toString();
-			Profile profile=new Profile();
-			profile.setFileName(fileName);
-			profile.setFileSize((int)uploadFile.getSize());
-			profile.setFileTime(new Date());
-			profile.setUserId(userId);
-			profile.setData(uploadFile.getBytes());
-			profileMapper.insert(profile);
-		}
+	public void insertPhoto(MultipartFile uploadFile, int userId) throws IOException{
+		if(uploadFile.getSize()<0) return;
+		String fileName=Paths.get(uploadFile.getOriginalFilename()).getFileName().toString();
+		Profile profile=new Profile();
+		profile.setFileName(fileName);
+		profile.setFileSize((int)uploadFile.getSize());
+		profile.setFileTime(new Date());
+		profile.setUserId(userId);
+		profile.setData(uploadFile.getBytes());
+		profileMapper.insert(profile);
 	}
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void updatePhoto(MultipartFile[] uploadFiles, int userId) throws IOException{
-		for(MultipartFile uploadFile : uploadFiles) {
-			if(uploadFile.getSize() <= 0 ) continue;
-			String fileName=Paths.get(uploadFile.getOriginalFilename()).getFileName().toString();
-			Profile profile=new Profile();
-			profile.setFileName(fileName);
-			profile.setFileSize((int)uploadFile.getSize());
-			profile.setFileTime(new Date());
-			profile.setUserId(userId);
-			profile.setData(uploadFile.getBytes());
-			profileMapper.update(profile);
-		}
+	public void updatePhoto(MultipartFile uploadFile, int userId) throws IOException{
+		if(uploadFile.getSize() <= 0 ) return;
+		String fileName=Paths.get(uploadFile.getOriginalFilename()).getFileName().toString();
+		Profile profile=new Profile();
+		profile.setFileName(fileName);
+		profile.setFileSize((int)uploadFile.getSize());
+		profile.setFileTime(new Date());
+		profile.setUserId(userId);
+		profile.setData(uploadFile.getBytes());
+		profileMapper.update(profile);
 	}
 }

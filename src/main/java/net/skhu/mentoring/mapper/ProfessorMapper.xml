@@ -37,7 +37,8 @@
       officeId = #{officeId}, 
       email = #{email},
       address =#{address},
-      phoneNumber=#{phoneNumber}
+      phoneNumber=#{phoneNumber},
+      officePhone=#{officePhone}
     WHERE userId = #{userId}
   </update>
   

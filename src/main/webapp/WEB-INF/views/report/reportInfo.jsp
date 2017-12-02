@@ -330,7 +330,7 @@
               <td colspan="3" class="reportValue">${ report.classTarget }</td>
             </tr>
             <tr>
-              <td colspan="4" class="reportEntity">수업 소감</td>
+              <td colspan="4" class="reportEntity">수업 진행 내용과 소감</td>
             </tr>
             <tr>
               <td colspan="4" class="reportValue">${ report.classImplass }</td>

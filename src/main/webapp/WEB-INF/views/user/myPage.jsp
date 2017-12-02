@@ -56,8 +56,6 @@
 
 </script>
 
-  <link rel="stylesheet" href="${R}res/common.css">
-
 	 <style>
 
 			
@@ -432,12 +430,27 @@
              <div class="control-group">
               <div class="form-group floating-label-form-group controls">
                 <label style="vertical-align: top;">사진 등록 / 변경 :  </label>
-                 <input type="file" name="profile" class="form-control" multiple/>
+                 <input type="file" name="profile" class="form-control"/>
               </div>
             </div>
 
             <br/>
-
+			<c:if test="${ my.userType eq '교수' || my.userType eq '직원' }">
+			<div class="control-group">
+              <div class="form-group floating-label-form-group controls">
+                <label>사무실 번호 :  </label>
+                <form:input path="officeId" type="text" class="form-control" value="${ my.officeId }" id="address" />
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="form-group floating-label-form-group controls">
+                <label>사무실 전화 번호 :  </label>
+                <form:input path="officePhone" type="text" class="form-control" value="${ my.officePhone }" id="address" />
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+			</c:if>
 
 
 

@@ -52,6 +52,7 @@ import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.model.UserPagination;
 import net.skhu.mentoring.service.AdminService;
+import net.skhu.mentoring.service.GroupBBSService;
 import net.skhu.mentoring.service.MentoAdvertiseService;
 import net.skhu.mentoring.service.MentoQualificService;
 import net.skhu.mentoring.service.MentoringPopupService;
@@ -86,7 +87,7 @@ public class AdminController {
 	@Autowired ProfileService profileService;
 	@Autowired AdminService adminService;
 	@Autowired MentoringPopupService mentoringPopupService;
-
+	@Autowired GroupBBSService groupBBSService;
 	@RequestMapping("list")
 	public String index(Model model, UserPagination userPagination) {
 
@@ -111,7 +112,7 @@ public class AdminController {
     }
 
     @RequestMapping(value="edit", method=RequestMethod.POST)
-    public String edit(Model model,@RequestParam("order") String userType, User user, UserPagination userPagination) {
+    public String edit(Model model, @RequestParam("id") int id, @RequestParam("order") String userType, User user, UserPagination userPagination) {
 
     	user.setUserType(userType);
 
@@ -175,7 +176,7 @@ public class AdminController {
     		userMapper.update(user);
     	}
 
-        return "redirect:list?"+userPagination.getQueryString();
+        return "redirect:list?id="+id+userPagination.getQueryString();
     }
 
 
@@ -425,6 +426,8 @@ public class AdminController {
 		mentoringGroup.setMentoId(mentoId);
 		mentoringGroup.setAllowManagerId(managerId);
 		mentoringGroupMapper.insert(mentoringGroup);
+		MentoringGroup temp=mentoringGroupMapper.findByMentoId(mentoId);
+		groupBBSService.insert(temp.getId(), mentoId);
 		java.util.Date date=new java.util.Date();
 		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String context=String.format("%s 팀 - 멘토링 신청 허가를 받았습니다. 확인자 : %s, 등록 날짜 : %s", mento.getTeamName(), userName, dt.format(date));
@@ -460,6 +463,7 @@ public class AdminController {
 			mentoUser.setUserType("멘티");
 			userMapper.update(mentoUser);
 		}
+		groupBBSService.delete(mentoId);
 		mentoQualificMapper.deleteByMentoId(mentoId);
 		mentoAdvertiseMapper.deleteByMentoId(mentoId);
 		mentoringGroupMapper.delete(mentoId);

@@ -13,4 +13,6 @@ public interface GroupBBSMapper {
 	GroupBBS findByMentoId(@Param("mentoId") int mentoId);
 	GroupBBS findByGroupId(@Param("groupId") int groupId);
 	void openChange(@Param("id") int id, @Param("opened") Boolean opened);
+	void insert(GroupBBS groupBBS);
+	void delete(@Param("mentoId") int mentoId);
 }

@@ -57,4 +57,14 @@ public class GroupBBSService {
 	public void openChange(int id, Boolean opened) {
 		groupBBSMapper.openChange(id, opened);
 	}
+	public void insert(int groupId, int manageMentoId) {
+		GroupBBS groupBBS=new GroupBBS();
+		groupBBS.setGroupId(groupId);
+		groupBBS.setManageMentoId(manageMentoId);
+		groupBBS.setOpened(false);
+		groupBBSMapper.insert(groupBBS);
+	}
+	public void delete(int mentoId) {
+		groupBBSMapper.delete(mentoId);
+	}
 }
