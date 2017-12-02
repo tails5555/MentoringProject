@@ -270,15 +270,15 @@
           <br/>
           
             <div class="row search">
-          <form:form method="get" modelAttribute="pagination" class="form-inline">
-          	<form:hidden path="bd"/>
+          <form:form method="get" modelAttribute="userPagination" class="form-inline">
           	<form:select path="sb" class="form-control" itemValue="value" itemLabel="label" items="${ searchBy }"/>
+            <form:select path="ob" class="form-control" itemValue="value" itemLabel="label" items="${ orderBy }" />
             <form:input path="st" class="form-control" placeholder="검색할 문자열" />
-            
             <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"> 검색하기</i></button>
-            <c:if test="${ pagination.sb > 0}">
-
-		    </c:if>      
+            <c:if test="${ userPagination.sb > 0 || userPagination.ob > 0 }">
+		      <a class="btn btn-default" href="list.do?pg=1">
+		        <i class="glyphicon glyphicon-ban-circle"></i> 검색취소</a>
+		    </c:if>   
           </form:form>
           
 
@@ -286,23 +286,23 @@
 		  <table class="table table-bordered">
           <thead class="userEntity">
             <tr>
-  			  <th>id</th>
-              <th>학번(교번, 직번)</th>
-              <th>이름</th>
-              <th>학과</th>
-              <th>사용자유형</th>
+  			  <th><center>id</center></th>
+              <th><center>학번(교번, 직번)</center></th>
+              <th><center>이름</center></th>
+              <th><center>대표학과[소속학과]</center></th>
+              <th><center>사용자유형</center></th>
             </tr>
           </thead>
         <tbody>
         
   
          <c:forEach var="user" items="${ user }">
-        <tr data-url="edit.do?id=${ user.userId }">
-          <td>${ user.userId }</td>
-          <td>${ user.number }</td>         
-          <td>${ user.userName }</td>
-          <td>${ user.departmentName }</td>
-          <td>${ user.userType }</td>
+        <tr data-url="edit.do?id=${ user.userId }&order=${user.userType}&${userPagination.queryString}">
+          <td><center>${ user.userId }</center></td>
+          <td><center>${ user.number }</center></td>         
+          <td><center>${ user.userName }</center></td>
+          <td><center>${ user.departmentName }</center></td>
+          <td><center>${ user.userType }</center></td>
         </tr>
       </c:forEach>
       
@@ -311,7 +311,7 @@
           </table>
           <div align="center">
             <div class="page">
-          	<page:pagination pageSize="${ pagination.sz }" recordCount="${ pagination.recordCount }" />
+          	<page:pagination pageSize="${ userPagination.sz }" recordCount="${ userPagination.recordCount }" />
           </div>
             
             

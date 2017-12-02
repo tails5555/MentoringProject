@@ -183,7 +183,15 @@
          WHEN p.phoneNumber is NULL and s.phoneNumber is NULL
          THEN e.phoneNumber 
          ELSE s.phoneNumber
-       END AS phoneNumber
+       END AS phoneNumber,
+       CASE 
+		 WHEN p.officeId is NULL THEN e.officeId
+         ELSE p.officeId
+	   END AS officeId,
+       CASE
+         WHEN p.officePhone is NULL THEN e.officePhone
+         ELSE p.officePhone
+	   END AS officePhone
        
   FROM User u LEFT JOIN professor p ON u.id = p.userId LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN department dp ON dp.deptId=d.deptId
   LEFT JOIN student s ON u.id = s.userId LEFT JOIN employee e ON u.id = e.userId LEFT JOIN department de ON de.deptEmployeeId=e.empId LEFT JOIN department ds ON ds.deptId=s.departmentId 
@@ -236,11 +244,17 @@
   FROM User u LEFT JOIN professor p ON u.id = p.userId LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN department dp ON dp.deptId=d.deptId
   LEFT JOIN student s ON u.id = s.userId LEFT JOIN employee e ON u.id = e.userId LEFT JOIN department de ON de.deptEmployeeId=e.empId LEFT JOIN department ds ON ds.deptId=s.departmentId 
   
-  <if test="sb == 1">where s.name = #{st} or p.name = #{st} or e.name= #{st}</if>
-  <if test="sb == 2">where s.studentNumber = #{st} or p.profId = #{st} or e.empId= #{st}</if>
-  <if test="sb == 3">where u.userType = #{st}</if>
-  GROUP BY userId
-  
+  	 <if test="sb == 1">where INSTR(s.name, #{st})>0 or INSTR(p.name, #{st})>0 or INSTR(e.name, #{st})>0</if>
+	 <if test="sb == 2">where INSTR(s.studentNumber, #{st})>0 or INSTR(p.profId, #{st})>0 or INSTR(e.empId, #{st})>0</if>
+	 <if test="sb == 3">where INSTR(u.userType, #{st})>0</if> 
+  	GROUP BY userId
+  	<if test="ob == 0">ORDER BY userId</if>
+  	<if test="ob == 1">ORDER BY userName</if>
+  	<if test="ob == 2">ORDER BY userName DESC</if>
+  	<if test="ob == 3">ORDER BY number</if>
+  	<if test="ob == 4">ORDER BY number DESC</if>
+  	<if test="ob == 5">ORDER BY u.userType</if>
+  	<if test="ob == 6">ORDER BY u.userType DESC</if>
     LIMIT ${start}, ${sz}
   </select>
   
@@ -249,9 +263,9 @@
   FROM User u LEFT JOIN professor p ON u.id = p.userId LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN department dp ON dp.deptId=d.deptId
   LEFT JOIN student s ON u.id = s.userId LEFT JOIN employee e ON u.id = e.userId LEFT JOIN department de ON de.deptEmployeeId=e.empId LEFT JOIN department ds ON ds.deptId=s.departmentId 
   
-	<if test="sb == 1">where s.name = #{st} or p.name = #{st} or e.name= #{st}</if>
-	 <if test="sb == 2">where s.studentNumber = #{st} or p.profId = #{st} or e.empId= #{st}</if>
-	 <if test="sb == 3">where u.userType = #{st}</if> 
+	<if test="sb == 1">where INSTR(s.name, #{st})>0 or INSTR(p.name, #{st})>0 or INSTR(e.name, #{st})>0</if>
+	 <if test="sb == 2">where INSTR(s.studentNumber, #{st})>0 or INSTR(p.profId, #{st})>0 or INSTR(e.empId, #{st})>0</if>
+	 <if test="sb == 3">where INSTR(u.userType, #{st})>0</if> 
 
   </select>
 

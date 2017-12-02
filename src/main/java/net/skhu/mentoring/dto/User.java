@@ -64,4 +64,7 @@ public class User {
 	Boolean fri6;
 	Boolean fri7;
 	Boolean fri8;
+
+	int officeId;
+	String officePhone;
 }

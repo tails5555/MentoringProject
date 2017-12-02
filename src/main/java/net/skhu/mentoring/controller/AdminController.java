@@ -34,6 +34,7 @@ import net.skhu.mentoring.dto.MentoQualific;
 import net.skhu.mentoring.dto.MentoringGroup;
 import net.skhu.mentoring.dto.NoticeBBSPost;
 import net.skhu.mentoring.dto.Professor;
+import net.skhu.mentoring.dto.Profile;
 import net.skhu.mentoring.dto.Schedule;
 import net.skhu.mentoring.dto.Student;
 import net.skhu.mentoring.dto.User;
@@ -49,7 +50,7 @@ import net.skhu.mentoring.mapper.ProfessorMapper;
 import net.skhu.mentoring.mapper.ScheduleMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
-import net.skhu.mentoring.model.Pagination;
+import net.skhu.mentoring.model.UserPagination;
 import net.skhu.mentoring.service.AdminService;
 import net.skhu.mentoring.service.MentoAdvertiseService;
 import net.skhu.mentoring.service.MentoQualificService;
@@ -87,18 +88,22 @@ public class AdminController {
 	@Autowired MentoringPopupService mentoringPopupService;
 
 	@RequestMapping("list")
-	public String index(Model model, Pagination pagination) {
+	public String index(Model model, UserPagination userPagination) {
 
-        model.addAttribute("user", adminService.findAll(pagination));
+        model.addAttribute("user", adminService.findAll(userPagination));
         model.addAttribute("searchBy", adminService.getSearchByOptions());
-
+        model.addAttribute("orderBy", adminService.getOrderByOptions());
 		return "userManage/userManage";
 	}
 
 
 	@RequestMapping(value="edit", method=RequestMethod.GET)
-    public String edit(Model model, @RequestParam("id") int id) {
+    public String edit(Model model, @RequestParam("id") int id, @RequestParam("order") String order, UserPagination userPagination) {
         User user = userMapper.findEdit(id);
+        Profile userProfile=profileService.findByUserId(id);
+        if(userProfile!=null) {
+        	user.setProfileId(userProfile.getId());
+        }else user.setProfileId(-1);
         List<User> userType =userMapper.findUserType();
         model.addAttribute("user", user);
         model.addAttribute("userType", userType);
@@ -106,7 +111,7 @@ public class AdminController {
     }
 
     @RequestMapping(value="edit", method=RequestMethod.POST)
-    public String edit(Model model,@RequestParam("order") String userType, User user) {
+    public String edit(Model model,@RequestParam("order") String userType, User user, UserPagination userPagination) {
 
     	user.setUserType(userType);
 
@@ -170,7 +175,7 @@ public class AdminController {
     		userMapper.update(user);
     	}
 
-        return "redirect:list";
+        return "redirect:list?"+userPagination.getQueryString();
     }
 
 

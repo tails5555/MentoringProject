@@ -13,7 +13,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="${R}res/common.js"></script>
-  <link rel="stylesheet" href="${R}res/common.css">
 
 
     <style>
@@ -261,8 +260,17 @@
           <!-- Introduction Row -->
           <h1 class="my-4"><strong>회원 정보 확인</strong></h1>
           <br/>
-		        <table class="table table-bordered">
+		  <table class="table table-bordered">
             <tr>
+              <c:set var="n" value="5"/>
+              <c:if test="${ param.order eq '교수' or param.order eq '직원' }">
+              	<c:set var="n" value="6"/>
+              </c:if>
+              <td rowspan="${n}" class="userValue">
+              	<center><img class="img-thumbnail img-responsive" 
+                    src="<c:choose><c:when test="${user.profileId ne -1}">
+                    ${R}user/image/profile/${user.profileId}</c:when><c:otherwise>${R}img/mento_photo.jpg</c:otherwise></c:choose>" width="200" height="200"></center>
+              </td>
               <td class="userEntity">학번(교번, 직번)</td>
               <td class="userValue">${ user.number }</td>
             	<td class="userEntity">이름</td>
@@ -281,38 +289,19 @@
               <td class="userValue">${ user.phoneNumber}</td>
             </tr>
             <tr>
-              <td class="userEntity" colspan="4">인사말</td>
-            </tr>
-            <tr>
-              <td class="userValue" colspan="4">
-                	인사말 <br/>
-                	인사말 <br/>
-                	인사말 <br/>
-                	인사말 <br/>
-                	인사말 <br/>
-              </td>
-            </tr>
-            <tr>
-              <td class="userEntity" colspan="4">사진</td>
-            </tr>
-            <tr>
-              <td class="userValue" colspan="4">
-                이 자리에 사진을 올리겠습니다.<br/>
-                이 자리에 사진을 올리겠습니다.<br/>
-                이 자리에 사진을 올리겠습니다.<br/>
-                이 자리에 사진을 올리겠습니다.<br/>
-                이 자리에 사진을 올리겠습니다.<br/>
-                이 자리에 사진을 올리겠습니다.<br/>
-                이 자리에 사진을 올리겠습니다.
-              </td>
-            </tr>
-            <tr>
-            
+            <c:if test="${param.order eq '직원' or param.order eq '교수'}">
+            	<tr>
+	              <td class="userEntity">사무실 번호</td>
+	              <td class="userValue">${ user.officeId}</td>
+	            	<td class="userEntity">사무실 연락처</td>
+	              <td class="userValue">${ user.officePhone}</td>
+            	</tr>
+            </c:if>
            <form:hidden path="userId" value="${user.userId}"/>
             
-              <td class="userEntity" colspan="2">회원 유형</td>
+              <td class="userEntity" colspan="1">회원 유형</td>
               
-              <td class="userValue" colspan="2">
+              <td class="userValue" colspan="3">
                   <c:choose>
        <c:when test="${user.userType == '멘티'}">
              <select class="form-control" name="order">   
@@ -357,7 +346,7 @@
           </table>
 
           
-          <a href="list.do"><button class="btn btn-info" type="button"><i class="glyphicon glyphicon-list"> 목록으로</i></button></a>
+          <a href="list.do?${ userPagination.queryString }"><button class="btn btn-info" type="button"><i class="glyphicon glyphicon-list"> 목록으로</i></button></a>
           <button class="btn btn-warning" type="submit" ><i class="glyphicon glyphicon-user"> 권한 설정하기</i></button>
           
           
