@@ -509,13 +509,47 @@
           <div>
              
 
-                  <strong>멘티 신청기간 종료일</strong> &nbsp;&nbsp;&nbsp;
+                  <strong>멘티 신청기간 종료일:</strong> &nbsp;&nbsp;&nbsp;
                 <input type="date" class="form-inline" name="endDate2" value="${schedule2.endDate }"> 까지
               
               <br/>
           </div>
         </div>
-        <p></p>
+        <div class="section">
+
+          <label class="title"><strong>활동 기간 설정 </strong></label>
+          <label class="switch">
+
+            <input type="checkbox" class="switch-input" checked>
+
+            <span class="switch-label" data-on="On" data-off="Off"></span>
+
+            <span class="switch-handle"></span>
+
+          </label>
+
+        </div>
+        <div class="during">
+          <div>
+
+            
+
+            <strong>활동 기간 시작일: </strong> &nbsp;&nbsp;&nbsp;
+                <input type="date" class="form-inline" name="startDate3" value="${schedule3.startDate }"> 부터
+              
+              <br/>
+          </div>
+            <br/>
+          <div>
+             
+
+                  <strong>활동 기간 종료일:</strong> &nbsp;&nbsp;&nbsp;
+                <input type="date" class="form-inline" name="endDate3" value="${schedule3.endDate }"> 까지
+              
+              <br/>
+          </div>
+        </div>
+        <br/>
         <center><input type="submit" value="저장" class="btn btn-info"/></center>
         <center><p>최종 수정자 :  ${schedule1.manageName }</p></center>
         </form>

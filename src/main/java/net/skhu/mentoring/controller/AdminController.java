@@ -222,16 +222,19 @@ public class AdminController {
 		Schedule schedule1= scheduleMapper.findById(1);
 		schedule1.setManageName(scheduleService.findManageNameByManageId(schedule1.getId()));
 		Schedule schedule2= scheduleMapper.findById(2);
+		Schedule schedule3=scheduleMapper.findById(3);
 		model.addAttribute("schedule1", schedule1);
 		model.addAttribute("schedule2", schedule2);
+		model.addAttribute("schedule3", schedule3);
 		return "schedule/candidate_boolean";
 	}
 
 	@RequestMapping(value="schedule",method=RequestMethod.POST)
-	public String schedule(Model model,@RequestParam("startDate1") Date startDate1,@RequestParam("endDate1") Date endDate1,@RequestParam("startDate2") Date startDate2,@RequestParam("endDate2") Date endDate2) {
+	public String schedule(Model model,@RequestParam("startDate1") Date startDate1,@RequestParam("endDate1") Date endDate1,@RequestParam("startDate2") Date startDate2,@RequestParam("endDate2") Date endDate2, @RequestParam("startDate3") Date startDate3,@RequestParam("endDate3") Date endDate3) {
 
 		Schedule schedule1=scheduleMapper.findById(1);
 		Schedule schedule2=scheduleMapper.findById(2);
+		Schedule schedule3=scheduleMapper.findById(3);
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String manageId=authentication.getName();
 		if(studentMapper.findOne(manageId)!=null) {
@@ -239,21 +242,25 @@ public class AdminController {
 			Admin admin=adminMapper.findByUserId(student.getUserId());
 			schedule1.setManageId(admin.getId());
 			schedule2.setManageId(admin.getId());
+			schedule3.setManageId(admin.getId());
 		}
 		else if(professorMapper.findOne(manageId)!=null) {
 			Professor professor=professorMapper.findOne(manageId);
 			Admin admin=adminMapper.findByUserId(professor.getUserId());
 			schedule1.setManageId(admin.getId());
 			schedule2.setManageId(admin.getId());
+			schedule3.setManageId(admin.getId());
 		}
 		else if(employeeMapper.findOne(manageId)!=null) {
 			Employee employee=employeeMapper.findOne(manageId);
 			Admin admin=adminMapper.findByUserId(employee.getUserId());
 			schedule1.setManageId(admin.getId());
 			schedule2.setManageId(admin.getId());
+			schedule3.setManageId(admin.getId());
 		}
 		scheduleMapper.update(startDate1, endDate1, schedule1.getId(), schedule1.getManageId());
 		scheduleMapper.update(startDate2, endDate2, schedule2.getId(), schedule2.getManageId());
+		scheduleMapper.update(startDate3, endDate3, schedule3.getId(), schedule3.getManageId());
 		return "redirect:schedule";
 	}
 
