@@ -21,7 +21,11 @@
   	FROM MentoringGroup
   	WHERE id=#{id}
   </select>
-  
+  <update id="infoUpdate">
+  	UPDATE MentoringGroup
+  	SET infoOpen=#{infoOpen}
+  	WHERE id=#{id}
+  </update>
   <delete id="delete">
   	delete from MentoringGroup
   	WHERE mentoId=#{mentoId}

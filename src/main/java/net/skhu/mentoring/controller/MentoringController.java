@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import net.skhu.mentoring.dto.GroupBBS;
 import net.skhu.mentoring.dto.MentiList;
 import net.skhu.mentoring.dto.Mento;
 import net.skhu.mentoring.dto.MentoringGroup;
@@ -26,6 +27,9 @@ import net.skhu.mentoring.mapper.MentoringGroupMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.TimeTableMapper;
 import net.skhu.mentoring.mapper.UserMapper;
+import net.skhu.mentoring.model.ManageOption;
+import net.skhu.mentoring.model.RadioOption;
+import net.skhu.mentoring.service.GroupBBSService;
 import net.skhu.mentoring.service.MentoAdvertiseService;
 import net.skhu.mentoring.service.MentoQualificService;
 import net.skhu.mentoring.service.MentoringPopupService;
@@ -43,6 +47,7 @@ public class MentoringController {
 	@Autowired ProfileService profileService;
 	@Autowired MentoringPopupService mentoringPopupService;
 	@Autowired MentiListMapper mentiListMapper;
+	@Autowired GroupBBSService groupBBSService;
 
 	@RequestMapping(value="user/mento_apli" ,method=RequestMethod.GET)
 	public String mento_apli(Model model) {
@@ -555,4 +560,50 @@ public class MentoringController {
 		return "mentoring/mento_list";
 	}
 
+	static RadioOption[] bbsOpened= {new RadioOption("bbsO", "전체 공개"), new RadioOption("bbsX", "비공개")};
+	static RadioOption[] infoOpened= {new RadioOption("infoX", "비공개(권장)"), new RadioOption("infoO", "공개")};
+
+	@RequestMapping(value="user/board_manage", method=RequestMethod.GET)
+	public String boardManage(Model model) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String studentNumber=authentication.getName();
+		Mento mento=mentoMapper.findByUserId(studentMapper.findOne(studentNumber).getUserId());
+		MentoringGroup mentoringGroup=mentoringGroupMapper.findByMentoId(mento.getId());
+		GroupBBS groupBBS=groupBBSService.findByMentoId(mento.getId());
+		ManageOption manageOption=new ManageOption();
+		manageOption.setGroupId(mentoringGroup.getId());
+		if(!mentoringGroup.getInfoOpen()) {
+			manageOption.setInfoOpened(infoOpened[0].getValue());
+		}else {
+			manageOption.setInfoOpened(infoOpened[1].getValue());
+		}
+		if(groupBBS.getOpened()) {
+			manageOption.setBbsOpened(bbsOpened[0].getValue());
+		}else {
+			manageOption.setBbsOpened(bbsOpened[1].getValue());
+		}
+		model.addAttribute("bbsOpened", bbsOpened);
+		model.addAttribute("infoOpened", infoOpened);
+		model.addAttribute("manageOption", manageOption);
+		return "mentoring/board_manage";
+	}
+	@RequestMapping(value="user/board_manage", method=RequestMethod.POST)
+	public String boardManage(Model model, ManageOption manageOption) {
+		System.out.println(manageOption);
+		MentoringGroup mentoringGroup=mentoringGroupMapper.findOne(manageOption.getGroupId());
+		GroupBBS groupBBS=groupBBSService.findByGroupId(manageOption.getGroupId());
+		String info=manageOption.getInfoOpened();
+		String bbs=manageOption.getBbsOpened();
+		Boolean infoBoolean=false;
+		Boolean bbsBoolean=false;
+		if(!info.equals(infoOpened[0].getValue())) {
+			infoBoolean=true;
+		}
+		if(bbs.equals(bbsOpened[0].getValue())) {
+			bbsBoolean=true;
+		}
+		mentoringGroupMapper.infoUpdate(manageOption.getGroupId(), infoBoolean);
+		groupBBSService.openChange(groupBBS.getId(), bbsBoolean);
+		return "redirect:board_manage";
+	}
 }

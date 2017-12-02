@@ -13,7 +13,7 @@ public interface MentoringGroupMapper {
 	MentoringGroup findByMentoId(@Param("mentoId") int mentoId);
 	void delete(@Param("mentoId") int mentoId);
 	MentoringGroup findOne(@Param("id") int id);
-
+	void infoUpdate(@Param("id") int id, @Param("infoOpen") Boolean infoOpen);
 	List<MentoringGroup> findwithMentoWithStudent();
 
 

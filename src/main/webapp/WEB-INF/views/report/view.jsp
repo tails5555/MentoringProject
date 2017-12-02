@@ -203,7 +203,7 @@
           <div class="list-group">
             <a href="${R}user/mento_timetable?timetableView=" class="list-group-item">멘티 시간표 확인</a>
             <a href="${R}user/report/write" class="list-group-item active">보고서 작성</a>
-            <a href="board_manage.html" class="list-group-item">멘토링 과제게시판 관리</a>
+            <a href="${R}user/board_manage" class="list-group-item">멘토링 과제게시판 관리</a>
           </div>
         </div>
         <div class="col-md-9">

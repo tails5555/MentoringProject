@@ -99,7 +99,7 @@
             
               <li><a href="${R}user/mento_timetable?timetableView=공강">멘티 시간표 확인</a></li>
               <li><a href="${R}user/report/write">보고서 작성</a></li>
-              <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
+              <li><a href="${R}user/board_manage">멘토링 과제게시판 관리</a></li>
             </ul>
         </li>
         </sec:authorize>

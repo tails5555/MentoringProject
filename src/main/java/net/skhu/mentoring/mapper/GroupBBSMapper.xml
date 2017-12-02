@@ -10,4 +10,15 @@
   <select id="findOne" resultType="GroupBBS">
     select * from GroupBBS WHERE id=#{id}
   </select>
+  <select id="findByMentoId" resultType="GroupBBS">
+  	SELECT * FROM GroupBBS WHERE manageMentoId=#{mentoId}
+  </select>
+  <select id="findByGroupId" resultType="GroupBBS">
+  	SELECT * FROM GroupBBS WHERE groupId=#{groupId}
+  </select>
+  <update id="openChange">
+  	UPDATE GroupBBS
+  	SET opened=#{opened}
+  	WHERE id=#{id}
+  </update>
 </mapper>

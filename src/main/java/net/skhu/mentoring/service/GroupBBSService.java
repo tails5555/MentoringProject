@@ -48,4 +48,13 @@ public class GroupBBSService {
 		bbs.setTeamName(mento.getTeamName());
 		return bbs;
 	}
+	public GroupBBS findByMentoId(int mentoId) {
+		return groupBBSMapper.findByMentoId(mentoId);
+	}
+	public GroupBBS findByGroupId(int groupId) {
+		return groupBBSMapper.findByGroupId(groupId);
+	}
+	public void openChange(int id, Boolean opened) {
+		groupBBSMapper.openChange(id, opened);
+	}
 }
