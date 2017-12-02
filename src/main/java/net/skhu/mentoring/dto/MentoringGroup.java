@@ -7,7 +7,7 @@ public class MentoringGroup {
 	int id;
 	int mentoId;
 	int allowManagerId;
-
+	Boolean infoOpen;
 	String teamName;
 	String subject;
 	String name;

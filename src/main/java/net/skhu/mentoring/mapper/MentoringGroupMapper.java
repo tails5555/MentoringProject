@@ -6,16 +6,15 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import net.skhu.mentoring.dto.MentoringGroup;
-import net.skhu.mentoring.dto.User;
 
 @Mapper
 public interface MentoringGroupMapper {
 	void insert(MentoringGroup mentoringGroup);
 	MentoringGroup findByMentoId(@Param("mentoId") int mentoId);
 	void delete(@Param("mentoId") int mentoId);
-	MentoringGroup findOne(int id);
-	
+	MentoringGroup findOne(@Param("id") int id);
+
 	List<MentoringGroup> findwithMentoWithStudent();
-	
-	
+
+
 }

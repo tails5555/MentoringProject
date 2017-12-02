@@ -19,7 +19,7 @@
     <select id="findOne" resultType="MentoringGroup">
   	SELECT *
   	FROM MentoringGroup
-  	WHERE mentoId=#{mentoId}
+  	WHERE id=#{id}
   </select>
   
   <delete id="delete">

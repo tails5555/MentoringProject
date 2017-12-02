@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -49,15 +50,15 @@ import net.skhu.mentoring.mapper.ScheduleMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.model.Pagination;
+import net.skhu.mentoring.service.AdminService;
 import net.skhu.mentoring.service.MentoAdvertiseService;
 import net.skhu.mentoring.service.MentoQualificService;
+import net.skhu.mentoring.service.MentoringPopupService;
 import net.skhu.mentoring.service.NoticeBBSCommentService;
 import net.skhu.mentoring.service.NoticeBBSFileService;
 import net.skhu.mentoring.service.NoticeBBSService;
 import net.skhu.mentoring.service.ProfileService;
 import net.skhu.mentoring.service.ScheduleService;
-
-import net.skhu.mentoring.service.AdminService;
 import net.skhu.mentoring.utils.Encryption;
 @RequestMapping("/user")
 @Controller
@@ -83,8 +84,8 @@ public class AdminController {
 	@Autowired MentoringGroupMapper mentoringGroupMapper;
 	@Autowired ProfileService profileService;
 	@Autowired AdminService adminService;
-	
-	
+	@Autowired MentoringPopupService mentoringPopupService;
+
 	@RequestMapping("list")
 	public String index(Model model, Pagination pagination) {
 
@@ -383,20 +384,24 @@ public class AdminController {
 		int managerId=0;
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String manageId=authentication.getName();
+		String userName="";
 		if(studentMapper.findOne(manageId)!=null) {
 			Student student=studentMapper.findOne(manageId);
 			Admin admin=adminMapper.findByUserId(student.getUserId());
 			managerId=admin.getId();
+			userName=student.getName()+" 학생회장";
 		}
 		else if(professorMapper.findOne(manageId)!=null) {
 			Professor professor=professorMapper.findOne(manageId);
 			Admin admin=adminMapper.findByUserId(professor.getUserId());
 			managerId=admin.getId();
+			userName=professor.getName()+" 교수";
 		}
 		else if(employeeMapper.findOne(manageId)!=null) {
 			Employee employee=employeeMapper.findOne(manageId);
 			Admin admin=adminMapper.findByUserId(employee.getUserId());
 			managerId=admin.getId();
+			userName=employee.getName()+" 직원";
 		}
 		Mento mento=mentoMapper.findOne(mentoId);
 		User mentoUser=userMapper.findOne(mento.getUserId());
@@ -408,13 +413,36 @@ public class AdminController {
 		mentoringGroup.setMentoId(mentoId);
 		mentoringGroup.setAllowManagerId(managerId);
 		mentoringGroupMapper.insert(mentoringGroup);
-
+		java.util.Date date=new java.util.Date();
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String context=String.format("%s 팀 - 멘토링 신청 허가를 받았습니다. 확인자 : %s, 등록 날짜 : %s", mento.getTeamName(), userName, dt.format(date));
+		mentoringPopupService.insert(context, date, 2);
 		return"redirect:/user/mento_open";
 	}
 	@RequestMapping(value="mento_open/delete")
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public String  deleteMentoringGroup(Model model , @RequestParam("id") int mentoId) {
 		Mento mento=mentoMapper.findOne(mentoId);
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String manageId=authentication.getName();
+		String userName="";
+		String phoneNumber="";
+		if(studentMapper.findOne(manageId)!=null) {
+			Student student=studentMapper.findOne(manageId);
+			userName=student.getName()+" 학생회장";
+			phoneNumber=student.getPhoneNumber();
+		}
+		else if(professorMapper.findOne(manageId)!=null) {
+			Professor professor=professorMapper.findOne(manageId);
+			userName=professor.getName()+" 교수";
+			phoneNumber=professor.getPhoneNumber();
+		}
+		else if(employeeMapper.findOne(manageId)!=null) {
+			Employee employee=employeeMapper.findOne(manageId);
+			userName=employee.getName()+" 직원";
+			phoneNumber=employee.getPhoneNumber();
+		}
+		String teamName=mento.getTeamName();
 		User mentoUser=userMapper.findOne(mento.getUserId());
 		if(!mentoUser.getUserType().equals("학생회장")) {
 			mentoUser.setUserType("멘티");
@@ -424,13 +452,45 @@ public class AdminController {
 		mentoAdvertiseMapper.deleteByMentoId(mentoId);
 		mentoringGroupMapper.delete(mentoId);
 		mentoMapper.delete(mentoId);
+		java.util.Date date=new java.util.Date();
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String context=String.format("%s 팀 - 멘토링 선정 탈락입니다. 자세한 연락은 %s(%s)에게 연락 바랍니다. %s", teamName, userName, phoneNumber, dt.format(date));
+		mentoringPopupService.insert(context, date, 4);
 		return"redirect:/user/mento_open";
 	}
 
 	@RequestMapping(value="mento_open/menti_remove")
 	public String mentiRemove(Model model , @RequestParam("groupId") int groupId, @RequestParam("userId")int userId) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String manageId=authentication.getName();
+		String userName="";
+		String phoneNumber="";
+		if(studentMapper.findOne(manageId)!=null) {
+			Student student=studentMapper.findOne(manageId);
+			userName=student.getName()+" 학생회장";
+			phoneNumber=student.getPhoneNumber();
+		}
+		else if(professorMapper.findOne(manageId)!=null) {
+			Professor professor=professorMapper.findOne(manageId);
+			userName=professor.getName()+" 교수";
+			phoneNumber=professor.getPhoneNumber();
+		}
+		else if(employeeMapper.findOne(manageId)!=null) {
+			Employee employee=employeeMapper.findOne(manageId);
+			userName=employee.getName()+" 직원";
+			phoneNumber=employee.getPhoneNumber();
+		}
+		Student student=studentMapper.findByUserId(userId);
+		String name=student.getName();
+		StringBuilder n=new StringBuilder(name);
+		n.setCharAt(1, '*');
+		MentoringGroup mentoringGroup=mentoringGroupMapper.findOne(groupId);
+		Mento mento=mentoMapper.findOne(mentoringGroup.getMentoId());
+		java.util.Date date=new java.util.Date();
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String context=String.format("%s 팀 - 멘티 %s님이 인원 조율로 인하여 멘티 선정이 안 되었습니다. 차후에 과정지도 시간을 통해서 다시 신청해주시길 바랍니다. 자세한 내용은 %s(%s)에게 연락 바랍니다. %s" , mento.getTeamName(), new String(n), userName, phoneNumber, dt.format(date));
 		mentiListMapper.deleteWithUserId(groupId, userId);
-
+		mentoringPopupService.insert(context, date, 7);
 		return "redirect:/user/mento_open";
 	}
 }

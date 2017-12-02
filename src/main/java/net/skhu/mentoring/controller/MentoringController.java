@@ -1,6 +1,7 @@
 package net.skhu.mentoring.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import net.skhu.mentoring.mapper.TimeTableMapper;
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.service.MentoAdvertiseService;
 import net.skhu.mentoring.service.MentoQualificService;
+import net.skhu.mentoring.service.MentoringPopupService;
 import net.skhu.mentoring.service.ProfileService;
 @Controller
 public class MentoringController {
@@ -39,7 +41,7 @@ public class MentoringController {
 	@Autowired MentoAdvertiseService mentoAdvertiseService;
 	@Autowired MentoQualificService mentoQualificService;
 	@Autowired ProfileService profileService;
-
+	@Autowired MentoringPopupService mentoringPopupService;
 	@Autowired MentiListMapper mentiListMapper;
 
 	@RequestMapping(value="user/mento_apli" ,method=RequestMethod.GET)
@@ -63,6 +65,7 @@ public class MentoringController {
 	public String mento_apli(Model model, Mento mento, @RequestParam("advertiseUpload") MultipartFile[] advFile, @RequestParam("qualificUpload") MultipartFile[] quaFile) throws IOException {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String studentNumber=authentication.getName();
+		String name=studentMapper.findOne(studentNumber).getName();
 		mento.setUserId(studentMapper.findOne(studentNumber).getUserId());
 		mento.setApplicationDate(new Date());
 		mentoMapper.insert(mento);
@@ -74,6 +77,13 @@ public class MentoringController {
 		if(quaFile.length!=0) {
 			mentoQualificService.upload(quaFile, newMento.getId());
 		}
+		java.util.Date date=new java.util.Date();
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		StringBuilder n=new StringBuilder(name);
+		n.setCharAt(1, '*');
+		String context=String.format("%s 학생 멘토 신청을 하였습니다. 팀 이름 : %s, 날짜 : %s", new String(n), mento.getTeamName(), dt.format(date));
+		mentoringPopupService.insert(context, date, 1);
+
 		return "redirect:mento_apli";
 	}
 
@@ -95,22 +105,22 @@ public class MentoringController {
 		if(timetableView.equals("")) {
 			timetableView=mento.getName();
 		}
-    	
+
 		if(timetableView.equals("공강")) {
-			
+
 			int count=0;
 			int[] mon = new int[8];
 			int[] tue = new int[8];
 			int[] wed = new int[8];
 			int[] thu = new int[8];
 			int[] fri = new int[8];
-			
+
 			for (MentiList m : mt) {
-				
+
 				Student student=studentMapper.findOneByName(m.getName());
 		    	TimeTable timetable=null;
 		    	timetable = timeTableMapper.findOne(student.getStudentNumber());
-	
+
 		    	if(timetable.getMon1()==true) {
 		    		mon[0]+=1;
 		    	}
@@ -129,7 +139,7 @@ public class MentoringController {
 		    	}if(timetable.getMon8()==true) {
 		    		mon[7]+=1;
 		    	}
-		    	
+
 		    	if(timetable.getTue1()==true) {
 		    		tue[0]+=1;  }
 		    	if(timetable.getTue2()==true) {
@@ -146,7 +156,7 @@ public class MentoringController {
 		    		tue[6]+=1;  }
 		    	if(timetable.getTue8()==true) {
 		    		tue[7]+=1;  }
-		
+
 		    	if(timetable.getWed1()==true) {
 		    		wed[0]+=1;  }
 		    	if(timetable.getWed2()==true) {
@@ -163,7 +173,7 @@ public class MentoringController {
 		    		wed[6]+=1;  }
 		    	if(timetable.getWed8()==true) {
 		    		wed[7]+=1;  }
-		    	
+
 		    	if(timetable.getThu1()==true) {
 		    		thu[0]+=1;  }
 		    	if(timetable.getThu2()==true) {
@@ -180,7 +190,7 @@ public class MentoringController {
 		    		thu[6]+=1;  }
 		    	if(timetable.getThu8()==true) {
 		    		thu[7]+=1;  }
-		    	
+
 		    	if(timetable.getFri1()==true) {
 		    		fri[0]+=1;  }
 		    	if(timetable.getFri2()==true) {
@@ -196,14 +206,14 @@ public class MentoringController {
 		    	if(timetable.getFri7()==true) {
 		    		fri[6]+=1;  }
 		    	if(timetable.getFri8()==true) {
-		    		fri[7]+=1;  }	    	
-		    	
+		    		fri[7]+=1;  }
+
 		    	count++;
 			}
-			
+
 			TimeTable timetable=null;
 	    	timetable = timeTableMapper.findOne(mento.getStudentNumber());
-	    	
+
 	     	if(timetable.getMon1()==true) {
 	    		mon[0]+=1;
 	    	}
@@ -222,7 +232,7 @@ public class MentoringController {
 	    	}if(timetable.getMon8()==true) {
 	    		mon[7]+=1;
 	    	}
-	    	
+
 	    	if(timetable.getTue1()==true) {
 	    		tue[0]+=1;  }
 	    	if(timetable.getTue2()==true) {
@@ -239,7 +249,7 @@ public class MentoringController {
 	    		tue[6]+=1;  }
 	    	if(timetable.getTue8()==true) {
 	    		tue[7]+=1;  }
-	
+
 	    	if(timetable.getWed1()==true) {
 	    		wed[0]+=1;  }
 	    	if(timetable.getWed2()==true) {
@@ -256,7 +266,7 @@ public class MentoringController {
 	    		wed[6]+=1;  }
 	    	if(timetable.getWed8()==true) {
 	    		wed[7]+=1;  }
-	    	
+
 	    	if(timetable.getThu1()==true) {
 	    		thu[0]+=1;  }
 	    	if(timetable.getThu2()==true) {
@@ -273,7 +283,7 @@ public class MentoringController {
 	    		thu[6]+=1;  }
 	    	if(timetable.getThu8()==true) {
 	    		thu[7]+=1;  }
-	    	
+
 	    	if(timetable.getFri1()==true) {
 	    		fri[0]+=1;  }
 	    	if(timetable.getFri2()==true) {
@@ -290,13 +300,13 @@ public class MentoringController {
 	    		fri[6]+=1;  }
 	    	if(timetable.getFri8()==true) {
 	    		fri[7]+=1;  }
-			
-			
+
+
 			Student student=new Student();
 			student.setName("멘토링 그룹 공강");
-	    	
+
 	    	TimeTable mentoTime = new TimeTable();
-	    	
+
 	    	if(mon[0]==count+1) {
 	    		mentoTime.setMon1(true);		}
 	     	if(mon[1]==count+1) {
@@ -313,7 +323,7 @@ public class MentoringController {
 	    		mentoTime.setMon7(true);		}
 	     	if(mon[7]==count+1) {
 	    		mentoTime.setMon8(true);		}
-	     	
+
 	     	if(tue[0]==count+1) {
 	    		mentoTime.setTue1(true);		}
 	     	if(tue[1]==count+1) {
@@ -330,7 +340,7 @@ public class MentoringController {
 	    		mentoTime.setTue7(true);		}
 	     	if(tue[7]==count+1) {
 	    		mentoTime.setTue8(true);		}
-	     	
+
 	     	if(wed[0]==count+1) {
 	    		mentoTime.setWed1(true);		}
 	    	if(wed[1]==count+1) {
@@ -347,7 +357,7 @@ public class MentoringController {
 	    		mentoTime.setWed7(true);		}
 	    	if(wed[7]==count+1) {
 	    		mentoTime.setWed8(true);		}
-	    	
+
 	      	if(thu[0]==count+1) {
 	    		mentoTime.setThu1(true);		}
 	    	if(thu[1]==count+1) {
@@ -364,7 +374,7 @@ public class MentoringController {
 	    		mentoTime.setThu7(true);		}
 	    	if(thu[7]==count+1) {
 	    		mentoTime.setThu8(true);		}
-	    	
+
 	    	if(fri[0]==count+1) {
 	    		mentoTime.setFri1(true);		}
 	    	if(fri[1]==count+1) {
@@ -381,16 +391,16 @@ public class MentoringController {
 	    		mentoTime.setFri7(true);		}
 	    	if(fri[7]==count+1) {
 	    		mentoTime.setFri8(true);		}
-	    	
+
 	    	model.addAttribute("timetable",mentoTime);
-	    	model.addAttribute("student",student);    	
+	    	model.addAttribute("student",student);
 		}
-		
+
 		else {
 			Student student=studentMapper.findOneByName(timetableView);
 	    	TimeTable timetable=null;
 	    	timetable = timeTableMapper.findOne(student.getStudentNumber());
-	    	
+
 	    	model.addAttribute("timetable",timetable);
 	    	model.addAttribute("student",student);
 		}
@@ -436,18 +446,36 @@ public class MentoringController {
 	public String menti_application(Model model ,@RequestParam("id")int id) {
 		MentiList mentiList = new MentiList();
 		mentiList.setGroupId(id);
+		MentoringGroup mentoringGroup=mentoringGroupMapper.findOne(id);
+		Mento mento=mentoMapper.findOne(mentoringGroup.getMentoId());
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String studentNumber=authentication.getName();
 		mentiList.setUserId(studentMapper.findOne(studentNumber).getUserId());
 		mentiListMapper.insert(mentiList);
+		String name=studentMapper.findOne(studentNumber).getName();
+		StringBuilder n=new StringBuilder(name);
+		n.setCharAt(1, '*');
+		java.util.Date date=new java.util.Date();
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String context=String.format("%s 학생 멘티 신청을 하였습니다. 팀 이름 : %s, 날짜 : %s", new String(n), mento.getTeamName(), dt.format(date));
+		mentoringPopupService.insert(context, date, 3);
 		return "redirect:menti_apli";
 	}
 	@RequestMapping("user/menti_each_remove")
 	public String menti_each_remove(Model model, @RequestParam("id") int id) {
+		MentoringGroup mentoringGroup=mentoringGroupMapper.findOne(id);
+		Mento mento=mentoMapper.findOne(mentoringGroup.getMentoId());
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String studentNumber=authentication.getName();
 		int userid=studentMapper.findOne(studentNumber).getUserId();
 		mentiListMapper.deleteWithUserId(id, userid);
+		String name=studentMapper.findOne(studentNumber).getName();
+		StringBuilder n=new StringBuilder(name);
+		n.setCharAt(1, '*');
+		java.util.Date date=new java.util.Date();
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String context=String.format("%s 학생 멘티 취소를 하였습니다. 팀 이름 : %s, 날짜 : %s", new String(n), mento.getTeamName(), dt.format(date));
+		mentoringPopupService.insert(context, date, 5);
 		return "redirect:menti_apli";
 	}
 	@RequestMapping("user/menti_remove")
@@ -456,6 +484,13 @@ public class MentoringController {
 		String studentNumber=authentication.getName();
 		int userid=studentMapper.findOne(studentNumber).getUserId();
 		mentiListMapper.delete(userid);
+		String name=studentMapper.findOne(studentNumber).getName();
+		StringBuilder n=new StringBuilder(name);
+		n.setCharAt(1, '*');
+		java.util.Date date=new java.util.Date();
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String context=String.format("%s 학생 멘티 신청을 다시 진행합니다. 날짜 : %s", new String(n), dt.format(date));
+		mentoringPopupService.insert(context, date, 6);
 		return "redirect:menti_apli";
 	}
 
@@ -489,8 +524,30 @@ public class MentoringController {
 			MentoringGroup mentoringGroup = mentoringGroupMapper.findByMentoId(mento.getId());
 			if(mentoringGroup!=null) {
 				System.out.println(mentoringGroup);
-				List<MentiList> menties = mentiListMapper.findwithStudents(mentoringGroup.getId());
-				mento.setMenties(menties);
+				if(!mentoringGroup.getInfoOpen()) {
+					List<MentiList> menties = mentiListMapper.findwithStudents(mentoringGroup.getId());
+					for(MentiList ml : menties) {
+						String mentiNumber=ml.getStudentNumber();
+						String name=ml.getName();
+						String email=ml.getEmail();
+						String[] split=email.split("@");
+						String[] splitDomain=split[1].split("\\.");
+						ml.setStudentNumber(mentiNumber.substring(0, 4)+"*****");
+						StringBuilder temp=new StringBuilder();
+						temp.append(name);
+						temp.setCharAt(1, '*');
+						ml.setName(new String(temp));
+						String id=split[0].substring(0, split[0].length()/2)+"******";
+						String domain=splitDomain[0].substring(0, splitDomain[0].length()/2)+"***";
+						String net=(splitDomain.length>2) ? splitDomain[1]+"."+splitDomain[2] : splitDomain[1];
+						ml.setEmail(id+"@"+domain+"."+net);
+					}
+					mento.setMenties(menties);
+				}
+				else {
+					List<MentiList> menties = mentiListMapper.findwithStudents(mentoringGroup.getId());
+					mento.setMenties(menties);
+				}
 			}
 		}
 		model.addAttribute("mentos", mentos);

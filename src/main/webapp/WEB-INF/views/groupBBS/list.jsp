@@ -301,6 +301,7 @@
           <h1 class="my-4"><strong>멘토링 게시판</strong></h1>
           <h3 class="my-4"><strong>☞ ${ mento.teamName }</strong> - ${ mento.mentoName } 멘토</h3>
           <hr/>
+          <c:if test="${ opened eq true }">
           <div class="row search">
           <form:form method="get" modelAttribute="groupBBSPagination" class="form-inline">
           	<form:hidden path="gd"/>
@@ -352,12 +353,27 @@
           </div>
           <div class="search" align="right">
           	 <a href="${R}user/groupBBS"><button type="button" class="btn btn-info"><i class="glyphicon glyphicon-user"></i> 멘토 목록으로</button></a>
-	         <a href="create.do?${groupBBSPagination.queryString}"><button type="button" class="btn btn-info">
-	            <i class="glyphicon glyphicon-pencil"> 글쓰기</i></button></a>
+	         <c:if test="${ write eq true }">
+	         	<a href="create.do?${groupBBSPagination.queryString}"><button type="button" class="btn btn-info">
+	            	<i class="glyphicon glyphicon-pencil"> 글쓰기</i></button></a>
+	         </c:if>
           </div>
           <div class="page">
           	<page:pagination pageSize="${ groupBBSPagination.sz }" recordCount="${ groupBBSPagination.recordCount }" />
           </div>
+          </c:if>
+          <c:if test="${ opened eq false }">
+          	<div class="panel panel-warning">
+			  <div class="panel-heading">
+	    		<h3 class="panel-title">멘토링 게시판 접근이 불가능합니다.</h3>
+	  		  </div>
+		      <div class="panel-body">
+				 멘토가 멘토링 게시판 접근을 불가능하도록 설정하였습니다.
+			  </div>
+			</div>
+			<hr/>
+			  <a href="${R}user/groupBBS"><button type="button" class="btn btn-info"><i class="glyphicon glyphicon-user"></i> 멘토 목록으로</button></a>
+          </c:if>
         </div>
       </div>
 
