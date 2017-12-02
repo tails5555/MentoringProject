@@ -5,7 +5,7 @@ public class UserList {
 
 	int userId;
 	String number;
-	String name;
+	String userName;
 	String departmentName;
 	String userType;
 }

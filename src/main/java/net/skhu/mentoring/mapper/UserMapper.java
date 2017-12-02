@@ -28,7 +28,7 @@ public interface UserMapper {
 	  List<User> findAllList(Pagination pagination);
 	    int count(Pagination pagination);
 
-    Option[] searchBy = { new Option(0, "검색 없음"), new Option(1, "글쓴이"),
-            new Option(2, "제목"), new Option(3, "본문")  };
+    Option[] searchBy = { new Option(0, "검색 없음"), new Option(1, "이름"),
+            new Option(2, "학번(교번,직번)"), new Option(3, "회원 유형")  };
 
 }

@@ -52,7 +52,10 @@ public class AdminService {
     }
 
 	
-	
+    public Option[] getSearchByOptions() {
+        return userMapper.searchBy;
+    }
+
 	
 
 	

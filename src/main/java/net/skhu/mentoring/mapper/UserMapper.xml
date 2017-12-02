@@ -235,15 +235,23 @@
     
   FROM User u LEFT JOIN professor p ON u.id = p.userId LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN department dp ON dp.deptId=d.deptId
   LEFT JOIN student s ON u.id = s.userId LEFT JOIN employee e ON u.id = e.userId LEFT JOIN department de ON de.deptEmployeeId=e.empId LEFT JOIN department ds ON ds.deptId=s.departmentId 
+  
+  <if test="sb == 1">where s.name = #{st} or p.name = #{st} or e.name= #{st}</if>
+  <if test="sb == 2">where s.studentNumber = #{st} or p.profId = #{st} or e.empId= #{st}</if>
+  <if test="sb == 3">where u.userType = #{st}</if>
   GROUP BY userId
-
+  
     LIMIT ${start}, ${sz}
   </select>
   
   <select id="count" resultType="int">
-    SELECT COUNT(u.id) 
-    
-  FROM User u 
+    SELECT COUNT(u.id)     
+  FROM User u LEFT JOIN professor p ON u.id = p.userId LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN department dp ON dp.deptId=d.deptId
+  LEFT JOIN student s ON u.id = s.userId LEFT JOIN employee e ON u.id = e.userId LEFT JOIN department de ON de.deptEmployeeId=e.empId LEFT JOIN department ds ON ds.deptId=s.departmentId 
+  
+	<if test="sb == 1">where s.name = #{st} or p.name = #{st} or e.name= #{st}</if>
+	 <if test="sb == 2">where s.studentNumber = #{st} or p.profId = #{st} or e.empId= #{st}</if>
+	 <if test="sb == 3">where u.userType = #{st}</if> 
 
   </select>
 

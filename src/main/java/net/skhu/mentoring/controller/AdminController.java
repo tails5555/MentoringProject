@@ -88,9 +88,8 @@ public class AdminController {
 	@RequestMapping("list")
 	public String index(Model model, Pagination pagination) {
 
-
-        List<User> user =userMapper.findList();
         model.addAttribute("user", adminService.findAll(pagination));
+        model.addAttribute("searchBy", adminService.getSearchByOptions());
 
 		return "userManage/userManage";
 	}

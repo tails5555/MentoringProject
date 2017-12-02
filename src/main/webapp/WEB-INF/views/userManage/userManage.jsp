@@ -3,6 +3,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
+
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <c:url var="R" value="/" />
 <!DOCTYPE html>
 <html>
@@ -265,24 +269,19 @@
           <h1 class="my-4"><strong>회원 목록 관리</strong></h1>
           <br/>
           
+            <div class="row search">
+          <form:form method="get" modelAttribute="pagination" class="form-inline">
+          	<form:hidden path="bd"/>
+          	<form:select path="sb" class="form-control" itemValue="value" itemLabel="label" items="${ searchBy }"/>
+            <form:input path="st" class="form-control" placeholder="검색할 문자열" />
+            
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"> 검색하기</i></button>
+            <c:if test="${ pagination.sb > 0}">
+
+		    </c:if>      
+          </form:form>
           
-           <div class="row search">
-              <form class="form-inline" align="right">
-	            <select class="form-control" name="order">   
-				<option value="id" ${ param.order == "id" ? "selected" : "" }>id</option> 
-				<option value="학번" ${ param.order == "학번" ? "selected" : "" }>학번</option> 
-				
-				<option value="학과" ${ param.order == "학과" ? "selected" : "" }>학과</option> 
-				<option value="사용자 유형" ${ param.order == "사용자 유형" ? "selected" : "" }>사용자 유형</option>
-			</select>
-          
-          
-                <form type="text" class="form-control" id="searchKeyword" placeholder="검색어를 입력하세요."> 
-                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"> 검색하기</i></button>
-          </form>
-          </form>
-          </div>
-          
+
           <p></p>
 		  <table class="table table-bordered">
           <thead class="userEntity">
