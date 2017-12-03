@@ -456,6 +456,12 @@
                 <input type="date" class="form-inline" name="startDate4" value="${schedule4.startDate }"> 부터
                 <input type="date" class="form-inline" name="endDate4" value="${schedule4.endDate }"> 까지
            
+           		<br/><br/>
+           		<label>멘토 설문조사 사이트 링크: </label>
+           		<input type="text" name="mentoSite" value="${mento.surveySite}" size=70>
+           		<br/><br/>
+           		<label>멘티 설문조사 사이트 링크: </label>
+           		<input type="text" name="mentiSite" value="${menti.surveySite}" size=70>
               <br/>
               <p></p>
                 <center><button type="submit" class="btn btn-info">
