@@ -20,12 +20,14 @@ import net.skhu.mentoring.dto.GroupBBS;
 import net.skhu.mentoring.dto.MentiList;
 import net.skhu.mentoring.dto.Mento;
 import net.skhu.mentoring.dto.MentoringGroup;
+import net.skhu.mentoring.dto.Schedule;
 import net.skhu.mentoring.dto.Student;
 import net.skhu.mentoring.dto.Survey;
 import net.skhu.mentoring.dto.TimeTable;
 import net.skhu.mentoring.mapper.MentiListMapper;
 import net.skhu.mentoring.mapper.MentoMapper;
 import net.skhu.mentoring.mapper.MentoringGroupMapper;
+import net.skhu.mentoring.mapper.ScheduleMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.TimeTableMapper;
 import net.skhu.mentoring.mapper.UserMapper;
@@ -52,7 +54,7 @@ public class MentoringController {
 	@Autowired MentiListMapper mentiListMapper;
 	@Autowired GroupBBSService groupBBSService;
 	@Autowired SurveyService surveyService;
-
+	@Autowired ScheduleMapper scheduleMapper;
 	@RequestMapping(value="user/mento_apli" ,method=RequestMethod.GET)
 	public String mento_apli(Model model) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
@@ -615,6 +617,8 @@ public class MentoringController {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
 		String studentNumber=authentication.getName();
 		Student student=studentMapper.findOne(studentNumber);
+		Schedule surveySchedule=scheduleMapper.findById(4);
+		model.addAttribute("schedule", surveySchedule);
 		int userId=-1;
 		if(student!=null) {
 			userId=student.getUserId();

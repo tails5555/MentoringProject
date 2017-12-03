@@ -181,6 +181,14 @@
         border-radius : 10px;
         text-align : center;
       }
+      .information{
+        padding-top : 10px;
+        padding-bottom : 5px;
+        background-color : #E6E6E6;
+        border : 1px solid #D8D8D8;
+        border-radius : 5px;
+        text-align : left;
+      }
    </style>
  </head>
 
@@ -335,6 +343,15 @@
           		</c:when>
           	</c:choose>
           </sec:authorize>
+          <hr/>
+          <div class="row">
+          	<div class="col-md-12 information">
+          		<p> ⊙ 설문조사 기간은 ${ schedule.startDate } 부터 ${ schedule.endDate } 까지 입니다.</p>
+          		<p> ⊙ 개인 별 설문조사 결과를 저장하기 위해서는 Google 계정이 있어야 합니다. 이 점 참고하시길 바랍니다.</p>
+          		<p> ⊙ 컨퍼런스 행사에 대한 만족도 조사는 반영이 되지 않으나 SM 사업에 도움을 줄만한 컨퍼런스 행사가 있으시다면 첨가해주시면 감사하겠습니다.</p>
+          		<p> ⊙ 기타 설문조사에 대해서 질문할 사항이 있으시다면 각 학과 학생 회장에게 연락 바랍니다. </p>
+          	</div>
+          </div>
           <!-- Introduction Row -->
         </div>
       </div>

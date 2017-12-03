@@ -352,6 +352,14 @@
        .during{
         text-align: center;
        }
+       .information{
+        padding-top : 10px;
+        padding-bottom : 5px;
+        background-color : #E6E6E6;
+        border : 1px solid #D8D8D8;
+        border-radius : 5px;
+        text-align : left;
+      }
    </style>
    <script src="text/javascript">
      $('#myTab a').click(function (e) {
@@ -473,10 +481,14 @@
               
        
          </form>
-
-          <br/><br/>
-          <br/><br/>
-
+		 <hr/>
+          <div class="row">
+          	<div class="col-md-12 information">
+          		<p> ⊙ 설문 조사는 Google Document 설문조사를 이용했습니다. 설문조사를 등록하시는 분들은 Google 계정을 확인해 주시길 바랍니다.</p>
+          		<p> ⊙ 설문 조사 결과는 Google Document에서 참여자 추가를 이용하면 확인하실 수 있습니다. 설문조사에 대한 통계가 필요하신 분은 최종 작성자에게 연락을 주셔서 통계 자료를 받으시길 바랍니다.</p>
+          		<p> ⊙ Google 설문조사를 이용하지 않게 된다면 개발 팀 연락처(010-0000-0000)에게 연락을 주시면 조치해드리겠습니다. </p>
+          	</div>
+          </div>
        
           <!-- Introduction Row -->
         </div>
