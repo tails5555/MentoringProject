@@ -44,4 +44,7 @@ public class ProfileService {
 		profile.setData(uploadFile.getBytes());
 		profileMapper.update(profile);
 	}
+	public void delete(int id) {
+		profileMapper.delete(id);
+	}
 }

@@ -237,7 +237,14 @@
         }
 
    </style>
-   
+   <script>
+   $(function() {
+	   $("[data-confirm-profile-delete]").click(function() {
+	     return confirm("프로필 사진을 초기화합니다. 계속 하시겠습니까?");
+	   })
+	})
+
+   </script>
 </head>
 
  <body>
@@ -326,7 +333,7 @@
           <h3>${ my.userName }
             <small>${ my.departmentName }</small>
           </h3>
-          <p>잘 부탁 드려요~</p>
+          <c:if test="${ my.profileId ne -1 }"><a href="${R}user/reset?id=${ my.profileId }" data-confirm-profile-delete><button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-eye-close"></i> 프로필 초기화</button></a></c:if>
         </div>
         <div class="col-md-8">
           <table class="table-bordered" width="100%">
@@ -429,7 +436,7 @@
 			
              <div class="control-group">
               <div class="form-group floating-label-form-group controls">
-                <label style="vertical-align: top;">사진 등록 / 변경 :  </label>
+                <label style="vertical-align: top;">사진 ${ (my.profileId != -1) ? "변경" : "등록" } :  </label>
                  <input type="file" name="profile" class="form-control"/>
               </div>
             </div>

@@ -11,4 +11,5 @@ public interface ProfileMapper {
 	Profile findByUserId(@Param("userId") int userId);
 	void insert(Profile profile);
 	void update(Profile profile);
+	void delete(int id);
 }
