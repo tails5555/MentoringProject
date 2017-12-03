@@ -381,7 +381,7 @@
  <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="index"><img src="${R}img/title.png"/></a>
+        <a class="navbar-brand" href="${R}user/index"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
         <li><a href="index">
@@ -416,7 +416,7 @@
               
               <li><a href="${R}user/mento_timetable?timetableView=">멘티 시간표 확인</a></li>
               <li><a href="${R}user/report/write">보고서 작성</a></li>
-              <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
+              <li><a href="${R}user/board_manage">멘토링 과제게시판 관리</a></li>
             </ul>
         </li>
         </sec:authorize>
@@ -438,7 +438,7 @@
       <ul class="nav navbar-nav navbar-right">
       	<li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
       	<li><a href="${R}user/Edit.do"><i class="glyphicon glyphicon-user"> 내정보</i></a></li>
-        <li><a href="logout_processing"><i class="glyphicon glyphicon-remove-sign"> 로그아웃</i></a></li>
+        <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-remove-sign"> 로그아웃</i></a></li>
       </ul>
     </div>
    </nav>
@@ -453,7 +453,7 @@
           <h1 class="my-4"><strong>사이트 관리</strong></h1>
           <div class="list-group">
            <a href="${R}user/mento_open" class="list-group-item active ">멘토링 개설/폐쇄</a>
-            <a href="report_confirm.html" class="list-group-item ">보고서 확인</a>
+            <a href="${R}user/report/confirm" class="list-group-item ">보고서 확인</a>
             <a href="${R}user/survey" class="list-group-item ">설문조사 관리</a>
             <a href="${R}user/schedule" class="list-group-item  ">멘토, 멘티 신청기간 여부</a>
             <a href="${R}user/list" class="list-group-item ">회원 목록 관리</a>

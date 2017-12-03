@@ -12,6 +12,7 @@ public interface MentiListMapper {
 	List<MentiList> findAll();
 	void insert(MentiList mentiList);
 	List<MentiList> findByGroupId(@Param("groupId") int groupId);
+	List<MentiList> findByUserId(@Param("userId") int userId);
 	int findCount(@Param("groupId")int groupId);
 	void delete(@Param("userId")int userId);
 	void deleteWithUserId(@Param("groupId")int groupId, @Param("userId")int userId);

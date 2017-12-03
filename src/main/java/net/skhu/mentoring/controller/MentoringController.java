@@ -2,6 +2,7 @@ package net.skhu.mentoring.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,11 +20,14 @@ import net.skhu.mentoring.dto.GroupBBS;
 import net.skhu.mentoring.dto.MentiList;
 import net.skhu.mentoring.dto.Mento;
 import net.skhu.mentoring.dto.MentoringGroup;
+import net.skhu.mentoring.dto.Schedule;
 import net.skhu.mentoring.dto.Student;
+import net.skhu.mentoring.dto.Survey;
 import net.skhu.mentoring.dto.TimeTable;
 import net.skhu.mentoring.mapper.MentiListMapper;
 import net.skhu.mentoring.mapper.MentoMapper;
 import net.skhu.mentoring.mapper.MentoringGroupMapper;
+import net.skhu.mentoring.mapper.ScheduleMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.TimeTableMapper;
 import net.skhu.mentoring.mapper.UserMapper;
@@ -34,6 +38,7 @@ import net.skhu.mentoring.service.MentoAdvertiseService;
 import net.skhu.mentoring.service.MentoQualificService;
 import net.skhu.mentoring.service.MentoringPopupService;
 import net.skhu.mentoring.service.ProfileService;
+import net.skhu.mentoring.service.SurveyService;
 @Controller
 public class MentoringController {
 
@@ -48,7 +53,8 @@ public class MentoringController {
 	@Autowired MentoringPopupService mentoringPopupService;
 	@Autowired MentiListMapper mentiListMapper;
 	@Autowired GroupBBSService groupBBSService;
-
+	@Autowired SurveyService surveyService;
+	@Autowired ScheduleMapper scheduleMapper;
 	@RequestMapping(value="user/mento_apli" ,method=RequestMethod.GET)
 	public String mento_apli(Model model) {
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
@@ -605,5 +611,51 @@ public class MentoringController {
 		mentoringGroupMapper.infoUpdate(manageOption.getGroupId(), infoBoolean);
 		groupBBSService.openChange(groupBBS.getId(), bbsBoolean);
 		return "redirect:board_manage";
+	}
+	@RequestMapping("user/mentoringSurvey")
+	public String mentoringSurvey(Model model) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String studentNumber=authentication.getName();
+		Student student=studentMapper.findOne(studentNumber);
+		Schedule surveySchedule=scheduleMapper.findById(4);
+		model.addAttribute("schedule", surveySchedule);
+		int userId=-1;
+		if(student!=null) {
+			userId=student.getUserId();
+		}
+		if(userId!=-1) {
+			Survey mentoUsed=surveyService.findOne(1);
+			Survey mentiUsed=surveyService.findOne(2);
+			int surveyChoose=0;
+			List<Survey> surveyList=new ArrayList<Survey>();
+			boolean isMento=false;
+			boolean isMenti=false;
+			Mento mento=mentoMapper.findByUserId(userId);
+			List<MentiList> mentiList=mentiListMapper.findByUserId(userId);
+			if(mento!=null) {
+				isMento=true;
+			}
+			if(mentiList.size()>0) {
+				isMenti=true;
+			}
+			if(isMento == true && isMenti == true) {
+				surveyChoose=3;
+				surveyList.add(mentoUsed);
+				surveyList.add(mentiUsed);
+				model.addAttribute("survey", surveyList);
+			}else if(isMento == false && isMenti == true) {
+				surveyChoose=2;
+				model.addAttribute("survey", mentiUsed);
+			}else if(isMento == true && isMenti == false) {
+				surveyChoose=1;
+				model.addAttribute("survey", mentoUsed);
+			}else {
+				surveyChoose=0;
+			}
+			model.addAttribute("surveyChoose", surveyChoose);
+			return "survey/mentoringSurvey";
+		}else {
+			return "survey/mentoringSurvey";
+		}
 	}
 }

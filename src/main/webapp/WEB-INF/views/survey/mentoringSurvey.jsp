@@ -181,178 +181,7 @@
         border-radius : 10px;
         text-align : center;
       }
-
-
-
-        .container > .switch {
-
-          display: block;
-
-          margin: 12px auto;
-
-
-          }
-
-          .switch {
-            margin-left: 40px;
-            margin-bottom: 20px;
-
-            position: relative;
-
-            display: inline-block;
-
-            vertical-align: top;
-
-            width: 70px;
-
-            height: 40px;
-
-            padding: 3px;
-
-            background-color: white;
-
-            border-radius: 30px;
-
-            box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
-
-            cursor: pointer;
-
-            background-image: -webkit-linear-gradient(top, #eeeeee, white 25px);
-
-            background-image: -moz-linear-gradient(top, #eeeeee, white 25px);
-
-            background-image: -o-linear-gradient(top, #eeeeee, white 25px);
-
-            background-image: linear-gradient(to bottom, #eeeeee, white 25px);
-
-          }
-
-          .switch-input {
-
-            position: absolute;
-
-            top: 0;
-
-            left: 0;
-
-            opacity: 0;
-
-          }
-
-          .switch-label {
-
-            position: relative;
-
-            display: block;
-
-            height: inherit;
-
-            font-size: 14px;
-
-            text-transform: uppercase;
-
-            background: #eceeef;
-
-            border-radius: inherit;
-
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
-
-            -webkit-transition: 0.15s ease-out;
-
-            -moz-transition: 0.15s ease-out;
-
-            -o-transition: 0.15s ease-out;
-
-            transition: 0.15s ease-out;
-
-            -webkit-transition-property: opacity background;
-
-            -moz-transition-property: opacity background;
-
-            -o-transition-property: opacity background;
-
-            transition-property: opacity background;
-
-          }
-
-          .switch-label:before, .switch-label:after {
-
-            position: absolute;
-
-            top: 50%;
-
-            margin-top: -.5em;
-
-            line-height: 1;
-
-            -webkit-transition: inherit;
-
-            -moz-transition: inherit;
-
-            -o-transition: inherit;
-
-            transition: inherit;
-
-          }
-
-          .switch-label:before {
-
-            content: attr(data-off);
-
-            right: 11px;
-
-            color: #aaa;
-
-            text-shadow: 0 1px rgba(255, 255, 255, 0.5);
-
-          }
-
-          .switch-label:after {
-
-            content: attr(data-on);
-
-            left: 11px;
-
-            color: white;
-
-            text-shadow: 0 1px rgba(0, 0, 0, 0.2);
-
-            opacity: 0;
-
-          }
-          .switch-input:checked ~ .switch-label {
-
-            background: #47a8d8;
-
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
-
-          }
-
-          .switch-input:checked ~ .switch-label:before {
-
-            opacity: 0;
-
-          }
-
-          .switch-input:checked ~ .switch-label:after {
-
-            opacity: 1;
-
-          }
-        .title{
-          font-size: 20px;
-        }
-       .section{
-        text-align: center;
-        margin-top: 50px
-
-
-       }
-
-       .during{
-        text-align: center;
-       }
-       .information{
+      .information{
         padding-top : 10px;
         padding-bottom : 5px;
         background-color : #E6E6E6;
@@ -361,13 +190,6 @@
         text-align : left;
       }
    </style>
-   <script src="text/javascript">
-     $('#myTab a').click(function (e) {
-      e.preventDefault()
-      $(this).tab('show')
-    })
-
-   </script>
  </head>
 
  <body>
@@ -391,7 +213,7 @@
         <li >
           <a href="${R}user/intro">멘토링 사업소개</a>
         </li>
-        <li class="dropdown">
+        <li class="dropdown active">
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -399,7 +221,7 @@
               <li><a href="${R}user/mento_apli">멘토 신청</a></li>
               <li ><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
               <li><a href="${R}user/groupBBS">멘토링 게시판</a></li>
-              <li><a href="survey.html">설문조사</a></li>
+              <li class="active"><a href="${R}user/mentoringSurvey">설문조사</a></li>
             </ul>
         </li>
         <sec:authorize access="hasAnyRole('ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
@@ -415,13 +237,13 @@
         </li>
         </sec:authorize>
         <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
-        <li class="dropdown active">
+        <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
               <li><a href="${R}user/report/confirm">보고서 확인</a></li>
-              <li class="active"><a href="${R}user/survey">설문조사 관리</a></li>
+              <li><a href="${R}user/survey">설문조사 관리</a></li>
               <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
               <li><a href="${R}user/list">회원 목록 관리</a></li>
               <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
@@ -444,52 +266,92 @@
   <div class="container">
       <div class="row">
         <div class="col-md-3">
-          <h1 class="my-4"><strong>사이트 관리</strong></h1>
+          <h1 class="my-4"><strong>멘토링</strong></h1>
           <div class="list-group">
-           <a href="${R}user/mento_open" class="list-group-item ">멘토링 개설/폐쇄</a>
-            <a href="${R}user/report/confirm" class="list-group-item ">보고서 확인</a>
-            <a href="${R}user/survey" class="list-group-item active ">설문조사 관리</a>
-            <a href="${R}user/schedule" class="list-group-item  ">멘토, 멘티 신청기간 여부</a>
-            <a href="${R}user/list" class="list-group-item ">회원 목록 관리</a>
-            <a href="${R}user/intro/titleList" class="list-group-item ">사업 안내문 수정</a>
+            <a href="#" class="list-group-item ">멘티 신청</a>
+            <a href="${R}user/mento_apli" class="list-group-item">멘토 신청</a>
+            <a href="mento_list.html" class="list-group-item">멘토/멘티 목록</a>
+            <a href="${R}user/groupBBS" class="list-group-item">멘토링 게시판</a>
+            <a href="${R}user/mentoringSurvey" class="list-group-item active">설문조사</a>
           </div>
         </div>
+        
         <!-- /.col-lg-3 -->
         <div class="col-md-9">
-          <h1 class="my-4"><strong>설문조사 관리</strong></h1>
+          <h1 class="my-4"><strong>설문조사</strong></h1>
           <hr/>
-        <form method="post">
-        	
-                <label>설문조사 기간 설정 : </label>
-                <input type="date" class="form-inline" name="startDate4" value="${schedule4.startDate }"> 부터
-                <input type="date" class="form-inline" name="endDate4" value="${schedule4.endDate }"> 까지
-           
-           		<br/><br/>
-           		<label>멘토 설문조사 사이트 링크: </label>
-           		<input type="text" name="mentoSite" value="${mento.surveySite}" size=70>
-           		<br/><br/>
-           		<label>멘티 설문조사 사이트 링크: </label>
-           		<input type="text" name="mentiSite" value="${menti.surveySite}" size=70>
-              <br/>
-              <p></p>
-                <center><button type="submit" class="btn btn-info">
-                  <i class="glyphicon glyphicon-ok"> 설정</i>
-                </button></center>
-                <p></p>
-                <p></p>
-                <center><p>최종 수정자 :  ${schedule4.manageName }</p></center>
-              
-       
-         </form>
-		 <hr/>
+        <sec:authorize access="hasAnyRole({'ROLE_PROFESSOR', 'ROLE_EMPLOYEE'})">
+			<div class="panel panel-warning">
+			  <div class="panel-heading">
+	    		<h3 class="panel-title">교수와 직원은 접근이 불가능합니다.</h3>
+	  		  </div>
+		      <div class="panel-body">
+				 교수와 직원은 사이트 관리에서 설문조사 관리를 통해서 멘토와 멘티들의 설문조사 사이트를 설정할 수 있습니다.
+			  </div>
+			</div>
+          </sec:authorize>
+          <sec:authorize access="hasAnyRole({'ROLE_MENTO', 'ROLE_MENTI', 'ROLE_STUDCHAIRMAN'})">
+          	<c:choose>
+          		<c:when test="${ surveyChoose eq 0 }">
+          		<div class="panel panel-warning">
+				  <div class="panel-heading">
+		    		<h3 class="panel-title">이번 학기에 멘토링을 참여하지 않으셨습니다.</h3>
+		  		  </div>
+			      <div class="panel-body">
+					 멘토링을 참여하시지 않았습니다. 다음 학기에 멘토링을 하시면 설문조사를 할 수 있습니다.
+				  </div>
+				</div>
+          		</c:when>
+          		<c:when test="${ surveyChoose eq 1 }">
+          		<div class="panel panel-info">
+				  <div class="panel-heading">
+		    		<h3 class="panel-title">${ survey.surveyType } 설문조사를 진행해주셔야 합니다.</h3>
+		  		  </div>
+			      <div class="panel-body">
+					 아래 홈페이지를 이동하셔서 설문조사를 진행해주시길 바랍니다.(Google 계정 있어야 합니다.)
+					 <hr/>
+					 <a href="${survey.surveySite }" target="_blank"><button type="button" class="btn btn-info"><i class="glyphicon glyphicon-inbox"></i> 이동하기</button></a>
+				  </div>
+				</div>
+          		</c:when>
+          		<c:when test="${ surveyChoose eq 2 }">
+          		<div class="panel panel-info">
+          			<div class="panel-heading">
+		    		<h3 class="panel-title">${ survey.surveyType } 설문조사를 진행해주셔야 합니다.</h3>
+		  		  </div>
+			      <div class="panel-body">
+					 아래 홈페이지를 이동하셔서 설문조사를 진행해주시길 바랍니다.(Google 계정 있어야 합니다.)
+					 <hr/>
+					 <a href="${survey.surveySite }" target="_blank"><button type="button" class="btn btn-info"><i class="glyphicon glyphicon-inbox"></i> 이동하기</button></a>
+				  </div>
+				</div>
+          		</c:when>
+          		<c:when test="${ surveyChoose eq 3 }">
+          			<c:forEach var="sv" items="${ survey }" varStatus="status">
+          			<div class="panel panel-info">
+	          		  <div class="panel-heading">
+			    		<h3 class="panel-title">${ sv.surveyType } 설문조사를 진행해주셔야 합니다.</h3>
+			  		  </div>
+				      <div class="panel-body">
+						 아래 홈페이지를 이동하셔서 설문조사를 진행해주시길 바랍니다.(Google 계정 있어야 합니다.)
+						 <hr/>
+						 <a href="${sv.surveySite }" target="_blank"><button type="button" class="btn btn-info"><i class="glyphicon glyphicon-inbox"></i> 이동하기</button></a>
+					  </div>
+					</div>
+					<c:if test="${status.index eq 0 }"><hr/></c:if>
+          			</c:forEach>
+          		</c:when>
+          	</c:choose>
+          </sec:authorize>
+          <hr/>
           <div class="row">
           	<div class="col-md-12 information">
-          		<p> ⊙ 설문 조사는 Google Document 설문조사를 이용했습니다. 설문조사를 등록하시는 분들은 Google 계정을 확인해 주시길 바랍니다.</p>
-          		<p> ⊙ 설문 조사 결과는 Google Document에서 참여자 추가를 이용하면 확인하실 수 있습니다. 설문조사에 대한 통계가 필요하신 분은 최종 작성자에게 연락을 주셔서 통계 자료를 받으시길 바랍니다.</p>
-          		<p> ⊙ Google 설문조사를 이용하지 않게 된다면 개발 팀 연락처(010-0000-0000)에게 연락을 주시면 조치해드리겠습니다. </p>
+          		<p> ⊙ 설문조사 기간은 ${ schedule.startDate } 부터 ${ schedule.endDate } 까지 입니다.</p>
+          		<p> ⊙ 개인 별 설문조사 결과를 저장하기 위해서는 Google 계정이 있어야 합니다. 이 점 참고하시길 바랍니다.</p>
+          		<p> ⊙ 컨퍼런스 행사에 대한 만족도 조사는 반영이 되지 않으나 SM 사업에 도움을 줄만한 컨퍼런스 행사가 있으시다면 첨가해주시면 감사하겠습니다.</p>
+          		<p> ⊙ 기타 설문조사에 대해서 질문할 사항이 있으시다면 각 학과 학생 회장에게 연락 바랍니다. </p>
           	</div>
           </div>
-       
           <!-- Introduction Row -->
         </div>
       </div>

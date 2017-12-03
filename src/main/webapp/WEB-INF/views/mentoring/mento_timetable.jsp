@@ -261,7 +261,7 @@
         <div class="col-md-3">
           <h1 class="my-4"><strong>멘토링 관리</strong></h1>
           <div class="list-group">
-            <a href="${R}user/mento_timetable?timetableView=" class="list-group-item active">멘티 시간표 확인</a>
+            <a href="${R}user/mento_timetable?timetableView=공강" class="list-group-item active">멘티 시간표 확인</a>
             <a href="${R}user/report/write" class="list-group-item">보고서 작성</a>
             <a href="${R}user/board_manage" class="list-group-item">멘토링 과제게시판 관리</a>
           </div>
@@ -299,7 +299,12 @@
           <!-- Team Members Row -->
           <div class="row">
             <div class="col-md-12">
-              <h3 class="my-4"><b>${student.name}님의 가능한 시간표</b></h3>
+              <h3 class="my-4"><b>
+              <c:choose>
+              	<c:when test="${ param.timetableView eq '공강' }">멘토링이 가능한 시간표</c:when>
+              	<c:otherwise>${student.name}님의 가능한 시간표</c:otherwise>
+              </c:choose>
+              </b></h3>
               <hr/>
               
                <div class="row">

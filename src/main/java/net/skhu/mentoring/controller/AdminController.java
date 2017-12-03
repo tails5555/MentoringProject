@@ -37,6 +37,7 @@ import net.skhu.mentoring.dto.Professor;
 import net.skhu.mentoring.dto.Profile;
 import net.skhu.mentoring.dto.Schedule;
 import net.skhu.mentoring.dto.Student;
+import net.skhu.mentoring.dto.Survey;
 import net.skhu.mentoring.dto.User;
 import net.skhu.mentoring.mapper.AdminMapper;
 import net.skhu.mentoring.mapper.DepartmentMapper;
@@ -49,6 +50,7 @@ import net.skhu.mentoring.mapper.MentoringGroupMapper;
 import net.skhu.mentoring.mapper.ProfessorMapper;
 import net.skhu.mentoring.mapper.ScheduleMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
+import net.skhu.mentoring.mapper.SurveyMapper;
 import net.skhu.mentoring.mapper.UserMapper;
 import net.skhu.mentoring.model.UserPagination;
 import net.skhu.mentoring.service.AdminService;
@@ -80,6 +82,7 @@ public class AdminController {
 	@Autowired MentoMapper mentoMapper;
 	@Autowired MentoAdvertiseMapper mentoAdvertiseMapper;
 	@Autowired MentoQualificMapper mentoQualificMapper;
+	@Autowired SurveyMapper surveyMapper;
 	@Autowired MentiListMapper mentiListMapper;
 	@Autowired MentoAdvertiseService mentoAdvertiseService;
 	@Autowired MentoQualificService mentoQualificService;
@@ -269,13 +272,16 @@ public class AdminController {
 	public String survey(Model model) {
 		Schedule schedule4= scheduleMapper.findById(4);
 		schedule4.setManageName(scheduleService.findManageNameByManageId(schedule4.getId()));
-
+		Survey mento = surveyMapper.findOne(1);
+		Survey menti= surveyMapper.findOne(2);
 		model.addAttribute("schedule4", schedule4);
+		model.addAttribute("mento", mento);
+		model.addAttribute("menti",menti);
 		return "survey/manage";
 	}
 
 	@RequestMapping(value="survey",method=RequestMethod.POST)
-	public String survey(Model model,@RequestParam("startDate4") Date startDate4,@RequestParam("endDate4") Date endDate4) {
+	public String survey(Model model,@RequestParam("startDate4") Date startDate4,@RequestParam("endDate4") Date endDate4, @RequestParam("mentoSite")String mentoSite,@RequestParam("mentiSite")String mentiSite) {
 
 		Schedule schedule4=scheduleMapper.findById(4);
 		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
@@ -296,6 +302,14 @@ public class AdminController {
 			schedule4.setManageId(admin.getId());
 		}
 		scheduleMapper.update(startDate4, endDate4, schedule4.getId(), schedule4.getManageId());
+		Survey mento = surveyMapper.findOne(1);
+		mento.setSurveySite(mentoSite);
+		mento.setManageId(schedule4.getManageId());
+		surveyMapper.update(mento);
+		Survey menti= surveyMapper.findOne(2);
+		menti.setSurveySite(mentiSite);
+		menti.setManageId(schedule4.getManageId());
+		surveyMapper.update(menti);
 		return "redirect:survey";
 	}
 
