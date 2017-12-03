@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:url var="R" value="/" />
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
@@ -12,18 +15,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<style>
-		.login{
+
+		
+			.search{
+			background-image: url("/SKHUMentoring/img/search_password.png");
 			background-repeat: no-repeat;
 		 	background-position: center;
-		 	background-size: 650px 450px;
-		 	margin-left : auto;
-		 	margin-right : auto;
-		 	margin-top : 50px;
-		 	margin-bottom : 50px;
-		 	padding-top : 10px;
-		 	padding-botton : 10px;
-		 	background-image: url("/SKHUMentoring/img/login.png")
-		 	
+		 	background-size: 600px 430px;
+		 	margin-top: 20px;
+			margin-bottom:10px;
 		}
 	</style>
 </head>
@@ -84,61 +84,38 @@
   <div >
       <img src="${R}img/topimage.jpg" class="img-responsive"/>
   </div>
-  	<div class="login">
-	<h1><center>Login</center></h1>
-	<h5><center>로그인을 하셔야 사용하실 수 있는 서비스 입니다.</center></h5>
-	<hr style="border: solid 1px" align="center" width="400px" />
-	<form method="post" action="login_processing">
-		<div align="center">
-			<input type="text" name="loginId" placeholder="아이디 입력" style="width:350px; padding:3px; margin-bottom:3px" />
+
+  	<div class="search">
+  	<br>
+	<h1><center>인증번호 입력</center></h1>
+	<h5><center>인증번호 확인시 비밀번호 초기화.</center></h5>
+
+	<hr style="border: solid 1px" align="center" width="400" />
+
+	  <form:form method="post" modelAttribute="user">  
+			<div align="center" margin-bottom:10px;>
+			<form:input type="text" path="number" placeholder="인증번호 " style="width:350px; padding:5px; margin-bottom:5px" />
 		</div>
 		<div align="center">
-			<input type="password" name="passwd" placeholder="비밀번호 입력" style="width:350px; padding:3px;margin-bottom:3px" />
+			<form:input type="text" path="number2" placeholder="인증번호 확인" style="width:350px; padding:5px;margin-bottom:5px" />
 		</div>
+	
 		<div align="center">
-			<button type="submit" class="btn btn-primary" style="width: 350px; padding:3px" >
-			<span class="glyphicon glyphicon-ok"></span>로그인</button>
+			<button type="submit" class="btn btn-primary" style="width: 350px; padding:5px" >비밀번호 초기화</button>
 		</div>
-	</form>
-	<hr style="border: solid 1px" align="center" width="400px" />
+
+
+	<hr style="border: solid 1px" align="center" width="400" />
 	<div align="center">
-	    <a href="${R}guest/searchPassword.do">비밀번호 찾기</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="create.do">회원가입</a>
+    	<p>-신규계정( 신/편입생 ) 초기 비밀번호는 a+휴대폰 뒷자리4개  ex> a5906</p>
+        <p>-아이디( 교번/학번 ) , 이메일을 입력한 후 등록되어 있는 정보와 일치하면 <br>초기화된 비밀번호를 포함한 메일 발송</p>
+		<p>-비밀번호는 "a+휴대폰 뒷자리 4개 " 로 초기화 됩니다.
+		<br>
+		<br>
 	</div>
-	<br/>
-	<c:if test="${param.error !=null }">
-	<div class="row">
-		<div class="col-md-4"></div>
-		<div class="col-md-4">
-			<div class="panel panel-warning">
-				<div class="panel-heading">
-		    		<h3 class="panel-title">로그인에 실패하였습니다.</h3>
-		  		</div>
-			  	<div class="panel-body">
-			    	학번, 교직원 번호와 비밀번호를 다시 확인해주시기 바랍니다. 초기 비밀번호는 a+휴대폰 뒷자리 4개입니다.
-			  	</div>
-			</div>
-		</div>
-		<div class="col-md-4"></div>
-	</div>
-	</c:if>
-	<c:if test="${ param.error == null }">
-	<div class="row">
-	<div class="col-md-4"></div>
-		<div class="col-md-4">
-			<div class="panel panel-info">
-				<div class="panel-heading">
-		    		<h3 class="panel-title">로그인 안내</h3>
-		  		</div>
-			  	<div class="panel-body">
-			    	아이디는 여러분의 학번, 교번, 직원번호이고, 초기 비밀 번호는 a+휴대폰 뒷자리 4개입니다.
-			  	</div>
-			</div>
-		</div>
-		<div class="col-md-4"></div>
-	</div>
-	</c:if>
-	<br/>
    </div>
+   
+	</form:form>
 
    <div class="row">
 		 <hr/>
