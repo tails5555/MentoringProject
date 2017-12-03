@@ -164,7 +164,7 @@
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               
-              <li><a href="${R}user/mento_timetable?timetableView=">멘티 시간표 확인</a></li>
+              <li><a href="${R}user/mento_timetable?timetableView=공강">멘티 시간표 확인</a></li>
               <li class="active"><a href="${R}user/report/write">보고서 작성</a></li>
               <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
             </ul>
@@ -201,7 +201,7 @@
         <div class="col-md-3">
           <h1 class="my-4"><strong>멘토링 관리</strong></h1>
           <div class="list-group">
-            <a href="${R}user/mento_timetable?timetableView=" class="list-group-item">멘티 시간표 확인</a>
+            <a href="${R}user/mento_timetable?timetableView=공강" class="list-group-item">멘티 시간표 확인</a>
             <a href="${R}user/report/write" class="list-group-item active">보고서 작성</a>
             <a href="${R}user/board_manage" class="list-group-item">멘토링 과제게시판 관리</a>
           </div>
