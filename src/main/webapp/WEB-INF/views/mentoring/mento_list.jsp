@@ -486,12 +486,24 @@
           <div role="tabpanel">
             <ul class="nav nav-tabs" role="tablist">
             <c:forEach var="mento" items="${mentos}" varStatus="status">
-              <li role="presentation" <c:if test="${status.index eq 0 }">class="active"</c:if>><a href="#mentoring${mento.id}" role="tab" data-toggle="tab">${mento.teamName}</a></li>
+              <li role="presentation" 
+              <c:choose>
+              <c:when test="${ param.id ne null }">
+              <c:if test="${ param.id eq mento.id }">class="active"</c:if>
+              </c:when>
+              <c:otherwise><c:if test="${ status.index eq 0 }">class="active"</c:if></c:otherwise>
+              </c:choose>
+              ><a href="#mentoring${mento.id}" role="tab" data-toggle="tab">${mento.teamName}</a></li>
             </c:forEach>  
             </ul>
             <div class="tab-content mentoProfile">
               <c:forEach var="mento" items="${mentos}" varStatus="status">
-              <div role="tabpanel" class="tab-pane fade in <c:if test="${status.index eq 0 }">active</c:if>" id="mentoring${mento.id}">
+              <div role="tabpanel" class="tab-pane fade in <c:choose>
+              <c:when test="${ param.id ne null }">
+              <c:if test="${ param.id eq mento.id }">active</c:if>
+              </c:when>
+              <c:otherwise><c:if test="${ status.index eq 0 }">active</c:if></c:otherwise>
+              </c:choose>" id="mentoring${mento.id}">
                 <div class="row">
                   <div class="col-md-4 col-sm-6 text-center mb-4">
                     <img class="rounded-circle img-fluid d-block mx-auto" 

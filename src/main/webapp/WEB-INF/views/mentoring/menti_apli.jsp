@@ -224,6 +224,7 @@
     });
     
 	</script>
+	<script src="${R}res/common.js"></script>
  </head>
 
  <body>
@@ -378,7 +379,7 @@
                 <tbody>
                   <c:forEach var="mentoringGroup" items="${mentos}">
                   	<tr <c:if test="${mentoringGroup.count gt 5}">class="danger"</c:if>>
-                  		<td>${mentoringGroup.teamName }</td>
+                  		<td><a href="mento_list?id=${ mentoringGroup.mentoId }">${mentoringGroup.teamName }</a></td>
                   		<td>${mentoringGroup.subject }</td>
                   		<td>${mentoringGroup.name }</td>
                   		<td>${mentoringGroup.count }/5</td>
