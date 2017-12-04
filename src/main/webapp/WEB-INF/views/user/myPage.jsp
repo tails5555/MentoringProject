@@ -364,7 +364,9 @@
         
           </table>
         </div>
+        <a href="${R}user/passwordChange.do"><button class="default" type="button" style=" margin-left: 200px; margin-top :20px"><i class="glyphicon glyphicon-pencil"></i>비밀번호 변경</button></a>
       </div>
+      
       <hr/>
       <!-- Team Members Row -->
       <div class="row">

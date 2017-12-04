@@ -59,6 +59,58 @@ public class UserController {
 
 		return "user/index";
 	}
+	
+	@RequestMapping(value="user/passwordChange", method=RequestMethod.GET)
+    public String passwordChange(Model model) {
+		User user =new User();
+		model.addAttribute("user", user);
+        return "user/passwordChange";
+    }
+
+    @RequestMapping(value="user/passwordChange", method=RequestMethod.POST)
+    public String passwordChange(Model model, User user )  {
+    	
+    	Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber=authentication.getName();
+    	
+		if(studentMapper.findOne(userNumber) !=null) {
+
+			Student student=studentMapper.findOne(userNumber);
+			
+			if(user.getNumber().equals(user.getNumber2())){
+	    		
+	    		User user1 =userMapper.findOne(student.getUserId());
+	    		user1.setPassword(Encryption.encrypt(user.getNumber2(), Encryption.MD5));
+	    		userMapper.updatePassword(user1);
+	    	}
+		}
+
+		else if(professorMapper.findOne(userNumber)!=null) {
+			Professor professor=professorMapper.findOne(userNumber);
+				if(user.getNumber().equals(user.getNumber2())){
+				    		
+				    		User user1 =userMapper.findOne(professor.getUserId());
+				    		user1.setPassword(Encryption.encrypt(user.getNumber2(), Encryption.MD5));
+				    		userMapper.updatePassword(user1);
+				    	}
+		}
+
+		else if(employeeMapper.findOne(userNumber)!=null) {
+			Employee employee=employeeMapper.findOne(userNumber);
+			
+				if(user.getNumber().equals(user.getNumber2())){
+				    		
+				    		User user1 =userMapper.findOne(employee.getUserId());
+				    		user1.setPassword(Encryption.encrypt(user.getNumber2(), Encryption.MD5));
+				    		userMapper.updatePassword(user1);
+				    	}
+		
+		}
+		
+	
+        return "redirect:index";
+    }
+    
 
 	@RequestMapping(value="user/Edit", method=RequestMethod.GET)
 	public String myPage(Model model) {
