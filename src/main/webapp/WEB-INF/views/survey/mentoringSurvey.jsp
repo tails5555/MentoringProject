@@ -197,10 +197,10 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="index"><img src="${R}img/title.png"/></a>
+        <a class="navbar-brand" href="${R}user/index"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="index">
+        <li><a href="${R}user/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">알립니다
@@ -230,7 +230,7 @@
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               
-              <li><a href="${R}user/mento_timetable?timetableView=">멘티 시간표 확인</a></li>
+              <li><a href="${R}user/mento_timetable?timetableView=공강">멘티 시간표 확인</a></li>
               <li><a href="${R}user/report/write">보고서 작성</a></li>
               <li><a href="${R}user/board_manage">멘토링 과제게시판 관리</a></li>
             </ul>
@@ -268,9 +268,9 @@
         <div class="col-md-3">
           <h1 class="my-4"><strong>멘토링</strong></h1>
           <div class="list-group">
-            <a href="#" class="list-group-item ">멘티 신청</a>
+            <a href="${R}user/menti_apli" class="list-group-item ">멘티 신청</a>
             <a href="${R}user/mento_apli" class="list-group-item">멘토 신청</a>
-            <a href="mento_list.html" class="list-group-item">멘토/멘티 목록</a>
+            <a href="${R}user/mento_list" class="list-group-item">멘토/멘티 목록</a>
             <a href="${R}user/groupBBS" class="list-group-item">멘토링 게시판</a>
             <a href="${R}user/mentoringSurvey" class="list-group-item active">설문조사</a>
           </div>

@@ -234,7 +234,7 @@
         <a class="navbar-brand" href="${R}user/index"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="index.html">
+        <li><a href="${R}user/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">알립니다
@@ -271,7 +271,7 @@
 		      </sec:authorize>
               <li ><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
               <li><a href="${R}user/groupBBS">멘토링 게시판</a></li>
-              <li><a href="survey.html">설문조사</a></li>
+              <li><a href="${R}user/mentoringSurvey">설문조사</a></li>
             </ul>
         </li>
         <sec:authorize access="authenticated">
@@ -329,7 +329,7 @@
           <h1 class="my-4"><strong>멘토링</strong></h1>
           <div class="list-group">
             <a href="${R}user/menti_apli" class="list-group-item active">멘티 신청</a>
-            <a href="${R}user/mento_list" class="list-group-item">멘토 신청</a>
+            <a href="${R}user/mento_apli" class="list-group-item">멘토 신청</a>
             <a href="${R}user/mento_list" class="list-group-item">멘토/멘티 목록</a>
             
           </div>

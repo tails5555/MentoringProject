@@ -384,7 +384,7 @@
         <a class="navbar-brand" href="${R}user/index"><img src="${R}img/title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="index">
+        <li><a href="${R}user/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">알립니다
@@ -403,9 +403,9 @@
             <ul class="dropdown-menu">
               <li><a href="${R}user/menti_apli">멘티 신청</a></li>
               <li><a href="${R}user/mento_apli">멘토 신청</a></li>
-              <li ><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
+              <li><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
               <li><a href="${R}user/groupBBS">멘토링 게시판</a></li>
-              <li><a href="survey.html">설문조사</a></li>
+              <li><a href="${R}user/mentoringSurvey">설문조사</a></li>
             </ul>
         </li>
         <sec:authorize access="hasAnyRole('ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
@@ -414,7 +414,7 @@
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
               
-              <li><a href="${R}user/mento_timetable?timetableView=">멘티 시간표 확인</a></li>
+              <li><a href="${R}user/mento_timetable?timetableView=공강">멘티 시간표 확인</a></li>
               <li><a href="${R}user/report/write">보고서 작성</a></li>
               <li><a href="${R}user/board_manage">멘토링 과제게시판 관리</a></li>
             </ul>
@@ -571,8 +571,6 @@
 	      </div>
           
 		
-
-       
           <!-- Introduction Row -->
         </div>
       </div>
