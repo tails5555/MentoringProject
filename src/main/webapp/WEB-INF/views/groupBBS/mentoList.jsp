@@ -215,81 +215,62 @@
           <a class="dropdown-toggle" data-toggle="dropdown">멘토링
           <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <sec:authorize access="not authenticated">
-		        <li><a href="login">멘티 신청</a></li>
-		      </sec:authorize>
-		      <sec:authorize access="authenticated">
-		        <li><a href="${R}user/menti_apli">멘티 신청</a></li>
-		      </sec:authorize>
-              <sec:authorize access="not authenticated">
-		        <li><a href="login">멘토 신청</a></li>
-		      </sec:authorize>
-		      <sec:authorize access="authenticated">
-		        <li><a href="${R}user/mento_apli">멘토 신청</a></li>
-		      </sec:authorize>
-              <li><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
+              <li><a href="${R}user/menti_apli">멘티 신청</a></li>
+              <li><a href="${R}user/mento_apli">멘토 신청</a></li>
+              <li ><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
               <li class="active"><a href="${R}user/groupBBS">멘토링 게시판</a></li>
-              <li><a href="survey.html">설문조사</a></li>
+              <li><a href="${R}user/mentoringSurvey">설문조사</a></li>
             </ul>
         </li>
-        <sec:authorize access="authenticated">
-	        <sec:authorize access="hasAnyRole('ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
-	        <li class="dropdown">
-	          <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
-	          <span class="caret"></span></a>
-	            <ul class="dropdown-menu">
-	              
-	              <li><a href="${R}user/mento_timetable?timetableView=">멘티 시간표 확인</a></li>
-	              <li><a href="${R}user/report/write">보고서 작성</a></li>
-	              <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
-	            </ul>
-	        </li>
-	        </sec:authorize>
+        <sec:authorize access="hasAnyRole('ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
+          <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            
+              <li><a href="${R}user/mento_timetable?timetableView=공강">멘티 시간표 확인</a></li>
+              <li><a href="${R}user/report/write">보고서 작성</a></li>
+              <li><a href="${R}user/board_manage">멘토링 과제게시판 관리</a></li>
+            </ul>
+        </li>
         </sec:authorize>
-        <sec:authorize access="authenticated">
-	        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
-	        <li class="dropdown">
-	          <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
-	          <span class="caret"></span></a>
-	            <ul class="dropdown-menu">
-	              <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
-	              <li><a href="${R}user/report/confirm">보고서 확인</a></li>
-	              <li ><a href="${R}user/survey">설문조사 관리</a></li>
-	              <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
-	              <li><a href="${R}user/list">회원 목록 관리</a></li>
-	              <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
-	            </ul>
-	        </li>
-	        </sec:authorize>
+        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
+        <li class="dropdown ">
+          <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
+          <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
+              <li><a href="${R}user/report/confirm">보고서 확인</a></li>
+              <li><a href="${R}user/survey">설문조사 관리</a></li>
+              <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
+              <li><a href="${R}user/list">회원 목록 관리</a></li>
+              <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
+            </ul>
+        </li>
         </sec:authorize>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-      <sec:authorize access="not authenticated">
-        <li><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
-        <li><a href="${R}guest/create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
-      </sec:authorize>
-      <sec:authorize access="authenticated">
-        <li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
-        <li><a href="${R}user/Edit.do"><i class="glyphicon glyphicon-user"> 내정보</i></a></li>
+      	<li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
+      	<li><a href="${R}user/Edit.do"><i class="glyphicon glyphicon-user"> 내정보</i></a></li>
         <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-remove-sign"> 로그아웃</i></a></li>
-      </sec:authorize>
       </ul>
     </div>
    </nav>
    <div>
-        <img src="${R}img/topimage.jpg" class="img-responsive"/>
-    </div>
+       <img src="${R}img/topimage.jpg" class="img-responsive"/>
+   </div>
+   <div class="container">
 
-    <div class="container">
       <div class="row">
+
         <div class="col-md-3">
           <h1 class="my-4"><strong>멘토링</strong></h1>
           <div class="list-group">
-            <a href="#" class="list-group-item ">멘티 신청</a>
+            <a href="${R}user/menti_apli" class="list-group-item ">멘티 신청</a>
             <a href="${R}user/mento_apli" class="list-group-item">멘토 신청</a>
-            <a href="mento_list.html" class="list-group-item">멘토/멘티 목록</a>
+            <a href="${R}user/mento_list" class="list-group-item">멘토/멘티 목록</a>
             <a href="${R}user/groupBBS" class="list-group-item active">멘토링 게시판</a>
-            <a href="#" class="list-group-item">설문조사</a>
+            <a href="${R}user/mentoringSurvey" class="list-group-item">설문조사</a>
           </div>
         </div>
         <!-- /.col-lg-3 -->
