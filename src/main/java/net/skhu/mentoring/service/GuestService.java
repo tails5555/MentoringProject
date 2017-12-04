@@ -47,7 +47,6 @@ public class GuestService {
 			final String password = mailAdmistrator.getProperty("password");
 			int port= Integer.valueOf(mailAdmistrator.getProperty("port")); //포트번호
 			// 메일 내용
-			System.out.println(host+" "+username+" "+password+" "+port);
 			save=getRamdomPassword(10);
 
 			String recipient = email;
