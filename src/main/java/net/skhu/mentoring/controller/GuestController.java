@@ -86,10 +86,9 @@ public class GuestController {
 			
 			if(student.getEmail().equals(user.getEmail())) {
 	    		System.out.println(s);
-	    		User user1 =userMapper.findOne(student.getUserId());
-	    		user1.setPassword(Encryption.encrypt(s, Encryption.MD5));
 	    	
-
+	    		guestService.sendEamil(student.getEmail());
+	    	
 			}
 			
 			
@@ -105,10 +104,9 @@ public class GuestController {
 			
 			if(professor.getEmail().equals(user.getEmail())) {
 	    		System.out.println(s);
-	    		User user1 =userMapper.findOne(professor.getUserId());
-	    		user1.setPassword(Encryption.encrypt(s, Encryption.MD5));
+	    	
+	    		guestService.sendEamil(professor.getEmail());
 	    		
-			
 			}
 			
 		}
@@ -121,17 +119,15 @@ public class GuestController {
 			
 			if(employee.getEmail().equals(user.getEmail())) {
 	    		System.out.println(s);
-	    		User user1 =userMapper.findOne(employee.getUserId());
-	    		user1.setPassword(Encryption.encrypt(s, Encryption.MD5));
+	    		guestService.sendEamil(employee.getEmail());
 	    		
-			
 			}
 			
 		}
 
 
        
-        return "redirect:index";
+        return "redirect:searchPassword2";
     }
     
     
@@ -139,20 +135,77 @@ public class GuestController {
     public String searchPassword2(Model model) {
 		User user =new User();
 		model.addAttribute("user", user);
+
+		
         return "guest/searchPassword2";
     }
 	
     @RequestMapping(value="guest/searchPassword2", method=RequestMethod.POST)
     public String searchPassword2(Model model, User user ) {
     	
-    	
-    	
-    	System.out.println(user.getEmail());
     	System.out.println(user.getNumber());
+    	System.out.println(user.getNumber2());
     	
+    	if(guestService.check(user.getNumber2())){
     	
+    
+		    	if(studentMapper.findOne(user.getNumber()) !=null) {
+		
+					Student student=studentMapper.findOne(user.getNumber());
+					
+					System.out.println(student.getEmail());
+				
+					System.out.println(student.getPhoneNumber());
+					int i= student.getPhoneNumber().length();
+					System.out.println(i);
+					String s = "a" + student.getPhoneNumber().substring(i-4, i);
+					
+			    		System.out.println(s);
+			 
+			    		User user1 =userMapper.findOne(student.getUserId());
+			    		user1.setPassword(Encryption.encrypt(s, Encryption.MD5));
+			    		
+			    		userMapper.updatePassword(user1);
+					
+			    	
+				}
+		
+				else if(professorMapper.findOne(user.getNumber())!=null) {
+					Professor professor=professorMapper.findOne(user.getNumber());
+					
+		
+					int i= professor.getPhoneNumber().length();
+					System.out.println(i);
+					String s = "a" + professor.getPhoneNumber().substring(i-4, i);
+					
+				
+			    		System.out.println(s);
+			    	
+			    		User user1 =userMapper.findOne(professor.getUserId());
+			    		user1.setPassword(Encryption.encrypt(s, Encryption.MD5));
+			    		userMapper.updatePassword(user1);
+					
+				}
+		
+				else if(employeeMapper.findOne(user.getNumber())!=null) {
+					Employee employee=employeeMapper.findOne(user.getNumber());
+					
+				
+					int i= employee.getPhoneNumber().length();
+					System.out.println(i);
+					String s = "a" + employee.getPhoneNumber().substring(i-4, i);
+					
+			    		System.out.println(s);
+			    		
+			    		User user1 =userMapper.findOne(employee.getUserId());
+			    		user1.setPassword(Encryption.encrypt(s, Encryption.MD5));
+			    		userMapper.updatePassword(user1);
+					
+				}
+    	}
        
         return "redirect:index";
+        
     }
 
 }

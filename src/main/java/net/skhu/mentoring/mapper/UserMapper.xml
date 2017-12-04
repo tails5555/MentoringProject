@@ -204,6 +204,12 @@
     WHERE id = #{id}
   </update>
   
+    <update id="updatePassword">
+    UPDATE User SET 
+      password = #{password}
+    WHERE id = #{id}
+  </update>
+  
   
   
   <delete id="delete">

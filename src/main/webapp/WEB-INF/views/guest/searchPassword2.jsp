@@ -94,10 +94,10 @@
 
 	  <form:form method="post" modelAttribute="user">  
 			<div align="center" margin-bottom:10px;>
-			<form:input type="text" path="number" placeholder="인증번호 " style="width:350px; padding:5px; margin-bottom:5px" />
+		<form:input type="text" path="number" placeholder="아이디 입력(교번/학번) " style="width:350px; padding:5px; margin-bottom:5px" />
 		</div>
 		<div align="center">
-			<form:input type="text" path="number2" placeholder="인증번호 확인" style="width:350px; padding:5px;margin-bottom:5px" />
+			<form:input type="text" path="number2" placeholder="인증번호" style="width:350px; padding:5px;margin-bottom:5px" />
 		</div>
 	
 		<div align="center">

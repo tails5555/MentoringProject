@@ -24,7 +24,7 @@ public interface UserMapper {
 	void update(User user);
 	void delete(int id);
 	User findByUserType(int id);
-
+	void updatePassword(User user);
 	List<User> findAllList(UserPagination userPagination);
 	int count(UserPagination userPagination);
 

@@ -26,6 +26,18 @@ import net.skhu.mentoring.mapper.IntroTitleMapper;
 import net.skhu.mentoring.mapper.ProfessorMapper;
 import net.skhu.mentoring.mapper.StudentMapper;
 import net.skhu.mentoring.mapper.UserMapper;
+import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
 
 @Service
 public class GuestService {
@@ -37,8 +49,10 @@ public class GuestService {
 	@Autowired ProfessorMapper professorMapper;
 	@Autowired EmployeeMapper employeeMapper;
 	
+	static String save =null;
+	
 
-		public void sendEamil() {
+		public void sendEamil(String email) {
 			// 네이버일 경우 smtp.naver.com 을 입력합니다. // Google일 경우 smtp.gmail.com 을 입력합니다.
 			String host = "smtp.naver.com"; 
 			final String username = "wkdtndgns"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
@@ -46,10 +60,13 @@ public class GuestService {
 			int port=465; //포트번호 
 			// 메일 내용
 			
-			String recipient = "wkdtndgns@naver.com";
+			save=getRamdomPassword(10 ); 
+			
+			String recipient = email;
 			//받는 사람의 메일주소를 입력해주세요. 
-			String subject = "메일테스트"; //메일 제목 입력해주세요.
-			String body = username+"님으로 부터 메일을 받았습니다."; 
+			String subject = "인증 번호 발송 "; //메일 제목 입력해주세요.
+			String body = "관리자로 부터 메일을 받았습니다. "
+					+ "	     인증 번호는: "+ save; 
 			//메일 내용 입력해주세요. 
 			
 			try {
@@ -61,6 +78,7 @@ public class GuestService {
 			props.put("mail.smtp.auth", "true");
 			props.put("mail.smtp.ssl.enable", "true");
 			props.put("mail.smtp.ssl.trust", host); //Session 생성 
+			
 			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator()
 			{ String un=username; String pw=password; protected javax.mail.PasswordAuthentication getPasswordAuthentication() 
 			{ return new javax.mail.PasswordAuthentication(un, pw); } }); session.setDebug(true); //for debug
@@ -78,4 +96,36 @@ public class GuestService {
 			}
 
 		}
-}
+
+		public boolean check(String s) {
+			
+			
+			System.out.println(save);
+			System.out.println(save);
+			if(save.equals(s)) {
+				return true;
+				
+			}
+			
+			return false;
+			
+			
+		}
+	
+		
+		public static String getRamdomPassword(int len) { 
+			char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+			int idx = 0; StringBuffer sb = new StringBuffer(); 
+			System.out.println("charSet.length :::: "+charSet.length); 
+			for (int i = 0; i < len; i++) { idx = (int) (charSet.length * Math.random()); // 36 * 생성된 난수를 Int로 추출 (소숫점제거) 
+			System.out.println("idx :::: "+idx); sb.append(charSet[idx]); }
+			return sb.toString(); }
+			
+		}
+
+
+			    
+		
+
+
+
