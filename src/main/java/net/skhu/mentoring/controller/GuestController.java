@@ -80,15 +80,15 @@ public class GuestController {
 			System.out.println(student.getEmail());
 			System.out.println(user.getEmail());
 			System.out.println(student.getPhoneNumber());
-			
-			String s = "a" + student.getPhoneNumber().substring(7, 11);
+			int i= student.getPhoneNumber().length();
+			System.out.println(i);
+			String s = "a" + student.getPhoneNumber().substring(i-4, i);
 			
 			if(student.getEmail().equals(user.getEmail())) {
 	    		System.out.println(s);
 	    		User user1 =userMapper.findOne(student.getUserId());
 	    		user1.setPassword(Encryption.encrypt(s, Encryption.MD5));
-	    		guestService.sendEamil();
-	    		
+	    	
 
 			}
 			
