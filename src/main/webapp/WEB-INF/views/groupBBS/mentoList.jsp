@@ -318,7 +318,7 @@
 	              <h3>${ mento.mentoName }
 	                <small>${ mento.departmentName }</small>
 	              </h3>
-	              <p><b>${ mento.teamName }</b></p>
+	              <p><b>${ mento.teamName } <c:if test="${ mento.opened eq false }"><i class="glyphicon glyphicon-lock"></i> </c:if></b></p>
 	              <p>${ mento.advertiseContext }</p>
 	            </div>
             <c:if test="${status.index % 3 eq 2 || status.index+1 eq mentos.size() }"></div><br/></c:if>
