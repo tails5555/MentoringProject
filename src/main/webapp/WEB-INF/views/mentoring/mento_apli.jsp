@@ -217,7 +217,7 @@
         <a class="navbar-brand" href="${R}user/index"><img src="${R}img\title.png"/></a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="index">
+        <li><a href="${R}user/index">
           <i class="glyphicon glyphicon-home"> 홈</i></a></li>
         <li class="dropdown ">
           <a class="dropdown-toggle" data-toggle="dropdown">알립니다
