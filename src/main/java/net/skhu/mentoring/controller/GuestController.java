@@ -1,4 +1,6 @@
 package net.skhu.mentoring.controller;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,7 +62,7 @@ public class GuestController {
     }
 
     @RequestMapping(value="guest/searchPassword", method=RequestMethod.POST)
-    public String searchPassword(Model model, User user )  {
+    public String searchPassword(Model model, User user ) throws IOException  {
 
     	System.out.println(user.getEmail());
     	System.out.println(user.getNumber());

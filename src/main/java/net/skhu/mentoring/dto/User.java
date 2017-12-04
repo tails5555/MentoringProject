@@ -4,6 +4,7 @@ import lombok.Data;
 public class User {
 	int id;
 	String userType;
+	String originPassword;
 	String password;
 	String password2;
 	String userName;

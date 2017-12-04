@@ -324,7 +324,7 @@
         <div class="col-md-9">
 
       <!-- Introduction Row -->
-      <h1 class="my-4"><strong>My Page</strong></h1>
+      <h1 class="my-4"><strong>My Page</strong> - 회원 정보 확인</h1>
 
       <hr/>
       <div class="row">
@@ -333,7 +333,7 @@
           <h3>${ my.userName }
             <small>${ my.departmentName }</small>
           </h3>
-          <c:if test="${ my.profileId ne -1 }"><a href="${R}user/reset?id=${ my.profileId }" data-confirm-profile-delete><button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-eye-close"></i> 프로필 초기화</button></a></c:if>
+          <c:if test="${ my.profileId ne -1 }"><a href="${R}user/reset?id=${ my.profileId }" data-confirm-profile-delete><button class="btn btn-danger" type="button" style="width : 200px;"><i class="glyphicon glyphicon-eye-close"></i> 프로필 초기화</button></a></c:if>
         </div>
         <div class="col-md-8">
           <table class="table-bordered" width="100%">
@@ -364,7 +364,7 @@
         
           </table>
         </div>
-        <a href="${R}user/passwordChange.do"><button class="default" type="button" style=" margin-left: 200px; margin-top :20px"><i class="glyphicon glyphicon-pencil"></i>비밀번호 변경</button></a>
+        <center><a href="${R}user/passwordChange.do?correct=true&newConfirm=true"><button class="btn btn-info" type="button" style="width : 520px; margin-top :20px"><i class="glyphicon glyphicon-lock"></i> 비밀번호 변경</button></a></center>
       </div>
       
       <hr/>
@@ -460,17 +460,6 @@
               </div>
             </div>
 			</c:if>
-
-
-
-
-                    <div class="control-group">
-                      <div class="form-group floating-label-form-group controls" >
-                      <label style="vertical-align: top;">인사말:  </label>
-                        <textarea rows="2" cols="100"  class="form-control" id="message"></textarea>
-                        <p class="help-block text-danger"></p>
-                      </div>
-                    </div>
 
 
   <sec:authorize access="hasAnyRole('ROLE_MENTI', 'ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">

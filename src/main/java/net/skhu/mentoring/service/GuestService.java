@@ -1,4 +1,6 @@
 package net.skhu.mentoring.service;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -34,15 +36,19 @@ public class GuestService {
 	static String save =null;
 
 
-		public void sendEamil(String email) {
+		public void sendEamil(String email) throws IOException {
 			// 네이버일 경우 smtp.naver.com 을 입력합니다. // Google일 경우 smtp.gmail.com 을 입력합니다.
-			String host = "smtp.naver.com";
-			final String username = "wkdtndgns"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
-			final String password = "wkdtnd23"; //네이버 이메일 비밀번호를 입력해주세요.
-			int port=465; //포트번호
+			Properties mailAdmistrator=new Properties();
+			String path = GuestService.class.getResource("").getPath();
+			FileInputStream fis=new FileInputStream(path+"mailAdmistrator.properties");
+			mailAdmistrator.load(fis);
+			String host = mailAdmistrator.getProperty("host");
+			final String username = mailAdmistrator.getProperty("username");
+			final String password = mailAdmistrator.getProperty("password");
+			int port= Integer.valueOf(mailAdmistrator.getProperty("port")); //포트번호
 			// 메일 내용
-
-			save=getRamdomPassword(10 );
+			System.out.println(host+" "+username+" "+password+" "+port);
+			save=getRamdomPassword(10);
 
 			String recipient = email;
 			//받는 사람의 메일주소를 입력해주세요.
@@ -76,6 +82,8 @@ public class GuestService {
 
 			catch(MessagingException e) {
 				e.printStackTrace();
+			}finally {
+				fis.close();
 			}
 
 		}

@@ -350,18 +350,6 @@
 
             <br/>
 
-
-
-
-
-                    <div class="control-group">
-                      <div class="form-group floating-label-form-group controls" >
-                      <label style="vertical-align: top;">인사말:  </label>
-                        <textarea rows="2" cols="100"  class="form-control" placeholder="소개" id="message"></textarea>
-                        <p class="help-block text-danger"></p>
-                      </div>
-                    </div>
-
        <hr>
 
 

@@ -59,58 +59,47 @@ public class UserController {
 
 		return "user/index";
 	}
-	
+
 	@RequestMapping(value="user/passwordChange", method=RequestMethod.GET)
-    public String passwordChange(Model model) {
-		User user =new User();
+    public String passwordChange(Model model, @RequestParam("correct") boolean correct, @RequestParam("newConfirm") boolean newConfirm) {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		String userNumber=authentication.getName();
+		int userId=-1;
+		if(studentMapper.findOne(userNumber) !=null) {
+			Student student=studentMapper.findOne(userNumber);
+			userId=student.getUserId();
+		}
+
+		else if(professorMapper.findOne(userNumber)!=null) {
+			Professor professor=professorMapper.findOne(userNumber);
+			userId=professor.getUserId();
+		}
+
+		else if(employeeMapper.findOne(userNumber)!=null) {
+			Employee employee=employeeMapper.findOne(userNumber);
+			userId=employee.getUserId();
+		}
+		User user = userMapper.findOne(userId);
 		model.addAttribute("user", user);
         return "user/passwordChange";
     }
 
     @RequestMapping(value="user/passwordChange", method=RequestMethod.POST)
     public String passwordChange(Model model, User user )  {
-    	
-    	Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
-		String userNumber=authentication.getName();
-    	
-		if(studentMapper.findOne(userNumber) !=null) {
-
-			Student student=studentMapper.findOne(userNumber);
-			
-			if(user.getNumber().equals(user.getNumber2())){
-	    		
-	    		User user1 =userMapper.findOne(student.getUserId());
-	    		user1.setPassword(Encryption.encrypt(user.getNumber2(), Encryption.MD5));
-	    		userMapper.updatePassword(user1);
-	    	}
+		if(!user.getPassword().equals(Encryption.encrypt(user.getOriginPassword(), Encryption.MD5))) {
+			return "redirect:passwordChange?correct=false&newConfirm=true";
+		}else {
+			String number1=Encryption.encrypt(user.getNumber(), Encryption.MD5);
+			String number2=Encryption.encrypt(user.getNumber2(), Encryption.MD5);
+			if(number1.equals(number2)) {
+				user.setPassword(Encryption.encrypt(user.getNumber(), Encryption.MD5));
+				userMapper.updatePassword(user);
+				return "redirect:index";
+			}
 		}
-
-		else if(professorMapper.findOne(userNumber)!=null) {
-			Professor professor=professorMapper.findOne(userNumber);
-				if(user.getNumber().equals(user.getNumber2())){
-				    		
-				    		User user1 =userMapper.findOne(professor.getUserId());
-				    		user1.setPassword(Encryption.encrypt(user.getNumber2(), Encryption.MD5));
-				    		userMapper.updatePassword(user1);
-				    	}
-		}
-
-		else if(employeeMapper.findOne(userNumber)!=null) {
-			Employee employee=employeeMapper.findOne(userNumber);
-			
-				if(user.getNumber().equals(user.getNumber2())){
-				    		
-				    		User user1 =userMapper.findOne(employee.getUserId());
-				    		user1.setPassword(Encryption.encrypt(user.getNumber2(), Encryption.MD5));
-				    		userMapper.updatePassword(user1);
-				    	}
-		
-		}
-		
-	
-        return "redirect:index";
+		return "redirect:passwordChange?correct=true&newConfirm=false";
     }
-    
+
 
 	@RequestMapping(value="user/Edit", method=RequestMethod.GET)
 	public String myPage(Model model) {

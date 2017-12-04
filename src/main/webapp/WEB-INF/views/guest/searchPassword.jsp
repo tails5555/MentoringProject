@@ -89,9 +89,10 @@
 			<form:input type="email" path="email" placeholder="이메일 입력" style="width:350px; padding:5px;margin-bottom:5px" />
 		</div>
 		<div align="center">
-			<button type="submit" class="btn btn-primary" style="width: 350px; padding:5px" >이메일 보내기</button>
+			<button type="submit" class="btn btn-info" style="width: 171px; padding:5px; margin-right : 5px;" ><i class="glyphicon glyphicon-envelope"></i> 이메일 보내기</button>
+			<a href="${R}guest/login"><button type="button" class="btn btn-info" style="width: 172px; padding:5px;" ><i class="glyphicon glyphicon-flag"></i> 로그인 화면으로</button></a>
 		</div>
-
+			
 
 	<hr style="border: solid 1px" align="center" width="400" />
 	<div align="center">
