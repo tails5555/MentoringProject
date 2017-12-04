@@ -26,6 +26,11 @@
 			margin-bottom:10px;
 		}
 	</style>
+	<c:if test="${ param.correct eq false }">
+	<script>
+		alert('인증번호가 올바르지 않습니다. 다시 입력해주세요.');
+	</script>
+	</c:if>
 </head>
 <body>
   <nav class="navbar navbar-default navbar-fixed-top">
@@ -68,7 +73,7 @@
   <div >
       <img src="${R}img/topimage.jpg" class="img-responsive"/>
   </div>
-
+	<form:form method="post" modelAttribute="user">
   	<div class="search">
   	<br>
 	<h1><center>인증번호 입력</center></h1>
@@ -76,12 +81,12 @@
 
 	<hr style="border: solid 1px" align="center" width="400" />
 
-	  <form:form method="post" modelAttribute="user">  
+	    
 			<div align="center" margin-bottom:10px;>
 		<form:input type="text" path="number" placeholder="아이디 입력(교번/학번) " style="width:350px; padding:5px; margin-bottom:5px" />
 		</div>
 		<div align="center">
-			<form:input type="text" path="number2" placeholder="인증번호" style="width:350px; padding:5px;margin-bottom:5px" />
+			<form:input type="password" path="number2" placeholder="인증번호" style="width:350px; padding:5px;margin-bottom:5px" />
 		</div>
 	
 		<div align="center">

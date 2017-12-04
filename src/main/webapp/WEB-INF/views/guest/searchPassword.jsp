@@ -26,6 +26,11 @@
 			margin-bottom:10px;
 		}
 	</style>
+	<c:if test="${ param.correct eq false }">
+	<script>
+		alert('학번(교번, 직원 번호)와 이메일에 대한 정보가 없습니다. 다시 입력해주세요.');
+	</script>
+	</c:if>
 </head>
 <body>
   <nav class="navbar navbar-default navbar-fixed-top">

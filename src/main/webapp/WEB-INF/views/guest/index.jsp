@@ -49,6 +49,11 @@
    <script type="text/javascript" src="${R}lib/modernizr.custom.js"></script>
  	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
  	<script type="text/javascript" src="${R}src/jquery.responsiveGallery.js"></script>
+ 	<c:if test="${ param.passwordChange ne null }">
+	<script>
+		alert('비밀번호가 변경되었습니다. 다시 로그인 해주세요.');
+	</script>
+	</c:if>
  	<script type="text/javascript">
  		$(function () {
  			$('.responsiveGallery-wrapper').responsiveGallery({
