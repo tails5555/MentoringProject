@@ -399,7 +399,7 @@
               <li><a href="${R}user/mento_apli">멘토 신청</a></li>
               <li ><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
               <li><a href="${R}user/groupBBS">멘토링 게시판</a></li>
-              <li><a href="survey.html">설문조사</a></li>
+              <li><a href="${R}user/mentoringSurvey">설문조사</a></li>
             </ul>
         </li>
         <sec:authorize access="hasAnyRole('ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">

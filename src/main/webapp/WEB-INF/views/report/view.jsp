@@ -155,7 +155,7 @@
               <li><a href="${R}user/mento_apli">멘토 신청</a></li>
               <li ><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
               <li><a href="${R}user/groupBBS">멘토링 게시판</a></li>
-              <li><a href="survey.html">설문조사</a></li>
+              <li><a href="${R}user/mentoringSurvey">설문조사</a></li>
             </ul>
         </li>
         <sec:authorize access="hasAnyRole('ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
@@ -166,7 +166,7 @@
               
               <li><a href="${R}user/mento_timetable?timetableView=공강">멘티 시간표 확인</a></li>
               <li class="active"><a href="${R}user/report/write">보고서 작성</a></li>
-              <li><a href="board_manage.html">멘토링 과제게시판 관리</a></li>
+              <li><a href="${R}user/board_manage">멘토링 과제게시판 관리</a></li>
             </ul>
         </li>
         </sec:authorize>

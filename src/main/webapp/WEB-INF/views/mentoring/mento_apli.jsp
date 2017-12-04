@@ -254,7 +254,7 @@
 		      </sec:authorize>
               <li ><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
               <li><a href="${R}user/groupBBS">멘토링 게시판</a></li>
-              <li><a href="survey.html">설문조사</a></li>
+              <li><a href="${R}user/mentoringSurvey">설문조사</a></li>
             </ul>
         </li>
         <sec:authorize access="authenticated">
@@ -279,7 +279,7 @@
 	            <ul class="dropdown-menu">
 	              <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
 	              <li><a href="${R}user/report/confirm">보고서 확인</a></li>
-	              <li ><a href="${R}user/survey">설문조사 관리</a></li>
+	              <li><a href="${R}user/survey">설문조사 관리</a></li>
 	              <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
 	              <li><a href="${R}user/list">회원 목록 관리</a></li>
 	              <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
