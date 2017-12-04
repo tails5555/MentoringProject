@@ -571,8 +571,6 @@
 	      </div>
           
 		
-
-       
           <!-- Introduction Row -->
         </div>
       </div>
