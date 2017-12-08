@@ -265,7 +265,7 @@
   </select>
   
   <select id="count" resultType="int">
-    SELECT COUNT(u.id)     
+    SELECT COUNT(DISTINCT u.id)     
   FROM User u LEFT JOIN professor p ON u.id = p.userId LEFT JOIN deptandprof d ON p.profId =d.profId LEFT JOIN department dp ON dp.deptId=d.deptId
   LEFT JOIN student s ON u.id = s.userId LEFT JOIN employee e ON u.id = e.userId LEFT JOIN department de ON de.deptEmployeeId=e.empId LEFT JOIN department ds ON ds.deptId=s.departmentId 
   
