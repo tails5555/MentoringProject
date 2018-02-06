@@ -50,220 +50,38 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="${R}res/common.js"></script>
   <link rel="stylesheet" href="${R}res/common.css">
-
-	 <style>
-
-			
-			.navbar {
-			  background-color: #ffffff;
-			}
-			.navbar .navbar-brand {
-			  color: #9aadb2;
-			}
-			.navbar .navbar-brand:hover,
-			.navbar .navbar-brand:focus {
-			  color: #090909;
-			}
-			.navbar .navbar-text {
-			  color: #9aadb2;
-			}
-			.navbar .navbar-nav .nav-link {
-			  color: #9aadb2;
-			  border-radius: .25rem;
-			  margin: 0 0.25em;
-			}
-			.navbar .navbar-nav .nav-link:not(.disabled):hover,
-			.navbar .navbar-nav .nav-link:not(.disabled):focus {
-			  color: #090909;
-			}
-			.navbar .navbar-nav .nav-item.active .nav-link,
-			.navbar .navbar-nav .nav-item.active .nav-link:hover,
-			.navbar .navbar-nav .nav-item.active .nav-link:focus,
-			.navbar .navbar-nav .nav-item.show .nav-link,
-			.navbar .navbar-nav .nav-item.show .nav-link:hover,
-			.navbar .navbar-nav .nav-item.show .nav-link:focus {
-			  color: #090909;
-			  background-color: #a2a39f;
-			}
-			.navbar .navbar-toggle {
-			  border-color: #a2a39f;
-			}
-			.navbar .navbar-toggle:hover,
-			.navbar .navbar-toggle:focus {
-			  background-color: #a2a39f;
-			}
-			.navbar .navbar-toggle .navbar-toggler-icon {
-			  color: #9aadb2;
-			}
-			.navbar .navbar-collapse,
-			.navbar .navbar-form {
-			  border-color: #9aadb2;
-			}
-			.navbar .navbar-link {
-			  color: #9aadb2;
-			}
-			.navbar .navbar-link:hover {
-			  color: #090909;
-			}
-			
-			@media (max-width: 575px) {
-			  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
-			    color: #9aadb2;
-			  }
-			  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-			  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-			    color: #090909;
-			  }
-			  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
-			    color: #090909;
-			    background-color: #a2a39f;
-			  }
-			}
-			
-			@media (max-width: 767px) {
-			  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
-			    color: #9aadb2;
-			  }
-			  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-			  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-			    color: #090909;
-			  }
-			  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
-			    color: #090909;
-			    background-color: #a2a39f;
-			  }
-			}
-			
-			@media (max-width: 991px) {
-			  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
-			    color: #9aadb2;
-			  }
-			  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-			  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-			    color: #090909;
-			  }
-			  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
-			    color: #090909;
-			    background-color: #a2a39f;
-			  }
-			}
-			
-			@media (max-width: 1199px) {
-			  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
-			    color: #9aadb2;
-			  }
-			  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-			  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-			    color: #090909;
-			  }
-			  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item.active {
-			    color: #090909;
-			    background-color: #a2a39f;
-			  }
-			}
-			
-			.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
-			  color: #9aadb2;
-			}
-			.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-			.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-			  color: #090909;
-			}
-			.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item.active {
-			  color: #090909;
-			  background-color: #a2a39f;
-			}
-			
-			
-			
-			      div.row{
-			        margin-left : auto;
-			        margin-right : auto;
-			      }
-			
-			
-			        .footer { border: 1px padding: 30px 10px; }
-			      	.footer{ position: absolute; bottom: 0; text-align: center; width: 100% }
-			        .footer img { margin-right: 20px;  }
-			        .footer div:nth-child(2) { font: normal 9pt 굴림; color: #666;  }
-			        .footer div:nth-child(3) { font: normal 9pt arial; color: #aaa; }
-			
-			
-			        .container { margin-top: 30px; margin-left: 300px }
-			        .application{ margin-top: 20px; }
-			
-			        label{
-			          margin-right: 10px
-			
-			        }
-			        .control-group{
-			        		margin-top: 30px;
-			        }
+ <style>    
+       .footer { border: 1px padding: 30px 10px; }
+     	.footer{ position: absolute; bottom: 0; text-align: center; width: 100% }
+       .footer img { margin-right: 20px;  }
+       .footer div:nth-child(2) { font: normal 9pt 굴림; color: #666;  }
+       .footer div:nth-child(3) { font: normal 9pt arial; color: #aaa; }
 
 
-   </style>
-   
+       .container { margin-top: 30px; }
+       .application{ margin-top: 20px; }
+
+       label{
+         margin-right: 10px
+
+       }
+       .control-group{
+       		margin-top: 30px;
+       }
+  </style>
 </head>
 
  <body>
-
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="index.html"><img src="${R}img\title.png"/></a>
-      </div>
-       <ul class="nav navbar-nav">
-        <li><a href="${R}">
-          <i class="glyphicon glyphicon-home"> 홈</i></a></li>
-        <li class="dropdown ">
-          <a class="dropdown-toggle" data-toggle="dropdown">알립니다
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="${R}guest/notice/list?bd=1">공지사항</a></li>
-              <li><a href="${R}guest/login">건의사항</a></li>
-            </ul>
-        </li>
-        <li>
-          <a href="${R}guest/intro">멘토링 사업소개</a>
-        </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown">멘토링
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="${R}guest/login">멘티 신청</a></li>
-              <li><a href="${R}guest/login">멘토 신청</a></li>
-              <li><a href="${R}guest/login">멘토/멘티 목록</a></li>
-              <li><a href="${R}guest/login">멘토링 게시판</a></li>
-              <li><a href="${R}guest/login">설문조사</a></li>
-            </ul>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
-        <li class="active"><a href="${R}guest/create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
-      </ul>
-    </div>
-   </nav>
-  <div >
+     <%@ include file="/WEB-INF/views/include/menu_for_guest.jsp" %>
+  <div>
         <img src="${R}img/topimage.jpg" class="img-responsive"/>
   </div>
-<div class="container">
-
-
-<form:form method="post" modelAttribute="user" class="form-inline" id="my-form" enctype="multipart/form-data">
-        <!-- /.col-lg-3 -->
-
-        <div class="col-md-9">
-
+  <div class="container">
+    <form:form method="post" modelAttribute="user" class="form-inline" id="my-form" enctype="multipart/form-data">
       <!-- Introduction Row -->
       <h1 class="my-4"><strong>회원 가입</strong></h1>
 
       <hr/>
-
-
-      <!-- Team Members Row -->
-      <div class="row">
-        <div class="col-md-12">
 
       <div class="application">
 
@@ -364,27 +182,8 @@
       </div>
 
         </div>
+        </form:form>
       </div>
-   </form:form>
-  
-    <!-- /.container -->
-    </div>
-
-
-  </div>
-
-</div>
-
-   <div class="row">
-		 <hr/>
-    <div class="col-md-3" align="center">
-      <img src="${R}img/skhuniv.jpg"/>
-    </div>
-
-    <div class="col-md-9">
-      <p>08359 서울시 구로구 연동로 320 / 지하철 1, 7호선 온수역(성공회대입구역)</p>
-      <p><i class="glyphicon glyphicon-earphone"></i> TEL : 02-2610-4114 &nbsp&nbsp|&nbsp&nbsp <i class="glyphicon glyphicon-print"></i> FAX : 02-2683-8858</p>
-    </div>
-  </div>
+   <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 </body>
 </html>

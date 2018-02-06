@@ -364,70 +364,7 @@
 
  <body>
 
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="index"><img src="${R}img/title.png"/></a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li><a href="index">
-          <i class="glyphicon glyphicon-home"> 홈</i></a></li>
-        <li class="dropdown ">
-          <a class="dropdown-toggle" data-toggle="dropdown">알립니다
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li ><a href="${R}user/notice/list?bd=1">공지사항</a></li>
-              <li><a href="${R}user/notice/list?bd=2">참여마당</a></li>
-            </ul>
-        </li>
-        <li >
-          <a href="${R}user/intro">멘토링 사업소개</a>
-        </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown">멘토링
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="${R}user/menti_apli">멘티 신청</a></li>
-              <li><a href="${R}user/mento_apli">멘토 신청</a></li>
-              <li ><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
-              <li><a href="${R}user/groupBBS">멘토링 게시판</a></li>
-              <li><a href="${R}user/mentoringSurvey">설문조사</a></li>
-            </ul>
-        </li>
-        <sec:authorize access="hasAnyRole('ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              
-              <li><a href="${R}user/mento_timetable?timetableView=공강">멘티 시간표 확인</a></li>
-              <li><a href="${R}user/report/write">보고서 작성</a></li>
-              <li><a href="${R}user/board_manage">멘토링 과제게시판 관리</a></li>
-            </ul>
-        </li>
-        </sec:authorize>
-        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
-        <li class="dropdown active">
-          <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
-              <li><a href="${R}user/report/confirm">보고서 확인</a></li>
-              <li><a href="${R}user/survey">설문조사 관리</a></li>
-              <li class="active"><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
-              <li><a href="${R}user/list">회원 목록 관리</a></li>
-              <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
-            </ul>
-        </li>
-        </sec:authorize>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-      	<li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
-      	<li><a href="${R}user/Edit.do"><i class="glyphicon glyphicon-user"> 내정보</i></a></li>
-        <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-remove-sign"> 로그아웃</i></a></li>
-      </ul>
-    </div>
-   </nav>
+	<%@ include file="/WEB-INF/views/include/menu_for_user.jsp" %>
    
    <div>
       <img src="${R}img/topimage.jpg" class="img-responsive"/>
@@ -564,15 +501,6 @@
     </div>
   </div>
     <!-- /.container -->
-    <hr/>
-    <div class="row">
-      <div class="col-md-3" align="center">
-        <img src="${R}img/skhuniv.jpg"/>
-      </div>
-      <div class="col-md-9">
-        <p>08359 서울시 구로구 연동로 320 / 지하철 1, 7호선 온수역(성공회대입구역)</p>
-        <p><i class="glyphicon glyphicon-earphone"></i> TEL : 02-2610-4114 &nbsp&nbsp|&nbsp&nbsp <i class="glyphicon glyphicon-print"></i> FAX : 02-2683-8858</p>
-      </div>
-    </div>
+    <%@ include file="/WEB-INF/views/include/footer.jsp" %>
  </body>
 </html>

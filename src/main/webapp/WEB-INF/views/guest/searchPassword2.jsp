@@ -33,43 +33,7 @@
 	</c:if>
 </head>
 <body>
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="${R}"><img src="${R}img/title.png"/></a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li><a href="${R}">
-          <i class="glyphicon glyphicon-home"> 홈</i></a></li>
-        <li class="dropdown ">
-          <a class="dropdown-toggle" data-toggle="dropdown">알립니다
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="${R}guest/notice/list?bd=1">공지사항</a></li>
-              <li><a href="${R}guest/login">건의사항</a></li>
-            </ul>
-        </li>
-        <li>
-          <a href="${R}guest/intro">멘토링 사업소개</a>
-        </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown">멘토링
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li ><a href="${R}guest/login">멘티 신청</a></li>
-              <li><a href="${R}guest/login">멘토 신청</a></li>
-              <li ><a href="${R}guest/login">멘토/멘티 목록</a></li>
-              <li><a href="${R}guest/login">멘토링 게시판</a></li>
-              <li><a href="${R}guest/login">설문조사</a></li>
-            </ul>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
-        <li><a href="${R}guest/create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
-      </ul>
-    </div>
-   </nav>
+  <%@ include file="/WEB-INF/views/include/menu_for_guest.jsp" %>
   <div >
       <img src="${R}img/topimage.jpg" class="img-responsive"/>
   </div>
@@ -106,16 +70,6 @@
    
 	</form:form>
 
-   <div class="row">
-		 <hr/>
-    <div class="col-md-3" align="center">
-      <img src="${R}img/skhuniv.jpg"/>
-    </div>
-
-    <div class="col-md-9">
-      <p>08359 서울시 구로구 연동로 320 / 지하철 1, 7호선 온수역(성공회대입구역)</p>
-      <p><i class="glyphicon glyphicon-earphone"></i> TEL : 02-2610-4114 &nbsp&nbsp|&nbsp&nbsp <i class="glyphicon glyphicon-print"></i> FAX : 02-2683-8858</p>
-    </div>
-  </div>
+   <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 </body>
 </html>

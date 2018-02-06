@@ -14,125 +14,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-      .navbar {
-        background-color: #ffffff;
-      }
-      .navbar .navbar-brand {
-        color: #9aadb2;
-      }
-      .navbar .navbar-brand:hover,
-      .navbar .navbar-brand:focus {
-        color: #090909;
-      }
-      .navbar .navbar-text {
-        color: #9aadb2;
-      }
-      .navbar .navbar-nav .nav-link {
-        color: #9aadb2;
-        border-radius: .25rem;
-        margin: 0 0.25em;
-      }
-      .navbar .navbar-nav .nav-link:not(.disabled):hover,
-      .navbar .navbar-nav .nav-link:not(.disabled):focus {
-        color: #090909;
-      }
-      .navbar .navbar-nav .nav-item.active .nav-link,
-      .navbar .navbar-nav .nav-item.active .nav-link:hover,
-      .navbar .navbar-nav .nav-item.active .nav-link:focus,
-      .navbar .navbar-nav .nav-item.show .nav-link,
-      .navbar .navbar-nav .nav-item.show .nav-link:hover,
-      .navbar .navbar-nav .nav-item.show .nav-link:focus {
-        color: #090909;
-        background-color: #a2a39f;
-      }
-      .navbar .navbar-toggle {
-        border-color: #a2a39f;
-      }
-      .navbar .navbar-toggle:hover,
-      .navbar .navbar-toggle:focus {
-        background-color: #a2a39f;
-      }
-      .navbar .navbar-toggle .navbar-toggler-icon {
-        color: #9aadb2;
-      }
-      .navbar .navbar-collapse,
-      .navbar .navbar-form {
-        border-color: #9aadb2;
-      }
-      .navbar .navbar-link {
-        color: #9aadb2;
-      }
-      .navbar .navbar-link:hover {
-        color: #090909;
-      }
-
-      @media (max-width: 575px) {
-        .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
-          color: #9aadb2;
-        }
-        .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-        .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-          color: #090909;
-        }
-        .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
-          color: #090909;
-          background-color: #a2a39f;
-        }
-      }
-
-      @media (max-width: 767px) {
-        .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
-          color: #9aadb2;
-        }
-        .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-        .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-          color: #090909;
-        }
-        .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
-          color: #090909;
-          background-color: #a2a39f;
-        }
-      }
-
-      @media (max-width: 991px) {
-        .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
-          color: #9aadb2;
-        }
-        .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-        .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-          color: #090909;
-        }
-        .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
-          color: #090909;
-          background-color: #a2a39f;
-        }
-      }
-
-      @media (max-width: 1199px) {
-        .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
-          color: #9aadb2;
-        }
-        .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-        .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-          color: #090909;
-        }
-        .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item.active {
-          color: #090909;
-          background-color: #a2a39f;
-        }
-      }
-
-      .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
-        color: #9aadb2;
-      }
-      .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-      .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-        color: #090909;
-      }
-      .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item.active {
-        color: #090909;
-        background-color: #a2a39f;
-      }
       .row {
         margin-left : auto;
         margin-right : auto;
@@ -233,106 +114,12 @@
  </head>
 
  <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-      	<sec:authorize access="not authenticated">
-	      <a class="navbar-brand" href="${R}"><img src="${R}img\title.png"/></a>
-	    </sec:authorize>
-	    <sec:authorize access="authenticated">
-	      <a class="navbar-brand" href="${R}user/index"><img src="${R}img\title.png"/></a>
-	    </sec:authorize>
-      </div>
-      <ul class="nav navbar-nav">
-        <sec:authorize access="not authenticated">
-        <li><a href="${R}">
-          <i class="glyphicon glyphicon-home"> 홈</i></a></li>
-      	</sec:authorize>
-        <sec:authorize access="authenticated">
-        <li><a href="${R}user/index">
-          <i class="glyphicon glyphicon-home"> 홈</i></a></li>
-        </sec:authorize>
-        <li class="dropdown active">
-          <a class="dropdown-toggle" data-toggle="dropdown">알립니다
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li <c:if test="${param.bd eq 1}">class="active"</c:if>><a href="${R}user/notice/list?bd=1">공지사항</a></li>
-              <li <c:if test="${param.bd eq 2}">class="active"</c:if>><a href="${R}user/notice/list?bd=2">참여마당</a></li>
-            </ul>
-        </li>
-        <li>
-        	<sec:authorize access="not authenticated">
-	      		<a href="${R}guest/intro">멘토링 사업소개</a>
-		    </sec:authorize>
-		  	<sec:authorize access="authenticated">
-		      	<a href="${R}user/intro">멘토링 사업소개</a>
-		  	</sec:authorize>
-        </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown">멘토링
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <sec:authorize access="not authenticated">
-		        <li><a href="login">멘티 신청</a></li>
-		      </sec:authorize>
-		      <sec:authorize access="authenticated">
-		        <li><a href="${R}user/menti_apli">멘티 신청</a></li>
-		      </sec:authorize>
-              <sec:authorize access="not authenticated">
-		        <li><a href="login">멘토 신청</a></li>
-		      </sec:authorize>
-		      <sec:authorize access="authenticated">
-		        <li><a href="${R}user/mento_apli">멘토 신청</a></li>
-		      </sec:authorize>
-              <li ><a href="${R}user/mento_list">멘토/멘티 목록</a></li>
-              <li><a href="${R}user/groupBBS">멘토링 게시판</a></li>
-              <li><a href="${R}user/mentoringSurvey">설문조사</a></li>
-            </ul>
-        </li>
-        <sec:authorize access="authenticated">
-	        <sec:authorize access="hasAnyRole('ROLE_MENTO', 'ROLE_STUDCHAIRMAN')">
-	        <li class="dropdown">
-	          <a class="dropdown-toggle" data-toggle="dropdown">멘토링 관리
-	          <span class="caret"></span></a>
-	            <ul class="dropdown-menu">
-	              
-	              <li><a href="${R}user/mento_timetable?timetableView=공강">멘티 시간표 확인</a></li>
-	              <li><a href="${R}user/report/write">보고서 작성</a></li>
-	              <li><a href="${R}user/board_manage">멘토링 과제게시판 관리</a></li>
-	            </ul>
-	        </li>
-	        </sec:authorize>
-        </sec:authorize>
-        <sec:authorize access="authenticated">
-	        <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
-	        <li class="dropdown">
-	          <a class="dropdown-toggle" data-toggle="dropdown">사이트 관리
-	          <span class="caret"></span></a>
-	            <ul class="dropdown-menu">
-	              <li><a href="${R}user/mento_open">멘토링 개설/폐쇄</a></li>
-	              <li><a href="${R}user/report/confirm">보고서 확인</a></li>
-	              <li ><a href="${R}user/survey">설문조사 관리</a></li>
-	              <li><a href="${R}user/schedule">멘토, 멘티 신청기간 여부</a></li>
-	              <li><a href="${R}user/list">회원 목록 관리</a></li>
-	              <li><a href="${R}user/intro/titleList">사업 안내문 수정</a></li>
-	            </ul>
-	        </li>
-	        </sec:authorize>
-        </sec:authorize>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-      <sec:authorize access="not authenticated">
-        <li><a href="${R}guest/login"><i class="glyphicon glyphicon-user"> 로그인</i></a></li>
-        <li><a href="${R}guest/create.do"><i class="glyphicon glyphicon-pencil"> 회원가입</i></a></li>
-      </sec:authorize>
-      <sec:authorize access="authenticated">
-        <li style="text-align : right;"><sec:authentication property="user.userName"/><br/><b><sec:authentication property="user.userType"/></b>님 환영합니다.</li>
-        <li><a href="${R}user/Edit.do"><i class="glyphicon glyphicon-user"> 내정보</i></a></li>
-        <li><a href="${R}user/logout_processing"><i class="glyphicon glyphicon-remove-sign"> 로그아웃</i></a></li>
-      </sec:authorize>
-      </ul>
-    </div>
-   </nav>
+    <sec:authorize access="not authenticated">
+  	<%@ include file="/WEB-INF/views/include/menu_for_guest.jsp" %>
+   </sec:authorize>
+   <sec:authorize access="authenticated">
+  	<%@ include file="/WEB-INF/views/include/menu_for_user.jsp" %>
+   </sec:authorize>
    <div>
        <img src="${R}img/topimage.jpg" class="img-responsive"/>
    </div>
@@ -448,77 +235,60 @@
 				</div>
             </sec:authorize>
             <sec:authorize access="authenticated">
-            	<div class="row">
-	            		<div class="col-md-2">
-	            			<img class="img-thumbnail img-responsive" 
-                    src="<c:choose><c:when test="${noticePost.currentUserProfileId ne -1}">
-                    <sec:authorize access="not authenticated">${R}guest/image/profile/${noticePost.currentUserProfileId}</sec:authorize>
-                    <sec:authorize access="authenticated">${R}user/image/profile/${noticePost.currentUserProfileId}</sec:authorize></c:when><c:otherwise>${R}img/mento_photo.jpg</c:otherwise></c:choose>" alt="Responsive image" width="80%" height="80%">
-	            		</div>
-	            		<div class="col-md-10">
-			            	<div class="panel panel-info">
-							  <div class="panel-heading">
-							    <h3 class="panel-title">댓글 추가하기</h3>
-							  </div>
-							  <div class="panel-body">
-							    <form:form method="post" modelAttribute="newComment">
-							    	<form:textarea path="context" class="form-control"/>
-							    	<br/>
-							    	<div class="pull-right">
-							    		<button type="submit" class="btn btn-success">등록</button>
-							    	</div>
-							    </form:form>
-							  </div>
-							</div>
-						</div>
-					</div>
+            <h4>댓글 등록하기</h4>
+            <hr/>
+            <form:form method="post" modelAttribute="newComment">
+            	<div class="media">
+					  <div class="media-left">
+					      <img class="media-object img-thumbnail" width="64" height="64" src="<c:choose><c:when test="${noticePost.currentUserProfileId ne -1}">
+                    		<sec:authorize access="not authenticated">${R}guest/image/profile/${noticePost.currentUserProfileId}</sec:authorize>
+                    		<sec:authorize access="authenticated">${R}user/image/profile/${noticePost.currentUserProfileId}</sec:authorize></c:when><c:otherwise>${R}img/mento_photo.jpg</c:otherwise></c:choose>" />
+					  </div>
+					  <div class="media-body">
+					    	<form:textarea path="context" class="form-control"/>
+					    	<br/>
+					  </div>
+					  <sec:authorize access="authenticated">    	
+					    	<div class="media-right">
+					    		<button type="submit" class="btn btn-success">등록</button>
+					    	</div>
+					  </sec:authorize>
+				</div>
+			</form:form>
             </sec:authorize>
             <c:if test="${ noticeComment.size() ne 0 }">
             	<hr/>
-            	<h4>Comment</h4>
+            	<h4>Comments</h4>
+            	<hr/>
             	<c:forEach var="comment" items="${ noticeComment }">
-            		<div class="row">
-	            		<div class="col-md-2">
-	            			<img class="img-thumbnail img-responsive" 
-                    src="<c:choose><c:when test="${comment.profileId ne -1}">
-                    <sec:authorize access="not authenticated">${R}guest/image/profile/${comment.profileId}</sec:authorize>
-                    <sec:authorize access="authenticated">${R}user/image/profile/${comment.profileId}</sec:authorize></c:when><c:otherwise>${R}img/mento_photo.jpg</c:otherwise></c:choose>" alt="Responsive image" width="80%" height="80%">
-	            		</div>
-	            		<div class="col-md-10">
-		            		<div class="panel panel-success">
-							  <div class="panel-heading">
-							    <h3 class="panel-title">${ comment.userName }(${comment.userType})&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${comment.uploadTime}" pattern="yyyy-MM-dd HH:mm:ss"/></h3>
-							  </div>
-							  <div class="panel-body">
-							    ${ comment.context }
-							    <sec:authorize access="authenticated">    	
-							    	<div class="pull-right">
-								    	<sec:authentication property="user.id" var="userId"/>
-								    	<c:if test="${userId eq comment.userId }">
-								    		<br/><br/>
-								    		<a href="commentDelete.do?id=${noticePost.id}&cmdId=${comment.id}&${pagination.queryString}" class="btn btn-danger" data-confirm-comment-delete><i class="glyphicon glyphicon-remove"></i>삭제</a>
-								    	</c:if>
-							    	</div>
-							    </sec:authorize>
-							  </div>
-							</div>
-						</div>
+            		<div class="media">
+					  <div class="media-left">
+					      <img class="media-object img-thumbnail" width="64" height="64" src="<c:choose><c:when test="${comment.profileId ne -1}">
+                    		<sec:authorize access="not authenticated">${R}guest/image/profile/${comment.profileId}</sec:authorize>
+                    		<sec:authorize access="authenticated">${R}user/image/profile/${comment.profileId}</sec:authorize></c:when><c:otherwise>${R}img/mento_photo.jpg</c:otherwise></c:choose>">
+					  </div>
+					  <div class="media-body">
+					    <h4 class="media-heading">${ comment.userName }(${comment.userType})</h4>
+					    <h5><fmt:formatDate value="${comment.uploadTime}" pattern="yyyy-MM-dd HH:mm:ss"/></h5>
+					    ${ comment.context }
+					  </div>
+					  <sec:authorize access="authenticated">    	
+					    	<div class="media-right">
+						    	<sec:authentication property="user.id" var="userId"/>
+						    	<c:if test="${userId eq comment.userId }">
+						    		<br/><br/>
+						    		<a href="commentDelete.do?id=${noticePost.id}&cmdId=${comment.id}&${pagination.queryString}" class="btn btn-danger" data-confirm-comment-delete><i class="glyphicon glyphicon-remove"></i>삭제</a>
+						    	</c:if>
+					    	</div>
+					  </sec:authorize>
 					</div>
+					<hr/>
             	</c:forEach>
             </c:if>
           </div>
       </div>
     </div>
   </div>
-  <hr/>
-    <div class="row">
-      <div class="col-md-3" align="center">
-        <img src="${R}img/skhuniv.jpg"/>
-      </div>
-      <div class="col-md-9">
-        <p>08359 서울시 구로구 연동로 320 / 지하철 1, 7호선 온수역(성공회대입구역)</p>
-        <p><i class="glyphicon glyphicon-earphone"></i> TEL : 02-2610-4114 &nbsp&nbsp|&nbsp&nbsp <i class="glyphicon glyphicon-print"></i> FAX : 02-2683-8858</p>
-      </div>
-    </div>
+  <%@ include file="/WEB-INF/views/include/footer.jsp" %>
  </body>
 </html>
