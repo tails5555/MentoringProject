@@ -79,6 +79,7 @@ public class IntroAndScheduleWordService {
 		scheduleTitleParagraph.setAlignment(ParagraphAlignment.CENTER);
 		scheduleTitleParagraph.setSpacingAfterLines(1);
 		XWPFRun scheduleTitleRun=scheduleTitleParagraph.createRun();
+		scheduleTitleRun.addBreak();
 		scheduleTitleRun.setBold(true);
 		scheduleTitleRun.setFontFamily("맑은 고딕");
 		scheduleTitleRun.setFontSize(16);
