@@ -122,6 +122,12 @@
       <sec:authorize access="hasAnyRole('ROLE_PROFESSOR', 'ROLE_EMPLOYEE', 'ROLE_STUDCHAIRMAN')">
 	      	<a href="${R}user/intro/titleList"><button class="btn btn-primary"><i class="glyphicon glyphicon-list-alt"></i> 소개문 편집하러 가기</button></a>
 	  </sec:authorize>
+	  <sec:authorize access="not authenticated"> 
+	     <a href="${R}guest/intro/wordDownload"><button class="btn btn-primary"><i class="glyphicon glyphicon-floppy-save"></i> Word 파일로 다운 받기</button></a> 
+	  </sec:authorize> 
+	  <sec:authorize access="authenticated"> 
+	  	 <a href="${R}user/intro/wordDownload"><button class="btn btn-primary"><i class="glyphicon glyphicon-floppy-save"></i> Word 파일로 다운 받기</button></a> 
+	  </sec:authorize>
       <hr/>
       <div class="row">
         <div class="col-md-12">

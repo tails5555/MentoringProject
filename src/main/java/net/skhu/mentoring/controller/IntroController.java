@@ -1,6 +1,13 @@
 package net.skhu.mentoring.controller;
+import java.io.BufferedOutputStream;
+import java.net.URLEncoder;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.xwpf.usermodel.Document;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import net.skhu.mentoring.dto.IntroDetail;
 import net.skhu.mentoring.dto.IntroTitle;
 import net.skhu.mentoring.mapper.ScheduleMapper;
+import net.skhu.mentoring.service.IntroAndScheduleWordService;
 import net.skhu.mentoring.service.IntroService;
 @Controller
 public class IntroController {
 	@Autowired IntroService introService;
+	@Autowired IntroAndScheduleWordService wordService;
 	@Autowired ScheduleMapper scheduleMapper;
 	@RequestMapping({"guest/intro", "user/intro"})
 	public String introView(Model model) {
@@ -22,6 +31,17 @@ public class IntroController {
         model.addAttribute("titles", titles);
         model.addAttribute("schedules", scheduleMapper.findAll());
 		return "intro/intro";
+	}
+	@RequestMapping({"guest/intro/wordDownload", "user/intro/wordDownload"})
+	public void download(HttpServletResponse response) throws Exception {
+		XWPFDocument document=wordService.getWordFile();
+		Date currentDate=new Date();
+		String fileName = URLEncoder.encode(String.format("사업소개문_일정안내_%d%02d%02d_개정.docx", currentDate.getYear()+1900, currentDate.getMonth()+1, currentDate.getDay()),"UTF-8"); 
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";"); 
+		try (BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream())) { 
+			document.write(output); 
+		}
 	}
 	@RequestMapping(value="user/intro/titleList", method=RequestMethod.GET)
 	public String titleList(Model model) {
