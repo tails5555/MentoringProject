@@ -36,7 +36,7 @@ public class IntroController {
 	public void download(HttpServletResponse response) throws Exception {
 		XWPFDocument document=wordService.getWordFile();
 		Date currentDate=new Date();
-		String fileName = URLEncoder.encode(String.format("사업소개문_일정안내_%d%02d%02d_개정.docx", currentDate.getYear()+1900, currentDate.getMonth()+1, currentDate.getDay()),"UTF-8"); 
+		String fileName = URLEncoder.encode(String.format("사업소개문_일정안내_%d%02d%02d_개정.docx", currentDate.getYear()+1900, currentDate.getMonth()+1, currentDate.getDate()),"UTF-8"); 
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";"); 
 		try (BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream())) { 
