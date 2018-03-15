@@ -71,7 +71,7 @@ public class GuestService {
 			protected javax.mail.PasswordAuthentication getPasswordAuthentication()
 			{ return new javax.mail.PasswordAuthentication(un, pw); } }); session.setDebug(true); //for debug
 			Message mimeMessage = new MimeMessage(session); //MimeMessage 생성
-			mimeMessage.setFrom(new InternetAddress("wkdtndgns@naver.com")); //발신자 셋팅 , 보내는 사람의 이메일주소를 한번 더 입력합니다.이때는 이메일 풀 주소를 다 작성해주세요.
+			mimeMessage.setFrom(new InternetAddress("clayage100@naver.com")); //발신자 셋팅 , 보내는 사람의 이메일주소를 한번 더 입력합니다.이때는 이메일 풀 주소를 다 작성해주세요.
 			mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
 			mimeMessage.setSubject(subject); //제목셋팅
 			mimeMessage.setText(body); //내용셋팅
