@@ -234,7 +234,7 @@
   
          <c:forEach var="user" items="${ user }">
         <tr data-url="edit.do?id=${ user.userId }&order=${user.userType}&${userPagination.queryString}">
-          <td><center>${ user.userId }</center></td>
+          <td><center>${ user.userId }</center700></td>
           <td><center>${ user.number }</center></td>         
           <td><center>${ user.userName }</center></td>
           <td><center>${ user.departmentName }</center></td>
@@ -251,7 +251,10 @@
           </div>
             
             
-            <button type="button" class="btn btn-primary" style="width: 350px; padding:5px" data-toggle="modal" data-target="#myModal">신입생 목록 등록하기</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">신입생 목록 등록하기</button>
+          &nbsp;&nbsp;
+          <a href="${R}user/list/sampleDownload"><button type="button" class="btn btn-primary">등록 양식 다운로드</button></a>
+          
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -262,7 +265,7 @@
                   <div class="modal-body">
                     <h5>신입생 회원 목록들만 추가가 가능합니다.</h5>
                     <h5>비밀번호는 a+휴대폰 뒷번호 4자리로 설정됩니다.</h5>
-                    <h5>CSV 파일을 통해서 삽입이 가능합니다.</h5>
+                    <h5>XLSX 파일(엑셀 최신 버전 제공)을 통해서 삽입이 가능합니다.</h5>
                   </div>
                   <div class="control-group">
                     <div class="form-group floating-label-form-group controls">
@@ -281,6 +284,7 @@
 
         </div>
       </div>
+  </div>
   </div>
   <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 
