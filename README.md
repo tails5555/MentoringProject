@@ -17,7 +17,10 @@
 ![motivation_rdbms_physical](/src/docs/img/motivation_rdbms_physical.png "motivation_rdbms_physical")
 
 ## Easy Looking Structure
-![motivation_easy_structure](/src/docs/img/motivation_structure.png "motivation_easy_structure")
+![motivation_easy_structure](/src/docs/img/motivation_easy_structure.png "motivation_easy_structure")
+
+## With User Structure
+![motivation_structure](/src/docs/img/motivation_structure.png "motivation_structure")
 
 ## Libraries & Framework
 `pom.xml` 를 기반으로 Maven Dependency를 구성하여 Update Maven은 필수입니다.
@@ -108,3 +111,8 @@
 ## Awards
 1. 데이터베이스 캡스톤 디자인 과목 **전원 A+**
 2. 제 10 회 소프트웨어 경진대회 지정주제 **1등**
+
+## Thanks To
+- 성공회대 소프트웨어공학과 **홍은지 교수님**
+- 성공회대 소프트웨어공학과 **이승진 교수님**
+- 멘토링 프로젝트를 같이 진행은 안 했지만 최종 점검에 도움을 준 **서종현 학우**
