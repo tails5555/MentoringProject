@@ -10,7 +10,7 @@
 - 201332031 전현우 [hyunwoo5906](https://github.com/hyunwoo5906)
 
 ## Create Schedule
-![motivation_schedule](/src/docs/img/motivation_schedule.jpg "Optional title")
+![motivation_schedule](/src/docs/img/motivation_schedule.jpg "motivation_schedule")
 
 ## RDBMS Sturcture
-![motivation_schedule](/src/docs/img/motivation_rdbms_physical.png "Optional title")
+![motivation_rdbms_physical](/src/docs/img/motivation_rdbms_physical.png "motivation_rdbms_physical)
