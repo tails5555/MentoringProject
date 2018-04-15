@@ -119,7 +119,13 @@
 유지보수 기간에 **MentoringProject2 Repository를 추가**로 만들어서 저장을 하겠습니다.
 
 ## Reference Documents
-
+- [프로젝트 진행 일지와 업무 프로세스]
+(https://github.com/tails5555/MentoringProject/blob/master/src/docs/document/Motivation%EC%A1%B0_%EC%97%85%EB%AC%B4_%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4_%EA%B5%AC%ED%98%84_%EC%9D%BC%EC%A7%80_%EC%A0%95%EB%A6%AC.xlsx)
+- [경진대회 최종 발표 자료]
+(https://github.com/tails5555/MentoringProject/blob/master/src/docs/document/Motivation%EC%A1%B0_%EC%B5%9C%EC%A2%85%EB%B0%9C%ED%91%9C.pdf)
+- [SKHU Mentoring 사용 설명서](https://github.com/tails5555/MentoringProject/blob/master/src/docs/document/SKHUMentoring_%EC%82%AC%EC%9A%A9%EC%84%A4%EB%AA%85%EC%84%9C.pdf)
+- [구현 동영상 링크(OneDrive에 고화질로 올려뒀음)]
+(https://1drv.ms/f/s!AkTgE7v16N51gZpceSxXdR17pW_NnA)
 
 ## Awards
 1. 데이터베이스 캡스톤 디자인 과목 **전원 A+**
