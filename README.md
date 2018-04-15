@@ -17,7 +17,7 @@
 ![motivation_rdbms_physical](/src/docs/img/motivation_rdbms_physical.png "motivation_rdbms_physical")
 
 ## Easy Looking Structure
-![motivation_easy_structure](/src/docs/img/motivation_structure.jpg "motivation_easy_structure")
+![motivation_easy_structure](/src/docs/img/motivation_structure.png "motivation_easy_structure")
 
 ## Libraries & Framework
 `pom.xml` 를 기반으로 Maven Dependency를 구성하여 Update Maven은 필수입니다.
@@ -26,27 +26,27 @@
 <dependencies>
 	<!-- 1. Spring Boot Starter -->
 	<dependency>
-      <groupId>org.mybatis.spring.boot</groupId>
-      <artifactId>mybatis-spring-boot-starter</artifactId>
-      <version>1.3.0</version>
-    </dependency>
-    <!-- 2. Spring Boot Security -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
-    <!-- 3. Spring Web MVC Starter -->
+		<groupId>org.mybatis.spring.boot</groupId>
+		<artifactId>mybatis-spring-boot-starter</artifactId>
+		<version>1.3.0</version>
+	</dependency>
+	<!-- 2. Spring Boot Security -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-security</artifactId>
+	</dependency>
+	<!-- 3. Spring Web MVC Starter -->
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-web</artifactId>
 	</dependency>
 	<!-- 4. Lombok Project -->
 	<dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <optional>true</optional>
-   </dependency>
-   <!-- 5. MySQL JDBC Connection -->
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<optional>true</optional>
+	</dependency>
+	<!-- 5. MySQL JDBC Connection -->
 	<dependency>
 		<groupId>mysql</groupId>
 		<artifactId>mysql-connector-java</artifactId>
@@ -66,21 +66,21 @@
 	</dependency>
 	<!-- 8. Spring Security Test -->
 	<dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <!-- 9. Spring Security Tag Libraries -->
-    <dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<!-- 9. Spring Security Tag Libraries -->
+	<dependency>
 		<groupId>org.springframework.security</groupId>
 		<artifactId>spring-security-taglibs</artifactId>
 	</dependency>
 	<!-- 10. JSP JSTL -->
-	<dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
-   </dependency>
-   <!-- 11. JavaX Mail -->
+		<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>jstl</artifactId>
+	</dependency>
+	<!-- 11. JavaX Mail -->
 	<dependency> 
 		<groupId>javax.mail</groupId> 
 		<artifactId>mail</artifactId> 	
@@ -100,7 +100,7 @@
 
 - RDBMS에 대한 접목을 `MyBatis`에서 `Hibernate JPA`로 교체할 예정.
 - JSP 환경 이내에서 작업하는 범위에서 각 테이블 별 **단위 테스팅** 진행을 추가할 예정.
-- Spring Boot에서 `Vue.js`를 가동할 수 있는 방안에 대해 구상하고 접목시킬 예정.
+- Spring Boot에서 `Vue.js` or `ReactJS`를 가동할 수 있는 방안에 대해 구상하고 접목시킬 예정.
 - AWS EC2, AWS S3, AWS RDS에 추후에 정리를 해서 배포를 하는 방법을 구상할 예정.
 
 유지보수 기간에 **MentoringProject2 Repository를 추가**로 만들어서 저장을 하겠습니다.
