@@ -29,7 +29,7 @@
 
 ```
 <dependencies>
-	<!-- 1. Spring Boot Starter -->
+	<!-- 1. MyBatis Starter -->
 	<dependency>
 		<groupId>org.mybatis.spring.boot</groupId>
 		<artifactId>mybatis-spring-boot-starter</artifactId>
